@@ -44,7 +44,6 @@ public class ThrowawayFileClassLoader extends ClassLoader {
     private final ClassLoader parentClassLoader;
 
     public ThrowawayFileClassLoader(List<Resource> classPath, ClassLoader parent) {
-
         super(null);
         this.classPath = classPath;
         this.parentClassLoader = parent;
@@ -78,7 +77,6 @@ public class ThrowawayFileClassLoader extends ClassLoader {
                         jarFile.close();
                     }
                 } else {
-
                     Resource classFile = entry.createRelative(classNamePath);
                     if (classFile.exists()) {
                         is = classFile.getInputStream();

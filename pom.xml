@@ -4,12 +4,15 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
+
     <groupId>com.wavemaker.studio</groupId>
     <artifactId>wavemaker-studio-commons</artifactId>
     <version>7.5.0</version>
+
     <packaging>pom</packaging>
 
     <modules>
         <module>wavemaker-studio-common-util</module>
     </modules>
+
 </project>

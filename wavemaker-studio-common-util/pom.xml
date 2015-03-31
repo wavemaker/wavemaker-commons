@@ -3,13 +3,13 @@
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	        xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
+    <modelVersion>4.0.0</modelVersion>
+
     <parent>
         <groupId>com.wavemaker.studio</groupId>
         <artifactId>wavemaker-studio-commons</artifactId>
         <version>7.5.0</version>
     </parent>
-
-	<modelVersion>4.0.0</modelVersion>
 
     <artifactId>wavemaker-studio-common-util</artifactId>
 	<packaging>jar</packaging>
@@ -19,13 +19,14 @@
         <commons.io.version>2.4</commons.io.version>
         <commons.codec.version>1.9</commons.codec.version>
         <commons.lang3.version>3.3.2</commons.lang3.version>
+
         <spring.version>4.0.2.RELEASE</spring.version>
         <spring.security.version>3.2.3.RELEASE</spring.security.version>
+
         <fasterxml.json.version>2.4.0-rc3</fasterxml.json.version>
         <wm.jackson.databind.version>2.4.0-rc3-wm1</wm.jackson.databind.version>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     </properties>
 
 	<dependencies>
@@ -49,17 +50,6 @@
             <artifactId>commons-lang3</artifactId>
             <version>${commons.lang3.version}</version>
         </dependency>
-        <dependency>
-            <groupId>org.apache.ant</groupId>
-            <artifactId>ant</artifactId>
-            <version>1.9.4</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.apache.ant</groupId>
-                    <artifactId>ant-launcher</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context-support</artifactId>
@@ -73,12 +63,6 @@
             <artifactId>jaxb-impl</artifactId>
             <version>2.2.5.1</version>
         </dependency>
-		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>servlet-api</artifactId>
-            <version>2.5</version>
-            <scope>provided</scope>
-		</dependency>
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-core</artifactId>
@@ -157,6 +141,7 @@
                 </executions>
                 <configuration>
                     <archive>
+                        <addMavenDescriptor>false</addMavenDescriptor>
                         <manifest>
                             <addClasspath>true</addClasspath>
                         </manifest>
