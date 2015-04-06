@@ -83,6 +83,9 @@ public class MessageResource {
     public static final MessageResource UNEXPECTED_ERROR = new MessageResource("com.wavemaker.studio.json$UnexpectedError");
 
     @ResourceConstraint(numArgs = 1, hasDetailMsg = false)
+    public static final MessageResource DYNAMIC_ERROR_MESSAGE = new MessageResource("com.wavemaker.studio.json$dynamicErrorMessage");
+
+    @ResourceConstraint(numArgs = 1, hasDetailMsg = false)
     public static final MessageResource UNRECOGNIZED_FIELD = new MessageResource("com.wavemaker.studio.json$UnrecognizedField");
 
     @ResourceConstraint(numArgs = 1, hasDetailMsg = false)
