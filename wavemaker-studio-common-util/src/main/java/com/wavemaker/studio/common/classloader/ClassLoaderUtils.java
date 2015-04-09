@@ -17,6 +17,8 @@ package com.wavemaker.studio.common.classloader;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.net.URL;
 import java.security.AccessController;
 import java.security.PrivilegedAction;
@@ -35,6 +37,17 @@ import com.wavemaker.studio.common.util.TypeConversionUtils;
  * @author Jeremy Grelle
  */
 public class ClassLoaderUtils {
+
+    private static final Method findLoadedClassMethod;
+
+    static {
+        try {
+            findLoadedClassMethod = ClassLoader.class.getDeclaredMethod("findLoadedClass", new Class[] { String.class });
+            findLoadedClassMethod.setAccessible(true);
+        } catch (NoSuchMethodException e) {
+            throw new WMRuntimeException("Failed to initialize class", e);
+        }
+    }
 
     private ClassLoaderUtils() {
     }
@@ -156,5 +169,15 @@ public class ClassLoaderUtils {
             throw new IOException("Cannot access " + ret.toString());
         }
         return ret;
+    }
+
+    /**
+     * returns the loaded class in the given class loader,returns null if class is not yet loaded
+     * @param cl classLoader to check for
+     * @param className to check
+     * @return
+     */
+    public static Class findLoadedClass(ClassLoader cl, String className) throws InvocationTargetException, IllegalAccessException {
+        return (Class) findLoadedClassMethod.invoke(cl, className);
     }
 }
