@@ -1,9 +1,6 @@
 package com.wavemaker.studio.common.json;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.wavemaker.studio.common.util.IOUtils;
@@ -21,6 +18,11 @@ public class JSONUtils {
     public static void toJSON(File outputFile, Object object) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
         mapper.writeValue(outputFile, object);
+    }
+
+    public static void toJSON(OutputStream outputStream, Object object) throws IOException {
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.writeValue(outputStream, object);
     }
 
     public static <T> T toObject(String jsonString, Class<T> t) throws IOException {
