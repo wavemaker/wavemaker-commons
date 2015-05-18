@@ -19,7 +19,10 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
+import org.springframework.util.Assert;
 
 import com.wavemaker.studio.common.CommonConstants;
 import com.wavemaker.studio.common.WMRuntimeException;
@@ -32,9 +35,13 @@ import com.wavemaker.studio.common.wrapper.StringWrapper;
  */
 public class WMUtils {
 
+    public static Boolean isSharedLibSetup;
+
     public static final String SUCCESS = "success";
 
     public static final StringWrapper SUCCESS_RESPONSE = new StringWrapper(SUCCESS);
+
+    private static final Logger logger = LoggerFactory.getLogger(WMUtils.class);
 
     public static String getFileExtensionFromFileName(String fileName) {
         int indexOfDot = fileName.lastIndexOf(".");
@@ -96,4 +103,17 @@ public class WMUtils {
         return new BooleanWrapper(response);
     }
 
+    public static boolean isSharedLibSetup() {
+        if (isSharedLibSetup == null) {
+            Class<Assert> klass = Assert.class;
+            if (klass.getClassLoader() == WMUtils.class.getClassLoader()) {
+                isSharedLibSetup = false;
+                logger.info("Using classes from the webapp class loader {}", WMUtils.class.getClassLoader());
+            } else {
+                isSharedLibSetup = true;
+                logger.info("Using classes from the jars of the shared library");
+            }
+        }
+        return isSharedLibSetup;
+    }
 }
