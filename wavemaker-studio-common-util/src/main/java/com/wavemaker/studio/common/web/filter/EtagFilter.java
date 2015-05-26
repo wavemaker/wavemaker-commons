@@ -18,17 +18,18 @@ public class EtagFilter extends ShallowEtagHeaderFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         //Disabling etag for ie browser as it is not honouring etag header.
         boolean requestedFromIeBrowser = isRequestFromIeBrowser(request);
-        if(HttpMethod.GET.name().equals(request.getMethod()) && !requestedFromIeBrowser){
-            super.doFilterInternal(request, response, filterChain);
-        } else {
-            filterChain.doFilter(request, response);
-        }
         //Setting no cache for ie as etag is disabled for it.
         if(requestedFromIeBrowser && request.getServletPath().startsWith("/services")){
             response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1
             response.setHeader("Pragma", "no-cache"); // HTTP 1.0
             response.setDateHeader("Expires", 0); // Proxies.
         }
+        if(HttpMethod.GET.name().equals(request.getMethod()) && !requestedFromIeBrowser){
+            super.doFilterInternal(request, response, filterChain);
+        } else {
+            filterChain.doFilter(request, response);
+        }
+
     }
 
     @Override
