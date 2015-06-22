@@ -1,12 +1,15 @@
 package com.wavemaker.studio.common.util;
 
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.io.Reader;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 
+import com.sun.xml.bind.v2.runtime.MarshallerImpl;
 import com.sun.xml.bind.v2.runtime.unmarshaller.UnmarshallerImpl;
 
 /**
@@ -30,6 +33,16 @@ public class JAXBUtils {
             return (T) unmarshaller.unmarshal(reader);
         } finally {
             closeResources(reader, unmarshaller);
+        }
+    }
+
+    public static void marshall(JAXBContext context, OutputStream outputStream, Object object) throws JAXBException {
+        Marshaller marshaller = null;
+        try {
+            marshaller = context.createMarshaller();
+            marshaller.marshal(object, outputStream);
+        } finally {
+            closeResources(outputStream, null);
         }
     }
 
