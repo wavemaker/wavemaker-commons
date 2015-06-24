@@ -16,6 +16,9 @@ import com.sun.xml.bind.v2.runtime.unmarshaller.UnmarshallerImpl;
  * @author Uday Shankar
  */
 public class JAXBUtils {
+
+    private final static String JAXB_ENCODING = "UTF-8";
+
     public static <T> T unMarshall(JAXBContext context, InputStream inputStream) throws JAXBException {
         Unmarshaller unmarshaller = null;
         try {
@@ -40,6 +43,8 @@ public class JAXBUtils {
         Marshaller marshaller = null;
         try {
             marshaller = context.createMarshaller();
+            marshaller.setProperty(Marshaller.JAXB_ENCODING, JAXB_ENCODING);
+            marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
             marshaller.marshal(object, outputStream);
         } finally {
             closeResources(outputStream, null);
