@@ -3,7 +3,6 @@ package com.wavemaker.studio.common.json;
 import java.io.*;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
 import com.wavemaker.studio.common.util.IOUtils;
 
 /**
@@ -13,19 +12,16 @@ public class JSONUtils {
 
     public static String toJSON(Object object) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
-        mapper.enable(SerializationFeature.INDENT_OUTPUT);
         return mapper.writeValueAsString(object);
     }
 
     public static void toJSON(File outputFile, Object object) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
-        mapper.enable(SerializationFeature.INDENT_OUTPUT);
         mapper.writeValue(outputFile, object);
     }
 
     public static void toJSON(OutputStream outputStream, Object object) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
-        mapper.enable(SerializationFeature.INDENT_OUTPUT);
         mapper.writeValue(outputStream, object);
     }
 
