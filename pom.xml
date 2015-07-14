@@ -7,12 +7,21 @@
 
     <groupId>com.wavemaker.studio</groupId>
     <artifactId>wavemaker-studio-commons</artifactId>
-    <version>7.7.0</version>
+    <version>7.7.1</version>
 
     <packaging>pom</packaging>
 
     <modules>
         <module>wavemaker-studio-common-util</module>
     </modules>
-
+    <pluginRepositories>
+        <pluginRepository>
+            <id>autoincrement-versions-maven-plugin</id>
+            <name>autoincrement-versions-maven-plugin</name>
+            <url>http://autoincrement-versions-maven-plugin.googlecode.com/svn/repo</url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </pluginRepository>
+    </pluginRepositories>
 </project>
