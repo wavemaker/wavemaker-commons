@@ -29,6 +29,8 @@ import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 
+import com.wavemaker.studio.common.ser.WMDateDeSerializer;
+
 /**
  * @author Simon Toens
  */
@@ -235,18 +237,9 @@ public abstract class TypeConversionUtils {
                 throw new IllegalArgumentException("Unable to convert " + s + " to " + Date.class.getName());
             }
         } else if(type == java.sql.Date.class){
-            if (StringUtils.isNumber(s)) {
-                return new java.sql.Date(Long.valueOf(s));
-            } else {
-                throw new IllegalArgumentException("Unable to convert " + s + " to " + java.sql.Date.class.getName());
-            }
-
+            return WMDateDeSerializer.getDate(s);
         } else if (type == Time.class ) {
-            if (StringUtils.isNumber(s)) {
-                return new Time(Long.valueOf(s));
-            } else {
-                throw new IllegalArgumentException("Unable to convert " + s + " to " + Time.class.getName());
-            }
+            return WMDateDeSerializer.getDate(s);
         }else if (type == Timestamp.class ) {
             if (StringUtils.isNumber(s)) {
                 return new Timestamp(Long.valueOf(s));
