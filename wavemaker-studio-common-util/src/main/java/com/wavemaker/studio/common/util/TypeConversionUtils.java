@@ -20,14 +20,19 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.sql.Time;
 import java.sql.Timestamp;
-import java.util.*;
+import java.util.Collection;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 
 import org.joda.time.LocalDateTime;
-import org.joda.time.format.ISODateTimeFormat;
 
 import com.wavemaker.studio.common.ser.WMDateDeSerializer;
+import com.wavemaker.studio.common.ser.WMLocalDateTimeDeSerializer;
 
 /**
  * @author Simon Toens
@@ -245,7 +250,7 @@ public abstract class TypeConversionUtils {
                 throw new IllegalArgumentException("Unable to convert " + s + " to " + Timestamp.class.getName());
             }
         } else if (type == LocalDateTime.class) {
-            return ISODateTimeFormat.localDateOptionalTimeParser().parseLocalDateTime(s);
+            return WMLocalDateTimeDeSerializer.getLocalDateTime(s);
         } else if (type == Double.class || type == double.class) {
             return Double.valueOf(s);
         } else if (type == Float.class || type == float.class) {
