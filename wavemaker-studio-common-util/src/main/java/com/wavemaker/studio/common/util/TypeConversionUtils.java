@@ -175,6 +175,10 @@ public abstract class TypeConversionUtils {
             return true;
         }
 
+        if (LocalDateTime.class.isAssignableFrom(clazz)) {
+            return true;
+        }
+
         if (PRIMITIVE_WRAPPERS.contains(clazz)) {
             return true;
         }
