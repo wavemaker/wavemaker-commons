@@ -14,6 +14,8 @@ import org.jadira.usertype.dateandtime.shared.spi.AbstractColumnMapper;
 import org.jadira.usertype.dateandtime.shared.spi.ColumnMapper;
 import org.joda.time.LocalDateTime;
 
+import com.wavemaker.studio.common.CommonConstants;
+
 public class WMDateColumnLocalDateTimeMapper extends AbstractColumnMapper<LocalDateTime, Timestamp> implements ColumnMapper<LocalDateTime, Timestamp> {
 
     private static final long serialVersionUID = -7670411089210984705L;
@@ -25,7 +27,7 @@ public class WMDateColumnLocalDateTimeMapper extends AbstractColumnMapper<LocalD
 
     @Override
     public final int getSqlType() {
-        return -777;
+        return CommonConstants.DATE_TIME_WM_TYPE_CODE;
     }
 
     @Override

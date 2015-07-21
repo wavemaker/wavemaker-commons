@@ -32,6 +32,9 @@ public abstract class CommonConstants {
 
     public static final String UTF8 = "UTF-8";
 
+    //hibernate sql type codes
+    public static final Integer DATE_TIME_WM_TYPE_CODE = -777;
+
     private CommonConstants() {
     }
 }
