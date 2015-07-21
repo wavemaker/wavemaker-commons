@@ -30,6 +30,8 @@
 
         <joda-time.version>2.3</joda-time.version>
         <jadira-usertype.version>2.0.1</jadira-usertype.version>
+
+        <hibernate.version>4.3.5.Final</hibernate.version>
     </properties>
 
 	<dependencies>
@@ -86,6 +88,11 @@
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
             <version>${wm.jackson.databind.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-core</artifactId>
+            <version>${hibernate.version}</version>
         </dependency>
         <dependency>
             <groupId>org.jadira.usertype</groupId>
