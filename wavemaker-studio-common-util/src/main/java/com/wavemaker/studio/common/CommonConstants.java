@@ -34,6 +34,8 @@ public abstract class CommonConstants {
 
     //hibernate sql type codes
     public static final Integer DATE_TIME_WM_TYPE_CODE = -777;
+    public static final Integer TIMESTAMP_WITH_TIMEZONE_SQL_CODE = -101;
+    public static final Integer TIMESTAMP_WITH_LOCAL_TIMEZONE_SQL_CODE = -102;
 
     private CommonConstants() {
     }
