@@ -41,6 +41,8 @@ public class PropertiesFileUtils {
             properties.storeToXML(os, comment, "UTF-8");
         } catch (IOException e) {
             throw new WMRuntimeException("Failed to write properties file to output stream", e);
+        } finally {
+            IOUtils.closeSilently(os);
         }
     }
 }
