@@ -1,9 +1,11 @@
 package com.wavemaker.studio.common.util;
 
 import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -33,6 +35,14 @@ public class PropertiesFileUtils {
             throw new WMRuntimeException("Failed to read properties input stream", e);
         } finally {
             IOUtils.closeSilently(is);
+        }
+    }
+
+    public static void storeToXml(Properties properties, File file, String comment) {
+        try {
+            storeToXml(properties, new BufferedOutputStream(new FileOutputStream(file)), comment);
+        } catch (FileNotFoundException e) {
+            throw new WMRuntimeException("File:" + file.getAbsolutePath() + " not found", e);
         }
     }
 
