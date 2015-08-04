@@ -55,4 +55,24 @@ public class PropertiesFileUtils {
             IOUtils.closeSilently(os);
         }
     }
+
+    public static void loadProperties(Properties properties, InputStream stream) {
+        try {
+            properties.load(stream);
+        } catch (IOException e) {
+            throw new WMRuntimeException("Failed to load properties.", e);
+        } finally {
+            IOUtils.closeByLogging(stream);
+        }
+    }
+
+    public static void storeProperties(Properties newProfileProps, OutputStream outputStream) {
+        try {
+            newProfileProps.store(outputStream, "");
+        } catch (IOException e) {
+            throw new WMRuntimeException("Failed to store properties.", e);
+        } finally {
+            IOUtils.closeByLogging(outputStream);
+        }
+    }
 }
