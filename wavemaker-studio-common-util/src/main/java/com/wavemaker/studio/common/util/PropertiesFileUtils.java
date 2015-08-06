@@ -56,7 +56,8 @@ public class PropertiesFileUtils {
         }
     }
 
-    public static void loadProperties(Properties properties, InputStream stream) {
+    public static Properties loadProperties(InputStream stream) {
+        Properties properties = new Properties();
         try {
             properties.load(stream);
         } catch (IOException e) {
@@ -64,6 +65,7 @@ public class PropertiesFileUtils {
         } finally {
             IOUtils.closeByLogging(stream);
         }
+        return properties;
     }
 
     public static void storeProperties(Properties newProfileProps, OutputStream outputStream) {
