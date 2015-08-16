@@ -77,18 +77,18 @@ public class PropertiesFileUtils {
         return properties;
     }
 
-    public static void storeProperties(Properties props, File file) {
+    public static void storeProperties(Properties props, File file, String comments) {
         try {
             OutputStream os = new BufferedOutputStream(new FileOutputStream(file));
-            storeProperties(props, os);
+            storeProperties(props, os, comments);
         } catch (FileNotFoundException e) {
             throw new WMRuntimeException("File:" + file.getAbsolutePath() + " not found", e);
         }
     }
 
-    public static void storeProperties(Properties props, OutputStream outputStream) {
+    public static void storeProperties(Properties props, OutputStream outputStream, String comments) {
         try {
-            props.store(outputStream, null);
+            props.store(outputStream, comments);
         } catch (IOException e) {
             throw new WMRuntimeException("Failed to store properties.", e);
         } finally {

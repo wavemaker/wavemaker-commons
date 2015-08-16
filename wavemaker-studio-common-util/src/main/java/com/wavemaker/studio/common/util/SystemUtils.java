@@ -15,17 +15,9 @@
  */
 package com.wavemaker.studio.common.util;
 
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
-import java.util.List;
 import java.util.Properties;
-
-import com.wavemaker.studio.common.WMException;
-import com.wavemaker.studio.common.WMRuntimeException;
 
 /**
  * @author Simon Toens
@@ -159,72 +151,6 @@ public abstract class SystemUtils {
             }
         }
         return true;
-    }
-
-    public static Properties loadPropertiesFromResource(String name) {
-        InputStream is = null;
-        try {
-            is = Thread.currentThread().getContextClassLoader().getResourceAsStream(name);
-            return loadPropertiesFromStream(is);
-        } finally {
-            try {
-                is.close();
-            } catch (Exception ignore) {
-            }
-        }
-    }
-
-    public static Properties loadPropertiesFromFile(String filepath) {
-        InputStream is = null;
-        try {
-            is = new FileInputStream(filepath);
-            return loadPropertiesFromStream(is);
-        } catch (IOException ex) {
-            throw new RuntimeException(ex);
-        } finally {
-            try {
-                is.close();
-            } catch (Exception ignore) {
-            }
-        }
-    }
-
-    public static Properties loadPropertiesFromStream(InputStream inputStream) {
-        try {
-            Properties rtn = new Properties();
-            rtn.load(inputStream);
-            return rtn;
-        } catch (IOException ex) {
-            throw new RuntimeException(ex);
-        }
-    }
-
-    public static void writePropertiesFile(OutputStream os, Properties props) {
-        writePropertiesFile(os, props, null, null);
-    }
-
-    public static void writePropertiesFile(OutputStream os, Properties props, String comment) {
-        writePropertiesFile(os, props, null, comment);
-    }
-
-    public static void writePropertiesFile(OutputStream os, Properties props, List<String> includePropertyNames, String comment) {
-        try {
-            if (includePropertyNames != null) {
-                Properties p = new Properties();
-                for (String key : CastUtils.<String> cast(props.keySet())) {
-                    if (includePropertyNames.contains(key)) {
-                        p.setProperty(key, props.getProperty(key));
-                    }
-                }
-                props = p;
-            }
-
-            props.store(os, comment);
-
-        } catch (IOException ex) {
-            throw new RuntimeException(ex);
-        }
-
     }
 
     /**
