@@ -1,10 +1,12 @@
 package com.wavemaker.studio.common.web.filter;
 
+import java.io.IOException;
+import java.io.InputStream;
+
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 
 import org.springframework.http.HttpMethod;
 import org.springframework.web.filter.ShallowEtagHeaderFilter;
@@ -33,7 +35,7 @@ public class EtagFilter extends ShallowEtagHeaderFilter {
     }
 
     @Override
-    protected boolean isEligibleForEtag(HttpServletRequest request, HttpServletResponse response, int responseStatusCode, byte[] responseBody) {
+    protected boolean isEligibleForEtag(HttpServletRequest request, HttpServletResponse response, int responseStatusCode, InputStream inputStream) {
         return (responseStatusCode >= 200 && responseStatusCode < 300)
                 && HttpMethod.GET.name().equals(request.getMethod());
     }
