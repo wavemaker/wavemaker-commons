@@ -14,6 +14,7 @@
     <modules>
         <module>wavemaker-studio-common-util</module>
     </modules>
+
     <pluginRepositories>
         <pluginRepository>
             <id>autoincrement-versions-maven-plugin</id>
@@ -24,4 +25,5 @@
             </snapshots>
         </pluginRepository>
     </pluginRepositories>
+
 </project>
