@@ -42,6 +42,7 @@ import org.springframework.util.AntPathMatcher;
 import org.springframework.util.PathMatcher;
 
 import com.wavemaker.studio.common.MessageResource;
+import com.wavemaker.studio.common.WMRuntimeException;
 
 /**
  * @author Simon Toens
@@ -405,6 +406,16 @@ public abstract class IOUtils {
 
     public static void deleteDirectorySilently(File dir) {
         deleteDirectorySilently(dir, false);
+    }
+
+    public static String toString(InputStream is) {
+        try {
+            return org.apache.commons.io.IOUtils.toString(is);
+        } catch (IOException e) {
+            throw new WMRuntimeException("Failed to get string from input stream", e);
+        } finally {
+            closeSilently(is);
+        }
     }
 
     public static void deleteDirectorySilently(File dir, boolean noLogging) {
