@@ -15,7 +15,9 @@
  */
 package com.wavemaker.studio.common.util;
 
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.wavemaker.infra.WMTestCase;
 
@@ -91,5 +93,22 @@ public class StringUtilsTest extends WMTestCase {
         List<String> l = StringUtils.split("[a,b,c]");
         assertEquals(1, l.size());
         assertEquals("[a,b,c]", l.get(0));
+    }
+
+    public void testToFieldName() throws Exception {
+        Map<String, String> expectedResults = new LinkedHashMap<>();
+        expectedResults.put("user", "user");
+        expectedResults.put("User", "user");
+        expectedResults.put("USER", "user");
+        expectedResults.put("user_id", "userId");
+        expectedResults.put("User_Id", "userId");
+        expectedResults.put("User_id", "userId");
+        expectedResults.put("USER_Id", "userId");
+        expectedResults.put("USER_ID", "userId");
+
+        for (final Map.Entry<String, String> entry : expectedResults.entrySet()) {
+            assertEquals(entry.getValue(), StringUtils.toFieldName(entry.getKey()));
+        }
+
     }
 }
