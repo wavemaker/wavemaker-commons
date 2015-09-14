@@ -223,6 +223,9 @@ public class MessageResource {
     @ResourceConstraint(numArgs = 2, hasDetailMsg = false)
     public static final MessageResource REST_SERVICE_INVOKE_FAILED = new MessageResource("com.wavemaker.runtime.$RestServiceInvokeFailed");
 
+    @ResourceConstraint(numArgs = 2, hasDetailMsg = false)
+    public static final MessageResource DATA_TRUNCATION_POSSIBILITY = new MessageResource("com.wavemaker.studio.core.data$DataTruncationPossibility");
+
     private static final Map<MessageResource, ResourceConstraint> annotations = new HashMap<MessageResource, ResourceConstraint>();
 
     static {
