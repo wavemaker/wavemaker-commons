@@ -48,9 +48,10 @@ public abstract class TypeConversionUtils {
      * List of primitive wrappers (Integer, etc), including Atomic numbers. All standard subclasses of Number are
      * included, and Boolean.
      */
-    private static final Collection<Class<?>> PRIMITIVE_WRAPPERS = new HashSet<Class<?>>(11);
+    private static final Collection<Class<?>> PRIMITIVE_WRAPPERS = new HashSet<>(11);
+    private static final Map<String, Class<?>> PRIMITIVE_ARRAYS = new HashMap<>(11);
 
-    private static Set<String> PRIMITIVE_DATA_TYPES = new HashSet<String>();;
+    private static Set<String> PRIMITIVE_DATA_TYPES = new HashSet<String>();
 
     private static Set<String> SERVLET_CLASSES = new HashSet<String>();
 
@@ -63,6 +64,15 @@ public abstract class TypeConversionUtils {
         PRIMITIVES.put(int.class.getName(), int.class);
         PRIMITIVES.put(long.class.getName(), long.class);
         PRIMITIVES.put(short.class.getName(), short.class);
+
+        PRIMITIVE_ARRAYS.put(boolean[].class.getName(), boolean[].class);
+        PRIMITIVE_ARRAYS.put(byte[].class.getName(), byte[].class);
+        PRIMITIVE_ARRAYS.put(char[].class.getName(), char[].class);
+        PRIMITIVE_ARRAYS.put(double[].class.getName(), double[].class);
+        PRIMITIVE_ARRAYS.put(float[].class.getName(), float[].class);
+        PRIMITIVE_ARRAYS.put(int[].class.getName(), int[].class);
+        PRIMITIVE_ARRAYS.put(long[].class.getName(), long[].class);
+        PRIMITIVE_ARRAYS.put(short[].class.getName(), short[].class);
 
         PRIMITIVE_WRAPPERS.add(AtomicInteger.class);
         PRIMITIVE_WRAPPERS.add(AtomicLong.class);
@@ -125,19 +135,23 @@ public abstract class TypeConversionUtils {
         return SERVLET_CLASSES.contains(className);
     }
 
-    public static boolean isPrimitive (String dataType){
-        if(PRIMITIVE_DATA_TYPES.contains(dataType))
+    public static boolean isPrimitive(String dataType) {
+        if (PRIMITIVE_DATA_TYPES.contains(dataType))
             return true;
-        return  false;
+        return false;
     }
 
     public static Class<?> primitiveForName(String className) {
         return PRIMITIVES.get(className);
     }
 
+    public static Class<?> primitiveArraysForName(String className) {
+        return PRIMITIVE_ARRAYS.get(className);
+    }
+
     public static Class<?> primitiveWrapperClassByName(String className) {
-        for(Class klass: PRIMITIVE_WRAPPERS) {
-            if(klass.getSimpleName().equals(className)) {
+        for (Class klass : PRIMITIVE_WRAPPERS) {
+            if (klass.getSimpleName().equals(className)) {
                 return klass;
             }
         }
@@ -145,7 +159,7 @@ public abstract class TypeConversionUtils {
     }
 
     public static boolean isPrimitiveOrEnum(Type type) {
-        if(type instanceof Class && !((Class) type).isArray()) {
+        if (type instanceof Class && !((Class) type).isArray()) {
             Class klass = (Class) type;
             if (isPrimitive(klass.getName()) || klass.isEnum()) {
                 return true;
@@ -157,7 +171,7 @@ public abstract class TypeConversionUtils {
     /**
      * Returns true iff the Class clazz represents a primitive (boolean, int) or a primitive wrapper (Integer),
      * including Big{Integer,Decimal} and Atomic{Integer,Long}. Also, Strings and Dates are included.
-     * 
+     *
      * @param clazz
      * @return
      */
@@ -188,7 +202,7 @@ public abstract class TypeConversionUtils {
 
     /**
      * Return true iff the parameter is an Array or a Collection.
-     * 
+     *
      * @param clazz
      * @return
      */
@@ -199,7 +213,7 @@ public abstract class TypeConversionUtils {
 
     /**
      * Return true iff the parameter is a Map.
-     * 
+     *
      * @param clazz
      * @return
      */
