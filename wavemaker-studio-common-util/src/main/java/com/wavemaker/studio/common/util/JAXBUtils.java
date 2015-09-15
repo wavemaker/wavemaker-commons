@@ -11,6 +11,7 @@ import javax.xml.bind.Unmarshaller;
 
 import com.sun.xml.bind.v2.runtime.MarshallerImpl;
 import com.sun.xml.bind.v2.runtime.unmarshaller.UnmarshallerImpl;
+import com.wavemaker.studio.common.WMRuntimeException;
 
 /**
  * @author Uday Shankar
@@ -49,6 +50,10 @@ public class JAXBUtils {
         } finally {
             closeResources(outputStream, null);
         }
+    }
+
+    public static JAXBContext getJAXBContext(String packagePrefix) throws JAXBException {
+        return JAXBContext.newInstance(packagePrefix);
     }
 
     private static void closeResources(AutoCloseable resourceStream, Unmarshaller unmarshaller) {
