@@ -15,10 +15,6 @@
  */
 package com.wavemaker.studio.common.util;
 
-import java.net.InetAddress;
-import java.net.UnknownHostException;
-import java.util.Properties;
-
 /**
  * @author Simon Toens
  */
@@ -124,59 +120,12 @@ public abstract class SystemUtils {
     }
 
     /**
-     * Add all properties from p that are not set in org.
-     */
-    public static void addAllUnlessSet(Properties org, Properties p) {
-        for (String s : CastUtils.<String> cast(p.keySet())) {
-            if (!org.containsKey(s)) {
-                org.setProperty(s, p.getProperty(s));
-            }
-        }
-    }
-
-    public static void setPropertyUnlessSet(String name, String value) {
-        if (System.getProperty(name) == null) {
-            System.setProperty(name, value);
-        }
-    }
-
-    public static boolean allPropertiesAreSet(String... propertyNames) {
-        return allPropertiesAreSet(System.getProperties(), propertyNames);
-    }
-
-    public static boolean allPropertiesAreSet(Properties properties, String... propertyNames) {
-        for (String s : propertyNames) {
-            if (properties.getProperty(s) == null) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    /**
      * Get the native line separator.
      * 
      * @return The property line.separator as a String.
      */
     public static String getLineBreak() {
         return org.apache.commons.lang3.SystemUtils.LINE_SEPARATOR;
-    }
-
-    public static String getIP() {
-        try {
-            return InetAddress.getLocalHost().getHostAddress();
-        } catch (UnknownHostException ex) {
-            return "127.0.0.1";
-        }
-    }
-
-    public static boolean isLinux() {
-        return System.getProperty("os.name").equalsIgnoreCase("linux");
-    }
-
-    public static boolean isMacOSX() {
-        // see http://developer.apple.com/technotes/tn2002/tn2110.html
-        return System.getProperty("os.name").toLowerCase().startsWith("mac os x");
     }
 
 }
