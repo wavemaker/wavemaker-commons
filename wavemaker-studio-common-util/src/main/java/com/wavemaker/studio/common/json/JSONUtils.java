@@ -1,46 +1,46 @@
 package com.wavemaker.studio.common.json;
 
-import java.io.*;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 
+import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.wavemaker.studio.common.util.IOUtils;
 
 /**
  * Created by venuj on 19-05-2014.
  */
 public class JSONUtils {
 
+    private static final ObjectMapper objectMapper = new ObjectMapper();
+
     public static String toJSON(Object object) throws IOException {
-        ObjectMapper mapper = new ObjectMapper();
-        return mapper.writeValueAsString(object);
+        return objectMapper.writeValueAsString(object);
     }
 
     public static void toJSON(File outputFile, Object object) throws IOException {
-        ObjectMapper mapper = new ObjectMapper();
-        mapper.writeValue(outputFile, object);
+        objectMapper.writeValue(outputFile, object);
     }
 
     public static void toJSON(OutputStream outputStream, Object object) throws IOException {
-        ObjectMapper mapper = new ObjectMapper();
-        mapper.writeValue(outputStream, object);
+        objectMapper.writeValue(outputStream, object);
     }
 
     public static <T> T toObject(String jsonString, Class<T> t) throws IOException {
-        ObjectMapper mapper = new ObjectMapper();
-        return (T) mapper.readValue(jsonString, t);
+        return (T) objectMapper.readValue(jsonString, t);
     }
 
     public static <T> T toObject(InputStream jsonStream, Class<T> t) throws IOException {
-        try {
-            ObjectMapper mapper = new ObjectMapper();
-            return (T) mapper.readValue(jsonStream, t);
-        } finally {
-            IOUtils.closeSilently(jsonStream);
-        }
+        return (T) objectMapper.readValue(jsonStream, t);
     }
 
     public static <T> T toObject(File file, Class<T> targetClass) throws IOException {
-        return toObject(new FileInputStream(file), targetClass);
+        return (T) objectMapper.readValue(file, targetClass);
+    }
+
+    public static <T> T toObject(File file, JavaType javaType) throws IOException {
+        return (T) objectMapper.readValue(file, javaType);
     }
 
 }
