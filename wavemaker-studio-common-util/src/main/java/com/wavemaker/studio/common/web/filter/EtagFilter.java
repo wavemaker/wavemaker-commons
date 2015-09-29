@@ -21,12 +21,13 @@ public class EtagFilter extends ShallowEtagHeaderFilter {
         //Disabling etag for ie browser as it is not honouring etag header.
         boolean requestedFromIeBrowser = isRequestFromIeBrowser(request);
         //Setting no cache for ie as etag is disabled for it.
-        if(requestedFromIeBrowser && request.getServletPath().startsWith("/services")){
+        if(requestedFromIeBrowser && (request.getServletPath().startsWith("/services") || request.getServletPath().startsWith("/pages") || request.getServletPath().endsWith(".json"))){
             response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1
             response.setHeader("Pragma", "no-cache"); // HTTP 1.0
             response.setDateHeader("Expires", 0); // Proxies.
         }
         if(HttpMethod.GET.name().equals(request.getMethod()) && !requestedFromIeBrowser){
+            response.setHeader("Cache-Control", "max-age=0"); // HTTP 1.1
             super.doFilterInternal(request, response, filterChain);
         } else {
             filterChain.doFilter(request, response);
@@ -41,6 +42,6 @@ public class EtagFilter extends ShallowEtagHeaderFilter {
     }
 
     private boolean isRequestFromIeBrowser(HttpServletRequest request) {
-        return request.getHeader("User-Agent") != null && request.getHeader("User-Agent").contains("Trident");
+        return request.getHeader("User-Agent") != null && (request.getHeader("User-Agent").contains("Trident") || request.getHeader("User-Agent").contains("MSIE"));
     }
 }
