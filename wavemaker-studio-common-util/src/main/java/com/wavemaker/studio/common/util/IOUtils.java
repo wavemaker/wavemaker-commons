@@ -405,7 +405,7 @@ public abstract class IOUtils {
     }
 
     public static void deleteDirectorySilently(File dir) {
-        deleteDirectorySilently(dir, false);
+        deleteDirectorySilently(dir, true);
     }
 
     public static String toString(InputStream is) {
