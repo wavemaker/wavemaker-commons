@@ -13,20 +13,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.wavemaker.studio.common.util;
+package com.wavemaker.studio.common.util.utils;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import com.wavemaker.infra.WMTestCase;
+import com.wavemaker.infra.WMTestUtils;
+import com.wavemaker.studio.common.util.ObjectUtils;
+import static org.testng.Assert.*;
+import org.testng.annotations.Test;
 
 /**
  * @author Simon Toens
  */
-public class ObjectUtilsTest extends WMTestCase {
-
+public class ObjectUtilsTest{
     @SuppressWarnings("unchecked")
-    public void testToArray() {
+    @Test
+    public void toArrayTest() {
         List l = new ArrayList(3);
         l.add("s1");
         l.add("s2");
@@ -36,8 +39,8 @@ public class ObjectUtilsTest extends WMTestCase {
         assertTrue(s[1].equals("s2"));
         assertTrue(s[2].equals("s3"));
     }
-
-    public void testAddArrays() {
+    @Test
+    public void addArraysTest() {
         String[] s1 = { "s1", "s2", "s3" };
         String[] s2 = { "s4", "s5", "s6" };
         String[] s3 = { "s7", "s8", "s9" };
@@ -50,8 +53,8 @@ public class ObjectUtilsTest extends WMTestCase {
             assertTrue(all[i].equals("s" + (i + 1)));
         }
     }
-
-    public void testGetArrayTypeArray() {
+    @Test
+    public void getArrayTypeArrayTest() {
 
         int[] is = new int[] { 1, 2, 3 };
         Integer[] Is = new Integer[] { 1, 2, 3 };
@@ -61,8 +64,8 @@ public class ObjectUtilsTest extends WMTestCase {
         assertEquals(Integer.class, ObjectUtils.getArrayType(Is));
         assertEquals(String.class, ObjectUtils.getArrayType(ss));
     }
-
-    public void testGetArrayTypeCollection() {
+    @Test
+    public void getArrayTypeCollectionTest() {
 
         List<Integer> Is = new ArrayList<Integer>();
         Is.add(Integer.valueOf(1));
@@ -85,8 +88,8 @@ public class ObjectUtilsTest extends WMTestCase {
         assertEquals(null, ObjectUtils.getArrayType(mm));
         assertEquals(null, ObjectUtils.getArrayType(os));
     }
-
-    public void testGetArrayTypeException() {
+    @Test
+    public void getArrayTypeExceptionTest() {
 
         boolean gotException = false;
 

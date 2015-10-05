@@ -13,16 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.wavemaker.studio.common.util;
+package com.wavemaker.studio.common.util.utils;
 
 import java.util.List;
 
-import com.wavemaker.infra.WMTestCase;
+import com.wavemaker.infra.WMTestUtils;
+import com.wavemaker.studio.common.util.CastUtils;
+import com.wavemaker.studio.common.util.ObjectLiteralParser;
+import static org.testng.Assert.*;
+import org.testng.annotations.Test;
 
 /**
  * @author Simon Toens
  */
-public class ObjectLiteralParserTest extends WMTestCase {
+public class ObjectLiteralParserTest  {
 
     public static class City {
 
@@ -94,81 +98,81 @@ public class ObjectLiteralParserTest extends WMTestCase {
             this.number = number;
         }
     }
-
-    public void testSimple0() {
+    @Test
+    public void simple0Test() {
         ObjectLiteralParser p = new ObjectLiteralParser("{}", A.class.getName());
         A a = (A) p.parse();
         assertTrue(a != null);
     }
-
-    public void testSimple1() {
+    @Test
+    public void simple1Test() {
         ObjectLiteralParser p = new ObjectLiteralParser("{foo:test}", A.class.getName());
         A a = (A) p.parse();
         assertTrue(a.foo.equals("test"));
     }
-
-    public void testSpaceInValue() {
+    @Test
+    public void spaceInValueTest() {
         ObjectLiteralParser p = new ObjectLiteralParser("{foo:t e s t}", A.class.getName());
         A a = (A) p.parse();
         assertTrue(a.foo.equals("t e s t"));
     }
-
-    public void testSpace2InValue() {
+    @Test
+    public void space2InValueTest() {
         ObjectLiteralParser p = new ObjectLiteralParser("{foo:' t e s t '}", A.class.getName());
         A a = (A) p.parse();
         assertTrue(a.foo.equals(" t e s t "));
     }
-
-    public void testSimple2() {
+    @Test
+    public void simple2Test() {
         ObjectLiteralParser p = new ObjectLiteralParser("{foo:test, blah:test2}", A.class.getName());
         A a = (A) p.parse();
         assertTrue(a.foo.equals("test"));
         assertTrue(a.blah.equals("test2"));
     }
-
-    public void testSimple3() {
+    @Test
+    public void simple3Test() {
         ObjectLiteralParser p = new ObjectLiteralParser("{foo:'test', blah:\"test2\"}", A.class.getName());
         A a = (A) p.parse();
         assertTrue(a.foo.equals("test"));
         assertTrue(a.blah.equals("test2"));
     }
-
-    public void testSimple4() {
+    @Test
+    public void simple4Test() {
         ObjectLiteralParser p = new ObjectLiteralParser("{  foo: 'test' , blah : \"test2\"  }", A.class.getName());
         A a = (A) p.parse();
         assertTrue(a.foo.equals("test"));
         assertTrue(a.blah.equals("test2"));
     }
-
-    public void testNested1() {
+    @Test
+    public void nested1Test() {
         ObjectLiteralParser p = new ObjectLiteralParser("{self:{foo:test}}", A.class.getName());
         A a = (A) p.parse();
         assertTrue(a.self.foo.equals("test"));
     }
-
-    public void testNested2() {
+    @Test
+    public void nested2Test() {
         ObjectLiteralParser p = new ObjectLiteralParser("{foo:foo1, self:{foo:test}}", A.class.getName());
         A a = (A) p.parse();
         assertTrue(a.foo.equals("foo1"));
         assertTrue(a.self.foo.equals("test"));
     }
-
-    public void testNested3() {
+    @Test
+    public void nested3Test() {
         ObjectLiteralParser p = new ObjectLiteralParser("{foo:foo1, self:{foo:test},blah:blah2}", A.class.getName());
         A a = (A) p.parse();
         assertTrue(a.foo.equals("foo1"));
         assertTrue(a.blah.equals("blah2"));
         assertTrue(a.self.foo.equals("test"));
     }
-
-    public void testNested4() {
+    @Test
+    public void nested4Test() {
         ObjectLiteralParser p = new ObjectLiteralParser("{foo:foo1, self:{foo:test}," + "blah:blah2,foo:foo2}", A.class.getName());
         A a = (A) p.parse();
         assertTrue(a.foo.equals("foo2"));
         assertTrue(a.blah.equals("blah2"));
         assertTrue(a.self.foo.equals("test"));
     }
-
+    @Test
     public void test2Nested1() {
         ObjectLiteralParser p = new ObjectLiteralParser("{foo:foo1, self:{foo:test1}," + "b:{address:a1,number:123,name:n1}," + "blah:blah1}",
             A.class.getName());
@@ -180,26 +184,26 @@ public class ObjectLiteralParserTest extends WMTestCase {
         assertTrue(a.b.address.equals("a1"));
         assertTrue(a.b.number == 123);
     }
-
-    public void testQuotedAttr1() {
+    @Test
+    public void quotedAttr1Test() {
         ObjectLiteralParser p = new ObjectLiteralParser("{'foo':test}", A.class.getName());
         A a = (A) p.parse();
         assertTrue(a.foo.equals("test"));
     }
-
-    public void testQuotedAttr2() {
+    @Test
+    public void quotedAttr2Test() {
         ObjectLiteralParser p = new ObjectLiteralParser("{\"foo\":test}", A.class.getName());
         A a = (A) p.parse();
         assertTrue(a.foo.equals("test"));
     }
-
-    public void testCity() {
+    @Test
+    public void cityTest() {
         ObjectLiteralParser p = new ObjectLiteralParser("\"{cityId:2,country:{}}\"", City.class);
         City c = (City) p.parse();
         assertTrue(c.getCityId().equals(Short.valueOf("2")));
     }
-
-    public void testSimpleList() {
+    @Test
+    public void simpleListTest() {
         ObjectLiteralParser p = new ObjectLiteralParser("[a,b,c]", String.class);
 
         List<?> lp = (List<?>) p.parse();

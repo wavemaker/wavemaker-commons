@@ -13,28 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.wavemaker.studio.common.util;
+package com.wavemaker.studio.common.util.utils;
 
 /**
  * @author Matt Small
  */
-public class ClassUtilsObject extends ClassUtilsObjectSuper {
+public class ClassUtilsObjectSuper {
 
-    public void testPublic() {
-        testPrivate();
-    }
-
-    @Override
-    public int hashCode() {
-        return super.hashCode();
-    }
-
-    private void testPrivate() {
-        this.fieldPrivate = 1;
-    }
-
-    public int fieldPublic;
-
-    @SuppressWarnings("unused")
-    private int fieldPrivate;
+    public int fieldInherited;
 }

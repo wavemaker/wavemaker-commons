@@ -15,16 +15,18 @@
  */
 package com.wavemaker.studio.common.util;
 
-import com.wavemaker.infra.WMTestCase;
+import com.wavemaker.infra.WMTestUtils;
+import org.testng.annotations.Test;
 
 /**
  * Used to debug CC failures. Prints out some information about the environment of this test run.
  * 
  * @author Matt Small
  */
-public class EnvironmentTest extends WMTestCase {
+public class EnvironmentTest {
 
-    public void testEnvironment() throws Exception {
+    @Test
+    public void environmentTest() throws Exception {
 
         Runtime runtime = Runtime.getRuntime();
         System.out.println("maxMemory: " + runtime.maxMemory() + ", totalMemory: " + runtime.totalMemory() + ", freeMemory: " + runtime.freeMemory());

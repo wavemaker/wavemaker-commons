@@ -13,23 +13,28 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.wavemaker.studio.common.util;
+package com.wavemaker.studio.common.util.utils;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.concurrent.atomic.AtomicLong;
 
-import com.wavemaker.infra.WMTestCase;
+import com.wavemaker.infra.WMTestUtils;
+import com.wavemaker.studio.common.util.TypeConversionUtils;
+import junit.framework.TestCase;
+import static org.testng.Assert.*;
+import org.testng.annotations.Test;
 
 /**
  * @author Simon Toens
  */
-public class TypeConversionUtilsTest extends WMTestCase {
+public class TypeConversionUtilsTest{
 
-    public void testIsPrimitive() {
+    @Test
+    public void isPrimitiveTest() {
 
-        assertFalse(TypeConversionUtils.isPrimitiveOrWrapper(Object.class));
+        TestCase.assertFalse(TypeConversionUtils.isPrimitiveOrWrapper(Object.class));
         assertFalse(TypeConversionUtils.isPrimitiveOrWrapper(ClassUtilsObject.class));
 
         assertTrue(TypeConversionUtils.isPrimitiveOrWrapper(int.class));
@@ -37,24 +42,24 @@ public class TypeConversionUtilsTest extends WMTestCase {
         assertTrue(TypeConversionUtils.isPrimitiveOrWrapper(AtomicLong.class));
         assertTrue(TypeConversionUtils.isPrimitiveOrWrapper("a".getClass()));
     }
+    @Test
+    public void isArrayTest() {
 
-    public void testIsArray() {
-
-        assertTrue(TypeConversionUtils.isArray(new Object[] {}.getClass()));
+        assertTrue(TypeConversionUtils.isArray(new Object[]{}.getClass()));
         assertFalse(TypeConversionUtils.isArray(int.class));
         assertTrue(TypeConversionUtils.isArray(new ArrayList<Integer>().getClass()));
         assertFalse(TypeConversionUtils.isArray(new HashMap<Integer, Float>().getClass()));
     }
+    @Test
+    public void isMapTest() {
 
-    public void testIsMap() {
-
-        assertFalse(TypeConversionUtils.isMap(new Object[] {}.getClass()));
+        assertFalse(TypeConversionUtils.isMap(new Object[]{}.getClass()));
         assertFalse(TypeConversionUtils.isMap(int.class));
         assertFalse(TypeConversionUtils.isMap(new ArrayList<Integer>().getClass()));
         assertTrue(TypeConversionUtils.isMap(new HashMap<Integer, Float>().getClass()));
     }
-
-    public void testFromString() {
+    @Test
+    public void fromStringTest() {
 
         Byte b = (Byte) TypeConversionUtils.fromString(Byte.class, "1");
         assertTrue(b.equals(Byte.valueOf("1")));
@@ -100,8 +105,8 @@ public class TypeConversionUtilsTest extends WMTestCase {
         String ss = (String) TypeConversionUtils.fromString(String.class, "s");
         assertTrue(ss.equals("s"));
     }
-
-    public void testPrimitivesMatch() {
+    @Test
+    public void primitivesMatchTest() {
 
         assertTrue(TypeConversionUtils.primitivesMatch(boolean.class, Boolean.class));
         assertTrue(TypeConversionUtils.primitivesMatch(Boolean.class, boolean.class));

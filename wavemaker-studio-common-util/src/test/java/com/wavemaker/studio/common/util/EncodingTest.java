@@ -15,15 +15,18 @@
  */
 package com.wavemaker.studio.common.util;
 
-import com.wavemaker.infra.WMTestCase;
+import com.wavemaker.infra.WMTestUtils;
+import static org.testng.Assert.*;
+import org.testng.annotations.Test;
 
 /**
  * Some sanity tests.
  * 
  * @author Simon Toens
  */
-public class EncodingTest extends WMTestCase {
+public class EncodingTest{
 
+    @Test
     public void test1() throws Exception {
         String str = "\u00F6";
         assertEquals("ö", str);
@@ -32,37 +35,37 @@ public class EncodingTest extends WMTestCase {
         assertEquals("c3b6", Long.toHexString(SystemUtils.getUnsignedValue(str.getBytes("UTF8"))));
         assertEquals("f6", Long.toHexString(SystemUtils.getUnsignedValue(str.getBytes("LATIN1"))));
     }
-
+    @Test
     public void test2() throws Exception {
         String str = "\u00C9";
         assertEquals("É", str);
         // UTF8 is c389
         assertEquals("c389", Long.toHexString(SystemUtils.getUnsignedValue(str.getBytes("UTF8"))));
     }
-
+    @Test
     public void test3() throws Exception {
         String str = "\u00E9";
         assertEquals("é", str);
         // UTF8 is c3a9
         assertEquals("c3a9", Long.toHexString(SystemUtils.getUnsignedValue(str.getBytes("UTF8"))));
     }
-
-    public void testGetValue() {
-        assertEquals(1, SystemUtils.getUnsignedValue(new byte[] { 1 }));
+    @Test
+    public void getValueTest() {
+        assertEquals(1, SystemUtils.getUnsignedValue(new byte[]{1}));
 
         byte b = 0;
         b = (byte) (b | 128);
         b = (byte) (b | 1);
         // 128 + 1 = 129
-        assertEquals(129, SystemUtils.getUnsignedValue(new byte[] { b }));
+        assertEquals(129, SystemUtils.getUnsignedValue(new byte[]{b}));
 
         b = 0;
         b = (byte) (b | 255);
-        assertEquals(255, SystemUtils.getUnsignedValue(new byte[] { b }));
-        assertEquals(256, SystemUtils.getUnsignedValue(new byte[] { 1, 0 }));
+        assertEquals(255, SystemUtils.getUnsignedValue(new byte[]{b}));
+        assertEquals(256, SystemUtils.getUnsignedValue(new byte[]{1, 0}));
 
         b = 0;
         b = (byte) (b | 256); // overflow
-        assertEquals(0, SystemUtils.getUnsignedValue(new byte[] { b }));
+        assertEquals(0, SystemUtils.getUnsignedValue(new byte[]{b}));
     }
 }

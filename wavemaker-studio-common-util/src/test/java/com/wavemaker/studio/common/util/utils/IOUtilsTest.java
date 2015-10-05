@@ -13,22 +13,30 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.wavemaker.studio.common.util;
+package com.wavemaker.studio.common.util.utils;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.wavemaker.infra.WMTestCase;
+import com.wavemaker.infra.WMTestUtils;
+import static org.testng.Assert.*;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Test;
+
+import com.wavemaker.studio.common.util.FileAccessException;
+import com.wavemaker.studio.common.util.IOUtils;
+import com.wavemaker.studio.common.util.SpringUtils;
+import com.wavemaker.studio.common.util.WMFileUtils;
 
 /**
  * @author Matt Small
  */
-public class IOUtilsTest extends WMTestCase {
+public class IOUtilsTest {
 
     private File tempDir;
 
-    @Override
+    @BeforeClass
     public void setUp() throws Exception {
 
         try {
@@ -40,35 +48,34 @@ public class IOUtilsTest extends WMTestCase {
         }
     }
 
-    @Override
     public void tearDown() throws Exception {
 
         IOUtils.deleteRecursive(this.tempDir);
     }
-
-    public void testCreateTempDirectory_shortPrefix() throws Exception {
+    @Test
+    public void createTempDirectory_shortPrefixTest() throws Exception {
 
         File newTempDir = IOUtils.createTempDirectory("a", "bcd");
-        assertTrue(newTempDir.getName().startsWith("aaa"));
+      assertTrue(newTempDir.getName().startsWith("aaa"));
     }
-
-    public void testCreateTempDirectory() throws Exception {
+    @Test
+    public void createTempDirectoryTest() throws Exception {
 
         File newTempDir = IOUtils.createTempDirectory();
-        assertTrue(newTempDir.exists());
+       assertTrue(newTempDir.exists());
         newTempDir.delete();
         assertFalse(newTempDir.exists());
     }
-
-    public void testDeleteOneLevel() throws Exception {
+    @Test
+    public void deleteOneLevelTest() throws Exception {
 
         File newTempDir = IOUtils.createTempDirectory();
         assertTrue(newTempDir.exists());
         IOUtils.deleteRecursive(newTempDir);
         assertFalse(newTempDir.exists());
     }
-
-    public void testDeleteTwoLevels() throws Exception {
+    @Test
+    public void deleteTwoLevelsTest() throws Exception {
 
         File newTempDir = IOUtils.createTempDirectory();
         assertTrue(newTempDir.exists());
@@ -80,7 +87,8 @@ public class IOUtilsTest extends WMTestCase {
         assertFalse(newTempDir.exists());
     }
 
-    public void testMakeDirectories() throws Exception {
+    @Test
+    public void makeDirectoriesTest() throws Exception {
 
         File wantToCreate = new File(this.tempDir, "foo/bar/baz.txt");
 
@@ -102,8 +110,8 @@ public class IOUtilsTest extends WMTestCase {
         alreadyExists.mkdir();
         IOUtils.makeDirectories(alreadyExists, wantToCreate);
     }
-
-    public void testBadMakeDirectories() throws Exception {
+    @Test
+    public void badMakeDirectoriesTest() {
 
         File wantToCreate = new File("/_foobarblahgoo_/bar");
 
@@ -112,12 +120,12 @@ public class IOUtilsTest extends WMTestCase {
             IOUtils.makeDirectories(wantToCreate.getParentFile(), this.tempDir);
         } catch (FileAccessException ex) {
             gotException = true;
-            assertTrue("got message: " + ex.getMessage(), ex.getMessage().startsWith("Reached filesystem root"));
+            assertTrue( ex.getMessage().startsWith("Reached filesystem root"),"got message: " + ex.getMessage());
         }
         assertTrue(gotException);
     }
-
-    public void testTouchDNE() throws Exception {
+    @Test
+    public void touchDNETest() throws Exception {
 
         File f = File.createTempFile("touchDNE", "tmp");
         f.delete();
@@ -126,8 +134,8 @@ public class IOUtilsTest extends WMTestCase {
         IOUtils.touch(f);
         assertTrue(f.exists());
     }
-
-    public void testTouch() throws Exception {
+    @Test
+    public void touchTest() throws Exception {
 
         File f = File.createTempFile("touch", "tmp");
         f.deleteOnExit();
@@ -142,8 +150,8 @@ public class IOUtilsTest extends WMTestCase {
 
         assertTrue(lastModified < f.lastModified());
     }
-
-    public void testTouchDir() throws Exception {
+    @Test
+    public void touchDirTest() throws Exception {
 
         File f = null;
 
@@ -164,11 +172,11 @@ public class IOUtilsTest extends WMTestCase {
             }
         }
     }
+    @Test
+    public void copyFilesTest() throws Exception {
 
-    public void testCopyFiles() throws Exception {
-
-        File source = File.createTempFile("testCopyFilesSrc", ".tmp");
-        File dest = File.createTempFile("testCopyFilesDest", ".tmp");
+        File source = File.createTempFile("copyFilesSrcTest", ".tmp");
+        File dest = File.createTempFile("copyFilesDestTest", ".tmp");
         source.deleteOnExit();
         dest.delete();
         dest.deleteOnExit();
@@ -178,10 +186,10 @@ public class IOUtilsTest extends WMTestCase {
 
         IOUtils.copy(source, dest);
         assertTrue(dest.exists());
-        assertEquals(source, dest);
+        WMTestUtils.assertEquals(source, dest);
     }
-
-    public void testCopyFilesExcludes() throws Exception {
+    @Test
+    public void copyFilesExcludesTest() throws Exception {
 
         File source = File.createTempFile("testCopyFilesSrc", ".tmp");
         File dest = File.createTempFile("testCopyFilesDest", ".tmp");
@@ -197,11 +205,11 @@ public class IOUtilsTest extends WMTestCase {
         IOUtils.copy(source, dest, excludes);
         assertFalse(dest.exists());
     }
+    @Test
+    public void copyDirectoriesTest() throws Exception {
 
-    public void testCopyDirectories() throws Exception {
-
-        File source = IOUtils.createTempDirectory("testCopyDirectoriesSrc", "");
-        File dest = IOUtils.createTempDirectory("testCopyDirectoriesSrc", "");
+        File source = IOUtils.createTempDirectory("copyDirectoriesSrcTest", "");
+        File dest = IOUtils.createTempDirectory("copyDirectoriesSrcTest", "");
 
         try {
             IOUtils.deleteRecursive(dest);
@@ -224,25 +232,25 @@ public class IOUtilsTest extends WMTestCase {
             File destDir = new File(dest, "bar");
             File destDirFile = new File(destDir, "barfile");
             assertTrue(destFile.exists());
-            assertEquals(sourceFile, destFile);
+            WMTestUtils.assertEquals(sourceFile, destFile);
             assertTrue(destDir.exists());
             assertTrue(destDir.isDirectory());
             assertTrue(destDirFile.exists());
-            assertEquals(sourceDirFile, destDirFile);
+            WMTestUtils.assertEquals(sourceDirFile, destDirFile);
         } finally {
             IOUtils.deleteRecursive(source);
             IOUtils.deleteRecursive(dest);
         }
     }
-
-    public void testCopyDirectoriesExcludes() throws Exception {
+    @Test
+    public void copyDirectoriesExcludesTest() throws Exception {
 
         String excludeName = "DoNotCopy";
         List<String> excludes = new ArrayList<String>();
         excludes.add(excludeName);
 
-        File source = IOUtils.createTempDirectory("testCopyDirectoriesSrc", "");
-        File dest = IOUtils.createTempDirectory("testCopyDirectoriesSrc", "");
+        File source = IOUtils.createTempDirectory("copyDirectoriesSrcTest", "");
+        File dest = IOUtils.createTempDirectory("copyDirectoriesSrcTest", "");
 
         try {
             IOUtils.deleteRecursive(dest);
@@ -271,11 +279,11 @@ public class IOUtilsTest extends WMTestCase {
             File destExcludeDir = new File(dest, excludeName);
             File destExcludeFile = new File(destDir, excludeName);
             assertTrue(destFile.exists());
-            assertEquals(sourceFile, destFile);
+            WMTestUtils.assertEquals(sourceFile, destFile);
             assertTrue(destDir.exists());
             assertTrue(destDir.isDirectory());
             assertTrue(destDirFile.exists());
-            assertEquals(sourceDirFile, destDirFile);
+            WMTestUtils.assertEquals(sourceDirFile, destDirFile);
             assertFalse(destExcludeDir.exists());
             assertFalse(destExcludeFile.exists());
         } finally {
@@ -283,8 +291,8 @@ public class IOUtilsTest extends WMTestCase {
             IOUtils.deleteRecursive(dest);
         }
     }
-
-    public void testExclusionByExactMatch() {
+    @Test
+    public void exclusionByExactMatchTest() {
 
         assertTrue(IOUtils.excludeByExactMatch(new File("/foo/bar/" + IOUtils.DEFAULT_EXCLUSION.get(0))));
         assertFalse(IOUtils.excludeByExactMatch(new File("/foo/bar/" + IOUtils.DEFAULT_EXCLUSION.get(0) + ".foo")));

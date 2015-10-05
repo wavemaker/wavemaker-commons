@@ -21,14 +21,17 @@ import java.lang.reflect.ParameterizedType;
 import java.util.List;
 import java.util.Map;
 
-import com.wavemaker.infra.WMTestCase;
+import com.wavemaker.infra.WMTestUtils;
+import static org.testng.Assert.*;
+import org.testng.annotations.Test;
 
 /**
  * @author Matt Small
  */
-public class GenericsTest extends WMTestCase {
+public class GenericsTest {
 
-    public void testGenericReflection() throws Exception {
+    @Test
+    public void genericReflectionTest() throws Exception {
 
         Field stringListField = GenericSample.class.getField("stringList");
         ParameterizedType type = (ParameterizedType) stringListField.getGenericType();
@@ -42,8 +45,7 @@ public class GenericsTest extends WMTestCase {
         Method getBoolShortMapMethod = GenericSample.class.getMethod("getBoolShortMap");
         assertEquals(Map.class, getBoolShortMapMethod.getReturnType());
         type = (ParameterizedType) getBoolShortMapMethod.getGenericReturnType();
-        assertEquals(Boolean.class, type.getActualTypeArguments()[0]);
-        assertEquals(Short.class, type.getActualTypeArguments()[1]);
+        assertEquals(Boolean.class, type.getActualTypeArguments()[0]);assertEquals(Short.class, type.getActualTypeArguments()[1]);
 
         Method setStringIntMapMethod = GenericSample.class.getMethod("setStringIntMap", Map.class);
         assertEquals(Map.class, setStringIntMapMethod.getParameterTypes()[0]);

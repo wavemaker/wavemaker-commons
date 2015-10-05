@@ -13,12 +13,29 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.wavemaker.studio.common.util;
+package com.wavemaker.studio.common.util.utils;
+
+import org.testng.annotations.Test;
 
 /**
  * @author Matt Small
  */
-public class ClassUtilsObjectSuper {
+public class ClassUtilsObject extends ClassUtilsObjectSuper {
 
-    public int fieldInherited;
+    public void publicTest() {
+        privateTest();
+    }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode();
+    }
+    private void privateTest() {
+        this.fieldPrivate = 1;
+    }
+
+    public int fieldPublic;
+
+    @SuppressWarnings("unused")
+    private int fieldPrivate;
 }

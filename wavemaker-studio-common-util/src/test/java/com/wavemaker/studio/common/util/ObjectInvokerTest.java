@@ -17,17 +17,20 @@ package com.wavemaker.studio.common.util;
 
 import java.util.Map;
 
-import com.wavemaker.infra.WMTestCase;
+import com.wavemaker.infra.WMTestUtils;
 import com.wavemaker.studio.common.MethodNotFoundRuntimeException;
+import static org.testng.Assert.*;
+
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Test;
 
 /**
  * @author Simon Toens
  */
-public class ObjectInvokerTest extends WMTestCase {
+public class ObjectInvokerTest {
 
     private final ObjectAccess oi = ObjectAccess.getInstance();
 
-    @Override
     public void setUp() {
         A.RTN = null;
         A.RTN_OBJ = null;
@@ -103,39 +106,39 @@ public class ObjectInvokerTest extends WMTestCase {
         }
 
     }
-
-    public void testMethodNoArg() {
+    @Test
+    public void methodNoArgTest() {
         String rtn = this.oi.invoke(new A(), "simpleMethod");
         assertTrue(rtn == A.SIMPLE_METHOD_RTN);
     }
-
-    public void testMethodArg() {
+    @Test
+    public void methodArgTest() {
         Integer i = Integer.valueOf(2);
         Integer rtn = this.oi.invoke(new A(), "simpleMethodArg", i);
         assertTrue(rtn == i);
     }
-
-    public void testMethodArgOverloaded() {
+    @Test
+    public void methodArgOverloadedTest() {
         Integer i = Integer.valueOf(2);
         ObjectAccess rtn = this.oi.invoke(new A(), "simpleMethodArg", i, this.oi);
         assertTrue(rtn == this.oi);
     }
-
-    public void testMethodArg1() {
+    @Test
+    public void methodArg1Test() {
         Arg1 a = new Arg1();
         assertTrue(A.RTN == null);
         this.oi.invoke(new A(), "methodArg1", a);
         assertTrue(A.RTN == a);
     }
-
-    public void testMethodObject() {
+    @Test
+    public void methodObjectTest() {
         Arg1 a = new Arg1();
         assertTrue(A.RTN_OBJ == null);
         this.oi.invoke(new A(), "methodObject", a);
         assertTrue(A.RTN_OBJ == a);
     }
-
-    public void testCannotCallPrivateMethod() {
+    @Test
+    public void cannotCallPrivateMethodTest() {
         try {
             this.oi.invoke(new A(), "privateMethod");
         } catch (MethodNotFoundRuntimeException ex) {
@@ -143,8 +146,8 @@ public class ObjectInvokerTest extends WMTestCase {
         }
         fail();
     }
-
-    public void testCannotCallProtectedMethod() {
+    @Test
+    public void cannotCallProtectedMethodTest() {
         try {
             this.oi.invoke(new A(), "protectedMethod");
         } catch (MethodNotFoundRuntimeException ex) {
@@ -152,8 +155,8 @@ public class ObjectInvokerTest extends WMTestCase {
         }
         fail();
     }
-
-    public void testCannotCallPackageProtectedMethod() {
+    @Test
+    public void cannotCallPackageProtectedMethodTest() {
         try {
             this.oi.invoke(new A(), "packageProtectedMethod");
         } catch (MethodNotFoundRuntimeException ex) {
@@ -161,35 +164,35 @@ public class ObjectInvokerTest extends WMTestCase {
         }
         fail();
     }
-
-    public void testMethodInChildClass() {
+    @Test
+    public void methodInChildClassTest() {
         String s = this.oi.invoke(new B(), "methodInChildClass", 2);
         assertTrue(s.equals("2"));
     }
-
-    public void testMethodInParentClass() {
+    @Test
+    public void methodInParentClassTest() {
         String rtn = this.oi.invoke(new B(), "simpleMethod");
         assertTrue(rtn == A.SIMPLE_METHOD_RTN);
     }
-
-    public void testGetProperties() {
+    @Test
+    public void getPropertiesTest() {
         Map<String, Class<?>> properties = this.oi.getProperties(B.class);
         assertTrue(properties.size() == 1);
         assertTrue(properties.get("foo") == String.class);
     }
-
-    public void testNewInstance() {
+    @Test
+    public void newInstanceTest() {
         ObjectInvokerTest t = (ObjectInvokerTest) this.oi.newInstance(ObjectInvokerTest.class.getName());
         assertTrue(t != null);
     }
-
-    public void testSetProperty() {
+    @Test
+    public void setPropertyTest() {
         B b = new B();
         this.oi.setProperty(b, "foo", "test");
         assertTrue(b.getFoo().equals("test"));
     }
-
-    public void testSetPropertyToNull() {
+    @Test
+    public void setPropertyToNullTest() {
         B b = new B();
         this.oi.setProperty(b, "foo", null);
         assertTrue(b.getFoo() == null);

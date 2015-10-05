@@ -19,14 +19,17 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import com.wavemaker.infra.WMTestCase;
+import com.wavemaker.infra.WMTestUtils;
+import static org.testng.Assert.*;
+import org.testng.annotations.Test;
 
 /**
  * @author Matt Small
  */
-public class EntryComparatorTest extends WMTestCase {
+public class EntryComparatorTest {
 
-    public void testComparator() throws Exception {
+    @Test
+    public void comparatorTest() throws Exception {
 
         Map<String, String> map = new HashMap<String, String>();
         map.put("c", "foobar");

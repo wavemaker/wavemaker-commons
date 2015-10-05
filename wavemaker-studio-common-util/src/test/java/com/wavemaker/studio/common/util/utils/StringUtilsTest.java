@@ -13,51 +13,55 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.wavemaker.studio.common.util;
+package com.wavemaker.studio.common.util.utils;
 
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.wavemaker.infra.WMTestCase;
+import com.wavemaker.infra.WMTestUtils;
+import com.wavemaker.studio.common.util.StringUtils;
+import static org.testng.Assert.*;
+import org.testng.annotations.Test;
 
 /**
  * @author Simon Toens
  */
-public class StringUtilsTest extends WMTestCase {
-
-    public void testToJavaIdentifier1() {
+public class StringUtilsTest{
+    WMTestUtils wmt=new WMTestUtils() { };
+    @Test
+    public void toJavaIdentifier1Test() {
         String s = StringUtils.toJavaIdentifier("1234", '_');
         assertEquals("_1234", s);
     }
-
-    public void testToJavaIdentifier2() {
+    @Test
+    public void toJavaIdentifier2Test() {
         String s = StringUtils.toJavaIdentifier("import", '_');
         assertEquals("_import", s);
     }
-
-    public void testToJavaIdentifier3() {
+    @Test
+    public void toJavaIdentifier3Test() {
         String s = StringUtils.toJavaIdentifier("my&name", '_');
         assertEquals("my_name", s);
     }
-
-    public void testSplit1() {
+    @Test
+    public void split1Test() {
         List<String> l = StringUtils.split("a,b,c");
         assertTrue(l.size() == 3);
         assertTrue(l.get(0).equals("a"));
         assertTrue(l.get(1).equals("b"));
         assertTrue(l.get(2).equals("c"));
     }
-
-    public void testSplit2() {
+    @Test
+    public void split2Test() {
         List<String> l = StringUtils.split("a,d:{a:b,c:d},c");
         assertTrue(l.size() == 3);
         assertTrue(l.get(0).equals("a"));
         assertTrue(l.get(1).equals("d:{a:b,c:d}"));
         assertTrue(l.get(2).equals("c"));
     }
-
-    public void testSplit3() {
+    @Test
+    public void split3Test() {
         List<String> l = StringUtils.split("a,d:{a:b,c:d},'c,d,e',f");
         assertTrue(l.size() == 4);
         assertTrue(l.get(0).equals("a"));
@@ -65,22 +69,22 @@ public class StringUtilsTest extends WMTestCase {
         assertTrue(l.get(2).equals("'c,d,e'"));
         assertTrue(l.get(3).equals("f"));
     }
-
-    public void testSplit4() {
+    @Test
+    public void split4Test() {
         List<String> l = StringUtils.split("{}, {}");
         assertTrue(l.size() == 2);
         assertTrue(l.get(0).equals("{}"));
         assertTrue(l.get(1).equals("{}"));
     }
-
-    public void testSplit5() {
+    @Test
+    public void split5Test() {
         List<String> l = StringUtils.split("{}, {}");
         assertTrue(l.size() == 2);
         assertTrue(l.get(0).equals("{}"));
         assertTrue(l.get(1).equals("{}"));
     }
-
-    public void testSplit6() {
+    @Test
+    public void split6Test() {
         List<String> l = StringUtils.split("nKDv8_LV34F3PdYFDoVQCgoCPmQVN7N0nvLypL26TuY6tA0MR5E.9CqtY7QEkn64,301 Howard,San Francisco,CA");
         assertTrue(l.size() == 4);
         assertTrue(l.get(0).equals("nKDv8_LV34F3PdYFDoVQCgoCPmQVN7N0nvLypL26TuY6tA0MR5E.9CqtY7QEkn64"));
@@ -88,14 +92,14 @@ public class StringUtilsTest extends WMTestCase {
         assertTrue(l.get(2).equals("San Francisco"));
         assertTrue(l.get(3).equals("CA"));
     }
-
-    public void testSplitList() {
+    @Test
+    public void splitListTest() {
         List<String> l = StringUtils.split("[a,b,c]");
         assertEquals(1, l.size());
         assertEquals("[a,b,c]", l.get(0));
     }
-
-    public void testToFieldName() throws Exception {
+    @Test
+    public void toFieldNameTest() throws Exception {
         Map<String, String> expectedResults = new LinkedHashMap<>();
         expectedResults.put("user", "user");
         expectedResults.put("User", "user");

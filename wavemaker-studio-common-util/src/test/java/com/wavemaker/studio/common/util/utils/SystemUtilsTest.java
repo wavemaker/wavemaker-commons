@@ -13,21 +13,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.wavemaker.studio.common.util;
+package com.wavemaker.studio.common.util.utils;
 
-import com.wavemaker.infra.WMTestCase;
+import com.wavemaker.infra.WMTestUtils;
+import com.wavemaker.studio.common.util.SpringUtils;
+import com.wavemaker.studio.common.util.SystemUtils;
+import static org.testng.Assert.*;
+import org.testng.annotations.Test;
 
 /**
  * @author Matt Small
  */
-public class SystemUtilsTest extends WMTestCase {
+public class SystemUtilsTest{
 
-    @Override
     public void setUp() throws Exception {
         SpringUtils.initSpringConfig();
     }
-
-    public void testCipher() {
+    @Test
+    public void cipherTest() {
         String s = "Rock Band";
         String e = SystemUtils.encrypt(s);
         assertTrue(SystemUtils.isEncrypted(e));
