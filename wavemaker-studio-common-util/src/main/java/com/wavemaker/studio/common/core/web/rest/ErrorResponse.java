@@ -5,7 +5,7 @@
  * You shall not disclose such Confidential Information and shall use it only in accordance
  * with the terms of the source code license agreement you entered into with WaveMaker Inc.
  */
-package com.wavemaker.commons.core.web.rest;
+package com.wavemaker.studio.common.core.web.rest;
 
 import java.util.ArrayList;
 import java.util.Arrays;
