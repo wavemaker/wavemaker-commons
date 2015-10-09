@@ -28,6 +28,8 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.joda.time.LocalDateTime;
 
@@ -149,6 +151,28 @@ public abstract class TypeConversionUtils {
         return PRIMITIVE_ARRAYS.get(className);
     }
 
+    /**
+     * Method to check Multi-Dimensional Array for import.
+     * @param className
+     * @return
+     */
+    public static String checkAndReturnForMultiDimensionalArrays(String className) {
+        // Matches the pattern like [[Ljava,lang.String
+        Pattern pattern = Pattern.compile("(\\[)*[L][\\w\\W]*");
+        final Matcher matcher = pattern.matcher(className);
+        if (matcher.matches()) {
+            // removes for e.g. [[L from [[Ljava,lang.String
+            return className.replaceFirst("(\\[)*[L]", "");
+        }
+        return null;
+    }
+
+    public static boolean checkPrimitiveAndPrimitiveArrays(String className) {
+        return TypeConversionUtils.primitiveArraysForName(className) == null &&
+                TypeConversionUtils.primitiveForName(className) == null;
+    }
+
+
     public static Class<?> primitiveWrapperClassByName(String className) {
         for (Class klass : PRIMITIVE_WRAPPERS) {
             if (klass.getSimpleName().equals(className)) {
@@ -257,11 +281,11 @@ public abstract class TypeConversionUtils {
             } else {
                 throw new IllegalArgumentException("Unable to convert " + s + " to " + Date.class.getName());
             }
-        } else if(type == java.sql.Date.class){
+        } else if (type == java.sql.Date.class) {
             return WMDateDeSerializer.getDate(s);
-        } else if (type == Time.class ) {
+        } else if (type == Time.class) {
             return WMDateDeSerializer.getDate(s);
-        } else if (type == Timestamp.class ) {
+        } else if (type == Timestamp.class) {
             if (StringUtils.isNumber(s)) {
                 return new Timestamp(Long.valueOf(s));
             } else {
@@ -279,11 +303,11 @@ public abstract class TypeConversionUtils {
             return Long.valueOf(s);
         } else if (type == Short.class || type == short.class) {
             return Short.valueOf(s);
-        } else if (type == String.class ||  type == StringBuffer.class ) {
+        } else if (type == String.class || type == StringBuffer.class) {
             return s;
-        }  else if (type == Character.class ||  type == char.class ) {
+        } else if (type == Character.class || type == char.class) {
             return Character.valueOf(s.charAt(0));
-        }   else {
+        } else {
             throw new AssertionError("Unable to convert \"" + s + "\" to " + type + " - unknown type: " + type);
         }
     }
