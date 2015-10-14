@@ -18,12 +18,15 @@ package com.wavemaker.studio.common.util.utils;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.UUID;
 import java.util.concurrent.atomic.AtomicLong;
 
-import com.wavemaker.infra.WMTestUtils;
+import bsh.Primitive;
 import com.wavemaker.studio.common.util.TypeConversionUtils;
 import junit.framework.TestCase;
 import static org.testng.Assert.*;
+
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 /**
@@ -45,18 +48,18 @@ public class TypeConversionUtilsTest{
     @Test
     public void isArrayTest() {
 
-        assertTrue(TypeConversionUtils.isArray(new Object[]{}.getClass()));
+        assertTrue(TypeConversionUtils.isArray(Object[].class));
         assertFalse(TypeConversionUtils.isArray(int.class));
-        assertTrue(TypeConversionUtils.isArray(new ArrayList<Integer>().getClass()));
-        assertFalse(TypeConversionUtils.isArray(new HashMap<Integer, Float>().getClass()));
+        assertTrue(TypeConversionUtils.isArray(ArrayList.class));
+        assertFalse(TypeConversionUtils.isArray(HashMap.class));
     }
     @Test
     public void isMapTest() {
 
-        assertFalse(TypeConversionUtils.isMap(new Object[]{}.getClass()));
+        assertFalse(TypeConversionUtils.isMap(Object[].class));
         assertFalse(TypeConversionUtils.isMap(int.class));
-        assertFalse(TypeConversionUtils.isMap(new ArrayList<Integer>().getClass()));
-        assertTrue(TypeConversionUtils.isMap(new HashMap<Integer, Float>().getClass()));
+        assertFalse(TypeConversionUtils.isMap(ArrayList.class));
+        assertTrue(TypeConversionUtils.isMap(HashMap.class));
     }
     @Test
     public void fromStringTest() {
@@ -128,6 +131,43 @@ public class TypeConversionUtilsTest{
 
         assertTrue(TypeConversionUtils.primitivesMatch(short.class, Short.class));
         assertTrue(TypeConversionUtils.primitivesMatch(Short.class, short.class));
+        assertTrue(TypeConversionUtils.primitivesMatch(char.class, Character.class));
+        assertTrue(TypeConversionUtils.primitivesMatch(Character.class, char.class));
+
 
     }
+
+    @Test
+    public void isServletClassTest(){
+        assertTrue(TypeConversionUtils.isServletClass("HttpServletRequest"));
+        assertTrue(TypeConversionUtils.isServletClass("HttpServletResponse"));
+        assertTrue(TypeConversionUtils.isServletClass("MultipartHttpServletRequest"));
+        assertFalse(TypeConversionUtils.isServletClass(UUID.randomUUID().toString()));
+    }
+
+    @Test(dataProvider = "primitiveDataTypes")
+    public void primitiveForNameTest(String className){
+        Class clazz= TypeConversionUtils.primitiveForName(className);
+        assertNotNull(clazz);
+    }
+
+    @DataProvider(name="primitiveDataTypes")
+    public Object[][] primitiveDataTypes(){
+        Object[][] obj = new Object[7][1];
+        obj[0][0]="boolean";
+        obj[1][0]="short";
+        obj[2][0]="int";
+        obj[3][0]="char";
+        obj[4][0]="float";
+        obj[5][0]="double";
+        obj[6][0]="byte";
+        return obj;
+    }
+
+    @Test
+    public void primitiveForNameInvalidTypesTest(){
+        Class clazz= TypeConversionUtils.primitiveForName(UUID.randomUUID().toString());
+        assertNull(clazz);
+    }
+
 }

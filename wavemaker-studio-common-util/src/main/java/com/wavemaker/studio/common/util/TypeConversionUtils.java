@@ -352,6 +352,9 @@ public abstract class TypeConversionUtils {
         if (compare(p1, p2, Short.class, short.class)) {
             return true;
         }
+        if (compare(p1, p2, Character.class, char.class)) {
+            return true;
+        }
 
         return false;
     }

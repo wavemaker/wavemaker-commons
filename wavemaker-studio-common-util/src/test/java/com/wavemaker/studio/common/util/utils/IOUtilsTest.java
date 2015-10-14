@@ -1,12 +1,12 @@
 /**
  * Copyright (C) 2014 WaveMaker, Inc. All rights reserved.
- *
+ * <p/>
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
- *   http://www.apache.org/licenses/LICENSE-2.0
- *
+ * <p/>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p/>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -15,19 +15,27 @@
  */
 package com.wavemaker.studio.common.util.utils;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
 
 import com.wavemaker.infra.WMTestUtils;
-import static org.testng.Assert.*;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Test;
-
 import com.wavemaker.studio.common.util.FileAccessException;
 import com.wavemaker.studio.common.util.IOUtils;
 import com.wavemaker.studio.common.util.SpringUtils;
 import com.wavemaker.studio.common.util.WMFileUtils;
+import org.testng.Assert;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.DataProvider;
+import org.testng.annotations.Test;
+
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
+
+import static org.testng.Assert.assertFalse;
+import static org.testng.Assert.assertTrue;
 
 /**
  * @author Matt Small
@@ -52,20 +60,23 @@ public class IOUtilsTest {
 
         IOUtils.deleteRecursive(this.tempDir);
     }
+
     @Test
     public void createTempDirectory_shortPrefixTest() throws Exception {
 
         File newTempDir = IOUtils.createTempDirectory("a", "bcd");
-      assertTrue(newTempDir.getName().startsWith("aaa"));
+        assertTrue(newTempDir.getName().startsWith("aaa"));
     }
+
     @Test
     public void createTempDirectoryTest() throws Exception {
 
         File newTempDir = IOUtils.createTempDirectory();
-       assertTrue(newTempDir.exists());
+        assertTrue(newTempDir.exists());
         newTempDir.delete();
         assertFalse(newTempDir.exists());
     }
+
     @Test
     public void deleteOneLevelTest() throws Exception {
 
@@ -74,6 +85,7 @@ public class IOUtilsTest {
         IOUtils.deleteRecursive(newTempDir);
         assertFalse(newTempDir.exists());
     }
+
     @Test
     public void deleteTwoLevelsTest() throws Exception {
 
@@ -110,6 +122,7 @@ public class IOUtilsTest {
         alreadyExists.mkdir();
         IOUtils.makeDirectories(alreadyExists, wantToCreate);
     }
+
     @Test
     public void badMakeDirectoriesTest() {
 
@@ -120,10 +133,11 @@ public class IOUtilsTest {
             IOUtils.makeDirectories(wantToCreate.getParentFile(), this.tempDir);
         } catch (FileAccessException ex) {
             gotException = true;
-            assertTrue( ex.getMessage().startsWith("Reached filesystem root"),"got message: " + ex.getMessage());
+            assertTrue(ex.getMessage().startsWith("Reached filesystem root"), "got message: " + ex.getMessage());
         }
         assertTrue(gotException);
     }
+
     @Test
     public void touchDNETest() throws Exception {
 
@@ -134,6 +148,7 @@ public class IOUtilsTest {
         IOUtils.touch(f);
         assertTrue(f.exists());
     }
+
     @Test
     public void touchTest() throws Exception {
 
@@ -150,6 +165,7 @@ public class IOUtilsTest {
 
         assertTrue(lastModified < f.lastModified());
     }
+
     @Test
     public void touchDirTest() throws Exception {
 
@@ -172,6 +188,7 @@ public class IOUtilsTest {
             }
         }
     }
+
     @Test
     public void copyFilesTest() throws Exception {
 
@@ -188,6 +205,7 @@ public class IOUtilsTest {
         assertTrue(dest.exists());
         WMTestUtils.assertEquals(source, dest);
     }
+
     @Test
     public void copyFilesExcludesTest() throws Exception {
 
@@ -205,6 +223,7 @@ public class IOUtilsTest {
         IOUtils.copy(source, dest, excludes);
         assertFalse(dest.exists());
     }
+
     @Test
     public void copyDirectoriesTest() throws Exception {
 
@@ -242,6 +261,7 @@ public class IOUtilsTest {
             IOUtils.deleteRecursive(dest);
         }
     }
+
     @Test
     public void copyDirectoriesExcludesTest() throws Exception {
 
@@ -291,10 +311,61 @@ public class IOUtilsTest {
             IOUtils.deleteRecursive(dest);
         }
     }
+
     @Test
     public void exclusionByExactMatchTest() {
 
         assertTrue(IOUtils.excludeByExactMatch(new File("/foo/bar/" + IOUtils.DEFAULT_EXCLUSION.get(0))));
         assertFalse(IOUtils.excludeByExactMatch(new File("/foo/bar/" + IOUtils.DEFAULT_EXCLUSION.get(0) + ".foo")));
     }
+
+    @Test(dataProvider = "streamProvider")
+    public void copyStreamTest(String inputString) throws IOException {
+        ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(inputString.getBytes());
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        int size = IOUtils.copy(byteArrayInputStream, byteArrayOutputStream, true, true);
+        Assert.assertEquals(size, inputString.length());
+        Assert.assertEquals(byteArrayOutputStream.toString(), inputString);
+    }
+
+
+    @DataProvider
+    public Object[][] streamProvider() {
+        Object[][] obj = new Object[2][1];
+        obj[0][0] = UUID.randomUUID().toString();
+        obj[1][0] = "";
+
+        return obj;
+    }
+
+    @Test(dataProvider = "streamProvider")
+    public void closeSilentlyTest(String inputString) {
+        final boolean[] isClosed = {false};
+        ByteArrayInputStream byteArrayInputStream = getByteArrayInputStream(inputString, isClosed);
+        IOUtils.closeSilently(byteArrayInputStream);
+        assertTrue(isClosed[0]);
+
+    }
+
+    @Test(dataProvider = "streamProvider")
+    public void closeByLoggingTest(String inputString) {
+        final boolean[] isClosed = {false};
+        ByteArrayInputStream byteArrayInputStream = getByteArrayInputStream(inputString, isClosed);
+        IOUtils.closeByLogging(byteArrayInputStream);
+        assertTrue(isClosed[0]);
+
+    }
+
+    private ByteArrayInputStream getByteArrayInputStream(final String inputString, final boolean[] isClosed) {
+        return new ByteArrayInputStream(inputString.getBytes()) {
+
+            @Override
+            public void close() throws IOException {
+                super.close();
+                isClosed[0] = true;
+            }
+        };
+    }
+
+
 }
