@@ -120,7 +120,7 @@ public abstract class ObjectUtils {
     }
 
     public static String toString(Object[] array) {
-        return toString(array, ", ");
+            return toString(array, ", ");
     }
 
     public static String toString(Object[] array, String sep) {

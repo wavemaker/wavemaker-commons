@@ -15,13 +15,15 @@
  */
 package com.wavemaker.studio.common.util.utils;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import com.wavemaker.infra.WMTestUtils;
 import com.wavemaker.studio.common.util.ObjectUtils;
-import static org.testng.Assert.*;
 import org.testng.annotations.Test;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.UUID;
+
+import static org.testng.Assert.*;
 
 /**
  * @author Simon Toens
@@ -100,4 +102,57 @@ public class ObjectUtilsTest{
         }
         assertTrue(gotException);
     }
+
+    @Test
+    public void getIdTest(){
+        Car car = new Car();
+        String objectId = ObjectUtils.getId(car);
+        assertNotNull(objectId);
+    }
+
+    @Test()
+    public void isNullOrEmptyString(){
+
+        assertTrue(ObjectUtils.isNullOrEmpty(""));
+        assertTrue(ObjectUtils.isNullOrEmpty("\t"));
+        assertFalse(ObjectUtils.isNullOrEmpty(UUID.randomUUID().toString()));
+
+    }
+    @Test
+    public void toStringTestForObject(){
+        Object[] array = new Object[3];
+        array[0]="1";
+        array[1]=true;
+        array[2]=1;
+
+        String actualString = ObjectUtils.toString(array);
+        System.out.println(array);
+        assertEquals(actualString,"1, true, 1");
+    }
+    @Test
+    public void toStringWithOtherSeparatorTest(){
+        Object[] array = new Object[3];
+        array[0]="1";
+        array[1]=true;
+        array[2]=1;
+
+        String sep ="; ";
+        String actualString = ObjectUtils.toString(array,sep);
+        assertEquals(actualString,"1; true; 1");
+    }
+
+    @Test
+    public void toStringForCollection(){
+
+        Collection collection = new ArrayList<>();
+        String sep = ", ";
+        collection.add(1);
+        collection.add("one");
+        collection.add(true);
+
+        String actualString = ObjectUtils.toString(collection,sep);
+        assertEquals(actualString,"1, one, true");
+    }
+
+
 }

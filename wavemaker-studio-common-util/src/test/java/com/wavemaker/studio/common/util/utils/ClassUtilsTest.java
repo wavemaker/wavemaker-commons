@@ -98,54 +98,55 @@ public class ClassUtilsTest {
         Class<?> clazz = ClassUtilsTest.class;
         Object returned = ClassUtils.newInstance(clazz);
         assertTrue(returned instanceof ClassUtilsTest);
-        assertEquals(((ClassUtilsTest)returned).testField, 10);
+        assertEquals(((ClassUtilsTest) returned).testField, 10);
 
     }
 
     @Test(dataProvider = "propertyData")
-    public void getPropertyGetterNameTest(String propertyName, String expectedGetterName, String expectedAltPropertyGetterName , String expectedSetterName) {
+    public void getPropertyGetterNameTest(String propertyName, String expectedGetterName) {
         assertEquals(ClassUtils.getPropertyGetterName(propertyName), expectedGetterName);
     }
 
     @Test(dataProvider = "propertyData")
-    public void getAltPropertyGetterNameTest(String propertyName, String expectedGetterName, String expectedAltPropertyGetterName , String expectedSetterName) {
+    public void getAltPropertyGetterNameTest(String propertyName, String expectedAltPropertyGetterName) {
         assertEquals(ClassUtils.getAltPropertyGetterName(propertyName), expectedAltPropertyGetterName);
     }
 
     @Test(dataProvider = "propertyData")
-    public void getPropertySetterNameTest(String propertyName, String expectedGetterName, String expectedAltPropertyGetterName , String expectedSetterName) {
+    public void getPropertySetterNameTest(String propertyName, String expectedSetterName) {
         assertEquals(ClassUtils.getPropertySetterName(propertyName), expectedSetterName);
     }
 
     @DataProvider
-    public Object[][] propertyData() {
+    public Object[][] propertyData(Method name) {
 
-        Object[][] obj = new Object[2][1];
-
+        Object[][] obj = new Object[5][2];
         obj[0][0] = "User";
-        obj[0][1] = "getUser";
-        obj[0][1] = "isUser";
-        obj[0][1] = "setUser";
-
-        obj[1][0] = "u";
-        obj[1][1] = "getU";
-        obj[1][2] = "isU";
-        obj[1][3] = "setU";
-
+        obj[1][0] = "U";
         obj[2][0] = "u";
-        obj[2][1] = "getU";
-        obj[1][2] = "isU";
-        obj[1][3] = "setU";
-
         obj[3][0] = "username";
-        obj[3][1] = "getUsername";
-        obj[3][2] = "isUsername";
-        obj[3][3] = "setUsername";
-
         obj[4][0] = "userName";
-        obj[4][1] = "getUserName";
-        obj[4][2] = "isUserName";
-        obj[4][3] = "setUserName";
+        if (name.getName().equalsIgnoreCase("getPropertyGetterNameTest")) {
+            obj[0][1] = "getUser";
+            obj[1][1] = "getU";
+            obj[2][1] = "getU";
+            obj[3][1] = "getUsername";
+            obj[4][1] = "getUserName";
+        }
+        if (name.getName().equalsIgnoreCase("getAltPropertyGetterNameTest")) {
+            obj[0][1] = "isUser";
+            obj[1][1] = "isU";
+            obj[2][1] = "isU";
+            obj[3][1] = "isUsername";
+            obj[4][1] = "isUserName";
+        }
+        if (name.getName().equalsIgnoreCase("getPropertySetterNameTest")) {
+            obj[0][1] = "setUser";
+            obj[1][1] = "setU";
+            obj[2][1] = "setU";
+            obj[3][1] = "setUsername";
+            obj[4][1] = "setUserName";
+        }
         return obj;
     }
 
@@ -157,7 +158,7 @@ public class ClassUtilsTest {
 
         propertyDescriptorListActual = ClassUtils.getPropertyDescriptors(clazz);
 
-        assertEquals(propertyDescriptorListActual.size(), 2);
+        assertEquals(propertyDescriptorListActual.size(), 3);
         Assert.assertEquals(propertyDescriptorListActual.get(0).getName(), "brand");
         Assert.assertEquals(propertyDescriptorListActual.get(1).getName(), "model");
 

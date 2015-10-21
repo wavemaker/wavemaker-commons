@@ -6,6 +6,15 @@ package com.wavemaker.studio.common.util.utils;
 public class Car {
     String brand;
     String model;
+    int price;
+
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
+    }
 
     public String getBrand() {
         return brand;
