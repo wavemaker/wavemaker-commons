@@ -17,6 +17,7 @@ package com.wavemaker.infra;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -60,5 +61,13 @@ public class WMTestUtils {
         } else {
             Assert.fail(msg);
         }
+    }
+
+    public static InputStream getResourceFileAsStream(String resourcePath) {
+        return WMTestUtils.class.getClassLoader().getResourceAsStream(resourcePath);
+    }
+
+    public static File getResourceFileAsLocalFile(String resourcePath) {
+        return new File(WMTestUtils.class.getClassLoader().getResource(resourcePath).getFile());
     }
 }
