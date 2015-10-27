@@ -486,6 +486,7 @@ public abstract class StringUtils {
     }
 
     public static String removeSpaces(String str) {
+        str = str.trim();
         char last = str.charAt(0);
         StringBuffer argBuf = new StringBuffer();
 

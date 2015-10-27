@@ -19,10 +19,14 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.testng.annotations.DataProvider;
+import org.testng.annotations.Test;
+
 import com.wavemaker.infra.WMTestUtils;
 import com.wavemaker.studio.common.util.StringUtils;
-import static org.testng.Assert.*;
-import org.testng.annotations.Test;
+
+import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertTrue;
 
 /**
  * @author Simon Toens
@@ -114,5 +118,22 @@ public class StringUtilsTest{
             assertEquals(entry.getValue(), StringUtils.toFieldName(entry.getKey()));
         }
 
+    }
+
+    @Test(dataProvider = "remoteSpacesDataProvider")
+    public void removeSpacesTest(String inputString, String expectedOutput) {
+        assertEquals(expectedOutput, StringUtils.removeSpaces(inputString));
+    }
+
+    @DataProvider(name = "remoteSpacesDataProvider")
+    private Object[][] getRemoteSpacesDataProvider() {
+        Object[][] obj = new Object[6][];
+        obj[0]= new Object[]{"abcd efgh", "abcd efgh"};
+        obj[1]= new Object[]{"abcd   efgh", "abcd efgh"};
+        obj[2]= new Object[]{"   efgh", "efgh"};
+        obj[3]= new Object[]{"   efgh       ", "efgh"};
+        obj[4]= new Object[]{"efgh       ", "efgh"};
+        obj[5]= new Object[]{"select * from     table1", "select * from table1"};
+        return obj;
     }
 }
