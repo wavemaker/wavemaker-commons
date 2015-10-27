@@ -5,7 +5,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *   http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -15,24 +15,13 @@
  */
 package com.wavemaker.studio.common.util;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.FilenameFilter;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
-
 import javax.xml.stream.XMLStreamReader;
 
 import org.apache.commons.io.FileUtils;
@@ -61,11 +50,12 @@ public abstract class IOUtils {
     /**
      * List of our default exclusion directory names. This is used both by
      */
-    public static final List<String> DEFAULT_EXCLUSION = Collections.unmodifiableList(Arrays.asList(new String[] { ".svn" }));
+    public static final List<String> DEFAULT_EXCLUSION = Collections
+            .unmodifiableList(Arrays.asList(new String[]{".svn"}));
 
     /**
      * Read an entire File into a String.
-     * 
+     *
      * @param f The file to read from.
      * @return The contents of f as a String.
      * @throws IOException
@@ -166,7 +156,8 @@ public abstract class IOUtils {
         try {
             File[] listing = f.listFiles();
             for (int i = 0; i < listing.length; i++) {
-                if (listing[i].isDirectory() && !listing[i].getName().startsWith(".") && !listing[i].getName().startsWith("_")) {
+                if (listing[i].isDirectory() && !listing[i].getName().startsWith(".") && !listing[i].getName()
+                        .startsWith("_")) {
                     count++;
                 }
             }
@@ -185,14 +176,15 @@ public abstract class IOUtils {
      * @return returns the number of bytes actually written
      * @throws IOException
      */
-    public static int copy(InputStream is, OutputStream os, boolean closeInputStream, boolean closeOutputStream) throws IOException {
+    public static int copy(
+            InputStream is, OutputStream os, boolean closeInputStream, boolean closeOutputStream) throws IOException {
         try {
             return org.apache.commons.io.IOUtils.copy(is, os);
         } finally {
             if (closeInputStream) {
                 closeSilently(is);
             }
-            if(closeOutputStream) {
+            if (closeOutputStream) {
                 closeSilently(os);
             }
         }
@@ -201,7 +193,7 @@ public abstract class IOUtils {
     /**
      * Copy from: file to file, directory to directory, file to directory. Defaults to exclude nothing, so all files and
      * directories are copied.
-     * 
+     *
      * @param source File object representing a file or directory to copy from.
      * @param destination File object representing the target; can only represent a file if the source is a file.
      * @throws IOException
@@ -213,7 +205,7 @@ public abstract class IOUtils {
 
     /**
      * Copy from: file to file, directory to directory, file to directory.
-     * 
+     *
      * @param source File object representing a file or directory to copy from.
      * @param destination File object representing the target; can only represent a file if the source is a file.
      * @param excludes A list of exclusion filenames.
@@ -232,7 +224,9 @@ public abstract class IOUtils {
                 FileUtils.forceMkdir(destination);
             }
             if (!destination.isDirectory()) {
-                throw new IOException("Can't copy directory (" + source.getAbsolutePath() + ") to non-directory: " + destination.getAbsolutePath());
+                throw new IOException(
+                        "Can't copy directory (" + source.getAbsolutePath() + ") to non-directory: " + destination
+                                .getAbsolutePath());
             }
 
             File files[] = source.listFiles(new WMFileNameFilter());
@@ -250,11 +244,13 @@ public abstract class IOUtils {
             copy(in, out, true, true);
 
         } else {
-            throw new IOException("Don't know how to copy " + source.getAbsolutePath() + "; it's neither a directory nor a file");
+            throw new IOException(
+                    "Don't know how to copy " + source.getAbsolutePath() + "; it's neither a directory nor a file");
         }
     }
 
-    public static void copy(File source, File destination, String includedPattern, String excludedPattern) throws IOException {
+    public static void copy(
+            File source, File destination, String includedPattern, String excludedPattern) throws IOException {
         List<String> includedPatterns = null, excludedPatterns = null;
         if (includedPattern != null) {
             includedPatterns = new ArrayList();
@@ -270,14 +266,16 @@ public abstract class IOUtils {
 
     /**
      * Copy from: file to file, directory to directory, file to directory.
-     * 
+     *
      * @param source File object representing a file or directory to copy from.
      * @param destination File object representing the target; can only represent a file if the source is a file.
      * @param includedPatterns the ant-style path pattern to be included. Null means that all resources are included.
      * @param excludedPatterns the ant-style path pattern to be excluded. Null means that no resources are excluded.
      * @throws IOException
      */
-    public static void copy(File source, File destination, List<String> includedPatterns, List<String> excludedPatterns) throws IOException {
+    public static void copy(
+            File source, File destination, List<String> includedPatterns,
+            List<String> excludedPatterns) throws IOException {
 
         if (!source.exists()) {
             throw new IOException("Can't copy from non-existent file: " + source.getAbsolutePath());
@@ -312,7 +310,9 @@ public abstract class IOUtils {
                 FileUtils.forceMkdir(destination);
             }
             if (!destination.isDirectory()) {
-                throw new IOException("Can't copy directory (" + source.getAbsolutePath() + ") to non-directory: " + destination.getAbsolutePath());
+                throw new IOException(
+                        "Can't copy directory (" + source.getAbsolutePath() + ") to non-directory: " + destination
+                                .getAbsolutePath());
             }
 
             File files[] = source.listFiles(new WMFileNameFilter());
@@ -330,13 +330,14 @@ public abstract class IOUtils {
 
             copy(in, out, true, true);
         } else {
-            throw new IOException("Don't know how to copy " + source.getAbsolutePath() + "; it's neither a directory nor a file");
+            throw new IOException(
+                    "Don't know how to copy " + source.getAbsolutePath() + "; it's neither a directory nor a file");
         }
     }
 
     /**
      * Create a temporary directory, which will be deleted when the VM exits.
-     * 
+     *
      * @return The newly create temp directory
      * @throws IOException
      */
@@ -346,7 +347,7 @@ public abstract class IOUtils {
 
     /**
      * Create a temporary directory, which will be deleted when the VM exits.
-     * 
+     *
      * @param prefix String used for directory name
      * @param suffix String used for directory name extension
      * @return The newly create temp directory
@@ -389,19 +390,27 @@ public abstract class IOUtils {
      */
     public static File createFile(String path) throws IOException {
         File file = new File(path);
-        if(!file.exists())
+        if (!file.exists())
             file.createNewFile();
         return file;
     }
 
     /**
      * Delete a directory or file; if a directory, delete its children recursively.
-     * 
+     *
      * @param dir
      * @throws IOException
      */
     public static void deleteRecursive(File dir) throws IOException {
         FileUtils.forceDelete(dir);
+    }
+
+    public static void cleanDirectorySilently(File dir) {
+        try {
+            FileUtils.cleanDirectory(dir);
+        } catch (IllegalArgumentException | IOException e) {
+            // ignore.
+        }
     }
 
     public static void deleteDirectorySilently(File dir) {
@@ -419,7 +428,7 @@ public abstract class IOUtils {
     }
 
     public static void deleteDirectorySilently(File dir, boolean noLogging) {
-        if(dir == null) {
+        if (dir == null) {
             return;
         }
         try {
@@ -433,7 +442,7 @@ public abstract class IOUtils {
 
     /**
      * Create intermediate directories so that the File represented by newFile can be created.
-     * 
+     *
      * @param newDir The directory that will be created; this method will ensure that the intermediate directories
      *        exist, and that this File is within the topLevel file.
      * @param topLevel This file should represent the top-level directory that files will not be created outside of.
@@ -510,7 +519,7 @@ public abstract class IOUtils {
     /**
      * Touch a file (see touch(1)). If the file doesn't exist, create it as an empty file. If it does exist, update its
      * modification time.
-     * 
+     *
      * @param f The File.
      * @throws IOException
      */
