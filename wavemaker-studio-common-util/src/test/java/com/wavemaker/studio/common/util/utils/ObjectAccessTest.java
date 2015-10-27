@@ -75,11 +75,18 @@ public class ObjectAccessTest {
 
     @Test
     public void hasMethodTest() {
-        Class clazz = ObjectAccessTest.class;
-        String methodName = "getPropertyTypeTest";
-        int numParams = 0;
-        boolean actualValue = ObjectAccess.getInstance().hasMethod(clazz, methodName, numParams);
-        assertTrue(ObjectAccess.getInstance().hasMethod(clazz, methodName, numParams));
+        Class klazz = Car.class;
+        String methodName = "getBrand";
+
+        assertTrue(ObjectAccess.getInstance().hasMethod(klazz, methodName, 0));
+        assertFalse(ObjectAccess.getInstance().hasMethod(klazz, methodName, 1) ||
+                ObjectAccess.getInstance().hasMethod(klazz, methodName, 2) ||
+                ObjectAccess.getInstance().hasMethod(klazz, methodName, 3));
+
+
+        String method2 = "setBrand";
+
+        assertTrue(ObjectAccess.getInstance().hasMethod(klazz, method2, 1));
     }
 
     @Test
@@ -97,7 +104,7 @@ public class ObjectAccessTest {
 
         Car car = new Car();
         String actualString = ObjectAccess.getInstance().objectToString(car);
-        assertNotNull(actualString.trim() );
+        assertNotNull(actualString.trim());
         assertTrue(actualString.endsWith("}"));
         assertTrue(actualString.contains("model"));
         assertTrue(actualString.contains("brand"));

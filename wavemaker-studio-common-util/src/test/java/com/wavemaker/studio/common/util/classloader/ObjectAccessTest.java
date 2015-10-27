@@ -29,7 +29,7 @@ public class ObjectAccessTest {
     }
 
     @Test
-    public void forNameTest(){
+    public void forNameTest() {
         ObjectAccess objectAccess = ObjectAccess.getInstance();
         String className = com.wavemaker.studio.common.util.utils.Car.class.getName();
         Class<?> clazz = objectAccess.forName(className);
