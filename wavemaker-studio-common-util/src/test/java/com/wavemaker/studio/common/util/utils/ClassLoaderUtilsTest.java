@@ -15,15 +15,15 @@
  */
 package com.wavemaker.studio.common.util.utils;
 
+import com.wavemaker.studio.common.classloader.ClassLoaderUtils;
+import org.apache.commons.io.FileUtils;
+import org.springframework.core.io.ClassPathResource;
+import org.testng.annotations.Test;
+
 import java.io.File;
 import java.io.InputStream;
 
-import com.wavemaker.infra.WMTestUtils;
-import org.apache.commons.io.FileUtils;
-import org.springframework.core.io.ClassPathResource;
-import com.wavemaker.studio.common.classloader.ClassLoaderUtils;
-import org.testng.Assert;
-import org.testng.annotations.Test;
+import static org.testng.Assert.*;
 
 /**
  * @author Matt Small
@@ -40,7 +40,7 @@ public class ClassLoaderUtilsTest {
         try {
             ClassLoader cl = ClassLoaderUtils.getTempClassLoaderForFile(jar);
             Class<?> klass = ClassLoaderUtils.loadClass("foo.bar.baz.JarType", cl);
-            Assert.assertNotNull(klass);
+            assertNotNull(klass);
         } finally {
             jar.delete();
         }
@@ -57,11 +57,23 @@ public class ClassLoaderUtilsTest {
         try {
             ClassLoader cl = ClassLoaderUtils.getTempClassLoaderForFile(jar);
             InputStream is = ClassLoaderUtils.getResourceAsStream("foo/bar/baz/JarType.java", cl);
-            Assert.assertNotNull(is);
-            Assert.assertTrue(is.available() > 0);
+            assertNotNull(is);
+            assertTrue(is.available() > 0);
             is.close();
         } finally {
             jar.delete();
         }
     }
+
+
+
+    @Test
+    public void getClassLoaderTest() throws ClassNotFoundException {
+        ClassLoader loader = ClassLoaderUtils.getClassLoader();
+        Class aClass = loader.loadClass("com.wavemaker.studio.common.util.utils.Car");
+        assertNotNull(aClass);
+        assertEquals(aClass, Car.class);
+    }
+
+
 }

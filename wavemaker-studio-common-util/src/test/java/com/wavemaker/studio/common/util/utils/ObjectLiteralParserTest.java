@@ -15,13 +15,14 @@
  */
 package com.wavemaker.studio.common.util.utils;
 
-import java.util.List;
-
-import com.wavemaker.infra.WMTestUtils;
 import com.wavemaker.studio.common.util.CastUtils;
 import com.wavemaker.studio.common.util.ObjectLiteralParser;
-import static org.testng.Assert.*;
 import org.testng.annotations.Test;
+
+import java.util.List;
+
+import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertTrue;
 
 /**
  * @author Simon Toens
