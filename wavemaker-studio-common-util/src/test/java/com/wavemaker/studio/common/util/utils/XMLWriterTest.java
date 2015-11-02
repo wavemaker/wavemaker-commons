@@ -1,19 +1,17 @@
 package com.wavemaker.studio.common.util.utils;
 
-import static org.testng.Assert.*;
+import java.io.File;
+import java.io.FileReader;
+import java.io.PrintWriter;
+
+import javax.xml.bind.JAXBContext;
+
+import org.testng.annotations.Test;
 
 import com.wavemaker.studio.common.util.JAXBUtils;
 import com.wavemaker.studio.common.util.XMLWriter;
-import org.junit.rules.ExpectedException;
-import org.testng.annotations.ExpectedExceptions;
-import org.testng.annotations.Test;
-import sun.font.TrueTypeFont;
 
-import javax.xml.bind.JAXBContext;
-import java.io.*;
-import java.lang.reflect.MalformedParameterizedTypeException;
-import java.net.URL;
-import java.util.UUID;
+import static org.testng.Assert.assertEquals;
 
 /**
  * Created by anitha on 19/10/15.
