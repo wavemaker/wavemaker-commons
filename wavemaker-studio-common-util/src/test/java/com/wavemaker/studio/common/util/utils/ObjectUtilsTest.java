@@ -108,10 +108,14 @@ public class ObjectUtilsTest{
         Car car = new Car();
         String objectId = ObjectUtils.getId(car);
         assertNotNull(objectId);
+        String expectedString = "com.wavemaker.studio.common.util.utils.Car";
+        String actualString = ObjectUtils.getId(car);
+        String actualStringOmittingAddress = actualString.substring(0, actualString.indexOf("@"));
+        assertEquals(actualStringOmittingAddress, expectedString);
     }
 
     @Test()
-    public void isNullOrEmptyString(){
+    public void isNullOrEmptyStringTest() {
 
         assertTrue(ObjectUtils.isNullOrEmpty(""));
         assertTrue(ObjectUtils.isNullOrEmpty("\t"));
@@ -119,14 +123,13 @@ public class ObjectUtilsTest{
 
     }
     @Test
-    public void toStringTestForObject(){
+    public void toStringForObjectTest() {
         Object[] array = new Object[3];
         array[0]="1";
         array[1]=true;
         array[2]=1;
 
         String actualString = ObjectUtils.toString(array);
-        System.out.println(array);
         assertEquals(actualString,"1, true, 1");
     }
     @Test
@@ -153,6 +156,5 @@ public class ObjectUtilsTest{
         String actualString = ObjectUtils.toString(collection,sep);
         assertEquals(actualString,"1, one, true");
     }
-
 
 }
