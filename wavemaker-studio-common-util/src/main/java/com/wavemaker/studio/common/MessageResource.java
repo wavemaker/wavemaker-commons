@@ -226,6 +226,9 @@ public class MessageResource {
     @ResourceConstraint(numArgs = 2, hasDetailMsg = false)
     public static final MessageResource DATA_TRUNCATION_POSSIBILITY = new MessageResource("com.wavemaker.studio.core.data$DataTruncationPossibility");
 
+    @ResourceConstraint(numArgs = 1, hasDetailMsg = false)
+    public static final MessageResource UPDATE_DB_FAILED = new MessageResource("com.wavemaker.studio.core.data.helpers.SchemaUpdater$updateDBFailed");
+
     private static final Map<MessageResource, ResourceConstraint> annotations = new HashMap<MessageResource, ResourceConstraint>();
 
     static {
