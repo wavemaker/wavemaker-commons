@@ -28,8 +28,8 @@
         <commons.codec.version>1.10</commons.codec.version>
         <commons.lang3.version>3.4</commons.lang3.version>
 
-        <fasterxml.json.version>2.4.0-rc3</fasterxml.json.version>
-        <wm.jackson.databind.version>2.4.0-rc3-wm2</wm.jackson.databind.version>
+        <fasterxml.json.version>2.6.3</fasterxml.json.version>
+        <wm.jackson.databind.version>2.6.3.wm-1</wm.jackson.databind.version>
 
         <joda-time.version>2.3</joda-time.version>
         <jadira-usertype.version>2.0.1</jadira-usertype.version>
