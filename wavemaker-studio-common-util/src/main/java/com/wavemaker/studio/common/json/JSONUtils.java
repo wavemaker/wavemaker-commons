@@ -6,6 +6,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 import com.fasterxml.jackson.databind.JavaType;
+import com.fasterxml.jackson.databind.Module;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
@@ -41,6 +42,10 @@ public class JSONUtils {
 
     public static <T> T toObject(File file, JavaType javaType) throws IOException {
         return (T) objectMapper.readValue(file, javaType);
+    }
+
+    public static void registerModule(Module module) {
+        objectMapper.registerModule(module);
     }
 
 }
