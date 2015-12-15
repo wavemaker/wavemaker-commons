@@ -24,7 +24,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.util.Properties;
+import java.util.*;
 
 import com.wavemaker.studio.common.WMRuntimeException;
 
@@ -101,6 +101,13 @@ public class PropertiesFileUtils {
         }
     }
 
+    public static void storeProperties(Properties props, OutputStream outputStream, String comments, boolean sortProperties) {
+        if (sortProperties) {
+            props = sortProperties(props);
+        }
+        storeProperties(props, outputStream, comments);
+    }
+
     public static void storeProperties(Properties props, OutputStream outputStream, String comments) {
         try {
             props.store(outputStream, comments);
@@ -108,6 +115,25 @@ public class PropertiesFileUtils {
             throw new WMRuntimeException("Failed to store properties.", e);
         } finally {
             IOUtils.closeByLogging(outputStream);
+        }
+    }
+
+    public static Properties sortProperties(Properties properties) {
+        Properties sortedProperties = new SortedProperties();
+        sortedProperties.putAll(properties);
+        return sortedProperties;
+    }
+
+    public static class SortedProperties extends Properties {
+        @Override
+        public Enumeration keys() {
+            Enumeration keysEnum = super.keys();
+            List<String> keyList = new ArrayList<String>();
+            while(keysEnum.hasMoreElements()){
+                keyList.add((String)keysEnum.nextElement());
+            }
+            Collections.sort(keyList);
+            return Collections.enumeration(keyList);
         }
     }
 }
