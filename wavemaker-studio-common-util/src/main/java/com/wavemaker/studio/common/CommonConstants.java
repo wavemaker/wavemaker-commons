@@ -30,6 +30,8 @@ public abstract class CommonConstants {
 
     public static final String UTF8 = "UTF-8";
 
+    public static final String SYSTEM_PARAM_PREFIX = "_SYSTEM_";
+
     //hibernate sql type codes
     public static final Integer DATE_TIME_WM_TYPE_CODE = -777;
     public static final Integer TIMESTAMP_WITH_TIMEZONE_SQL_CODE = -101;
