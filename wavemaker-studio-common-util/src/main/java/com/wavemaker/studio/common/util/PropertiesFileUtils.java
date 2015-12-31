@@ -135,5 +135,10 @@ public class PropertiesFileUtils {
             Collections.sort(keyList);
             return Collections.enumeration(keyList);
         }
+
+        @Override
+        public Set<String> stringPropertyNames() {
+            return new TreeSet<>(super.stringPropertyNames());
+        }
     }
 }
