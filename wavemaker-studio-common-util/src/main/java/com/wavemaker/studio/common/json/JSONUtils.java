@@ -21,7 +21,6 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.Module;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -32,13 +31,36 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class JSONUtils {
 
     private static final ObjectMapper objectMapper = new ObjectMapper();
+    private static final ObjectMapper prettyObjectMapper = new ObjectMapper();
+
+    static {
+        prettyObjectMapper.writerWithDefaultPrettyPrinter();
+    }
+
+    public static String toJSON(Object object, boolean prettify) throws IOException {
+        return prettify ? prettyObjectMapper.writeValueAsString(object) : toJSON(object);
+    }
 
     public static String toJSON(Object object) throws IOException {
         return objectMapper.writeValueAsString(object);
     }
 
+    public static void toJSON(File outputFile, Object object, boolean prettify) throws IOException {
+        if (prettify)
+            prettyObjectMapper.writeValue(outputFile, object);
+        else
+            toJSON(outputFile, object);
+    }
+
     public static void toJSON(File outputFile, Object object) throws IOException {
         objectMapper.writeValue(outputFile, object);
+    }
+
+    public static void toJSON(OutputStream outputStream, Object object, boolean prettify) throws IOException {
+        if (prettify)
+            prettyObjectMapper.writeValue(outputStream, object);
+        else
+            toJSON(outputStream, object);
     }
 
     public static void toJSON(OutputStream outputStream, Object object) throws IOException {
@@ -67,6 +89,7 @@ public class JSONUtils {
 
     public static void registerModule(Module module) {
         objectMapper.registerModule(module);
+        prettyObjectMapper.registerModule(module);
     }
 
 }
