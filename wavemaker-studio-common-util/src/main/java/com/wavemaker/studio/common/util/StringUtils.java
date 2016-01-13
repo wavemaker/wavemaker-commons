@@ -85,6 +85,7 @@ public abstract class StringUtils {
         JAVA_KEYWORDS.add("void");
         JAVA_KEYWORDS.add("volatile");
         JAVA_KEYWORDS.add("while");
+        JAVA_KEYWORDS.add("system");
     }
 
     private StringUtils() {
@@ -362,7 +363,8 @@ public abstract class StringUtils {
     }
 
     public static String fq(String packageName, String className) {
-        return packageName + "." + className;
+        String prefix = (packageName == null || packageName.isEmpty()) ? "" : packageName + ".";
+        return prefix + className;
     }
 
     public static String upperCaseFirstLetter(String s) {
