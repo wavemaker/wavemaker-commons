@@ -85,7 +85,6 @@ public abstract class StringUtils {
         JAVA_KEYWORDS.add("void");
         JAVA_KEYWORDS.add("volatile");
         JAVA_KEYWORDS.add("while");
-        JAVA_KEYWORDS.add("system");
     }
 
     private StringUtils() {
