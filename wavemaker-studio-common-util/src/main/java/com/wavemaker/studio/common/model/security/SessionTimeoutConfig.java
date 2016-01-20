@@ -1,5 +1,8 @@
 package com.wavemaker.studio.common.model.security;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+
 /**
  * Created by ArjunSahasranam on 18/1/16.
  */
@@ -30,6 +33,30 @@ public class SessionTimeoutConfig {
 
     public void setTimeoutValue(final int timeoutValue) {
         this.timeoutValue = timeoutValue;
+    }
+
+    @Override
+    public boolean equals(final Object o) {
+        if (this == o) return true;
+
+        if (o == null || getClass() != o.getClass()) return false;
+
+        final SessionTimeoutConfig that = (SessionTimeoutConfig) o;
+
+        return new EqualsBuilder()
+                .append(timeoutValue, that.timeoutValue)
+                .append(type, that.type)
+                .append(pageName, that.pageName)
+                .isEquals();
+    }
+
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder(17, 37)
+                .append(type)
+                .append(pageName)
+                .append(timeoutValue)
+                .toHashCode();
     }
 
     @Override
