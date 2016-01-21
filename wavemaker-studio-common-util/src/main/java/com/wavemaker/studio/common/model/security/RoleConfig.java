@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.wavemaker.studio.common.model;
+package com.wavemaker.studio.common.model.security;
 
 /**
  * Created by Arjun Sahasranam on 29/6/15.
