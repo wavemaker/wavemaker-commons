@@ -41,7 +41,7 @@ public class EtagFilter extends ShallowEtagHeaderFilter {
         boolean requestedFromIeBrowser = isRequestFromIeBrowser(request);
 
         if(request.getRequestURL().indexOf("/services") != -1){
-            logger.info("Etag Request for url {}, IE browser {}, user-agent {}, servlet Path {} ", request.getRequestURL(), requestedFromIeBrowser, request.getHeader("User-Agent"), request.getServletPath());
+            logger.debug("Etag Request for url {}, IE browser {}, user-agent {}, servlet Path {} ", request.getRequestURL(), requestedFromIeBrowser, request.getHeader("User-Agent"), request.getServletPath());
         }
 
         //Setting no cache for ie as etag is disabled for it.
