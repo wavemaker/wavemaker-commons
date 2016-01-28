@@ -24,6 +24,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 import com.wavemaker.studio.common.WMRuntimeException;
 
@@ -256,7 +257,7 @@ public abstract class ObjectUtils {
      * Get the type of an array or collection (passed in as obj). If the array isn't homogeneous, return null. If obj is
      * not an array or a collection, a runtime exception is thrown. All Collections and Object[] are checked for
      * homogeneity, but nothing else.
-     * 
+     *
      * @param array
      * @return The type of a homogeneous array or Collection, or null if the array or Collection is not homogeneous.
      * @throws IllegalArgumentException If the argument array is not an array or Collection.
@@ -320,6 +321,10 @@ public abstract class ObjectUtils {
 
     public static boolean strCmp(Object o1, Object o2) {
         return String.valueOf(o1).equals(String.valueOf(o2));
+    }
+
+    public static boolean isBlankOrEquals(Object o1, Object o2) {
+        return ((o1 == null || o1.equals("")) && (o2 == null || o2.equals(""))) || Objects.equals(o1, o2);
     }
 
     private ObjectUtils() {
