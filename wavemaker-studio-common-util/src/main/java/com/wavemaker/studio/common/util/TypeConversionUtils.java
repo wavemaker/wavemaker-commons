@@ -127,6 +127,11 @@ public abstract class TypeConversionUtils {
         PRIMITIVE_DATA_TYPES.add("Date");
         PRIMITIVE_DATA_TYPES.add("java.util.Date");
 
+        PRIMITIVE_DATA_TYPES.add("java.math.BigDecimal");
+        PRIMITIVE_DATA_TYPES.add("java.math.BigInteger");
+        PRIMITIVE_DATA_TYPES.add("java.sql.Timestamp");
+        PRIMITIVE_DATA_TYPES.add("java.sql.Time");
+
         //servlet related classes...
         SERVLET_CLASSES.add("HttpServletRequest");
         SERVLET_CLASSES.add("HttpServletResponse");
