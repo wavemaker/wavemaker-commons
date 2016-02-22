@@ -132,6 +132,8 @@ public abstract class TypeConversionUtils {
         PRIMITIVE_DATA_TYPES.add("java.sql.Timestamp");
         PRIMITIVE_DATA_TYPES.add("java.sql.Time");
 
+        PRIMITIVE_DATA_TYPES.add("org.springframework.data.domain.Pageable");
+
         //servlet related classes...
         SERVLET_CLASSES.add("HttpServletRequest");
         SERVLET_CLASSES.add("HttpServletResponse");
