@@ -135,9 +135,17 @@ public abstract class TypeConversionUtils {
         PRIMITIVE_DATA_TYPES.add("org.springframework.data.domain.Pageable");
 
         //servlet related classes...
+        SERVLET_CLASSES.add("ServletContext");
         SERVLET_CLASSES.add("HttpServletRequest");
         SERVLET_CLASSES.add("HttpServletResponse");
+        SERVLET_CLASSES.add("HttpSession");
         SERVLET_CLASSES.add("MultipartHttpServletRequest");
+
+        SERVLET_CLASSES.add("javax.servlet.ServletContext");
+        SERVLET_CLASSES.add("javax.servlet.http.HttpServletRequest");
+        SERVLET_CLASSES.add("javax.servlet.http.HttpServletResponse");
+        SERVLET_CLASSES.add("javax.servlet.http.HttpSession");
+        SERVLET_CLASSES.add("org.springframework.web.multipart.MultipartHttpServletRequest");
     }
 
     public static boolean isServletClass(String className) {
