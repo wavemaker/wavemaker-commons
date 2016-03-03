@@ -15,16 +15,13 @@
  */
 package com.wavemaker.studio.common.util;
 
+import org.apache.commons.lang3.math.NumberUtils;
+
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.nio.charset.Charset;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
-
-import org.apache.commons.lang3.math.NumberUtils;
+import java.util.*;
 
 /**
  * @author Simon Toens
@@ -520,6 +517,13 @@ public abstract class StringUtils {
         }
 
         return path;
+    }
+
+    public static String getStringFromBytes(byte[] bytes) {
+        if (bytes == null) {
+            return null;
+        }
+        return new String(bytes, Charset.forName("UTF-8"));
     }
 
     private static String substring(String s, int i, String substring, int direction) {
