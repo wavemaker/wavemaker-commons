@@ -13,28 +13,27 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.wavemaker.studio.common.ser;
-
-import java.io.IOException;
-
-import org.joda.time.LocalDateTime;
-import org.joda.time.format.DateTimeFormatter;
-import org.joda.time.format.ISODateTimeFormat;
+package com.wavemaker.studio.common.json.serializer;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
+import com.wavemaker.studio.common.util.StringUtils;
+
+import java.io.IOException;
 
 /**
  * @author Uday Shankar
  */
-public class WMLocalDateTimeSerializer extends JsonSerializer<LocalDateTime> {
+public class ByteArrayToStringSerializer extends JsonSerializer<byte[]> {
 
-    private final static DateTimeFormatter format = ISODateTimeFormat.dateTime();
+    public ByteArrayToStringSerializer() {
+        super();
+    }
 
     @Override
-    public void serialize(LocalDateTime value, JsonGenerator jgen, SerializerProvider provider) throws IOException, JsonProcessingException {
-        jgen.writeString(format.print(value));
+    public void serialize(byte[] value, JsonGenerator jgen, SerializerProvider provider) throws IOException, JsonProcessingException {
+        jgen.writeString(StringUtils.getStringFromBytes(value));
     }
 }

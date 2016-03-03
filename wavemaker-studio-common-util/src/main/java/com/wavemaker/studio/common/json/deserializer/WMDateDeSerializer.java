@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.wavemaker.studio.common.ser;
+package com.wavemaker.studio.common.json.deserializer;
 
 import java.io.IOException;
 import java.sql.Time;

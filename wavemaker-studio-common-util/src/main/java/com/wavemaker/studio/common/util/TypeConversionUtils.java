@@ -33,8 +33,8 @@ import java.util.regex.Pattern;
 
 import org.joda.time.LocalDateTime;
 
-import com.wavemaker.studio.common.ser.WMDateDeSerializer;
-import com.wavemaker.studio.common.ser.WMLocalDateTimeDeSerializer;
+import com.wavemaker.studio.common.json.deserializer.WMDateDeSerializer;
+import com.wavemaker.studio.common.json.deserializer.WMLocalDateTimeDeSerializer;
 
 /**
  * @author Simon Toens
