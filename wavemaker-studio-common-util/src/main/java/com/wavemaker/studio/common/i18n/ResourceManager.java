@@ -39,7 +39,7 @@ public class ResourceManager {
     }
 
     protected ResourceManager() {
-        this.messageSource = new ReloadableResourceBundleMessageSource();
+        this.messageSource = new MultipleReloadableResourceBundleMessageSource();
         ((ReloadableResourceBundleMessageSource) this.messageSource).setBasenames("wm_resource");
     }
 
