@@ -32,34 +32,34 @@ public class JSONUtils {
 
     private static final ObjectMapper objectMapper = new ObjectMapper();
 
-    public static String toJSON(Object object, boolean prettify) throws IOException {
-        return prettify ? objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(object) : toJSON(object);
+    public static String toJSON(Object object) throws IOException {
+        return toJSON(object, true);
     }
 
-    public static String toJSON(Object object) throws IOException {
-        return objectMapper.writeValueAsString(object);
+    public static String toJSON(Object object, boolean prettify) throws IOException {
+        return prettify ? objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(object) : objectMapper.writeValueAsString(object);
+    }
+
+    public static void toJSON(File outputFile, Object object) throws IOException {
+        toJSON(outputFile, object, true);
     }
 
     public static void toJSON(File outputFile, Object object, boolean prettify) throws IOException {
         if (prettify)
             objectMapper.writerWithDefaultPrettyPrinter().writeValue(outputFile, object);
         else
-            toJSON(outputFile, object);
+            objectMapper.writeValue(outputFile, object);
     }
 
-    public static void toJSON(File outputFile, Object object) throws IOException {
-        objectMapper.writeValue(outputFile, object);
+    public static void toJSON(OutputStream outputStream, Object object) throws IOException {
+        toJSON(outputStream, object, true);
     }
 
     public static void toJSON(OutputStream outputStream, Object object, boolean prettify) throws IOException {
         if (prettify)
             objectMapper.writerWithDefaultPrettyPrinter().writeValue(outputStream, object);
         else
-            toJSON(outputStream, object);
-    }
-
-    public static void toJSON(OutputStream outputStream, Object object) throws IOException {
-        objectMapper.writeValue(outputStream, object);
+            objectMapper.writeValue(outputStream, object);
     }
 
     public static <T> T toObject(String jsonString, Class<T> t) throws IOException {
