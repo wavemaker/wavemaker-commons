@@ -27,6 +27,7 @@
         <commons.io.version>2.4</commons.io.version>
         <commons.codec.version>1.10</commons.codec.version>
         <commons.lang3.version>3.4</commons.lang3.version>
+        <commons.properties.version>1.7</commons.properties.version>
 
         <fasterxml.json.version>2.6.3</fasterxml.json.version>
         <wm.jackson.databind.version>2.6.3.wm-1</wm.jackson.databind.version>
@@ -66,6 +67,11 @@
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
             <version>${commons.lang3.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-configuration</groupId>
+            <artifactId>commons-configuration</artifactId>
+            <version>${commons.properties.version}</version>
         </dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>

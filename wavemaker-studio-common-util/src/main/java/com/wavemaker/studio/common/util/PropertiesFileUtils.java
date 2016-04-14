@@ -15,18 +15,11 @@
  */
 package com.wavemaker.studio.common.util;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.util.*;
+import java.io.*;
+import java.util.Properties;
 
 import com.wavemaker.studio.common.WMRuntimeException;
+import com.wavemaker.studio.common.properties.SortedProperties;
 
 /**
  * @author Uday Shankar
@@ -53,24 +46,6 @@ public class PropertiesFileUtils {
         }
     }
 
-    public static void storeToXml(Properties properties, File file, String comment) {
-        try {
-            storeToXml(properties, new BufferedOutputStream(new FileOutputStream(file)), comment);
-        } catch (FileNotFoundException e) {
-            throw new WMRuntimeException("File:" + file.getAbsolutePath() + " not found", e);
-        }
-    }
-
-    public static void storeToXml(Properties properties, OutputStream os, String comment) {
-        try {
-            properties.storeToXML(os, comment, "UTF-8");
-        } catch (IOException e) {
-            throw new WMRuntimeException("Failed to write properties file to output stream", e);
-        } finally {
-            IOUtils.closeSilently(os);
-        }
-    }
-
     public static Properties loadProperties(File file) {
         try {
             InputStream is = new BufferedInputStream(new FileInputStream(file));
@@ -92,6 +67,30 @@ public class PropertiesFileUtils {
         return properties;
     }
 
+    @Deprecated
+    // this api is deprecated,use PropertiesWriter to store properties in file
+    public static void storeToXml(Properties properties, OutputStream os, String comment) {
+        try {
+            properties.storeToXML(os, comment, "UTF-8");
+        } catch (IOException e) {
+            throw new WMRuntimeException("Failed to write properties file to output stream", e);
+        } finally {
+            IOUtils.closeSilently(os);
+        }
+    }
+
+    @Deprecated
+    // this api is deprecated,use PropertiesWriter to store properties in file
+    public static void storeToXml(Properties properties, File file, String comment) {
+        try {
+            storeToXml(properties, new BufferedOutputStream(new FileOutputStream(file)), comment);
+        } catch (FileNotFoundException e) {
+            throw new WMRuntimeException("File:" + file.getAbsolutePath() + " not found", e);
+        }
+    }
+
+    @Deprecated
+    // this api is deprecated,use PropertiesWriter to store properties in file
     public static void storeProperties(Properties props, File file, String comments) {
         try {
             OutputStream os = new BufferedOutputStream(new FileOutputStream(file));
@@ -101,6 +100,8 @@ public class PropertiesFileUtils {
         }
     }
 
+    @Deprecated
+    // this api is deprecated,use PropertiesWriter to store properties in file
     public static void storeProperties(Properties props, OutputStream outputStream, String comments, boolean sortProperties) {
         if (sortProperties) {
             props = sortProperties(props);
@@ -108,6 +109,8 @@ public class PropertiesFileUtils {
         storeProperties(props, outputStream, comments);
     }
 
+    @Deprecated
+    // this api is deprecated,use PropertiesWriter to store properties in file
     public static void storeProperties(Properties props, OutputStream outputStream, String comments) {
         try {
             props.store(outputStream, comments);
@@ -124,21 +127,4 @@ public class PropertiesFileUtils {
         return sortedProperties;
     }
 
-    public static class SortedProperties extends Properties {
-        @Override
-        public Enumeration keys() {
-            Enumeration keysEnum = super.keys();
-            List<String> keyList = new ArrayList<String>();
-            while(keysEnum.hasMoreElements()){
-                keyList.add((String)keysEnum.nextElement());
-            }
-            Collections.sort(keyList);
-            return Collections.enumeration(keyList);
-        }
-
-        @Override
-        public Set<String> stringPropertyNames() {
-            return new TreeSet<>(super.stringPropertyNames());
-        }
-    }
 }
