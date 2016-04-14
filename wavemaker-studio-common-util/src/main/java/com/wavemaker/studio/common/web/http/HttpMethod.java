@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.wavemaker.studio.common.web.filter.http;
+package com.wavemaker.studio.common.web.http;
 
 /**
  * Created by nileshk on 12/1/15.
