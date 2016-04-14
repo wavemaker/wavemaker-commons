@@ -28,8 +28,12 @@ public class PropertiesWriter {
         init();
     }
 
+    public static PropertiesWriter newWriter(Properties properties) {
+        return new PropertiesWriter(properties);
+    }
+
     private void init() {
-        if(properties == null){
+        if (properties == null) {
             throw new WMRuntimeException("Properties can not be null");
         }
     }
@@ -110,16 +114,19 @@ public class PropertiesWriter {
     /**
      * This api use apache commons property configuration to persist properties into file
      * and this api will avoid writing current date as comment into property file.
+     *
      * @param os
      */
     protected void storeSansDate(OutputStream os) {
         PropertiesConfiguration configuration = new PropertiesConfiguration();
         configuration.getLayout().setGlobalSeparator("=");
         Enumeration enumeration = properties.keys();
+        boolean canComment = true;
         while (enumeration.hasMoreElements()) {
             String key = (String) enumeration.nextElement();
-            if (StringUtils.isNotBlank(comments)) {
+            if (canComment && StringUtils.isNotBlank(comments)) {
                 configuration.getLayout().setComment(key, comments);
+                canComment = false;
             }
             configuration.setProperty(key, properties.getProperty(key));
         }
