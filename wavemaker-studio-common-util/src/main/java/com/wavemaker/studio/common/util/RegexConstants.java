@@ -19,6 +19,8 @@ package com.wavemaker.studio.common.util;
  * Created by saddhamp on 21/3/16.
  */
 public class RegexConstants {
+    public static final String MULTILINE_FLAG = "(?s)";
+    public static final String FIRST_OCCURENCE_OF_ANY_CHARSEQUENCE = ".*?";
     public static final String ALPHA_NUMBERIC = "^\\w+$";
     public static final String NUMBERIC = "^\\d+$";
 }
