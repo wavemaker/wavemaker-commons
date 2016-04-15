@@ -15,6 +15,8 @@
  */
 package com.wavemaker.studio.common.model.security;
 
+import java.util.Objects;
+
 /**
  * Created by Arjun Sahasranam on 29/6/15.
  */
@@ -30,6 +32,19 @@ public class RoleConfig {
 
     public void setLandingPage(String landingPage) {
         this.landingPage = landingPage;
+    }
+
+    @Override
+    public boolean equals(final Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        final RoleConfig that = (RoleConfig) o;
+        return Objects.equals(landingPage, that.landingPage);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(landingPage);
     }
 
     @Override
