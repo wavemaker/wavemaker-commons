@@ -24,8 +24,15 @@ public abstract class WMEvent extends ApplicationEvent {
 
     private Object causedBy;
 
+    private boolean executeListenersAsyncIfNeeded = false;
+
     public WMEvent(String source) {
         super(source);
+    }
+
+    public WMEvent(Object source, boolean executeListenersAsyncIfNeeded) {
+        super(source);
+        this.executeListenersAsyncIfNeeded = executeListenersAsyncIfNeeded;
     }
 
     public WMEvent(String source, Object causedBy) {
@@ -33,7 +40,21 @@ public abstract class WMEvent extends ApplicationEvent {
         this.causedBy = causedBy;
     }
 
+    public WMEvent(Object source, Object causedBy, boolean executeListenersAsyncIfNeeded) {
+        super(source);
+        this.causedBy = causedBy;
+        this.executeListenersAsyncIfNeeded = executeListenersAsyncIfNeeded;
+    }
+
     public Object getCausedBy() {
         return causedBy;
+    }
+
+    public boolean isExecuteListenersAsyncIfNeeded() {
+        return executeListenersAsyncIfNeeded;
+    }
+
+    public void setExecuteListenersAsyncIfNeeded(boolean executeListenersAsyncIfNeeded) {
+        this.executeListenersAsyncIfNeeded = executeListenersAsyncIfNeeded;
     }
 }
