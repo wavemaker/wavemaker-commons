@@ -39,9 +39,15 @@
 
         <servlet.version>2.5</servlet.version>
         <jaxb.impl.version>2.2.5.1</jaxb.impl.version>
+        <wavemaker-api-tools.version>2.0</wavemaker-api-tools.version>
     </properties>
 
 	<dependencies>
+        <dependency>
+            <groupId>com.wavemaker.tools.apidocs</groupId>
+            <artifactId>wavemaker-tools-apidocs-core</artifactId>
+            <version>${wavemaker-api-tools.version}</version>
+        </dependency>
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>servlet-api</artifactId>
