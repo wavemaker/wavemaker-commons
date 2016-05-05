@@ -21,10 +21,10 @@ import java.net.URLClassLoader;
 import java.security.AccessController;
 import java.security.PrivilegedAction;
 import java.util.Arrays;
-import java.util.concurrent.Callable;
 
-import com.wavemaker.studio.common.classloader.ClassLoaderUtils;
-import com.wavemaker.studio.common.io.Folder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.wavemaker.studio.common.io.Resource;
 import com.wavemaker.studio.common.io.ResourceURL;
 
@@ -34,13 +34,7 @@ import com.wavemaker.studio.common.io.ResourceURL;
  */
 public class ResourceClassLoaderUtils {
 
-    public static ClassLoader getClassLoaderForResources(Resource... resources) {
-        return getClassLoaderForResources(false, resources);
-    }
-
-    public static ClassLoader getClassLoaderForResources(boolean nonLocking, Resource... resources) {
-        return getClassLoaderForResources(nonLocking, ClassLoaderUtils.getClassLoader(), resources);
-    }
+    private static final Logger logger = LoggerFactory.getLogger(ResourceClassLoaderUtils.class);
 
     public static ClassLoader getClassLoaderForResources(final ClassLoader parent, Resource... resources) {
         return getClassLoaderForResources(false, parent, resources);
@@ -63,42 +57,37 @@ public class ResourceClassLoaderUtils {
         }
     }
 
-    public static void runInClassLoaderContext(Runnable runnable, Folder... folders) {
-        runInClassLoaderContext(asCallable(runnable), getClassLoaderForResources(folders));
-    }
-
-    public static <V> V runInClassLoaderContext(Callable<V> callable, Folder... folders) {
-        return runInClassLoaderContext(callable, getClassLoaderForResources(folders));
-    }
-
-    public static <V> V runInClassLoaderContext(boolean nonLocking, Callable<V> callable, Folder... folders) {
-        return runInClassLoaderContext(callable, getClassLoaderForResources(nonLocking, folders));
-    }
-
     public static void runInClassLoaderContext(Runnable runnable, ClassLoader cl) {
-        runInClassLoaderContext(asCallable(runnable), cl);
+        runInClassLoaderContext(asCallable(runnable), null, cl);
     }
 
-    public static <V> V runInClassLoaderContext(Callable<V> task, ClassLoader cl) {
+    public static <V> V runInClassLoaderContext(WMCallable<V> executable, ClassLoader cl) {
+        return runInClassLoaderContext(executable, null, cl);
+    }
+
+    public static <V> V runInClassLoaderContext(WMCallable<V> executable, Runnable finalizerTask, ClassLoader cl) {
         ClassLoader c = Thread.currentThread().getContextClassLoader();
         try {
             Thread.currentThread().setContextClassLoader(cl);
-            return task.call();
-        } catch (Exception e) {
-            if (e instanceof RuntimeException) {
-                throw (RuntimeException) e;
-            }
-            throw new IllegalStateException(e);
+            return executable.call();
         } finally {
-            Thread.currentThread().setContextClassLoader(c);
+            try {
+                if (finalizerTask != null) {
+                    finalizerTask.run();
+                }
+            } catch (Exception e) {
+                logger.warn("Failed to execute finalizer task", e);
+            } finally {
+                Thread.currentThread().setContextClassLoader(c);
+            }
         }
     }
 
-    private static Callable<Object> asCallable(final Runnable runnable) {
-        return new Callable<Object>() {
+    private static WMCallable<Object> asCallable(final Runnable runnable) {
+        return new WMCallable<Object>() {
 
             @Override
-            public Object call() throws Exception {
+            public Object call() {
                 runnable.run();
                 return null;
             }
