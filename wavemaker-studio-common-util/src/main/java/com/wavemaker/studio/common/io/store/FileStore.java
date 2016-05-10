@@ -44,6 +44,14 @@ public interface FileStore extends ResourceStore {
     OutputStream getOutputStream();
 
     /**
+     * @param append if <code>true</code>, open the file OutputStream in append mode, otherwise as new file
+     * Access the file content as an output stream.
+     *
+     * @return an output stream to write content
+     */
+    OutputStream getOutputStream(boolean append);
+
+    /**
      * Return the size of the file.
      * 
      * @return the file size

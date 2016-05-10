@@ -43,6 +43,12 @@ public abstract class AbstractReadOnlyFile implements File {
         }
 
         @Override
+        public OutputStream asOutputStream(boolean append) {
+            throw newReadOnlyResourceException();
+        }
+
+
+        @Override
         public InputStream asInputStream() {
             InputStream inputStream = getInputStream();
             if (inputStream == null) {

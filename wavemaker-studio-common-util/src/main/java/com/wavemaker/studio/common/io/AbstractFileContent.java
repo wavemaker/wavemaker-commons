@@ -89,9 +89,17 @@ public abstract class AbstractFileContent implements FileContent {
     public abstract OutputStream asOutputStream();
 
     @Override
+    public abstract OutputStream asOutputStream(boolean append);
+
+    @Override
     public Writer asWriter() throws ResourceException {
+        return asWriter(false);
+    }
+
+    @Override
+    public Writer asWriter(boolean append) throws ResourceException {
         try {
-            return new OutputStreamWriter(asOutputStream(), CommonConstants.UTF8);
+            return new OutputStreamWriter(asOutputStream(append), CommonConstants.UTF8);
         } catch (UnsupportedEncodingException e) {
             throw new ResourceException(e);
         }

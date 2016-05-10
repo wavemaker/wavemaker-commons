@@ -15,12 +15,6 @@
  */
 package com.wavemaker.studio.common.io;
 
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertThat;
-import static org.mockito.Mockito.spy;
-import static org.mockito.Mockito.verify;
-
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
@@ -34,6 +28,8 @@ import org.hamcrest.Matchers;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
+
+import static org.junit.Assert.assertThat;
 
 /**
  * Tests for {@link AbstractFileContent}.
@@ -58,6 +54,11 @@ public class AbstFileContentTest {
 
             @Override
             public OutputStream asOutputStream() {
+                return AbstFileContentTest.this.outputStream;
+            }
+
+            @Override
+            public OutputStream asOutputStream(boolean append) {
                 return AbstFileContentTest.this.outputStream;
             }
 

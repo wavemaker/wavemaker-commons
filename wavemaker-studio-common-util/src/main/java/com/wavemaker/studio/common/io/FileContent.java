@@ -92,12 +92,30 @@ public interface FileContent {
     OutputStream asOutputStream();
 
     /**
+     * @param append if <code>true</code>, open the file OutputStream in append mode, otherwise as new file
+     * Return an {@link OutputStream} that can be used to write file contents. The output stream should be closed by the
+     * caller. When possible, consider using the {@link #write(InputStream)} method instead to ensure that streams are
+     * closed.
+     *
+     * @return The output stream
+     */
+    OutputStream asOutputStream(boolean append);
+
+    /**
      * Return a {@link Writer} that can be used to write file contents. The writer should be closed by the caller. When
      * possible, consider using the {@link #write(Reader)} method instead to ensure that streams are closed.
      * 
      * @return The writer
      */
     Writer asWriter() throws ResourceException;
+
+    /**
+     * @param append if <code>true</code>, open the file Writer in append mode, otherwise as new file
+     * Return a {@link Writer} that can be used to write file contents with append mode. The writer should be closed by
+     * the caller. When possible, consider using the {@link #write(Reader)} method instead to ensure that streams are closed.
+     * @return The writer
+     */
+    Writer asWriter(boolean append) throws ResourceException;
 
     /**
      * Write the contents of the specified file to this file.

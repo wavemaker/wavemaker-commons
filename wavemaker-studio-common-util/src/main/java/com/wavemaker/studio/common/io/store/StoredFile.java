@@ -137,8 +137,13 @@ public abstract class StoredFile extends StoredResource implements File {
 
         @Override
         public OutputStream asOutputStream() {
+            return asOutputStream(false);
+        }
+
+        @Override
+        public OutputStream asOutputStream(boolean append) {
             createParentIfMissing();
-            return getStore().getOutputStream();
+            return getStore().getOutputStream(append);
         }
 
         @Override

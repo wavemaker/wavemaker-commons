@@ -183,8 +183,13 @@ abstract class LocalResourceStore implements ResourceStore {
 
         @Override
         public OutputStream getOutputStream() {
+            return getOutputStream(false);
+        }
+
+        @Override
+        public OutputStream getOutputStream(boolean append) {
             try {
-                return new FileOutputStream(getFile(), false);
+                return new FileOutputStream(getFile(), append);
             } catch (FileNotFoundException e) {
                 throw new ResourceException(e);
             }
