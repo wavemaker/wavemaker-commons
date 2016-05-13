@@ -20,7 +20,6 @@ import java.util.Map;
 import java.util.Objects;
 
 import com.wavemaker.studio.common.SwaggerException;
-import com.wavemaker.studio.common.util.TypeConversionUtils;
 import com.wavemaker.tools.apidocs.tools.core.model.Operation;
 import com.wavemaker.tools.apidocs.tools.core.model.Path;
 import com.wavemaker.tools.apidocs.tools.core.model.Swagger;
@@ -253,15 +252,7 @@ public class SwaggerDocUtil {
         } else {
             fullyQualifiedType = ((AbstractParameter) parameter).getFullyQualifiedType();
         }
-        Class<?> type = null;
-        if (fullyQualifiedType != null) {
-            type = TypeConversionUtils.primitiveForName(fullyQualifiedType);
-        }
-        if (type == null) {
-            type = TypeConversionUtils.primitiveWrapperClassByName(fullyQualifiedType);
-        }
-        type = (type == null) ? String.class : type;
-        return type.getCanonicalName();
+        return (fullyQualifiedType == null) ? String.class.getSimpleName() : fullyQualifiedType;
     }
 
 }

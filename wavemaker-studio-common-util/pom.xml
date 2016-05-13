@@ -31,6 +31,7 @@
 
         <fasterxml.json.version>2.6.3</fasterxml.json.version>
         <wm.jackson.databind.version>2.6.3.wm-1</wm.jackson.databind.version>
+        <json.version>20090211</json.version>
 
         <joda-time.version>2.3</joda-time.version>
         <jadira-usertype.version>2.0.1</jadira-usertype.version>
@@ -106,6 +107,11 @@
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
             <version>${wm.jackson.databind.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+            <version>${json.version}</version>
         </dependency>
         <dependency>
             <groupId>org.hibernate</groupId>

@@ -21,7 +21,7 @@ public class ServiceDefinition {
     private WMServiceOperationInfo wmServiceOperationInfo;
 
     @JsonIgnore
-    public static synchronized ServiceDefinition getNewInstance() {
+    public static ServiceDefinition getNewInstance() {
         return new ServiceDefinition();
     }
 
@@ -103,4 +103,22 @@ public class ServiceDefinition {
         return this;
     }
 
+    @Override
+    public boolean equals(final Object o) {
+        if (this == o) return true;
+        if (!(o instanceof ServiceDefinition)) return false;
+
+        final ServiceDefinition that = (ServiceDefinition) o;
+
+        if(id == null || that.getId() == null) return false;
+
+        if (!id.equals(that.id)) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        return id.hashCode();
+    }
 }
