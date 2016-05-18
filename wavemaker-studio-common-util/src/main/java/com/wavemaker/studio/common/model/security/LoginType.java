@@ -17,7 +17,8 @@ package com.wavemaker.studio.common.model.security;
 
 public enum LoginType {
     DIALOG("dialog"),
-    PAGE("page");
+    PAGE("page"),
+    SSO("sso"); // FOR CAS
 
     private String name;
 
