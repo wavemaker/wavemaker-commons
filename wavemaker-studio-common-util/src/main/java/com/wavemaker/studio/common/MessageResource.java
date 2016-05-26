@@ -232,6 +232,9 @@ public class MessageResource {
     @ResourceConstraint(numArgs = 1, hasDetailMsg = false)
     public static final MessageResource UPDATE_DB_FAILED = new MessageResource("com.wavemaker.studio.core.data.helpers.SchemaUpdater$updateDBFailed");
 
+    @ResourceConstraint(numArgs = 0, hasDetailMsg = false)
+    public static final MessageResource RELATION_WITH_IDENTITY_COLUMN_NOT_POSSIBLE = new MessageResource("com.wavemaker.runtime.data$RelationWithIdentityColumnNotPossible");
+
     private static final Map<MessageResource, ResourceConstraint> annotations = new HashMap<MessageResource, ResourceConstraint>();
 
     static {
