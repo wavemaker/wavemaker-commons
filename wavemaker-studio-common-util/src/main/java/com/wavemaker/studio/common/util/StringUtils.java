@@ -15,13 +15,17 @@
  */
 package com.wavemaker.studio.common.util;
 
-import org.apache.commons.lang3.math.NumberUtils;
-
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.nio.charset.Charset;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
+
+import org.apache.commons.lang3.math.NumberUtils;
 
 /**
  * @author Simon Toens
@@ -110,24 +114,24 @@ public abstract class StringUtils {
      * @return java field identifier
      */
     public static String toFieldName(String inputString) {
-        if (inputString == null || inputString.length() == 0) {
+        if (inputString == null || inputString.isEmpty()) {
             return inputString;
         }
       
         String result = ""; 
         char firstChar = inputString.charAt(0);
         char firstCharToUpperCase = Character.toLowerCase(firstChar);
-        result = result + firstCharToUpperCase;
+        result += firstCharToUpperCase;
         for (int i = 1; i < inputString.length(); i++) {
             char currentChar = inputString.charAt(i);
             if(currentChar != '_') {
                 char previousChar = inputString.charAt(i - 1);
                 if (previousChar == '_') {
                     char currentCharToUpperCase = Character.toUpperCase(currentChar);
-                    result = result + currentCharToUpperCase;
+                    result += currentCharToUpperCase;
                 } else {
                     char currentCharToLowerCase = Character.toLowerCase(currentChar);
-                    result = result + currentCharToLowerCase;
+                    result += currentCharToLowerCase;
                 }
             }
         }
@@ -160,7 +164,7 @@ public abstract class StringUtils {
         }
 
         String unquoted = unquote(s);
-        if (unquoted.length() > 0) {
+        if (!unquoted.isEmpty()) {
             s = unquoted;
         }
 
@@ -168,7 +172,7 @@ public abstract class StringUtils {
         // because of inner class confusion
         s = s.replace("$", "");
 
-        if (s.length() == 0) {
+        if (s.isEmpty()) {
             s = "" + replacementChar;
         }
 
