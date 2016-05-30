@@ -419,7 +419,7 @@ public abstract class IOUtils {
 
     public static String toString(InputStream is) {
         try {
-            return org.apache.commons.io.IOUtils.toString(is);
+            return org.apache.commons.io.IOUtils.toString(is, "UTF-8");
         } catch (IOException e) {
             throw new WMRuntimeException("Failed to get string from input stream", e);
         } finally {
