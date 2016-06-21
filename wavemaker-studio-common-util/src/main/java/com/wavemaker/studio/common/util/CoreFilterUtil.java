@@ -1,6 +1,7 @@
 package com.wavemaker.studio.common.util;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.StringTokenizer;
 
 import javax.servlet.http.HttpServletRequest;
@@ -26,7 +27,7 @@ public class CoreFilterUtil {
         return  excludedUrlsList;
     }
 
-    public static boolean isExcluded(HttpServletRequest request, ArrayList<URLPattern> excludedUrls)
+    public static boolean isExcluded(HttpServletRequest request, List<URLPattern> excludedUrls)
     {
         if(excludedUrls != null && !excludedUrls.isEmpty()) {
             String requestUri = request.getRequestURI();
