@@ -12,7 +12,7 @@ public class WMServiceOperationInfo {
 
     private String name;
     private String methodType;
-    private String relativePath;
+    private String path;
     private String httpMethod;
     private List<Parameter> parameters;
     private List<String> produces;
@@ -24,16 +24,16 @@ public class WMServiceOperationInfo {
         return new WMServiceOperationInfo();
     }
 
-    public String getRelativePath() {
-        return relativePath;
+    public String getPath() {
+        return path;
     }
 
-    public void setRelativePath(String relativePath) {
-        this.relativePath = relativePath;
+    public void setPath(String path) {
+        this.path = path;
     }
 
-    public WMServiceOperationInfo addRelativePath(String relativePath) {
-        this.relativePath = relativePath;
+    public WMServiceOperationInfo addPath(String path) {
+        this.path = path;
         return this;
     }
 
@@ -131,7 +131,7 @@ public class WMServiceOperationInfo {
     @Override
     public String toString() {
         return "WMServiceOperationInfo{" +
-                "relativePath='" + relativePath + '\'' +
+                "path='" + path + '\'' +
                 ", methodType='" + methodType + '\'' +
                 ", httpMethod='" + httpMethod + '\'' +
                 ", name='" + name + '\'' +

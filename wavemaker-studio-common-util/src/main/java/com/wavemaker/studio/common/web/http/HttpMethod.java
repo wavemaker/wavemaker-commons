@@ -19,11 +19,23 @@ package com.wavemaker.studio.common.web.http;
  * Created by nileshk on 12/1/15.
  */
 public enum HttpMethod {
-    GET,
-    POST,
-    PUT,
-    DELETE,
-    HEAD,
-    OPTIONS,
-    TRACE
+    GET(false),
+    POST(true),
+    PUT(true),
+    DELETE(true),
+    HEAD(false),
+    OPTIONS(true),
+    TRACE(true);
+
+    private boolean requestBodySupported;
+
+    HttpMethod(boolean requestBodySupported) {
+        this.requestBodySupported = requestBodySupported;
+    }
+
+    public boolean isRequestBodySupported() {
+        return requestBodySupported;
+    }
+
+
 }
