@@ -94,6 +94,9 @@ public class MessageResource {
     @ResourceConstraint(numArgs = 1, hasDetailMsg = false)
     public static final MessageResource MESSAGE_NOT_READABLE = new MessageResource("com.wavemaker.studio.json$MessageNotReadable");
 
+    @ResourceConstraint(numArgs = 1, hasDetailMsg = false)
+    public static final MessageResource ACCESS_DENIED = new MessageResource("com.wavemaker.studio.json$AccessDenied");
+
     // input: service type
     @ResourceConstraint(numArgs = 1, hasDetailMsg = false)
     public static final MessageResource UNKNOWN_SERVICE_TYPE = new MessageResource("com.wavemaker.runtime.service$UnknownServiceType");
