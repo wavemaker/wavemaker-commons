@@ -158,6 +158,10 @@ public abstract class StringUtils {
     }
 
     public static String toJavaIdentifier(String s, char replacementChar) {
+        return toJavaIdentifier(s, String.valueOf(replacementChar), replacementChar);
+    }
+
+    public static String toJavaIdentifier(String s, CharSequence prefixReplacementChar, char replacementChar) {
 
         if (ObjectUtils.isNullOrEmpty(s)) {
             throw new IllegalArgumentException("input cannot be null or empty");
@@ -179,7 +183,7 @@ public abstract class StringUtils {
         StringBuilder rtn = new StringBuilder();
 
         if (JAVA_KEYWORDS.contains(s.toLowerCase()) || !Character.isJavaIdentifierStart(s.charAt(0))) {
-            rtn.append(replacementChar);
+            rtn.append(prefixReplacementChar);
         }
 
         if (s.length() == 1) {
