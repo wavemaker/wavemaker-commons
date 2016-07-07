@@ -13,6 +13,9 @@ public class XSSConfig {
     private String policyFile;
     private XSSFilterStrategy xssFilterStrategy;
 
+    public XSSConfig() {
+    }
+
     public boolean isEnforceXssSecurity() {
         return enforceXssSecurity;
     }
