@@ -12,7 +12,10 @@ public class WMServiceOperationInfo {
 
     private String name;
     private String methodType;
-    private String path;
+    private String relativePath;
+    private String directPath;
+    private boolean useProxyForWeb;
+    private boolean useProxyForMobile;
     private String httpMethod;
     private List<Parameter> parameters;
     private List<String> produces;
@@ -24,18 +27,6 @@ public class WMServiceOperationInfo {
         return new WMServiceOperationInfo();
     }
 
-    public String getPath() {
-        return path;
-    }
-
-    public void setPath(String path) {
-        this.path = path;
-    }
-
-    public WMServiceOperationInfo addPath(String path) {
-        this.path = path;
-        return this;
-    }
 
     public String getHttpMethod() {
         return httpMethod;
@@ -47,6 +38,58 @@ public class WMServiceOperationInfo {
 
     public WMServiceOperationInfo addHttpMethod(String httpMethod) {
         this.httpMethod = httpMethod;
+        return this;
+    }
+
+    public String getRelativePath() {
+        return relativePath;
+    }
+
+    public void setRelativePath(final String relativePath) {
+        this.relativePath = relativePath;
+    }
+
+    public WMServiceOperationInfo addRelativePath(String relativePath) {
+        this.relativePath = relativePath;
+        return this;
+    }
+
+    public String getDirectPath() {
+        return directPath;
+    }
+
+    public void setDirectPath(final String directPath) {
+        this.directPath = directPath;
+    }
+
+    public WMServiceOperationInfo addDirectPath(String directPath) {
+        this.directPath = directPath;
+        return this;
+    }
+
+    public boolean isUseProxyForWeb() {
+        return useProxyForWeb;
+    }
+
+    public void setUseProxyForWeb(final boolean useProxyForWeb) {
+        this.useProxyForWeb = useProxyForWeb;
+    }
+
+    public WMServiceOperationInfo addUseProxyForWeb(boolean useProxyForWeb) {
+        this.useProxyForWeb = useProxyForWeb;
+        return this;
+    }
+
+    public boolean isUseProxyForMobile() {
+        return useProxyForMobile;
+    }
+
+    public void setUseProxyForMobile(final boolean useProxyForMobile) {
+        this.useProxyForMobile = useProxyForMobile;
+    }
+
+    public WMServiceOperationInfo addUseProxyForMobile(boolean useProxyForMobile) {
+        this.useProxyForMobile = useProxyForMobile;
         return this;
     }
 
@@ -131,14 +174,17 @@ public class WMServiceOperationInfo {
     @Override
     public String toString() {
         return "WMServiceOperationInfo{" +
-                "path='" + path + '\'' +
+                "name='" + name + '\'' +
                 ", methodType='" + methodType + '\'' +
+                ", relativePath='" + relativePath + '\'' +
+                ", directPath='" + directPath + '\'' +
+                ", useProxyForWeb=" + useProxyForWeb +
+                ", useProxyForMobile=" + useProxyForMobile +
                 ", httpMethod='" + httpMethod + '\'' +
-                ", name='" + name + '\'' +
-                ", authorization='" + authorization + '\'' +
+                ", parameters=" + parameters +
                 ", produces=" + produces +
                 ", consumes=" + consumes +
-                ", parameters=" + parameters +
+                ", authorization='" + authorization + '\'' +
                 '}';
     }
 }
