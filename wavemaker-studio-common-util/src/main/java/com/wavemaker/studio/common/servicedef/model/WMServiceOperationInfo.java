@@ -14,13 +14,12 @@ public class WMServiceOperationInfo {
     private String methodType;
     private String relativePath;
     private String directPath;
-    private boolean useProxyForWeb;
-    private boolean useProxyForMobile;
     private String httpMethod;
     private List<Parameter> parameters;
     private List<String> produces;
     private List<String> consumes;
     private String authorization;
+    private ProxySettings proxySettings;
 
     @JsonIgnore
     public static synchronized WMServiceOperationInfo getNewInstance() {
@@ -64,32 +63,6 @@ public class WMServiceOperationInfo {
 
     public WMServiceOperationInfo addDirectPath(String directPath) {
         this.directPath = directPath;
-        return this;
-    }
-
-    public boolean isUseProxyForWeb() {
-        return useProxyForWeb;
-    }
-
-    public void setUseProxyForWeb(final boolean useProxyForWeb) {
-        this.useProxyForWeb = useProxyForWeb;
-    }
-
-    public WMServiceOperationInfo addUseProxyForWeb(boolean useProxyForWeb) {
-        this.useProxyForWeb = useProxyForWeb;
-        return this;
-    }
-
-    public boolean isUseProxyForMobile() {
-        return useProxyForMobile;
-    }
-
-    public void setUseProxyForMobile(final boolean useProxyForMobile) {
-        this.useProxyForMobile = useProxyForMobile;
-    }
-
-    public WMServiceOperationInfo addUseProxyForMobile(boolean useProxyForMobile) {
-        this.useProxyForMobile = useProxyForMobile;
         return this;
     }
 
@@ -171,6 +144,19 @@ public class WMServiceOperationInfo {
         return this;
     }
 
+    public ProxySettings getProxySettings() {
+        return proxySettings;
+    }
+
+    public void setProxySettings(ProxySettings proxySettings) {
+        this.proxySettings = proxySettings;
+    }
+
+    public WMServiceOperationInfo addProxySettings(ProxySettings proxySettings) {
+        this.setProxySettings(proxySettings);
+        return this;
+    }
+
     @Override
     public String toString() {
         return "WMServiceOperationInfo{" +
@@ -178,8 +164,7 @@ public class WMServiceOperationInfo {
                 ", methodType='" + methodType + '\'' +
                 ", relativePath='" + relativePath + '\'' +
                 ", directPath='" + directPath + '\'' +
-                ", useProxyForWeb=" + useProxyForWeb +
-                ", useProxyForMobile=" + useProxyForMobile +
+                ", proxySettings=" + proxySettings +
                 ", httpMethod='" + httpMethod + '\'' +
                 ", parameters=" + parameters +
                 ", produces=" + produces +
