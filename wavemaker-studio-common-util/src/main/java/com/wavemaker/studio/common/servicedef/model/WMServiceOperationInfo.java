@@ -19,7 +19,7 @@ public class WMServiceOperationInfo {
     private List<String> produces;
     private List<String> consumes;
     private String authorization;
-    private ProxySettings proxySettings;
+    private RuntimeProxySettings proxySettings;
 
     @JsonIgnore
     public static synchronized WMServiceOperationInfo getNewInstance() {
@@ -144,15 +144,15 @@ public class WMServiceOperationInfo {
         return this;
     }
 
-    public ProxySettings getProxySettings() {
+    public RuntimeProxySettings getProxySettings() {
         return proxySettings;
     }
 
-    public void setProxySettings(ProxySettings proxySettings) {
+    public void setProxySettings(RuntimeProxySettings proxySettings) {
         this.proxySettings = proxySettings;
     }
 
-    public WMServiceOperationInfo addProxySettings(ProxySettings proxySettings) {
+    public WMServiceOperationInfo addProxySettings(RuntimeProxySettings proxySettings) {
         this.setProxySettings(proxySettings);
         return this;
     }

@@ -3,15 +3,15 @@ package com.wavemaker.studio.common.servicedef.model;
 /**
  * Created by kishorer on 26/7/16.
  */
-public class ProxySettings {
+public class RuntimeProxySettings {
 
     private boolean web;
     private boolean mobile;
 
-    public ProxySettings() {
+    public RuntimeProxySettings() {
     }
 
-    public ProxySettings(boolean web, boolean mobile) {
+    public RuntimeProxySettings(boolean web, boolean mobile) {
         this.web = web;
         this.mobile = mobile;
     }
