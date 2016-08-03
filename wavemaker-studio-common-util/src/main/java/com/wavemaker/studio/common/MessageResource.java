@@ -238,7 +238,15 @@ public class MessageResource {
     @ResourceConstraint(numArgs = 0, hasDetailMsg = false)
     public static final MessageResource RELATION_WITH_IDENTITY_COLUMN_NOT_POSSIBLE = new MessageResource("com.wavemaker.runtime.data$RelationWithIdentityColumnNotPossible");
 
-    private static final Map<MessageResource, ResourceConstraint> annotations = new HashMap<MessageResource, ResourceConstraint>();
+    @ResourceConstraint(numArgs = 0, hasDetailMsg = false)
+    public static final MessageResource UNIQUE_KEY_FOR_PRIMARY_KEY = new MessageResource(
+            "com.wavemaker.runtime.data$UniqueKeyForPrimaryKey");
+
+    @ResourceConstraint(numArgs = 1, hasDetailMsg = false)
+    public static final MessageResource DUPLICATE_CONSTRAINT = new MessageResource(
+            "com.wavemaker.runtime.data$DuplicateConstraint");
+
+    private static final Map<MessageResource, ResourceConstraint> annotations = new HashMap<>();
 
     static {
         List<Field> fields = ClassUtils.getPublicFields(MessageResource.class, MessageResource.class);
