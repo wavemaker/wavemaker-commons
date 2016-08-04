@@ -2,12 +2,13 @@ package com.wavemaker.studio.common.model.security;
 
 import java.util.regex.Pattern;
 
+
 /**
  * Created by kishorer on 6/7/16.
  */
 public class XSSConfig {
 
-    private Pattern allowedMethods = Pattern.compile("^(GET|HEAD|TRACE|OPTION)$");
+    private static final Pattern allowedMethods = Pattern.compile("^(GET|HEAD|TRACE|OPTION)$");
 
     private boolean enforceXssSecurity;
     private String policyFile;
