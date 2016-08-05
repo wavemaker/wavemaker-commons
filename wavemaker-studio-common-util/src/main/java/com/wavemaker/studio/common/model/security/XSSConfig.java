@@ -8,7 +8,7 @@ import java.util.regex.Pattern;
  */
 public class XSSConfig {
 
-    private static final Pattern allowedMethods = Pattern.compile("^(GET|HEAD|TRACE|OPTION)$");
+    public static final Pattern ALLOWED_METHODS = Pattern.compile("^(GET|HEAD|TRACE|OPTION)$");
 
     private boolean enforceXssSecurity;
     private String policyFile;
@@ -33,10 +33,6 @@ public class XSSConfig {
         this.policyFile = policyFile;
     }
 
-    public Pattern getAllowedMethods() {
-        return allowedMethods;
-    }
-
     public XSSFilterStrategy getXssFilterStrategy() {
         return xssFilterStrategy;
     }
@@ -48,8 +44,7 @@ public class XSSConfig {
     @Override
     public String toString() {
         return "XSSConfig{" +
-                "allowedMethods=" + allowedMethods +
-                ", enforceXssSecurity=" + enforceXssSecurity +
+                " enforceXssSecurity=" + enforceXssSecurity +
                 ", policyFile='" + policyFile + '\'' +
                 ", xssFilterStrategy=" + xssFilterStrategy +
                 '}';
