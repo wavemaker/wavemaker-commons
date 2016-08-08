@@ -4,12 +4,13 @@ import java.io.*;
 import java.util.Enumeration;
 import java.util.Properties;
 
-import org.apache.commons.configuration.ConfigurationException;
-import org.apache.commons.configuration.PropertiesConfiguration;
-import org.apache.commons.lang.StringUtils;
+
 
 import com.wavemaker.studio.common.WMRuntimeException;
 import com.wavemaker.studio.common.util.IOUtils;
+import org.apache.commons.configuration2.PropertiesConfiguration;
+import org.apache.commons.configuration2.ex.ConfigurationException;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * @author <a href="mailto:sunil.pulugula@wavemaker.com">Sunil Kumar</a>
@@ -131,7 +132,8 @@ public class PropertiesWriter {
             configuration.setProperty(key, properties.getProperty(key));
         }
         try {
-            configuration.save(os);
+            configuration.getLayout().save(configuration, new OutputStreamWriter(os));
+
         } catch (ConfigurationException e) {
             throw new WMRuntimeException("Unable to write properties to output stream", e);
         } finally {

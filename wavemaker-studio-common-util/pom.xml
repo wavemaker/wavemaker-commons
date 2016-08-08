@@ -17,17 +17,17 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-        <slf4j.version>1.7.12</slf4j.version>
+        <slf4j.version>1.7.21</slf4j.version>
 
         <spring.version>4.2.0.RELEASE</spring.version>
         <spring.security.version>3.2.3.RELEASE</spring.security.version>
 
         <hibernate.version>4.3.11.Final</hibernate.version>
 
-        <commons.io.version>2.4</commons.io.version>
+        <commons.io.version>2.5</commons.io.version>
         <commons.codec.version>1.10</commons.codec.version>
         <commons.lang3.version>3.4</commons.lang3.version>
-        <commons.properties.version>1.7</commons.properties.version>
+        <commons.configuration2.version>2.0</commons.configuration2.version>
 
         <fasterxml.json.version>2.6.3</fasterxml.json.version>
         <wm.jackson.databind.version>2.6.3.wm-1</wm.jackson.databind.version>
@@ -36,7 +36,7 @@
         <joda-time.version>2.3</joda-time.version>
         <jadira-usertype.version>2.0.1</jadira-usertype.version>
 
-        <gson.version>2.2.4</gson.version>
+
 
         <servlet.version>2.5</servlet.version>
         <jaxb.impl.version>2.2.5.1</jaxb.impl.version>
@@ -76,9 +76,9 @@
             <version>${commons.lang3.version}</version>
         </dependency>
         <dependency>
-            <groupId>commons-configuration</groupId>
-            <artifactId>commons-configuration</artifactId>
-            <version>${commons.properties.version}</version>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-configuration2</artifactId>
+            <version>${commons.configuration2.version}</version>
         </dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -117,6 +117,12 @@
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-core</artifactId>
             <version>${hibernate.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.jboss.spec.javax.transaction</groupId>
+                    <artifactId>jboss-transaction-api_1.2_spec</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.jadira.usertype</groupId>
@@ -129,11 +135,7 @@
             <version>${joda-time.version}</version>
         </dependency>
 
-        <dependency>
-            <groupId>com.google.code.gson</groupId>
-            <artifactId>gson</artifactId>
-            <version>${gson.version}</version>
-        </dependency>
+
 
         <!-- Test Dependencies -->
         <dependency>

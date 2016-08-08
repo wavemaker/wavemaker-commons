@@ -8,10 +8,10 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 
-import com.google.gson.Gson;
 import com.wavemaker.studio.common.MessageResource;
 import com.wavemaker.studio.common.core.web.rest.ErrorResponse;
 import com.wavemaker.studio.common.core.web.rest.ErrorResponses;
+import com.wavemaker.studio.common.json.JSONUtils;
 
 /**
  * @author <a href="mailto:sunil.pulugula@wavemaker.com">Sunil Kumar</a>
@@ -38,7 +38,7 @@ public class HttpRequestUtils {
 
         response.setStatus(responseCode);
         response.setContentType("application/json");
-        response.getWriter().write(new Gson().toJson(errorMap));
+        response.getWriter().write(JSONUtils.toJSON(errorMap));
     }
 
     private static ErrorResponse getErrorResponse(String message) {
