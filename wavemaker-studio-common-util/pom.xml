@@ -36,7 +36,7 @@
         <joda-time.version>2.3</joda-time.version>
         <jadira-usertype.version>2.0.1</jadira-usertype.version>
 
-
+        <gson.version>2.2.4</gson.version>
 
         <servlet.version>2.5</servlet.version>
         <jaxb.impl.version>2.2.5.1</jaxb.impl.version>
@@ -135,7 +135,11 @@
             <version>${joda-time.version}</version>
         </dependency>
 
-
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>${gson.version}</version>
+        </dependency>
 
         <!-- Test Dependencies -->
         <dependency>
