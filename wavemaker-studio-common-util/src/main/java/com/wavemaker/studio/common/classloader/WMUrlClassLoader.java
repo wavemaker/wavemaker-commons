@@ -22,9 +22,13 @@ public class WMUrlClassLoader extends URLClassLoader {
     private String loaderContext;
 
 
-    public WMUrlClassLoader(URL[] urls, String loaderContext) {
-        super(urls, Thread.currentThread().getContextClassLoader());
+    public WMUrlClassLoader(URL[] urls, String loaderContext, ClassLoader parent) {
+        super(urls, parent);
         this.loaderContext = loaderContext;
+    }
+
+    public WMUrlClassLoader(URL[] urls, String loaderContext) {
+        this(urls, loaderContext, Thread.currentThread().getContextClassLoader());
     }
 
     @Override
