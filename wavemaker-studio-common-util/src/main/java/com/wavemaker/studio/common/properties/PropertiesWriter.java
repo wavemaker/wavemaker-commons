@@ -1,16 +1,21 @@
 package com.wavemaker.studio.common.properties;
 
-import java.io.*;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.util.Enumeration;
 import java.util.Properties;
 
-
-
-import com.wavemaker.studio.common.WMRuntimeException;
-import com.wavemaker.studio.common.util.IOUtils;
 import org.apache.commons.configuration2.PropertiesConfiguration;
 import org.apache.commons.configuration2.ex.ConfigurationException;
 import org.apache.commons.lang3.StringUtils;
+
+import com.wavemaker.studio.common.WMRuntimeException;
+import com.wavemaker.studio.common.util.IOUtils;
 
 /**
  * @author <a href="mailto:sunil.pulugula@wavemaker.com">Sunil Kumar</a>
@@ -129,7 +134,7 @@ public class PropertiesWriter {
                 configuration.getLayout().setComment(key, comments);
                 canComment = false;
             }
-            configuration.setProperty(key, properties.getProperty(key));
+            configuration.setProperty(key, properties.get(key));
         }
         try {
             configuration.getLayout().save(configuration, new OutputStreamWriter(os));
