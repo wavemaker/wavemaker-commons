@@ -35,6 +35,7 @@ import org.joda.time.LocalDateTime;
 
 import com.wavemaker.studio.common.json.deserializer.WMDateDeSerializer;
 import com.wavemaker.studio.common.json.deserializer.WMLocalDateTimeDeSerializer;
+import com.wavemaker.studio.common.wrapper.*;
 
 /**
  * @author Simon Toens
@@ -52,6 +53,7 @@ public abstract class TypeConversionUtils {
      */
     private static final Collection<Class<?>> PRIMITIVE_WRAPPERS = new HashSet<>(11);
     private static final Map<String, Class<?>> PRIMITIVE_ARRAYS = new HashMap<>(11);
+    private static final Map<String, Class<?>> WM_PRIMITIVE_WRAPPERS = new HashMap<>(8);
 
     private static Set<String> PRIMITIVE_DATA_TYPES = new HashSet<String>();
 
@@ -66,6 +68,27 @@ public abstract class TypeConversionUtils {
         PRIMITIVES.put(int.class.getName(), int.class);
         PRIMITIVES.put(long.class.getName(), long.class);
         PRIMITIVES.put(short.class.getName(), short.class);
+
+        WM_PRIMITIVE_WRAPPERS.put(boolean.class.getName(), BooleanWrapper.class);
+        WM_PRIMITIVE_WRAPPERS.put(Boolean.class.getName(), BooleanWrapper.class);
+        WM_PRIMITIVE_WRAPPERS.put(byte.class.getName(), ByteWrapper.class);
+        WM_PRIMITIVE_WRAPPERS.put(Byte.class.getName(), ByteWrapper.class);
+        WM_PRIMITIVE_WRAPPERS.put(char.class.getName(), CharacterWrapper.class);
+        WM_PRIMITIVE_WRAPPERS.put(Character.class.getName(), CharacterWrapper.class);
+        WM_PRIMITIVE_WRAPPERS.put(double.class.getName(), DoubleWrapper.class);
+        WM_PRIMITIVE_WRAPPERS.put(Double.class.getName(), DoubleWrapper.class);
+        WM_PRIMITIVE_WRAPPERS.put(float.class.getName(), FloatWrapper.class);
+        WM_PRIMITIVE_WRAPPERS.put(Float.class.getName(), FloatWrapper.class);
+        WM_PRIMITIVE_WRAPPERS.put(int.class.getName(), IntegerWrapper.class);
+        WM_PRIMITIVE_WRAPPERS.put(Integer.class.getName(), IntegerWrapper.class);
+        WM_PRIMITIVE_WRAPPERS.put(long.class.getName(), LongWrapper.class);
+        WM_PRIMITIVE_WRAPPERS.put(Long.class.getName(), LongWrapper.class);
+        WM_PRIMITIVE_WRAPPERS.put(short.class.getName(), ShortWrapper.class);
+        WM_PRIMITIVE_WRAPPERS.put(Short.class.getName(), ShortWrapper.class);
+        WM_PRIMITIVE_WRAPPERS.put("String", StringWrapper.class);
+        WM_PRIMITIVE_WRAPPERS.put(String.class.getName(), StringWrapper.class);
+        WM_PRIMITIVE_WRAPPERS.put("Date", DateWrapper.class);
+        WM_PRIMITIVE_WRAPPERS.put(Date.class.getName(), DateWrapper.class);
 
         PRIMITIVE_ARRAYS.put(boolean[].class.getName(), boolean[].class);
         PRIMITIVE_ARRAYS.put(byte[].class.getName(), byte[].class);
@@ -195,6 +218,10 @@ public abstract class TypeConversionUtils {
             }
         }
         return null;
+    }
+
+    public static Class<?> wmPrimitiveWrapperClassByName(String className) {
+        return WM_PRIMITIVE_WRAPPERS.get(className);
     }
 
     public static boolean isPrimitiveOrEnum(Type type) {
