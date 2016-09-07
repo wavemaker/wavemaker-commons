@@ -5,7 +5,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *   http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -34,7 +34,8 @@ public abstract class StringUtils {
 
     public static final String JAVA_SRC_EXT = ".java";
 
-    private static final Collection<String> JAVA_KEYWORDS = new HashSet<>(50);
+    private static final Collection<String> JAVA_KEYWORDS = new HashSet<String>(50);
+
     static {
         JAVA_KEYWORDS.add("abstract");
         JAVA_KEYWORDS.add("assert");
@@ -109,7 +110,6 @@ public abstract class StringUtils {
      * user_id -> userId
      * USER_ID -> userId
      *
-     *
      * @param inputString string to convert
      * @return java field identifier
      */
@@ -124,7 +124,7 @@ public abstract class StringUtils {
         result += firstCharToUpperCase;
         for (int i = 1; i < inputString.length(); i++) {
             char currentChar = inputString.charAt(i);
-            if(currentChar != '_') {
+            if (currentChar != '_') {
                 char previousChar = inputString.charAt(i - 1);
                 if (previousChar == '_') {
                     char currentCharToUpperCase = Character.toUpperCase(currentChar);
@@ -162,6 +162,11 @@ public abstract class StringUtils {
     }
 
     public static String toJavaIdentifier(String s, CharSequence prefixReplacementChar, char replacementChar) {
+        return toJavaIdentifier(s, prefixReplacementChar, replacementChar, true);
+    }
+
+    public static String toJavaIdentifier(
+            String s, CharSequence prefixReplacementChar, char replacementChar, boolean checkKeyword) {
 
         if (ObjectUtils.isNullOrEmpty(s)) {
             throw new IllegalArgumentException("input cannot be null or empty");
@@ -182,7 +187,8 @@ public abstract class StringUtils {
 
         StringBuilder rtn = new StringBuilder();
 
-        if (isJavaKeyword(s) || !Character.isJavaIdentifierStart(s.charAt(0))) {
+        if ((checkKeyword && JAVA_KEYWORDS.contains(s.toLowerCase())) ||
+                !Character.isJavaIdentifierStart(s.charAt(0))) {
             rtn.append(prefixReplacementChar);
         }
 
@@ -204,10 +210,10 @@ public abstract class StringUtils {
 
         return rtn.toString();
     }
-
+  
     public static boolean isJavaKeyword(final String s) {
         return JAVA_KEYWORDS.contains(s.toLowerCase());
-    }
+    }  
 
     public static List<String> getItemsStartingWith(Collection<String> items, String prefix, boolean removePrefix) {
         List<String> rtn = new ArrayList<String>();
@@ -437,22 +443,23 @@ public abstract class StringUtils {
         if (s == null) {
             return null;
         }
-        if (s.startsWith("'") && s.endsWith("'") || s.startsWith("\"") && s.endsWith("\"") || s.startsWith("`") && s.endsWith("`")) {
+        if (s.startsWith("'") && s.endsWith("'") || s.startsWith("\"") && s.endsWith("\"") || s.startsWith("`") && s
+                .endsWith("`")) {
             s = s.substring(1, s.length() - 1);
         }
         return s;
     }
 
     /**
-     * Return a String with all occurrences of the "from" String within "original" replaced with the "to" String. If the
+     * Return a String with all occurrences of the "from" String within "original" replaced with the "to" String. If
+     * the
      * "original" string contains no occurrences of "from", "original" is itself returned, rather than a copy.
      *
      * @param original the original String
      * @param from the String to replace within "original"
      * @param to the String to replace "from" with
-     *
      * @returns a version of "original" with all occurrences of the "from" parameter being replaced with the "to"
-     *          parameter.
+     * parameter.
      */
     public static String replacePlainStr(String original, String from, String to) {
         int from_length = from.length();
