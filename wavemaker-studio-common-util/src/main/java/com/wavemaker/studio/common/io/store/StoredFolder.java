@@ -19,6 +19,7 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.util.Assert;
 
 import com.wavemaker.studio.common.io.AbstractResources;
@@ -195,6 +196,12 @@ public abstract class StoredFolder extends StoredResource implements Folder {
     public Folder jail() {
         JailedResourcePath jailedPath = new JailedResourcePath(getPath().getUnjailedPath(), new ResourcePath());
         return getStore().getFolder(jailedPath);
+    }
+
+    @Override
+    public boolean isRelativeTo(Folder folder) {
+        String relativePath = this.toStringRelativeTo(folder);
+        return StringUtils.isNotBlank(relativePath);
     }
 
     @Override
