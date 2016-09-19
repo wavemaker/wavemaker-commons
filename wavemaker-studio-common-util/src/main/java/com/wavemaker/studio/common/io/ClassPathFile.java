@@ -17,6 +17,7 @@ package com.wavemaker.studio.common.io;
 
 import java.io.InputStream;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.util.Assert;
 import org.springframework.util.ClassUtils;
 
@@ -78,6 +79,12 @@ public class ClassPathFile extends AbstractReadOnlyFile {
     public String toStringRelativeTo(Folder source) {
         Assert.notNull(source, "Source must not be null");
         return this.path.toStringRelativeTo(source.toString());
+    }
+
+    @Override
+    public boolean isRelativeTo(Folder folder) {
+        String relativePath = this.toStringRelativeTo(folder);
+        return StringUtils.isNotBlank(relativePath);
     }
 
     @Override

@@ -21,6 +21,8 @@ import com.wavemaker.studio.common.io.ResourceOperation;
 import com.wavemaker.studio.common.io.ResourceStringFormat;
 import com.wavemaker.studio.common.io.exception.ResourceDoesNotExistException;
 import com.wavemaker.studio.common.io.exception.ResourceExistsException;
+
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.core.GenericTypeResolver;
 import org.springframework.util.Assert;
 import org.springframework.util.ObjectUtils;
@@ -111,6 +113,12 @@ public abstract class StoredResource implements Resource {
     public String toStringRelativeTo(Folder source) {
         Assert.notNull(source, "Source must not be null");
         return getPath().getPath().toStringRelativeTo(source.toString());
+    }
+
+    @Override
+    public boolean isRelativeTo(Folder folder) {
+        String relativePath = this.toStringRelativeTo(folder);
+        return StringUtils.isNotBlank(relativePath);
     }
 
     @Override

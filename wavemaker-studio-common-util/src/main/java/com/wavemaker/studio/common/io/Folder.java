@@ -134,10 +134,4 @@ public interface Folder extends Resource, Iterable<Resource> {
      * @return a new jailed folder
      */
     Folder jail();
-
-    /**
-     * @param folder
-     * @return true if the given param folder is relative to comprising folder object, else return false
-     */
-    boolean isRelativeTo(Folder folder);
 }

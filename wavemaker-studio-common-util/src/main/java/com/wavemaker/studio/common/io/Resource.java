@@ -132,6 +132,12 @@ public interface Resource {
     String toStringRelativeTo(Folder source);
 
     /**
+     * @param folder
+     * @return true if the given param folder is relative to comprising folder object, else return false
+     */
+    boolean isRelativeTo(Folder folder);
+
+    /**
      * Determines if this resource is equal to another object. Any resources that have the same type, path and are
      * stored in the same underlying system are considered equal.
      * 
