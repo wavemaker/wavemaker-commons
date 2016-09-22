@@ -36,6 +36,9 @@ import com.wavemaker.tools.apidocs.tools.core.model.properties.PropertyBuilder;
  */
 public class SwaggerDocUtil {
 
+    public static final String FILE = "file";
+    public static final String ARRAY = "array";
+
     enum OperationType {
         get, post, delete, put, patch, options
     }
@@ -240,14 +243,15 @@ public class SwaggerDocUtil {
         return null;
     }
 
-
     public static String getParameterType(final Parameter parameter) {
         String fullyQualifiedType = null;
         //if parameter is Integer[] array or any array
         if (parameter instanceof FormParameter) {
             FormParameter formParameter = (FormParameter) parameter;
-            if (formParameter.getType().equals("array")) {
+            if (ARRAY.equals(formParameter.getType())) {
                 fullyQualifiedType = formParameter.getItems().getType();
+            } else if (FILE.equals(formParameter.getType())) {
+                fullyQualifiedType = formParameter.getType();
             }
         } else {
             fullyQualifiedType = ((AbstractParameter) parameter).getFullyQualifiedType();
