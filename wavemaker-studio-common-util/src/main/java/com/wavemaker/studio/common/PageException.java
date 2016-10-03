@@ -23,4 +23,10 @@ public class PageException extends WMRuntimeException {
     public PageException(MessageResource resource, Object... args) {
         super(resource, args);
     }
+
+    public PageException(String s) {
+        super(s);
+    }
+
+
 }
