@@ -28,15 +28,18 @@ public class OperationHandler {
 
     public String getFullyQualifiedReturnType() {
         Map<String, Response> response = operation.getResponses();
-        Response successResponse = response.get(SUCCESS_RESPONSE_CODE);
-        Property property = successResponse.getSchema();
-        if (property instanceof RefProperty) {
-            RefProperty refProperty = (RefProperty) property;
-            Model model = models.get(refProperty.getSimpleRef());
-            return ((AbstractModel) model).getFullyQualifiedName();
-        } else {
-            return property.getType();
+        if(response!=null) {
+            Response successResponse = response.get(SUCCESS_RESPONSE_CODE);
+            Property property = successResponse.getSchema();
+            if (property instanceof RefProperty) {
+                RefProperty refProperty = (RefProperty) property;
+                Model model = models.get(refProperty.getSimpleRef());
+                return ((AbstractModel) model).getFullyQualifiedName();
+            } else {
+                return property.getType();
+            }
         }
+        return null;
     }
 
     public List<String> getFullyQualifiedArgumentReturnType() {
