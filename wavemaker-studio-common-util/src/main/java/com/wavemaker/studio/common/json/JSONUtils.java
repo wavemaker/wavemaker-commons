@@ -5,7 +5,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *   http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -55,7 +55,8 @@ public class JSONUtils {
     }
 
     public static String toJSON(Object object, boolean prettify) throws IOException {
-        return prettify ? objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(object) : objectMapper.writeValueAsString(object);
+        return prettify ? objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(object) : objectMapper
+                .writeValueAsString(object);
     }
 
     public static void toJSON(File outputFile, Object object) throws IOException {
@@ -96,8 +97,12 @@ public class JSONUtils {
         return (T) objectMapper.readValue(file, javaType);
     }
 
-    public static <T> T toObject(String jsonString, TypeReference valueTypeRef) throws IOException {
-        return (T) objectMapper.readValue(jsonString, valueTypeRef);
+    public static <T> T toObject(String jsonString, TypeReference<T> valueTypeRef) throws IOException {
+        return objectMapper.readValue(jsonString, valueTypeRef);
+    }
+
+    public static <T> T toObject(InputStream inputStream, TypeReference<T> typeReference) throws IOException {
+        return objectMapper.readValue(inputStream, typeReference);
     }
 
     public static void registerModule(Module module) {
