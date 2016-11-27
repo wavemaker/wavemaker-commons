@@ -13,6 +13,7 @@ public class XSSConfig {
     private boolean enforceXssSecurity;
     private String policyFile;
     private XSSFilterStrategy xssFilterStrategy;
+    private XSSPolicyType policyType;
 
     public XSSConfig() {
     }
@@ -41,12 +42,21 @@ public class XSSConfig {
         this.xssFilterStrategy = xssFilterStrategy;
     }
 
+    public XSSPolicyType getPolicyType() {
+        return policyType;
+    }
+
+    public void setPolicyType(XSSPolicyType policyType) {
+        this.policyType = policyType;
+    }
+
     @Override
     public String toString() {
         return "XSSConfig{" +
-                " enforceXssSecurity=" + enforceXssSecurity +
+                "enforceXssSecurity=" + enforceXssSecurity +
                 ", policyFile='" + policyFile + '\'' +
                 ", xssFilterStrategy=" + xssFilterStrategy +
+                ", policyType=" + policyType +
                 '}';
     }
 }
