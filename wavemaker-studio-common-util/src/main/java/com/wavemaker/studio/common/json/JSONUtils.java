@@ -21,9 +21,8 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.JavaType;
-import com.fasterxml.jackson.databind.Module;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.*;
+import com.wavemaker.studio.common.util.IOUtils;
 
 /**
  * Created by venuj on 19-05-2014.
@@ -31,6 +30,16 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class JSONUtils {
 
     private static final ObjectMapper objectMapper = new ObjectMapper();
+
+    public static String prettifyJSON(String data) throws IOException {
+        JsonNode tree = objectMapper .readTree(data);
+        return objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(tree);
+    }
+
+    public static void prettifyJSON(String data, File outputFile) throws IOException {
+        String formattedJson = prettifyJSON(data);
+        IOUtils.write(outputFile,formattedJson);
+    }
 
     public static String toJSON(Object object) throws IOException {
         return toJSON(object, true);
