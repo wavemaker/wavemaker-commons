@@ -20,8 +20,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
+import org.apache.commons.lang3.StringUtils;
+
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.*;
+import com.wavemaker.studio.common.WMRuntimeException;
 import com.wavemaker.studio.common.util.IOUtils;
 
 /**
@@ -32,13 +35,19 @@ public class JSONUtils {
     private static final ObjectMapper objectMapper = new ObjectMapper();
 
     public static String prettifyJSON(String data) throws IOException {
-        JsonNode tree = objectMapper .readTree(data);
-        return objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(tree);
+        if (StringUtils.isNotBlank(data)) {
+            JsonNode tree = objectMapper.readTree(data);
+            return objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(tree);
+        }
+        return data;
     }
 
     public static void prettifyJSON(String data, File outputFile) throws IOException {
+        if (data == null) {
+            throw new WMRuntimeException("Can not prettify and persist null data");
+        }
         String formattedJson = prettifyJSON(data);
-        IOUtils.write(outputFile,formattedJson);
+        IOUtils.write(outputFile, formattedJson);
     }
 
     public static String toJSON(Object object) throws IOException {
