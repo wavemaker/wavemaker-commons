@@ -39,8 +39,16 @@ public abstract class SystemUtils {
         return rtn.toString();
     }
 
+    public static String encryptIfNotEncrypted(String s) {
+        return isEncrypted(s) ? s : encrypt(s);
+    }
+
     public static String decrypt(String s) {
         return decrypt(s, true);
+    }
+
+    public static String decryptIfEncrypted(String s) {
+        return isEncrypted(s) ? decrypt(s) : s;
     }
 
     private static String decrypt(String s, boolean removeMarkers) {
