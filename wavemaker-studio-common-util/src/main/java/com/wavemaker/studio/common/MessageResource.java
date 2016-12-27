@@ -246,6 +246,10 @@ public class MessageResource {
     public static final MessageResource DUPLICATE_CONSTRAINT = new MessageResource(
             "com.wavemaker.runtime.data$DuplicateConstraint");
 
+    @ResourceConstraint(numArgs = 2, hasDetailMsg = false)
+    public static final MessageResource INVALID_TYPE_AS_UNIQUE = new MessageResource(
+            "com.wavemaker.runtime.data$InvalidTypeAsUnique");
+
     private static final Map<MessageResource, ResourceConstraint> annotations = new HashMap<>();
 
     static {
