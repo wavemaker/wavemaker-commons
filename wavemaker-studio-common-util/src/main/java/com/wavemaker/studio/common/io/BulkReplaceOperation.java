@@ -20,6 +20,10 @@ public class BulkReplaceOperation implements ResourceOperation<File> {
         map.put(from, to);
     }
 
+    public void addAll(Map<String, String> values) {
+        map.putAll(values);
+    }
+
     @Override
     public void perform(final File resource) {
         String content = resource.getContent().asString();
