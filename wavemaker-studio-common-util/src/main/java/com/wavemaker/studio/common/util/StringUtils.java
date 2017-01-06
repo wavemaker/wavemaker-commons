@@ -35,6 +35,7 @@ public abstract class StringUtils {
     public static final String JAVA_SRC_EXT = ".java";
 
     private static final Collection<String> JAVA_KEYWORDS = new HashSet<String>(50);
+    private static final Collection<String> HQL_KEYWORDS = new HashSet<String>(50);
 
     static {
         JAVA_KEYWORDS.add("abstract");
@@ -87,6 +88,56 @@ public abstract class StringUtils {
         JAVA_KEYWORDS.add("void");
         JAVA_KEYWORDS.add("volatile");
         JAVA_KEYWORDS.add("while");
+
+        HQL_KEYWORDS.add("all");
+        HQL_KEYWORDS.add("any");
+        HQL_KEYWORDS.add("and");
+        HQL_KEYWORDS.add("as");
+        HQL_KEYWORDS.add("asc");
+        HQL_KEYWORDS.add("avg");
+        HQL_KEYWORDS.add("between");
+        HQL_KEYWORDS.add("class");
+        HQL_KEYWORDS.add("count");
+        HQL_KEYWORDS.add("delete");
+        HQL_KEYWORDS.add("desc");
+        HQL_KEYWORDS.add("distinct");
+        HQL_KEYWORDS.add("elements");
+        HQL_KEYWORDS.add("escape");
+        HQL_KEYWORDS.add("exists");
+        HQL_KEYWORDS.add("false");
+        HQL_KEYWORDS.add("fetch");
+        HQL_KEYWORDS.add("from");
+        HQL_KEYWORDS.add("full");
+        HQL_KEYWORDS.add("group");
+        HQL_KEYWORDS.add("having");
+        HQL_KEYWORDS.add("in");
+        HQL_KEYWORDS.add("indices");
+        HQL_KEYWORDS.add("inner");
+        HQL_KEYWORDS.add("insert");
+        HQL_KEYWORDS.add("into");
+        HQL_KEYWORDS.add("is");
+        HQL_KEYWORDS.add("join");
+        HQL_KEYWORDS.add("left");
+        HQL_KEYWORDS.add("like");
+        HQL_KEYWORDS.add("max");
+        HQL_KEYWORDS.add("min");
+        HQL_KEYWORDS.add("new");
+        HQL_KEYWORDS.add("not");
+        HQL_KEYWORDS.add("null");
+        HQL_KEYWORDS.add("or");
+        HQL_KEYWORDS.add("order");
+        HQL_KEYWORDS.add("outer");
+        HQL_KEYWORDS.add("properties");
+        HQL_KEYWORDS.add("right");
+        HQL_KEYWORDS.add("select");
+        HQL_KEYWORDS.add("set");
+        HQL_KEYWORDS.add("some");
+        HQL_KEYWORDS.add("sum");
+        HQL_KEYWORDS.add("true");
+        HQL_KEYWORDS.add("update");
+        HQL_KEYWORDS.add("versioned");
+        HQL_KEYWORDS.add("where");
+        HQL_KEYWORDS.add("nulls");
     }
 
     private StringUtils() {
@@ -187,7 +238,7 @@ public abstract class StringUtils {
 
         StringBuilder rtn = new StringBuilder();
 
-        if ((checkKeyword && JAVA_KEYWORDS.contains(s.toLowerCase())) ||
+        if ((checkKeyword && (JAVA_KEYWORDS.contains(s.toLowerCase()) || HQL_KEYWORDS.contains(s.toLowerCase()))) ||
                 !Character.isJavaIdentifierStart(s.charAt(0))) {
             rtn.append(prefixReplacementChar);
         }
