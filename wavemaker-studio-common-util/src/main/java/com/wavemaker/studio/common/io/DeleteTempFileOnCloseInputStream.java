@@ -40,6 +40,15 @@ public class DeleteTempFileOnCloseInputStream extends FileInputStream {
     @Override
     public void close() throws IOException {
         super.close();
+        deleteTempFile();
+    }
+
+    @Override
+    public void finalize() {
+        deleteTempFile();
+    }
+
+    private void deleteTempFile() {
         try {
             tempFile.delete();
         } catch (Exception e) {
