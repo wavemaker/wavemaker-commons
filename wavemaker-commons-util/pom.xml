@@ -11,7 +11,7 @@
         <version>8.3.4</version>
     </parent>
 
-    <artifactId>wavemaker-studio-common-util</artifactId>
+    <artifactId>wavemaker-commons-util</artifactId>
     <packaging>jar</packaging>
 
     <properties>

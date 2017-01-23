@@ -12,7 +12,7 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>wavemaker-studio-common-util</module>
+        <module>wavemaker-commons-util</module>
     </modules>
     
     <build>
