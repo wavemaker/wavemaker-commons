@@ -15,7 +15,7 @@
  */
 package com.wavemaker.commons.util.utils;
 
-import com.wavemaker.infra.WMTestUtils;
+import com.wavemaker.commons.util.WMTestUtils;
 import com.wavemaker.commons.util.SpringUtils;
 import com.wavemaker.commons.util.SystemUtils;
 import static org.testng.Assert.*;

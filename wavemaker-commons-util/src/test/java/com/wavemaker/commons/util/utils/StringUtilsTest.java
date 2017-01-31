@@ -22,7 +22,7 @@ import java.util.Map;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
-import com.wavemaker.infra.WMTestUtils;
+import com.wavemaker.commons.util.WMTestUtils;
 import com.wavemaker.commons.util.StringUtils;
 
 import static org.testng.Assert.assertEquals;
