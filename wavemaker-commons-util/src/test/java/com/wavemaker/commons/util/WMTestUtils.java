@@ -13,10 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.wavemaker.infra;
+package com.wavemaker.commons.util;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -24,78 +25,18 @@ import com.wavemaker.commons.WMRuntimeException;
 import com.wavemaker.commons.util.IOUtils;
 import com.wavemaker.commons.util.SpringUtils;
 import com.wavemaker.commons.util.WMFileUtils;
-
 import junit.framework.TestCase;
+import org.testng.Assert;
 
-/**
- * @author Simon Toens
- */
-public abstract class WMTestCase extends TestCase {
+public class WMTestUtils {
 
-    private static final Level DEFAULT_LEVEL = Level.INFO;
-
-    private static final Logger logger = Logger.global;
-    static {
-        logger.setLevel(DEFAULT_LEVEL);
-    }
-
-    protected WMTestCase() {
-        super();
-    }
-
-    protected WMTestCase(String methodName) {
-        super(methodName);
-    }
-
-    protected WMTestCase(String methodName, Level logLevel) {
-        super(methodName);
-        logger.setLevel(logLevel);
-    }
-
-    protected WMTestCase(Level logLevel) {
-        super();
-        logger.setLevel(logLevel);
-    }
-
-    protected void info(Object o) {
-        logger.info(String.valueOf(o));
-    }
-
-    protected void warn(Object o) {
-        logger.warning(String.valueOf(o));
-    }
-
-    protected File createTempDir() {
-        try {
-            return IOUtils.createTempDirectory();
-        } catch (IOException ex) {
-            throw new WMRuntimeException(ex);
-        }
-    }
-
-    /**
-     * By default, initialize Spring (so we can get our error messages).
-     */
-    @Override
-    public void setUp() throws Exception {
-        SpringUtils.initSpringConfig();
-    }
-
-    /**
-     * Compare the contents of two files; display the message.
-     * 
-     * @param expected The File containing the expected contents.
-     * @param actual The File containing the resulting contents.
-     * @throws IOException
-     */
     public static void assertEquals(File expected, File actual) throws IOException {
-
         assertEquals(null, expected, actual);
     }
 
     /**
      * Compare the contents of two files; display the message.
-     * 
+     *
      * @param message The message to display.
      * @param expected The File containing the expected contents.
      * @param actual The File containing the resulting contents.
@@ -114,11 +55,19 @@ public abstract class WMTestCase extends TestCase {
             String expectedStr = WMFileUtils.readFileToString(expected);
             String actualStr = WMFileUtils.readFileToString(actual);
 
-            assertEquals(msg, expectedStr, actualStr);
+            Assert.assertEquals(actualStr, expectedStr, msg);
         } else if (expected.isDirectory() && actual.isDirectory()) {
-            assertEquals(msg, expected.getAbsolutePath(), actual.getAbsolutePath());
+            Assert.assertEquals(msg, expected.getAbsolutePath(), actual.getAbsolutePath());
         } else {
-            fail(msg);
+            Assert.fail(msg);
         }
+    }
+
+    public static InputStream getResourceFileAsStream(String resourcePath) {
+        return WMTestUtils.class.getClassLoader().getResourceAsStream(resourcePath);
+    }
+
+    public static File getResourceFileAsLocalFile(String resourcePath) {
+        return new File(WMTestUtils.class.getClassLoader().getResource(resourcePath).getFile());
     }
 }

@@ -32,7 +32,7 @@ public class ClassLoaderUtilsTest {
     @Test
     public void tempClassLoader_getClassTest() throws Exception {
 
-        File sourceJar = new ClassPathResource("com/wavemaker/studio/common/foojar.jar").getFile();
+        File sourceJar = new ClassPathResource("com/wavemaker/commons/foojar.jar").getFile();
         File jar = File.createTempFile("tempClassLoader_getClassTest", ".jar");
         jar.deleteOnExit();
         FileUtils.copyFile(sourceJar, jar);
@@ -49,7 +49,7 @@ public class ClassLoaderUtilsTest {
     @Test
     public void tempClassLoader_getResourceTest() throws Exception {
 
-        File sourceJar = new ClassPathResource("com/wavemaker/studio/common/foojar.jar").getFile();
+        File sourceJar = new ClassPathResource("com/wavemaker/commons/foojar.jar").getFile();
         File jar = File.createTempFile("tempClassLoader_getClassTest", ".jar");
         jar.deleteOnExit();
         FileUtils.copyFile(sourceJar, jar);

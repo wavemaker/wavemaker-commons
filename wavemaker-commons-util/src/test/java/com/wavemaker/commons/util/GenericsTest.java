@@ -21,7 +21,7 @@ import java.lang.reflect.ParameterizedType;
 import java.util.List;
 import java.util.Map;
 
-import com.wavemaker.infra.WMTestUtils;
+import com.wavemaker.commons.util.WMTestUtils;
 import static org.testng.Assert.*;
 import org.testng.annotations.Test;
 

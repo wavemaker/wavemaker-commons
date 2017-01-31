@@ -15,7 +15,7 @@
  */
 package com.wavemaker.commons.util;
 
-import com.wavemaker.infra.WMTestUtils;
+import com.wavemaker.commons.util.WMTestUtils;
 import static org.testng.Assert.*;
 import org.testng.annotations.Test;
 

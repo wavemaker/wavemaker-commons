@@ -16,7 +16,7 @@
 package com.wavemaker.commons.util.utils;
 
 
-import com.wavemaker.infra.WMTestUtils;
+import com.wavemaker.commons.util.WMTestUtils;
 import com.wavemaker.commons.util.FileAccessException;
 import com.wavemaker.commons.util.IOUtils;
 import com.wavemaker.commons.util.SpringUtils;

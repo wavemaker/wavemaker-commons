@@ -17,7 +17,7 @@ package com.wavemaker.commons.util;
 
 import java.util.Map;
 
-import com.wavemaker.infra.WMTestUtils;
+import com.wavemaker.commons.util.WMTestUtils;
 import com.wavemaker.commons.MethodNotFoundRuntimeException;
 import static org.testng.Assert.*;
 
