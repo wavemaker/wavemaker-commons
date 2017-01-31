@@ -5,7 +5,7 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.wavemaker.studio</groupId>
+    <groupId>com.wavemaker.commons</groupId>
     <artifactId>wavemaker-commons</artifactId>
     <version>8.3.4</version>
 
