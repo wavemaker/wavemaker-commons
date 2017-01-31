@@ -15,6 +15,8 @@
  */
 package com.wavemaker.commons.servicedef.model;
 
+import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
@@ -27,6 +29,7 @@ public class Parameter {
     private String parameterType;
     private String type;
     private boolean required;
+    private List<String> requiredFields;
 
     @JsonIgnore
     public static synchronized Parameter getNewInstance() {
@@ -83,6 +86,19 @@ public class Parameter {
 
     public void setRequired(final boolean required) {
         this.required = required;
+    }
+
+    public List<String> getRequiredFields() {
+        return requiredFields;
+    }
+
+    public void setRequiredFields(final List<String> requiredFields) {
+        this.requiredFields = requiredFields;
+    }
+
+    public Parameter addRequiredFields(final List<String> requiredFields) {
+        this.requiredFields = requiredFields;
+        return this;
     }
 
     @Override
