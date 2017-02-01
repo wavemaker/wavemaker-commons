@@ -43,15 +43,15 @@ public class ClassPathFileTest {
 
     @Test
     public void shouldLoadFromPathUsingClass() throws Exception {
-        File file = new ClassPathFile(getClass(), "/com/wavemaker/studio/core/io/a.txt");
+        File file = new ClassPathFile(getClass(), "/com/wavemaker/runtime/core/io/a.txt");
         assertThat(file.getContent().asString(), Matchers.is("a"));
     }
 
     @Test
     public void shouldLoadUsingExactPath() throws Exception {
-        ClassPathResource resource = new ClassPathResource("/com/wavemaker/studio/core/io/a.txt");
+        ClassPathResource resource = new ClassPathResource("/com/wavemaker/runtime/core/io/a.txt");
         System.out.println(resource.getInputStream());
-        File file = new ClassPathFile("/com/wavemaker/studio/core/io/a.txt");
+        File file = new ClassPathFile("/com/wavemaker/runtime/core/io/a.txt");
         assertThat(file.getContent().asString(), Matchers.is("a"));
     }
 
