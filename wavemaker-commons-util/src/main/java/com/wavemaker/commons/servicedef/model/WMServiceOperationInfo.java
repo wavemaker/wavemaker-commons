@@ -1,12 +1,12 @@
 /**
  * Copyright © 2013 - 2017 WaveMaker, Inc.
- *
+ * <p>
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
- *   http://www.apache.org/licenses/LICENSE-2.0
- *
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -15,7 +15,9 @@
  */
 package com.wavemaker.commons.servicedef.model;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -31,6 +33,7 @@ public class WMServiceOperationInfo {
     private String directPath;
     private String httpMethod;
     private List<Parameter> parameters;
+    private Map<String, List<Parameter>> definitions;
     private List<String> produces;
     private List<String> consumes;
     private String authorization;
@@ -169,6 +172,22 @@ public class WMServiceOperationInfo {
 
     public WMServiceOperationInfo addProxySettings(RuntimeProxySettings proxySettings) {
         this.setProxySettings(proxySettings);
+        return this;
+    }
+
+    public Map<String, List<Parameter>> getDefinitions() {
+        if (definitions == null) {
+            return new HashMap<>();
+        }
+        return definitions;
+    }
+
+    public void setDefinitions(final Map<String, List<Parameter>> definitions) {
+        this.definitions = definitions;
+    }
+
+    public WMServiceOperationInfo addDefinitions(final Map<String, List<Parameter>> definitions) {
+        this.setDefinitions(definitions);
         return this;
     }
 
