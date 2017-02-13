@@ -18,6 +18,7 @@ package com.wavemaker.commons.servicedef.model;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -33,7 +34,7 @@ public class WMServiceOperationInfo {
     private String directPath;
     private String httpMethod;
     private List<Parameter> parameters;
-    private Map<String, List<Parameter>> definitions;
+    private Map<String, Set<Parameter>> definitions;
     private List<String> produces;
     private List<String> consumes;
     private String authorization;
@@ -175,18 +176,18 @@ public class WMServiceOperationInfo {
         return this;
     }
 
-    public Map<String, List<Parameter>> getDefinitions() {
+    public Map<String, Set<Parameter>> getDefinitions() {
         if (definitions == null) {
             return new HashMap<>();
         }
         return definitions;
     }
 
-    public void setDefinitions(final Map<String, List<Parameter>> definitions) {
+    public void setDefinitions(final Map<String, Set<Parameter>> definitions) {
         this.definitions = definitions;
     }
 
-    public WMServiceOperationInfo addDefinitions(final Map<String, List<Parameter>> definitions) {
+    public WMServiceOperationInfo addDefinitions(final Map<String, Set<Parameter>> definitions) {
         this.setDefinitions(definitions);
         return this;
     }

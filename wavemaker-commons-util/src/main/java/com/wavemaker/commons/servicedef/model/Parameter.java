@@ -118,8 +118,6 @@ public class Parameter {
         final Parameter parameter = (Parameter) o;
 
         if (name != null ? !name.equals(parameter.name) : parameter.name != null) return false;
-        if (parameterType != null ? !parameterType.equals(parameter.parameterType) : parameter.parameterType != null)
-            return false;
         return type != null ? type.equals(parameter.type) : parameter.type == null;
 
     }
@@ -127,7 +125,6 @@ public class Parameter {
     @Override
     public int hashCode() {
         int result = name != null ? name.hashCode() : 0;
-        result = 31 * result + (parameterType != null ? parameterType.hashCode() : 0);
         result = 31 * result + (type != null ? type.hashCode() : 0);
         return result;
     }
