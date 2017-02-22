@@ -211,6 +211,10 @@ public class MessageResource {
     @ResourceConstraint(numArgs = 3, hasDetailMsg = false)
     public static final MessageResource ERROR_GETTING_PROPERTY = new MessageResource("com.wavemaker.studio.json$ErrorGettingProperty");
 
+    @ResourceConstraint(numArgs = 2, hasDetailMsg = false)
+    public static final MessageResource TYPE_MAPPING_FAILURE = new MessageResource(
+            "com.wavemaker.runtime.data$TypeMappingFailure");
+
     @ResourceConstraint(numArgs = 1, hasDetailMsg = false)
     public static final MessageResource JSON_BAD_HANDLE_TYPE = new MessageResource("com.wavemaker.studio.json$UnexpectedHandleType");
 
