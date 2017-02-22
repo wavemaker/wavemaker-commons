@@ -1,12 +1,12 @@
 /**
  * Copyright © 2013 - 2017 WaveMaker, Inc.
- *
+ * <p>
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
- *   http://www.apache.org/licenses/LICENSE-2.0
- *
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -15,9 +15,12 @@
  */
 package com.wavemaker.commons.swaggerdoc.util;
 
-import java.util.Date;
+import java.sql.Time;
+import java.sql.Timestamp;
 import java.util.Map;
 import java.util.Objects;
+
+import org.joda.time.LocalDateTime;
 
 import com.wavemaker.commons.SwaggerException;
 import com.wavemaker.tools.apidocs.tools.core.model.Operation;
@@ -26,6 +29,7 @@ import com.wavemaker.tools.apidocs.tools.core.model.Swagger;
 import com.wavemaker.tools.apidocs.tools.core.model.parameters.AbstractParameter;
 import com.wavemaker.tools.apidocs.tools.core.model.parameters.FormParameter;
 import com.wavemaker.tools.apidocs.tools.core.model.parameters.Parameter;
+import com.wavemaker.tools.apidocs.tools.core.model.properties.DateProperty;
 import com.wavemaker.tools.apidocs.tools.core.model.properties.Property;
 import com.wavemaker.tools.apidocs.tools.core.model.properties.PropertyBuilder;
 
@@ -213,14 +217,12 @@ public class SwaggerDocUtil {
         String type = property.getType();
         String format = property.getFormat();
 
+        if (property instanceof DateProperty) {
+            DateProperty dateProperty = (DateProperty) property;
+            return findDateType(dateProperty).getName();
+        }
         if ("boolean".equals(type)) {
             return Boolean.class.getName();
-        }
-        if ("string".equals(type) && "date".equals(format)) {
-            return Date.class.getName();
-        }
-        if ("string".equals(type) && "date-time".equals(format)) {
-            return String.class.getName();
         }
         if ("number".equals(type) && "double".equals(format)) {
             return Double.class.getName();
@@ -257,6 +259,18 @@ public class SwaggerDocUtil {
             fullyQualifiedType = ((AbstractParameter) parameter).getFullyQualifiedType();
         }
         return (fullyQualifiedType == null) ? String.class.getSimpleName() : fullyQualifiedType;
+    }
+
+    public static Class<?> findDateType(final DateProperty property) {
+        Class<?> javaType = java.sql.Date.class;
+        if ("date-time".equals(property.getSubFormat())) {
+            javaType = LocalDateTime.class;
+        } else if ("time".equals(property.getSubFormat())) {
+            javaType = Time.class;
+        } else if ("timestamp".equals(property.getSubFormat())) {
+            javaType = Timestamp.class;
+        }
+        return javaType;
     }
 
 }
