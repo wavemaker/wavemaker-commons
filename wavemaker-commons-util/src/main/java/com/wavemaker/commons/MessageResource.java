@@ -32,6 +32,15 @@ import com.wavemaker.commons.util.ClassUtils;
  */
 public class MessageResource {
 
+    @ResourceConstraint(numArgs = 1, hasDetailMsg = false)
+    public static final MessageResource MISSING_FIELD_VALUE = new MessageResource("com.wavemaker.studio.json$MissingFieldValue");
+
+    @ResourceConstraint(numArgs = 1, hasDetailMsg = false)
+    public static final MessageResource INVALID_FIELD_VALUE = new MessageResource("com.wavemaker.studio.json$InvalidFieldValue");
+
+    @ResourceConstraint(numArgs = 1, hasDetailMsg = false)
+    public static final MessageResource INVALID_OBJECT = new MessageResource("com.wavemaker.studio.json$InvalidObject");
+
     @ResourceConstraint(numArgs = 0, hasDetailMsg = false)
     public static final MessageResource QUERY_CONV_FAILURE = new MessageResource("com.wavemaker.runtime.data$QueryConvFailure");
 
