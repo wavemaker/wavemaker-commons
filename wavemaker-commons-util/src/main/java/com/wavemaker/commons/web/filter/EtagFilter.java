@@ -45,7 +45,7 @@ public class EtagFilter extends ShallowEtagHeaderFilter {
         }
 
         //Setting no cache for ie as etag is disabled for it.
-        if(requestedFromIeBrowser && (request.getServletPath().startsWith("/services") || request.getServletPath().startsWith("/app") || request.getServletPath().startsWith("/pages") || request.getServletPath().endsWith(".json"))){
+        if(requestedFromIeBrowser && (request.getServletPath().startsWith("/services") || request.getServletPath().startsWith("/app") || request.getServletPath().startsWith("/pages") || request.getServletPath().startsWith("/prefabs") || request.getServletPath().endsWith(".json"))){
             response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1
             response.setHeader("Pragma", "no-cache"); // HTTP 1.0
             response.setDateHeader("Expires", 0); // Proxies.
