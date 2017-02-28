@@ -24,6 +24,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.*;
+import com.fasterxml.jackson.databind.type.TypeFactory;
 import com.wavemaker.commons.WMRuntimeException;
 import com.wavemaker.commons.util.IOUtils;
 
@@ -32,7 +33,12 @@ import com.wavemaker.commons.util.IOUtils;
  */
 public class JSONUtils {
 
-    private static final ObjectMapper objectMapper = new ObjectMapper();
+    private static final ObjectMapper objectMapper;
+
+    static {
+        objectMapper = new ObjectMapper();
+        objectMapper.setTypeFactory(TypeFactory.defaultInstance().withClassLoader(JSONUtils.class.getClassLoader()));
+    }
 
     public static String prettifyJSON(String data) throws IOException {
         if (StringUtils.isNotBlank(data)) {
