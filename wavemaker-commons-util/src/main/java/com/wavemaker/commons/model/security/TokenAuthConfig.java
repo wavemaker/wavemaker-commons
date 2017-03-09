@@ -5,7 +5,7 @@ package com.wavemaker.commons.model.security;
  */
 public class TokenAuthConfig {
     private boolean enabled;
-    private String key;
+    private String parameter;
     private int tokenValiditySeconds;
 
     public boolean isEnabled() {
@@ -16,12 +16,12 @@ public class TokenAuthConfig {
         this.enabled = enabled;
     }
 
-    public String getKey() {
-        return key;
+    public String getParameter() {
+        return parameter;
     }
 
-    public void setKey(final String key) {
-        this.key = key;
+    public void setParameter(final String parameter) {
+        this.parameter = parameter;
     }
 
     public int getTokenValiditySeconds() {
@@ -36,7 +36,7 @@ public class TokenAuthConfig {
     public String toString() {
         return "TokenAuthConfig{" +
                 "enabled=" + enabled +
-                ", key='" + key + '\'' +
+                ", parameter='" + parameter + '\'' +
                 ", tokenValiditySeconds=" + tokenValiditySeconds +
                 '}';
     }
