@@ -26,18 +26,18 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import com.wavemaker.commons.io.File;
-import com.wavemaker.commons.io.Resource;
-import com.wavemaker.commons.io.store.FileStore;
-import com.wavemaker.commons.io.store.FolderStore;
 import org.springframework.util.Assert;
 import org.springframework.util.ObjectUtils;
 
+import com.wavemaker.commons.io.File;
 import com.wavemaker.commons.io.Folder;
 import com.wavemaker.commons.io.JailedResourcePath;
+import com.wavemaker.commons.io.Resource;
 import com.wavemaker.commons.io.exception.ResourceDoesNotExistException;
 import com.wavemaker.commons.io.exception.ResourceException;
 import com.wavemaker.commons.io.exception.ResourceTypeMismatchException;
+import com.wavemaker.commons.io.store.FileStore;
+import com.wavemaker.commons.io.store.FolderStore;
 import com.wavemaker.commons.io.store.ResourceStore;
 
 /**
@@ -82,11 +82,22 @@ abstract class LocalResourceStore implements ResourceStore {
 
     @Override
     public Resource getExisting(JailedResourcePath path) {
-        java.io.File file = getFileForPath(path);
-        if (!file.exists()) {
-            return null;
+        int count=0;
+        while (true) {
+            count++;
+            try {
+                java.io.File file = getFileForPath(path);
+                if (!file.exists()) {
+                    return null;
+                }
+                return file.isDirectory() ? getFolder(path) : getFile(path);
+            } catch (ResourceException e) {
+                // Re-trying on ResourceException as this exception can be caused when the file/directory being fetched is deleted/changed type midway during execution by another thread
+                if (count == 3) {
+                    throw e;
+                }
+            }
         }
-        return file.isDirectory() ? getFolder(path) : getFile(path);
     }
 
     @Override
