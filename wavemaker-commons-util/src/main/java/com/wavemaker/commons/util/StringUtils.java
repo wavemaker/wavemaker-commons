@@ -15,7 +15,10 @@
  */
 package com.wavemaker.commons.util;
 
+import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.StringReader;
 import java.io.StringWriter;
 import java.nio.charset.Charset;
 import java.text.SimpleDateFormat;
@@ -26,6 +29,8 @@ import java.util.HashSet;
 import java.util.List;
 
 import org.apache.commons.lang3.math.NumberUtils;
+
+import com.wavemaker.commons.WMRuntimeException;
 
 /**
  * @author Simon Toens
@@ -596,6 +601,28 @@ public abstract class StringUtils {
         return new String(bytes, Charset.forName("UTF-8"));
     }
 
+    /**
+     * Removes LF/CR and white spaces
+     *
+     * @param inputString
+     * @return
+     */
+    public static String removeLineFeed(String inputString) {
+        BufferedReader bufferedReader = new BufferedReader(new StringReader(inputString));
+        StringBuilder stringBuilder = new StringBuilder();
+        String line = null;
+        try {
+            while ((line = bufferedReader.readLine()) != null) {
+                stringBuilder.append(line.trim());
+            }
+            return stringBuilder.toString();
+        } catch (IOException e) {
+            throw new WMRuntimeException("Failed to read line.", e);
+        }finally {
+            org.apache.commons.io.IOUtils.closeQuietly(bufferedReader);
+        }
+    }
+
     private static String substring(String s, int i, String substring, int direction) {
         if (direction >= 0) {
             return s.substring(i + substring.length());
@@ -603,5 +630,7 @@ public abstract class StringUtils {
             return s.substring(0, i);
         }
     }
+
+
 
 }
