@@ -51,7 +51,7 @@ public class DeleteTempFileOnCloseInputStream extends FileInputStream {
     private void deleteTempFile() {
         try {
             tempFile.delete();
-        } catch (Exception e) {
+        } catch (Throwable e) {
             logger.warn("Unable to delete the temp file {} on closing the stream.", tempFile, e);
         }
     }
