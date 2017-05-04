@@ -246,8 +246,10 @@ abstract class LocalResourceStore implements ResourceStore {
         @Override
         public Iterable<String> list() {
             java.io.File[] files = getFile().listFiles();
-            Assert.state(files != null, "Unable to list files for " + getFile());
-            List<String> filenames = new ArrayList<String>();
+            if (files == null || files.length == 0) {
+                return Collections.emptyList();
+            }
+            List<String> filenames = new ArrayList(files.length);
             for (java.io.File file : files) {
                 if (file.exists()) {
                     filenames.add(file.getName());
