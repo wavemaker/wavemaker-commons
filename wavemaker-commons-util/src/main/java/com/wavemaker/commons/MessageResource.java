@@ -245,6 +245,9 @@ public class MessageResource {
     @ResourceConstraint(numArgs = 1, hasDetailMsg = false)
     public static final MessageResource DATA_INTEGRITY_VIOALATION = new MessageResource("com.wavemaker.runtime.data$DataIntegrityViolation");
 
+    @ResourceConstraint(numArgs = 0, hasDetailMsg = false)
+    public static final MessageResource ENTITY_NOT_FOUND = new MessageResource("com.wavemaker.runtime.data$EntityNotFound");
+
     @ResourceConstraint(numArgs = 1, hasDetailMsg = false)
     public static final MessageResource UPDATE_DB_FAILED = new MessageResource("com.wavemaker.studio.core.data.helpers.SchemaUpdater$updateDBFailed");
 
