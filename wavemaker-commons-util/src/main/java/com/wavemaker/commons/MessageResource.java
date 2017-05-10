@@ -263,6 +263,12 @@ public class MessageResource {
     public static final MessageResource INVALID_TYPE_AS_UNIQUE = new MessageResource(
             "com.wavemaker.runtime.data$InvalidTypeAsUnique");
 
+    @ResourceConstraint(numArgs = 0, hasDetailMsg = false)
+    public static final MessageResource INVALID_SQL_QUERY = new MessageResource("com.wavemaker.runtime.data$InvalidSqlQuery");
+
+    @ResourceConstraint(numArgs = 1, hasDetailMsg = false)
+    public static final MessageResource INVALID_INPUT = new MessageResource("com.wavemaker.runtime.data$InvalidInput");
+
     private static final Map<MessageResource, ResourceConstraint> annotations = new HashMap<>();
 
     static {
