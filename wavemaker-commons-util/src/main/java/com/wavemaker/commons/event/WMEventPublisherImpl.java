@@ -38,7 +38,7 @@ public class WMEventPublisherImpl implements WMEventPublisher, ApplicationEventP
     public void publish(WMEvent wmEvent) {
         long startTime = System.currentTimeMillis();
         applicationEventPublisher.publishEvent(wmEvent);
-        logger.error("Time taken for the event for class {} is {} sec.  ", wmEvent.getClass().getSimpleName(), (System.currentTimeMillis() - startTime) / 1000);
+        logger.debug("Time taken for the event for class {} is {}ms.  ", wmEvent.getClass().getSimpleName(), (System.currentTimeMillis() - startTime));
     }
 
 }
