@@ -47,6 +47,8 @@ public class MessageResource {
     @ResourceConstraint(numArgs = 0, hasDetailMsg = false)
     public static final MessageResource CLASS_NOT_FOUND = new MessageResource("com.wavemaker.runtime.data$ClassNotFound");
 
+    @ResourceConstraint(numArgs = 1, hasDetailMsg = false)
+    public static final MessageResource UNKNOWN_FIELD_NAME = new MessageResource("com.wavemaker.runtime.data$UnknownFieldName");
 
     @ResourceConstraint(numArgs = 3, hasDetailMsg = false)
     public static final MessageResource JSONRPC_CONTROLLER_METHOD_NOT_FOUND = new MessageResource("com.wavemaker.runtime.server$MethodNotFound");
