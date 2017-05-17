@@ -15,9 +15,17 @@
  */
 package com.wavemaker.commons.zip;
 
-import java.io.*;
+import java.io.BufferedInputStream;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.lang.ref.WeakReference;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
@@ -26,12 +34,18 @@ import org.springframework.util.FileCopyUtils;
 import org.springframework.util.ObjectUtils;
 
 import com.wavemaker.commons.io.File;
-import com.wavemaker.commons.io.*;
+import com.wavemaker.commons.io.Folder;
+import com.wavemaker.commons.io.JailedResourcePath;
+import com.wavemaker.commons.io.NoCloseInputStream;
+import com.wavemaker.commons.io.Resource;
+import com.wavemaker.commons.io.ResourcePath;
 import com.wavemaker.commons.io.exception.ReadOnlyResourceException;
 import com.wavemaker.commons.io.exception.ResourceException;
-import com.wavemaker.commons.io.store.*;
-
-//import org.apache.tools.ant.taskdefs.Zip;
+import com.wavemaker.commons.io.store.FileStore;
+import com.wavemaker.commons.io.store.FolderStore;
+import com.wavemaker.commons.io.store.ResourceStore;
+import com.wavemaker.commons.io.store.StoredFile;
+import com.wavemaker.commons.io.store.StoredFolder;
 
 /**
  * {@link ResourceStore}s for {@link ZipFile} and {@link ZipArchive}.
