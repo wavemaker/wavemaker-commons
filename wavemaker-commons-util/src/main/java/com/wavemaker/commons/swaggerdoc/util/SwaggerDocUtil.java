@@ -42,6 +42,7 @@ public class SwaggerDocUtil {
 
     public static final String FILE = "file";
     public static final String ARRAY = "array";
+    public static final String STRING = "string";
 
     enum OperationType {
         get, post, delete, put, patch, options
@@ -254,6 +255,8 @@ public class SwaggerDocUtil {
                 fullyQualifiedType = formParameter.getItems().getType();
             } else if (FILE.equals(formParameter.getType())) {
                 fullyQualifiedType = formParameter.getType();
+            } else if (STRING.equals(formParameter.getType()) && ((AbstractParameter) parameter).getFullyQualifiedType() != null) {
+                fullyQualifiedType = ((AbstractParameter) parameter).getFullyQualifiedType();
             }
         } else {
             fullyQualifiedType = ((AbstractParameter) parameter).getFullyQualifiedType();
