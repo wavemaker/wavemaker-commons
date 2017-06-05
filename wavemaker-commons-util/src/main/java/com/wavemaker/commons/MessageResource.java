@@ -274,6 +274,18 @@ public class MessageResource {
     @ResourceConstraint(numArgs = 1, hasDetailMsg = false)
     public static final MessageResource INVALID_INPUT = new MessageResource("com.wavemaker.runtime.data$InvalidInput");
 
+    @ResourceConstraint
+    public static final MessageResource OTHER_THAN_BLOB_OUT_PARAMETER = new MessageResource(
+            "com.wavemaker.studio.core.data$OtherThanBlobResponse");
+
+    @ResourceConstraint
+    public static final MessageResource IDENTIFIER_NOT_SPECIFIED =
+            new MessageResource("com.wavemaker.studio.core.data$IdentifierNotSpecified");
+
+    @ResourceConstraint
+    public static final MessageResource BLOB_RESPONSE_NOT_SUPPORTED_FOR_HQL =
+            new MessageResource("com.wavemaker.studio.core.data$BlobResponseNotSupportedForHql");
+
     private static final Map<MessageResource, ResourceConstraint> annotations = new HashMap<>();
 
     static {
