@@ -20,7 +20,7 @@ package com.wavemaker.commons.proxy;
  */
 public class AppProxyConstants {
 
-    public static final String APP_PREFIX = "app";
+    public static final String PROXY_PREFIX = "app";
 
     public static final String PROXY_ENABLED = "proxy.enabled";
     public static final String PROXY_HOST = "proxy.host";
@@ -36,7 +36,7 @@ public class AppProxyConstants {
     public static final String APP_PROXY_PASSWORD = getAppProxyKey(PROXY_PASSWORD);
 
     private static String getAppProxyKey(String key) {
-        return new StringBuilder(APP_PREFIX).append(".").append(key).toString();
+        return new StringBuilder(PROXY_PREFIX).append(".").append(key).toString();
     }
 
 }
