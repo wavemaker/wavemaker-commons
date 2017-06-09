@@ -286,6 +286,10 @@ public class MessageResource {
     public static final MessageResource BLOB_RESPONSE_NOT_SUPPORTED_FOR_HQL =
             new MessageResource("com.wavemaker.studio.core.data$BlobResponseNotSupportedForHql");
 
+    @ResourceConstraint
+    public static final MessageResource BLOB_INPUT_ONLY_SUPPORTED_FOR_INSERT_UPDATE_QUERIES =
+            new MessageResource("com.wavemaker.studio.core.data$BlobInputOnlySupportedForInsertUpdateQueries");
+
     private static final Map<MessageResource, ResourceConstraint> annotations = new HashMap<>();
 
     static {

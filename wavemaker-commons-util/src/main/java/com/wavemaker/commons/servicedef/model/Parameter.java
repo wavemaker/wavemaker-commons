@@ -5,7 +5,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *   http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -25,8 +25,9 @@ public class Parameter {
 
     private String name;
     private String parameterType;
-    private String type;
     private boolean required;
+    private String type;
+    private boolean readOnly;
     private String contentType;
 
     @JsonIgnore
@@ -78,12 +79,27 @@ public class Parameter {
         return this;
     }
 
+    public Parameter addReadOnly(final Boolean readOnly) {
+        if (readOnly != null) {
+            setReadOnly(readOnly);
+        }
+        return this;
+    }
+
     public boolean isRequired() {
         return required;
     }
 
     public void setRequired(final boolean required) {
         this.required = required;
+    }
+
+    public boolean isReadOnly() {
+        return readOnly;
+    }
+
+    public void setReadOnly(final boolean readOnly) {
+        this.readOnly = readOnly;
     }
 
     public String getContentType() {
@@ -107,6 +123,7 @@ public class Parameter {
                 ", parameterType='" + parameterType + '\'' +
                 ", type='" + type + '\'' +
                 ", required=" + required +
+                ", readOnly=" + readOnly +
                 '}';
     }
 
