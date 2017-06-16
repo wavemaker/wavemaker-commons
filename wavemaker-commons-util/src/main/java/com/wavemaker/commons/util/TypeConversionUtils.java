@@ -154,6 +154,7 @@ public abstract class TypeConversionUtils {
         PRIMITIVE_DATA_TYPES.add("java.math.BigInteger");
         PRIMITIVE_DATA_TYPES.add("java.sql.Timestamp");
         PRIMITIVE_DATA_TYPES.add("java.sql.Time");
+        PRIMITIVE_DATA_TYPES.add("java.sql.Date");
 
         PRIMITIVE_DATA_TYPES.add("org.springframework.data.domain.Pageable");
 
