@@ -33,4 +33,8 @@ public class NoCloseInputStream extends FilterInputStream {
     @Override
     public void close() throws IOException {
     }
+    
+    public void doClose() throws IOException {
+        super.close();
+    }
 }
