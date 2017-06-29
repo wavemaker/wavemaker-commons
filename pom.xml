@@ -20,10 +20,10 @@
 
         <slf4j.version>1.7.21</slf4j.version>
 
-        <spring.version>4.2.0.RELEASE</spring.version>
+        <spring.version>4.3.9.RELEASE</spring.version>
         <spring.security.version>3.2.3.RELEASE</spring.security.version>
 
-        <hibernate.version>4.3.11.Final</hibernate.version>
+        <hibernate.version>5.2.10.Final</hibernate.version>
 
         <commons.io.version>2.4</commons.io.version>
         <commons.codec.version>1.10</commons.codec.version>
@@ -35,13 +35,14 @@
         <json.version>20090211</json.version>
 
         <joda-time.version>2.3</joda-time.version>
-        <jadira-usertype.version>2.0.1</jadira-usertype.version>
+        <jadira-usertype-spi.version>6.0.1.GA</jadira-usertype-spi.version>
+        <jadira-usertype-jodatime.version>2.0.1</jadira-usertype-jodatime.version>
 
         <gson.version>2.2.4</gson.version>
 
         <servlet.version>2.5</servlet.version>
         <jaxb.impl.version>2.2.5.1</jaxb.impl.version>
-        <wavemaker-api-tools.version>2.15</wavemaker-api-tools.version>
+        <wavemaker-api-tools.version>2.14</wavemaker-api-tools.version>
     </properties>
 
     <dependencyManagement>
@@ -129,8 +130,13 @@
             </dependency>
             <dependency>
                 <groupId>org.jadira.usertype</groupId>
+                <artifactId>usertype.spi</artifactId>
+                <version>${jadira-usertype-spi.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.jadira.usertype</groupId>
                 <artifactId>usertype.jodatime</artifactId>
-                <version>${jadira-usertype.version}</version>
+                <version>${jadira-usertype-jodatime.version}</version>
             </dependency>
             <dependency>
                 <groupId>joda-time</groupId>

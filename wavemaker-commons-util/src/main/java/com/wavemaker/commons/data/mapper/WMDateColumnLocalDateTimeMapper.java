@@ -20,13 +20,13 @@ package com.wavemaker.commons.data.mapper;
  */
 
 import java.sql.Timestamp;
-import java.util.Date;
 
-import org.hibernate.type.AbstractStandardBasicType;
+import org.hibernate.type.SingleColumnType;
 import org.hibernate.type.StandardBasicTypes;
 import org.jadira.usertype.dateandtime.joda.util.Formatter;
-import org.jadira.usertype.dateandtime.shared.spi.AbstractColumnMapper;
-import org.jadira.usertype.dateandtime.shared.spi.ColumnMapper;
+import org.jadira.usertype.spi.shared.AbstractColumnMapper;
+import org.jadira.usertype.spi.shared.ColumnMapper;
+
 import org.joda.time.LocalDateTime;
 
 import com.wavemaker.commons.CommonConstants;
@@ -36,7 +36,8 @@ public class WMDateColumnLocalDateTimeMapper extends AbstractColumnMapper<LocalD
     private static final long serialVersionUID = -7670411089210984705L;
 
     @Override
-    public final AbstractStandardBasicType<Date> getHibernateType() {
+    public SingleColumnType<? super Timestamp> getHibernateType() {
+
         return StandardBasicTypes.TIMESTAMP;
     }
 

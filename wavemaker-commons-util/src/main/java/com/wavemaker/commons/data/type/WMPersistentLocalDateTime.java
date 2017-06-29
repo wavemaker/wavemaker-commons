@@ -21,7 +21,7 @@ package com.wavemaker.commons.data.type;
 
 import java.sql.Timestamp;
 
-import org.jadira.usertype.dateandtime.shared.spi.AbstractSingleColumnUserType;
+import org.jadira.usertype.spi.shared.AbstractSingleColumnUserType;
 import org.joda.time.LocalDateTime;
 
 import com.wavemaker.commons.data.mapper.WMDateColumnLocalDateTimeMapper;

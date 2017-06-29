@@ -77,6 +77,10 @@
         </dependency>
         <dependency>
             <groupId>org.jadira.usertype</groupId>
+            <artifactId>usertype.spi</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.jadira.usertype</groupId>
             <artifactId>usertype.jodatime</artifactId>
         </dependency>
         <dependency>
