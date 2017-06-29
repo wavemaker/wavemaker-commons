@@ -20,6 +20,10 @@ import java.net.URLClassLoader;
 
 public class WMUrlClassLoader extends URLClassLoader {
     private String loaderContext;
+    
+    static {
+        ClassLoader.registerAsParallelCapable();
+    }
 
 
     public WMUrlClassLoader(URL[] urls, String loaderContext, ClassLoader parent) {
