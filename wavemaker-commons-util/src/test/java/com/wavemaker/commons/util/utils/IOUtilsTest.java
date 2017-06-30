@@ -321,11 +321,18 @@ public class IOUtilsTest {
 
     @Test(dataProvider = "streamProvider")
     public void copyStreamTest(String inputString) throws IOException {
-        ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(inputString.getBytes());
-        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        int size = IOUtils.copy(byteArrayInputStream, byteArrayOutputStream, true, true);
-        Assert.assertEquals(size, inputString.length());
-        Assert.assertEquals(byteArrayOutputStream.toString(), inputString);
+        ByteArrayInputStream byteArrayInputStream = null;
+        ByteArrayOutputStream byteArrayOutputStream = null;
+        try {
+            byteArrayInputStream = new ByteArrayInputStream(inputString.getBytes());
+            byteArrayOutputStream = new ByteArrayOutputStream();
+            int size = IOUtils.copy(byteArrayInputStream, byteArrayOutputStream);
+            Assert.assertEquals(size, inputString.length());
+            Assert.assertEquals(byteArrayOutputStream.toString(), inputString);
+        } finally {
+            IOUtils.closeSilently(byteArrayInputStream);
+            IOUtils.closeSilently(byteArrayOutputStream);
+        }
     }
 
 

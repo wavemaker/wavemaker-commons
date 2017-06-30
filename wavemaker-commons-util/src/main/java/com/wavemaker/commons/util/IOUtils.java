@@ -16,12 +16,8 @@
 package com.wavemaker.commons.util;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
+import java.util.*;
+
 import javax.xml.stream.XMLStreamReader;
 
 import org.apache.commons.io.FileUtils;
@@ -171,23 +167,13 @@ public abstract class IOUtils {
      * Read content of InputStream is into OutputStream os.
      * @param is InputStream to read from.
      * @param os OutputStream to write to.
-     * @param closeInputStream if true,closes input stream in both success/failure scenarios
-     * @param closeOutputStream if true,closes output stream in both success/failure scenarios
      * @return returns the number of bytes actually written
      * @throws IOException
+     *
+     * Note : This method never closes the parameterized streams;
      */
-    public static int copy(
-            InputStream is, OutputStream os, boolean closeInputStream, boolean closeOutputStream) throws IOException {
-        try {
-            return org.apache.commons.io.IOUtils.copy(is, os);
-        } finally {
-            if (closeInputStream) {
-                closeSilently(is);
-            }
-            if (closeOutputStream) {
-                closeSilently(os);
-            }
-        }
+    public static int copy(InputStream is, OutputStream os) throws IOException {
+        return org.apache.commons.io.IOUtils.copy(is, os);
     }
 
     /**
@@ -238,10 +224,16 @@ public abstract class IOUtils {
                 destination = new File(destination, source.getName());
             }
 
-            InputStream in = new FileInputStream(source);
-            OutputStream out = new FileOutputStream(destination);
-
-            copy(in, out, true, true);
+            InputStream inputStream = null;
+            OutputStream outputStream = null;
+            try {
+                inputStream = new FileInputStream(source);
+                outputStream = new FileOutputStream(destination);
+                copy(inputStream, outputStream);
+            } finally {
+                IOUtils.closeSilently(inputStream);
+                IOUtils.closeSilently(outputStream);
+            }
 
         } else {
             throw new IOException(
@@ -325,10 +317,16 @@ public abstract class IOUtils {
                 destination = new File(destination, source.getName());
             }
 
-            InputStream in = new FileInputStream(source);
-            OutputStream out = new FileOutputStream(destination);
-
-            copy(in, out, true, true);
+            InputStream inputStream = null;
+            OutputStream outputStream = null;
+            try {
+                inputStream = new FileInputStream(source);
+                outputStream = new FileOutputStream(destination);
+                copy(inputStream, outputStream);
+            } finally {
+                IOUtils.closeSilently(inputStream);
+                IOUtils.closeSilently(outputStream);
+            }
         } else {
             throw new IOException(
                     "Don't know how to copy " + source.getAbsolutePath() + "; it's neither a directory nor a file");
