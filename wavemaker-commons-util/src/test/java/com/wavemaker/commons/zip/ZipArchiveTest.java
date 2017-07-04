@@ -15,7 +15,11 @@
  */
 package com.wavemaker.commons.zip;
 
-import java.io.*;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.zip.ZipEntry;
@@ -30,7 +34,6 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.rules.TemporaryFolder;
 import org.mockito.MockitoAnnotations;
-import org.springframework.util.FileCopyUtils;
 
 import com.wavemaker.commons.io.File;
 import com.wavemaker.commons.io.FilterOn;
@@ -40,7 +43,10 @@ import com.wavemaker.commons.io.exception.ReadOnlyResourceException;
 import com.wavemaker.commons.io.local.LocalFolder;
 import com.wavemaker.commons.io.store.MockStoredFolder;
 
-import static org.hamcrest.Matchers.*;
+import static org.hamcrest.Matchers.allOf;
+import static org.hamcrest.Matchers.endsWith;
+import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.startsWith;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.BDDMockito.given;
@@ -330,9 +336,7 @@ public class ZipArchiveTest {
     }
 
     private List<String> getEntryNames(InputStream inputStream) throws IOException {
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        FileCopyUtils.copy(inputStream, outputStream);
-        ZipInputStream readInputStream = new ZipInputStream(new ByteArrayInputStream(outputStream.toByteArray()));
+        ZipInputStream readInputStream = new ZipInputStream(inputStream);
         List<String> entryNames = new ArrayList<String>();
         ZipEntry entry = readInputStream.getNextEntry();
         while (entry != null) {

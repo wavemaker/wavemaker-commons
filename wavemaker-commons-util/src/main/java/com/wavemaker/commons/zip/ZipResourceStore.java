@@ -29,8 +29,8 @@ import java.util.Set;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
+import org.apache.commons.io.IOUtils;
 import org.springframework.util.Assert;
-import org.springframework.util.FileCopyUtils;
 import org.springframework.util.ObjectUtils;
 
 import com.wavemaker.commons.io.File;
@@ -450,14 +450,14 @@ abstract class ZipResourceStore implements ResourceStore {
                         if (!zipEntry.isDirectory()) {
                             ResourcePath path = new ResourcePath().get(zipEntry.getName());
                             if (getPath().equals(path)) {
-                                return FileCopyUtils.copyToByteArray(new NoCloseInputStream(zipInputStream));
+                                return IOUtils.toByteArray(new NoCloseInputStream(zipInputStream));
                             }
                         }
                         zipEntry = zipInputStream.getNextEntry();
                     }
                     throw new IllegalStateException("Unable to find ZipEntry for " + getPath());
                 } finally {
-                    zipInputStream.close();
+                    IOUtils.closeQuietly(zipInputStream);
                 }
             }
 

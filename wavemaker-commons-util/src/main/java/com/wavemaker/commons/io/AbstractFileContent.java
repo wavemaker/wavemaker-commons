@@ -24,7 +24,7 @@ import java.io.Reader;
 import java.io.UnsupportedEncodingException;
 import java.io.Writer;
 
-import org.springframework.util.FileCopyUtils;
+import org.apache.commons.io.IOUtils;
 
 import com.wavemaker.commons.CommonConstants;
 import com.wavemaker.commons.WMRuntimeException;
@@ -51,37 +51,55 @@ public abstract class AbstractFileContent implements FileContent {
 
     @Override
     public String asString() throws ResourceException {
+        Reader reader = null;
         try {
-            return FileCopyUtils.copyToString(asReader());
+             reader = asReader();
+            return IOUtils.toString(reader);
         } catch (IOException e) {
             throw new ResourceException(e);
+        } finally {
+            IOUtils.closeQuietly(reader);
         }
     }
 
     @Override
     public byte[] asBytes() throws ResourceException {
+        InputStream inputStream = null;
         try {
-            return FileCopyUtils.copyToByteArray(asInputStream());
+            inputStream = asInputStream();
+            return IOUtils.toByteArray(inputStream);
         } catch (IOException e) {
             throw new ResourceException(e);
+        } finally {
+            IOUtils.closeQuietly(inputStream);
         }
     }
 
     @Override
     public void copyTo(OutputStream outputStream) throws ResourceException {
+        InputStream inputStream = null;
         try {
-            FileCopyUtils.copy(asInputStream(), outputStream);
+            inputStream = asInputStream();
+            IOUtils.copy(inputStream, outputStream);
         } catch (IOException e) {
             throw new ResourceException(e);
+        } finally {
+            IOUtils.closeQuietly(inputStream);
+            IOUtils.closeQuietly(outputStream);
         }
     }
 
     @Override
     public void copyTo(Writer writer) throws ResourceException {
+        Reader reader = null;
         try {
-            FileCopyUtils.copy(asReader(), writer);
+            reader = asReader();
+            IOUtils.copy(reader, writer);
         } catch (IOException e) {
             throw new ResourceException(e);
+        } finally {
+            IOUtils.closeQuietly(reader);
+            IOUtils.closeQuietly(writer);
         }
     }
 
@@ -112,28 +130,42 @@ public abstract class AbstractFileContent implements FileContent {
 
     @Override
     public void write(InputStream inputStream) throws ResourceException {
+        OutputStream outputStream = null;
         try {
-            FileCopyUtils.copy(inputStream, asOutputStream());
+            outputStream = asOutputStream();
+            IOUtils.copyLarge(inputStream, asOutputStream());
         } catch (IOException e) {
             throw new ResourceException(e);
+        } finally {
+            IOUtils.closeQuietly(inputStream);
+            IOUtils.closeQuietly(outputStream);
         }
     }
 
     @Override
     public void write(Reader reader) throws ResourceException {
+        Writer writer = null;
         try {
-            FileCopyUtils.copy(reader, asWriter());
+            writer = asWriter();
+            IOUtils.copyLarge(reader, writer);
         } catch (IOException e) {
             throw new ResourceException(e);
+        } finally {
+            IOUtils.closeQuietly(reader);
+            IOUtils.closeQuietly(writer);
         }
     }
 
     @Override
     public void write(String string) throws ResourceException {
+        Writer writer = null;
         try {
-            FileCopyUtils.copy(string, asWriter());
+            writer = asWriter();
+            IOUtils.write(string, writer);
         } catch (IOException e) {
             throw new ResourceException(e);
+        } finally {
+            IOUtils.closeQuietly(writer);
         }
     }
 }

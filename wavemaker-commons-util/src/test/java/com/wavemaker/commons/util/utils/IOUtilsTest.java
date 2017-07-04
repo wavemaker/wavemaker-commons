@@ -312,13 +312,6 @@ public class IOUtilsTest {
         }
     }
 
-    @Test
-    public void exclusionByExactMatchTest() {
-
-        assertTrue(IOUtils.excludeByExactMatch(new File("/foo/bar/" + IOUtils.DEFAULT_EXCLUSION.get(0))));
-        assertFalse(IOUtils.excludeByExactMatch(new File("/foo/bar/" + IOUtils.DEFAULT_EXCLUSION.get(0) + ".foo")));
-    }
-
     @Test(dataProvider = "streamProvider")
     public void copyStreamTest(String inputString) throws IOException {
         ByteArrayInputStream byteArrayInputStream = null;

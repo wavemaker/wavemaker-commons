@@ -16,19 +16,18 @@
 package com.wavemaker.commons.io.local;
 
 import java.io.FileInputStream;
-import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
+import org.apache.commons.io.IOUtils;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.rules.TemporaryFolder;
-import org.springframework.util.FileCopyUtils;
 
 import com.wavemaker.commons.io.File;
 import com.wavemaker.commons.io.Folder;
@@ -190,7 +189,7 @@ public class LocalResourceStoreTest {
     @Test
     public void shouldGetInputStream() throws Exception {
         LocalFileStore store = new LocalFileStore(this.temp.getRoot(), new JailedResourcePath().get("g.txt"));
-        String actual = FileCopyUtils.copyToString(new InputStreamReader(store.getInputStream()));
+        String actual = IOUtils.toString(store.getInputStream());
         assertThat(actual, is("g"));
     }
 
@@ -203,7 +202,7 @@ public class LocalResourceStoreTest {
         } finally {
             stream.close();
         }
-        String actual = FileCopyUtils.copyToString(new InputStreamReader(new FileInputStream(new java.io.File(this.temp.getRoot(), "g.txt"))));
+        String actual = IOUtils.toString((new FileInputStream(new java.io.File(this.temp.getRoot(), "g.txt"))));
         assertThat(actual, is("x"));
 
     }

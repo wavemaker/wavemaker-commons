@@ -16,9 +16,10 @@
 package com.wavemaker.commons.util;
 
 import java.io.*;
-import java.util.*;
-
-import javax.xml.stream.XMLStreamReader;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.List;
 
 import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
@@ -42,12 +43,6 @@ public abstract class IOUtils {
 
     private IOUtils() {
     }
-
-    /**
-     * List of our default exclusion directory names. This is used both by
-     */
-    public static final List<String> DEFAULT_EXCLUSION = Collections
-            .unmodifiableList(Arrays.asList(new String[]{".svn"}));
 
     /**
      * Read an entire File into a String.
@@ -164,7 +159,7 @@ public abstract class IOUtils {
     }
 
     /**
-     * Read content of InputStream is into OutputStream os.
+     * copies content of InputStream into OutputStream os.
      * @param is InputStream to read from.
      * @param os OutputStream to write to.
      * @return returns the number of bytes actually written
@@ -174,6 +169,19 @@ public abstract class IOUtils {
      */
     public static int copy(InputStream is, OutputStream os) throws IOException {
         return org.apache.commons.io.IOUtils.copy(is, os);
+    }
+
+    /**
+     * Copies content of reader into Writer.
+     * @param reader Reader to read from.
+     * @param writer Writer to write to.
+     * @return returns the number of characters actually written
+     * @throws IOException
+     *
+     * Note : This method never closes the parameterized streams;
+     */
+    public static int copy(Reader reader, Writer writer) throws IOException {
+        return org.apache.commons.io.IOUtils.copy(reader, writer);
     }
 
     /**
@@ -528,24 +536,6 @@ public abstract class IOUtils {
             fw.close();
         } else {
             f.setLastModified(System.currentTimeMillis());
-        }
-    }
-
-    /**
-     * Return true iff we should exclude file, based on DEFAULT_EXCLUSION. The filename of file must be an exact match,
-     * so this is more suitable for use with directories.
-     */
-    public static boolean excludeByExactMatch(File file) {
-
-        return DEFAULT_EXCLUSION.contains(file.getName());
-    }
-
-    public static void closeXmlReaderSilently(XMLStreamReader reader) {
-        if (reader != null) {
-            try {
-                reader.close();
-            } catch (Exception exc) {
-            }
         }
     }
 
