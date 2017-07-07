@@ -29,6 +29,9 @@ import org.springframework.util.PathMatcher;
 
 import com.wavemaker.commons.MessageResource;
 import com.wavemaker.commons.WMRuntimeException;
+import com.wavemaker.commons.io.Folder;
+import com.wavemaker.commons.io.exception.ResourceException;
+import com.wavemaker.commons.io.local.LocalFolder;
 
 /**
  * @author Simon Toens
@@ -341,6 +344,15 @@ public abstract class IOUtils {
         }
     }
 
+    public static com.wavemaker.commons.io.File createTempFile(String prefix, String suffix) {
+        try {
+            File tempFile = File.createTempFile(prefix, suffix);
+            return new LocalFolder(tempFile.getParent()).getFile(tempFile.getName());
+        } catch (IOException e) {
+            throw new ResourceException("Failed to create temp file", e);
+        }
+    }
+
     /**
      * Create a temporary directory, which will be deleted when the VM exits.
      *
@@ -349,6 +361,14 @@ public abstract class IOUtils {
      */
     public static File createTempDirectory() throws IOException {
         return createTempDirectory("fileUtils_createTempDirectory", null);
+    }
+
+    public static Folder createTempFolder() {
+        try {
+            return new LocalFolder(createTempDirectory("tempFolder", null));
+        } catch (IOException e) {
+            throw new ResourceException("Failed to create temp folder", e);
+        }
     }
 
     /**
