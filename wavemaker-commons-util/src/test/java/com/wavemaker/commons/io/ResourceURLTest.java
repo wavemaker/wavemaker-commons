@@ -30,6 +30,7 @@ import org.junit.rules.ExpectedException;
 import org.junit.rules.TemporaryFolder;
 
 import com.wavemaker.commons.io.local.LocalFolder;
+
 import static org.junit.Assert.assertThat;
 
 /**
@@ -139,7 +140,7 @@ public class ResourceURLTest {
 
     @Test
     public void shouldGetForCollection() throws Exception {
-        List<Folder> folders = new ArrayList<Folder>();
+        List<Folder> folders = new ArrayList<>();
         folders.add(this.root.getFolder("/jail/a"));
         folders.add(this.root.getFolder("/jail/a/b"));
         List<URL> url = ResourceURL.getForResources(folders);

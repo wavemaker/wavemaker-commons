@@ -85,7 +85,7 @@ public abstract class ResourceURL {
      * @throws MalformedURLException
      */
     public static List<URL> getForResources(Iterable<? extends Resource> resources, boolean nonLocking) throws MalformedURLException {
-        List<URL> urls = new ArrayList<URL>();
+        List<URL> urls = new ArrayList<>();
         for (Resource resource : resources) {
             urls.add(get(resource, nonLocking));
         }

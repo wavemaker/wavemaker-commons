@@ -333,7 +333,7 @@ public abstract class FilterOn {
 
     private static class CompoundFilter implements ResourceFilter {
 
-        private final List<ResourceFilter> filters = new ArrayList<ResourceFilter>();
+        private final List<ResourceFilter> filters = new ArrayList<>();
 
         public void add(ResourceFilter filter) {
             this.filters.add(filter);

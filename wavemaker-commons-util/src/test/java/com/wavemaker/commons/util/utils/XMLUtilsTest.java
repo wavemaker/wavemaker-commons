@@ -15,19 +15,22 @@
  */
 package com.wavemaker.commons.util.utils;
 
-import static org.testng.Assert.*;
-import com.wavemaker.commons.util.XMLUtils;
-import org.testng.annotations.Test;
-import javax.xml.stream.XMLInputFactory;
-import javax.xml.stream.XMLStreamException;
-import javax.xml.stream.XMLStreamReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.net.URL;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
+
+import javax.xml.stream.XMLInputFactory;
+import javax.xml.stream.XMLStreamException;
+import javax.xml.stream.XMLStreamReader;
+
+import org.testng.annotations.Test;
+
+import com.wavemaker.commons.util.XMLUtils;
+
+import static org.testng.Assert.assertEquals;
 
 /**
  * Created by Saraswathi Rekhala on 19/10/15.

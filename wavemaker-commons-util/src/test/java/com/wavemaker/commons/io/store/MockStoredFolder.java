@@ -15,10 +15,6 @@
  */
 package com.wavemaker.commons.io.store;
 
-import static org.mockito.BDDMockito.given;
-import static org.mockito.Matchers.any;
-import static org.mockito.Mockito.mock;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -30,6 +26,10 @@ import com.wavemaker.commons.io.Folder;
 import com.wavemaker.commons.io.JailedResourcePath;
 import com.wavemaker.commons.io.Resource;
 
+import static org.mockito.BDDMockito.given;
+import static org.mockito.Matchers.any;
+import static org.mockito.Mockito.mock;
+
 public class MockStoredFolder extends StoredFolder {
 
     private final Map<JailedResourcePath, MockStoredFolder> childFolders;
@@ -39,7 +39,7 @@ public class MockStoredFolder extends StoredFolder {
     private final FolderStore store;
 
     public MockStoredFolder() {
-        this(new JailedResourcePath(), new HashMap<JailedResourcePath, MockStoredFolder>(), new HashMap<JailedResourcePath, MockStoredFile>());
+        this(new JailedResourcePath(), new HashMap<>(), new HashMap<>());
     }
 
     public MockStoredFolder(JailedResourcePath path, Map<JailedResourcePath, MockStoredFolder> childFolders,

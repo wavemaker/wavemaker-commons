@@ -232,7 +232,7 @@ public class ZipArchiveTest {
     }
 
     private List<String> asList(Iterable<? extends Resource> iterable) {
-        List<String> list = new ArrayList<String>();
+        List<String> list = new ArrayList<>();
         for (Resource item : iterable) {
             list.add(item.getName());
         }
@@ -337,7 +337,7 @@ public class ZipArchiveTest {
 
     private List<String> getEntryNames(InputStream inputStream) throws IOException {
         ZipInputStream readInputStream = new ZipInputStream(inputStream);
-        List<String> entryNames = new ArrayList<String>();
+        List<String> entryNames = new ArrayList<>();
         ZipEntry entry = readInputStream.getNextEntry();
         while (entry != null) {
             entryNames.add(entry.getName());

@@ -27,11 +27,11 @@ public class Tuple {
      * Convenience methods for creating tuple instances.
      */
     public static <T1, T2> Two<T1, T2> tuple(T1 v1, T2 v2) {
-        return new Two<T1, T2>(v1, v2);
+        return new Two<>(v1, v2);
     }
 
     public static <T1, T2, T3> Three<T1, T2, T3> tuple(T1 v1, T2 v2, T3 v3) {
-        return new Three<T1, T2, T3>(v1, v2, v3);
+        return new Three<>(v1, v2, v3);
     }
 
     public static class Two<T1, T2> {

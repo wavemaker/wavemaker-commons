@@ -103,7 +103,7 @@ public abstract class StoredFolder extends StoredResource implements Folder {
     @Override
     public Resources<Resource> list() {
         if (!exists()) {
-            return new ResourcesCollection<Resource>(this);
+            return new ResourcesCollection<>(this);
         }
         return new ChildResources(new Iterable<Resource>() {
 
@@ -117,7 +117,7 @@ public abstract class StoredFolder extends StoredResource implements Folder {
     @Override
     public Resources<Resource> find() {
         if (!exists()) {
-            return new ResourcesCollection<Resource>(this);
+            return new ResourcesCollection<>(this);
         }
         return new ChildResources(new Iterable<Resource>() {
 

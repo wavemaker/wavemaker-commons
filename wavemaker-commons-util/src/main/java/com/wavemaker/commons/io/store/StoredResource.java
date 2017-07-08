@@ -15,19 +15,18 @@
  */
 package com.wavemaker.commons.io.store;
 
-import com.wavemaker.commons.io.JailedResourcePath;
-import com.wavemaker.commons.io.Resource;
-import com.wavemaker.commons.io.ResourceOperation;
-import com.wavemaker.commons.io.ResourceStringFormat;
-import com.wavemaker.commons.io.exception.ResourceDoesNotExistException;
-import com.wavemaker.commons.io.exception.ResourceExistsException;
-
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.core.GenericTypeResolver;
 import org.springframework.util.Assert;
 import org.springframework.util.ObjectUtils;
 
 import com.wavemaker.commons.io.Folder;
+import com.wavemaker.commons.io.JailedResourcePath;
+import com.wavemaker.commons.io.Resource;
+import com.wavemaker.commons.io.ResourceOperation;
+import com.wavemaker.commons.io.ResourceStringFormat;
+import com.wavemaker.commons.io.exception.ResourceDoesNotExistException;
+import com.wavemaker.commons.io.exception.ResourceExistsException;
 
 /**
  * Base for {@link StoredFile} and {@link StoredFolder}.

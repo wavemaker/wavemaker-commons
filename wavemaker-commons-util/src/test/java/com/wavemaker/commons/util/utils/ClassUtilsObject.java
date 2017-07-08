@@ -15,8 +15,6 @@
  */
 package com.wavemaker.commons.util.utils;
 
-import org.testng.annotations.Test;
-
 /**
  * @author Matt Small
  */

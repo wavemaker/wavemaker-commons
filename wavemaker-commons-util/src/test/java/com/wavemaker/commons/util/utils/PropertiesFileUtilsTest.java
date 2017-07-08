@@ -15,13 +15,19 @@
  */
 package com.wavemaker.commons.util.utils;
 
-import com.wavemaker.commons.util.PropertiesFileUtils;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.lang.reflect.Method;
+import java.util.Properties;
+
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
-import java.io.*;
-import java.lang.reflect.Method;
-import java.util.Properties;
+import com.wavemaker.commons.util.PropertiesFileUtils;
 
 import static org.testng.Assert.assertEquals;
 

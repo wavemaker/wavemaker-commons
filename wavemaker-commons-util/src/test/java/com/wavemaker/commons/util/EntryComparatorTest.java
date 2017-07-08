@@ -19,9 +19,10 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import com.wavemaker.commons.util.WMTestUtils;
-import static org.testng.Assert.*;
 import org.testng.annotations.Test;
+
+import static org.testng.Assert.assertNotNull;
+import static org.testng.Assert.assertTrue;
 
 /**
  * @author Matt Small
@@ -31,7 +32,7 @@ public class EntryComparatorTest {
     @Test
     public void comparatorTest() throws Exception {
 
-        Map<String, String> map = new HashMap<String, String>();
+        Map<String, String> map = new HashMap<>();
         map.put("c", "foobar");
         map.put("a", "foobar");
 

@@ -74,11 +74,11 @@ public class FilteredResources<T extends Resource> extends AbstractResources<T> 
     }
 
     public static <T extends Resource> Resources<T> include(Resources<T> resources, ResourceFilter... filters) {
-        return new FilteredResources<T>(resources, Type.INCLUDE, filters);
+        return new FilteredResources<>(resources, Type.INCLUDE, filters);
     }
 
     public static <T extends Resource> Resources<T> exclude(Resources<T> resources, ResourceFilter... filters) {
-        return new FilteredResources<T>(resources, Type.EXCLUDE, filters);
+        return new FilteredResources<>(resources, Type.EXCLUDE, filters);
     }
 
 }

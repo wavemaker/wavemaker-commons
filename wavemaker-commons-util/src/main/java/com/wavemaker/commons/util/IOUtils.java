@@ -81,7 +81,7 @@ public abstract class IOUtils {
      * than the last N lines in memory
      */
     public static String tail(File f, int lines) throws IOException {
-        java.util.ArrayList<String> lineList = new java.util.ArrayList<String>(lines);
+        java.util.ArrayList<String> lineList = new java.util.ArrayList<>(lines);
 
         BufferedReader br = null;
 
@@ -197,7 +197,7 @@ public abstract class IOUtils {
      */
     public static void copy(File source, File destination) throws IOException {
 
-        copy(source, destination, new ArrayList<String>());
+        copy(source, destination, new ArrayList<>());
     }
 
     /**
@@ -496,9 +496,9 @@ public abstract class IOUtils {
         if (!indir.isDirectory()) {
             throw new IllegalArgumentException("Expected directory as input");
         }
-        Collection<File> rtn = new HashSet<File>();
+        Collection<File> rtn = new HashSet<>();
 
-        List<File> dirs = new ArrayList<File>();
+        List<File> dirs = new ArrayList<>();
         dirs.add(indir);
 
         while (!dirs.isEmpty()) {

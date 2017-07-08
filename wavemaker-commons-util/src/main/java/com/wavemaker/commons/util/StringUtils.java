@@ -39,8 +39,8 @@ public abstract class StringUtils {
 
     public static final String JAVA_SRC_EXT = ".java";
 
-    private static final Collection<String> JAVA_KEYWORDS = new HashSet<String>(50);
-    private static final Collection<String> HQL_KEYWORDS = new HashSet<String>(50);
+    private static final Collection<String> JAVA_KEYWORDS = new HashSet<>(50);
+    private static final Collection<String> HQL_KEYWORDS = new HashSet<>(50);
 
     static {
         JAVA_KEYWORDS.add("abstract");
@@ -272,7 +272,7 @@ public abstract class StringUtils {
     }  
 
     public static List<String> getItemsStartingWith(Collection<String> items, String prefix, boolean removePrefix) {
-        List<String> rtn = new ArrayList<String>();
+        List<String> rtn = new ArrayList<>();
         for (String s : items) {
             if (s.startsWith(prefix)) {
                 if (removePrefix) {
@@ -318,7 +318,7 @@ public abstract class StringUtils {
      * split by ',', except if within {},[] or quotes.
      */
     public static List<String> split(String s) {
-        Collection<Character> sep = new HashSet<Character>(1);
+        Collection<Character> sep = new HashSet<>(1);
         sep.add(',');
         return split(s, sep);
     }
@@ -328,7 +328,7 @@ public abstract class StringUtils {
      */
     public static List<String> split(String s, Collection<Character> sep) {
 
-        List<String> rtn = new ArrayList<String>();
+        List<String> rtn = new ArrayList<>();
 
         boolean inDoubleQuotes = false;
         boolean inSingleQuotes = false;
@@ -387,7 +387,7 @@ public abstract class StringUtils {
     }
 
     public static String getUniqueName(String name, String names) {
-        Collection<String> c = new HashSet<String>(1);
+        Collection<String> c = new HashSet<>(1);
         c.add(names);
         return getUniqueName(name, c);
     }

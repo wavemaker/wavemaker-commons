@@ -21,13 +21,16 @@ import java.util.HashMap;
 import java.util.UUID;
 import java.util.concurrent.atomic.AtomicLong;
 
-import bsh.Primitive;
-import com.wavemaker.commons.util.TypeConversionUtils;
-import junit.framework.TestCase;
-import static org.testng.Assert.*;
-
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
+
+import com.wavemaker.commons.util.TypeConversionUtils;
+import junit.framework.TestCase;
+
+import static org.testng.Assert.assertFalse;
+import static org.testng.Assert.assertNotNull;
+import static org.testng.Assert.assertNull;
+import static org.testng.Assert.assertTrue;
 
 /**
  * @author Simon Toens

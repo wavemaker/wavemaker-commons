@@ -15,16 +15,22 @@
  */
 package com.wavemaker.commons.util.utils;
 
-import com.wavemaker.commons.util.JAXBUtils;
-import org.testng.annotations.DataProvider;
-import org.testng.annotations.Test;
-
-import static org.testng.Assert.*;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.URL;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
-import java.io.*;
-import java.net.URL;
+
+import org.testng.annotations.Test;
+
+import com.wavemaker.commons.util.JAXBUtils;
+
+import static org.testng.Assert.assertEquals;
 
 /**
  * Created by Prithvi Medavaram on 13/10/15.

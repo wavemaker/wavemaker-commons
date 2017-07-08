@@ -15,18 +15,12 @@
  */
 package com.wavemaker.commons.io;
 
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.nullValue;
-import static org.junit.Assert.assertThat;
-
-import com.wavemaker.commons.io.JailedResourcePath;
-import com.wavemaker.commons.io.ResourcePath;
-
 import org.hamcrest.Matchers;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+
+import static org.junit.Assert.assertThat;
 
 /**
  * Tests for {@link JailedResourcePath}.

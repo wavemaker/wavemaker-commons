@@ -15,12 +15,12 @@
  */
 package com.wavemaker.commons.i18n;
 
+import java.io.IOException;
+import java.util.Properties;
+
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
-
-import java.io.IOException;
-import java.util.Properties;
 
 /**
  * Created by saddhamp on 23/3/16.

@@ -53,7 +53,7 @@ public abstract class XMLUtils {
         if (numAttrs == 0) {
             return Collections.emptyMap();
         }
-        Map<String, String> rtn = new HashMap<String, String>(numAttrs);
+        Map<String, String> rtn = new HashMap<>(numAttrs);
         for (int i = 0; i < numAttrs; i++) {
             StringBuilder attrName = new StringBuilder();
             if (scope.length() > 0) {

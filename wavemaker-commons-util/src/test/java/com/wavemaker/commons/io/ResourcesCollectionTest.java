@@ -15,25 +15,10 @@
  */
 package com.wavemaker.commons.io;
 
-import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertThat;
-import static org.mockito.Mockito.inOrder;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.verifyNoMoreInteractions;
-
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
-
-import com.wavemaker.commons.io.File;
-import com.wavemaker.commons.io.Folder;
-import com.wavemaker.commons.io.Resource;
-import com.wavemaker.commons.io.ResourceFilter;
-import com.wavemaker.commons.io.ResourceFilterContext;
-import com.wavemaker.commons.io.ResourceOperation;
-import com.wavemaker.commons.io.ResourcesCollection;
 
 import org.hamcrest.Matchers;
 import org.junit.Rule;
@@ -44,6 +29,8 @@ import org.mockito.InOrder;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
+
+import static org.junit.Assert.assertThat;
 
 /**
  * Tests for {@link ResourcesCollection}.
@@ -72,19 +59,19 @@ public class ResourcesCollectionTest {
     public void shouldNeedResources() throws Exception {
         this.thrown.expect(IllegalArgumentException.class);
         this.thrown.expectMessage("Resources must not be null");
-        new ResourcesCollection<Resource>(this.source, (Collection<Resource>) null);
+        new ResourcesCollection<>(this.source, (Collection<Resource>) null);
     }
 
     @Test
     public void shouldNeedResourcesArray() throws Exception {
         this.thrown.expect(IllegalArgumentException.class);
         this.thrown.expectMessage("Resources must not be null");
-        new ResourcesCollection<Resource>(this.source, (Resource[]) null);
+        new ResourcesCollection<>(this.source, (Resource[]) null);
     }
 
     @Test
     public void shouldIterateCollection() throws Exception {
-        ResourcesCollection<Resource> collection = new ResourcesCollection<Resource>(this.source, Arrays.asList(this.folder, this.file));
+        ResourcesCollection<Resource> collection = new ResourcesCollection<>(this.source, Arrays.asList(this.folder, this.file));
         Iterator<Resource> iterator = collection.iterator();
         assertThat(iterator.next(), Matchers.is((Resource) this.folder));
         assertThat(iterator.next(), Matchers.is((Resource) this.file));
@@ -93,7 +80,7 @@ public class ResourcesCollectionTest {
 
     @Test
     public void shouldIterateArray() throws Exception {
-        ResourcesCollection<Resource> collection = new ResourcesCollection<Resource>(this.source, this.folder, this.file);
+        ResourcesCollection<Resource> collection = new ResourcesCollection<>(this.source, this.folder, this.file);
         Iterator<Resource> iterator = collection.iterator();
         assertThat(iterator.next(), Matchers.is((Resource) this.folder));
         assertThat(iterator.next(), Matchers.is((Resource) this.file));
@@ -102,7 +89,7 @@ public class ResourcesCollectionTest {
 
     @Test
     public void shouldDeleteAgainstItems() throws Exception {
-        ResourcesCollection<Resource> collection = new ResourcesCollection<Resource>(this.source, this.folder, this.file);
+        ResourcesCollection<Resource> collection = new ResourcesCollection<>(this.source, this.folder, this.file);
         collection.delete();
         InOrder ordered = Mockito.inOrder(this.folder, this.file);
         ordered.verify(this.folder).delete();
@@ -111,7 +98,7 @@ public class ResourcesCollectionTest {
 
     @Test
     public void shouldMoveToAgainstItems() throws Exception {
-        ResourcesCollection<Resource> collection = new ResourcesCollection<Resource>(this.source, this.folder, this.file);
+        ResourcesCollection<Resource> collection = new ResourcesCollection<>(this.source, this.folder, this.file);
         Folder destination = Mockito.mock(Folder.class);
         collection.moveTo(destination);
         InOrder ordered = Mockito.inOrder(this.folder, this.file);
@@ -121,7 +108,7 @@ public class ResourcesCollectionTest {
 
     @Test
     public void shouldCopyToAgainstItems() throws Exception {
-        ResourcesCollection<Resource> collection = new ResourcesCollection<Resource>(this.source, this.folder, this.file);
+        ResourcesCollection<Resource> collection = new ResourcesCollection<>(this.source, this.folder, this.file);
         Folder destination = Mockito.mock(Folder.class);
         collection.copyTo(destination);
         InOrder ordered = Mockito.inOrder(this.folder, this.file);
@@ -131,7 +118,7 @@ public class ResourcesCollectionTest {
 
     @Test
     public void shouldPerformOperationAgainstResourceItems() throws Exception {
-        ResourcesCollection<Resource> collection = new ResourcesCollection<Resource>(this.source, this.folder, this.file);
+        ResourcesCollection<Resource> collection = new ResourcesCollection<>(this.source, this.folder, this.file);
         collection.performOperation(this.resourceOperation);
         Mockito.verify(this.resourceOperation).perform(this.folder);
         Mockito.verify(this.resourceOperation).perform(this.file);
@@ -140,7 +127,7 @@ public class ResourcesCollectionTest {
 
     @Test
     public void shouldFetchAll() throws Exception {
-        ResourcesCollection<Resource> collection = new ResourcesCollection<Resource>(this.source, this.folder, this.file);
+        ResourcesCollection<Resource> collection = new ResourcesCollection<>(this.source, this.folder, this.file);
         List<Resource> list = collection.fetchAll();
         assertThat(list.size(), Matchers.is(2));
         assertThat(list.get(0), Matchers.is((Resource) this.folder));
@@ -154,7 +141,7 @@ public class ResourcesCollectionTest {
         File c = Mockito.mock(File.class);
         File d = Mockito.mock(File.class);
         File e = Mockito.mock(File.class);
-        ResourcesCollection<File> collection = new ResourcesCollection<File>(this.source, a, b, c, d, e);
+        ResourcesCollection<File> collection = new ResourcesCollection<>(this.source, a, b, c, d, e);
         Iterator<File> actual = collection.include(filterOn(a), filterOn(c), filterOn(e)).exclude(filterOn(c)).iterator();
         assertThat(actual.next(), Matchers.is(a));
         assertThat(actual.next(), Matchers.is(e));

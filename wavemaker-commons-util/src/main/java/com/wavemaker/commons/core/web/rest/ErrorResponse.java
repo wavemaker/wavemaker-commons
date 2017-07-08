@@ -34,7 +34,7 @@ public class ErrorResponse {
     private String id;
     private String messageKey;
     private String message;
-    private List<String> parameters = new ArrayList<String>();
+    private List<String> parameters = new ArrayList<>();
 
     public ErrorResponse() {
     }   

@@ -18,14 +18,7 @@ package com.wavemaker.commons.util;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
-import com.wavemaker.commons.WMRuntimeException;
-import com.wavemaker.commons.util.IOUtils;
-import com.wavemaker.commons.util.SpringUtils;
-import com.wavemaker.commons.util.WMFileUtils;
-import junit.framework.TestCase;
 import org.testng.Assert;
 
 public class WMTestUtils {

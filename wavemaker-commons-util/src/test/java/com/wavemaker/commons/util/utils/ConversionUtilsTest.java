@@ -15,15 +15,17 @@
  */
 package com.wavemaker.commons.util.utils;
 
-import com.wavemaker.commons.util.ConversionUtils;
-import org.testng.annotations.Test;
-import static org.testng.Assert.*;
-
 import java.io.File;
 import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
+
 import org.springframework.core.io.Resource;
+import org.testng.annotations.Test;
+
+import com.wavemaker.commons.util.ConversionUtils;
+
+import static org.testng.Assert.assertEquals;
 
 
 /**

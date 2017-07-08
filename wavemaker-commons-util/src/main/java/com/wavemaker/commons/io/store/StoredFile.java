@@ -18,11 +18,11 @@ package com.wavemaker.commons.io.store;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-import com.wavemaker.commons.io.FileContent;
 import org.springframework.util.Assert;
 
 import com.wavemaker.commons.io.AbstractFileContent;
 import com.wavemaker.commons.io.File;
+import com.wavemaker.commons.io.FileContent;
 import com.wavemaker.commons.io.Folder;
 import com.wavemaker.commons.io.exception.ResourceDoesNotExistException;
 import com.wavemaker.commons.io.exception.ResourceExistsException;

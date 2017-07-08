@@ -19,13 +19,13 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-import com.wavemaker.commons.io.exception.ResourceDoesNotExistException;
-import com.wavemaker.commons.io.exception.ResourceExistsException;
 import org.springframework.core.GenericTypeResolver;
 import org.springframework.util.Assert;
 
 import com.wavemaker.commons.io.exception.ReadOnlyResourceException;
+import com.wavemaker.commons.io.exception.ResourceDoesNotExistException;
 import com.wavemaker.commons.io.exception.ResourceException;
+import com.wavemaker.commons.io.exception.ResourceExistsException;
 
 /**
  * Abstract base class for read-only {@link File} implementations that are not contained in any {@link #getParent()

@@ -17,8 +17,8 @@ package com.wavemaker.commons.io;
 
 import java.io.IOException;
 
-import com.wavemaker.commons.util.IOUtils;
 import com.wavemaker.commons.io.local.LocalFolder;
+import com.wavemaker.commons.util.IOUtils;
 
 /**
  * @author <a href="mailto:dilip.gundu@wavemaker.com">Dilip Kumar</a>

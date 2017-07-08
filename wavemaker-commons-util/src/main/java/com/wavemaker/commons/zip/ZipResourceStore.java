@@ -215,7 +215,7 @@ abstract class ZipResourceStore implements ResourceStore {
 
         private final File zipFile;
 
-        private final Map<ResourcePath, ZipFileDetailsEntry> entries = new HashMap<ResourcePath, ZipFileDetailsEntry>();
+        private final Map<ResourcePath, ZipFileDetailsEntry> entries = new HashMap<>();
 
         private boolean loadedAtLeastOnce;
 
@@ -312,7 +312,7 @@ abstract class ZipResourceStore implements ResourceStore {
          * Create any missing folder entries. This can occur if a zip file does include entries for parent folders.
          */
         private void createMissingFolderEntries() {
-            List<MissingZipFileDetailsEntry> missingEntries = new ArrayList<MissingZipFileDetailsEntry>();
+            List<MissingZipFileDetailsEntry> missingEntries = new ArrayList<>();
             Set<ResourcePath> paths = this.entries.keySet();
             for (ResourcePath path : paths) {
                 path = path.getParent();
@@ -369,7 +369,7 @@ abstract class ZipResourceStore implements ResourceStore {
 
             public Iterable<String> list() {
                 if (this.list == null) {
-                    this.list = new ArrayList<String>();
+                    this.list = new ArrayList<>();
                     if (isFolder()) {
                         for (ResourcePath entryPath : ZipFile.this.entries.keySet()) {
                             if (isParent(entryPath)) {
@@ -434,7 +434,7 @@ abstract class ZipResourceStore implements ResourceStore {
                 try {
                     if (bytes == null) {
                         bytes = getZipEntryBytes();
-                        this.contents = new WeakReference<byte[]>(bytes);
+                        this.contents = new WeakReference<>(bytes);
                     }
                     return new ByteArrayInputStream(bytes);
                 } finally {

@@ -15,11 +15,6 @@
  */
 package com.wavemaker.commons.io.local;
 
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.not;
-import static org.junit.Assert.assertThat;
-
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -35,6 +30,11 @@ import com.wavemaker.commons.io.Folder;
 import com.wavemaker.commons.io.Resource;
 import com.wavemaker.commons.io.Resources;
 import com.wavemaker.commons.io.exception.ResourceException;
+
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.not;
+import static org.junit.Assert.assertThat;
 
 /**
  * Tests for {@link com.wavemaker.commons.io.local.LocalFolder}.
@@ -63,7 +63,7 @@ public class LocalFolderTest {
     public void shouldFind() throws Exception {
         List<Resource> all = this.root.find().fetchAll();
         Set<String> actual = getNames(all);
-        Set<String> expected = new HashSet<String>();
+        Set<String> expected = new HashSet<>();
         expected.add("/a/");
         expected.add("/a/b/");
         expected.add("/a/b/c.txt");
@@ -78,7 +78,7 @@ public class LocalFolderTest {
     public void shouldFindSingle() throws Exception {
         List<Resource> all = this.root.getFolder("a/b").find().fetchAll();
         Set<String> actual = getNames(all);
-        Set<String> expected = new HashSet<String>();
+        Set<String> expected = new HashSet<>();
         expected.add("/a/b/c.txt");
         assertThat(actual, is(expected));
     }
@@ -87,7 +87,7 @@ public class LocalFolderTest {
     public void shouldFindFiles() throws Exception {
         List<File> all = this.root.find().files().fetchAll();
         Set<String> actual = getNames(all);
-        Set<String> expected = new HashSet<String>();
+        Set<String> expected = new HashSet<>();
         expected.add("/a/b/c.txt");
         expected.add("/d/e/f.txt");
         expected.add("/g.txt");
@@ -108,7 +108,7 @@ public class LocalFolderTest {
         Folder destination = new LocalFolder(this.dest.getRoot());
         this.root.find().files().exclude(FilterOn.names().starting("f")).copyTo(destination);
         Set<String> actual = getNames(destination.find());
-        Set<String> expected = new HashSet<String>();
+        Set<String> expected = new HashSet<>();
         expected.add("/a/");
         expected.add("/a/b/");
         expected.add("/a/b/c.txt");
@@ -117,7 +117,7 @@ public class LocalFolderTest {
     }
 
     private Set<String> getNames(Iterable<? extends Resource> resources) {
-        Set<String> allNames = new HashSet<String>();
+        Set<String> allNames = new HashSet<>();
         for (Resource resource : resources) {
             allNames.add(resource.toString());
         }

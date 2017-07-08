@@ -53,7 +53,7 @@ public class ClassUtils {
     public static List<Method> getPublicMethods(Class<?> c) {
 
         Method[] allMethods = c.getMethods();
-        List<Method> ret = new ArrayList<Method>(allMethods.length);
+        List<Method> ret = new ArrayList<>(allMethods.length);
 
         for (int i = 0; i < allMethods.length; i++) {
             if (!allMethods[i].getDeclaringClass().equals(Object.class)) {
@@ -70,7 +70,7 @@ public class ClassUtils {
 
     public static List<Field> getPublicFields(Class<?> c, Class<?> fieldType) {
 
-        List<Field> rtn = new ArrayList<Field>();
+        List<Field> rtn = new ArrayList<>();
 
         Field[] f = c.getFields();
 

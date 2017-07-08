@@ -15,12 +15,20 @@
  */
 package com.wavemaker.commons.util.utils;
 
-import com.wavemaker.commons.util.CastUtils;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
+
 import org.testng.annotations.Test;
 
-import java.util.*;
+import com.wavemaker.commons.util.CastUtils;
 
-import static org.testng.Assert.*;
+import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertFalse;
+import static org.testng.Assert.assertNotNull;
+import static org.testng.Assert.assertTrue;
 
 /**
  * Created by Prithvi Medavaram on 13/10/15.

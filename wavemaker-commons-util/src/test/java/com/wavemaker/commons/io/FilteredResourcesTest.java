@@ -15,25 +15,15 @@
  */
 package com.wavemaker.commons.io;
 
-import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertThat;
-
 import java.util.Iterator;
-
-import com.wavemaker.commons.io.File;
-import com.wavemaker.commons.io.FilteredResources;
-import com.wavemaker.commons.io.Folder;
-import com.wavemaker.commons.io.Resource;
-import com.wavemaker.commons.io.ResourceFilter;
-import com.wavemaker.commons.io.ResourceFilterContext;
-import com.wavemaker.commons.io.Resources;
-import com.wavemaker.commons.io.ResourcesCollection;
 
 import org.hamcrest.Matchers;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+
+import static org.junit.Assert.assertThat;
 
 /**
  * Tests for {@link FilteredResources}.
@@ -62,7 +52,7 @@ public class FilteredResourcesTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        this.resources = new ResourcesCollection<File>(this.source, this.fileA, this.fileB, this.fileC, this.fileD);
+        this.resources = new ResourcesCollection<>(this.source, this.fileA, this.fileB, this.fileC, this.fileD);
     }
 
     @Test

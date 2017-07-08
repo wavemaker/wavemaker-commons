@@ -240,8 +240,8 @@ public class LocalResourceStoreTest {
 
     @Test
     public void shouldList() throws Exception {
-        Set<String> expected = new HashSet<String>(Arrays.asList("a", "d", "g.txt"));
-        Set<String> actual = new HashSet<String>(Arrays.asList("a", "d", "g.txt"));
+        Set<String> expected = new HashSet<>(Arrays.asList("a", "d", "g.txt"));
+        Set<String> actual = new HashSet<>(Arrays.asList("a", "d", "g.txt"));
         for (String name : this.store.list()) {
             actual.add(name);
         }

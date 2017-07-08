@@ -15,13 +15,16 @@
  */
 package com.wavemaker.commons.util.utils;
 
-import com.wavemaker.commons.util.WMFileUtils;
-import org.testng.annotations.Test;
-
-import java.io.*;
+import java.io.File;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.UUID;
 
-import static org.testng.Assert.*;
+import org.testng.annotations.Test;
+
+import com.wavemaker.commons.util.WMFileUtils;
+
+import static org.testng.Assert.assertEquals;
 
 /*
  * Created by prithvi on 12/10/15.

@@ -157,7 +157,7 @@ public abstract class ObjectUtils {
      * Inspired by python's map function.
      */
     public static Collection<?> map(String[] funcNames, Collection<?> c) {
-        Collection<Object> rtn = new ArrayList<Object>(c.size());
+        Collection<Object> rtn = new ArrayList<>(c.size());
         Method[] methods = new Method[funcNames.length];
         for (Iterator<?> iter = c.iterator(); iter.hasNext();) {
             Object o = iter.next();
@@ -221,7 +221,7 @@ public abstract class ObjectUtils {
 
     private static List<Method> filterMethods(Method[] methods, String[] names, Class<?>[] rtnTypes) {
 
-        List<Method> rtn = new ArrayList<Method>();
+        List<Method> rtn = new ArrayList<>();
 
         for (int i = 0; i < methods.length; i++) {
             for (int n = 0; n < names.length; n++) {
@@ -310,7 +310,7 @@ public abstract class ObjectUtils {
 
     public static Collection<String> getKeysStartingWith(String prefix, Map<String, ?> m) {
 
-        Collection<String> rtn = new HashSet<String>();
+        Collection<String> rtn = new HashSet<>();
         for (String s : m.keySet()) {
             if (s.startsWith(prefix)) {
                 rtn.add(s);

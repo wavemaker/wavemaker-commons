@@ -15,15 +15,18 @@
  */
 package com.wavemaker.commons.util.utils;
 
-import com.wavemaker.commons.classloader.ClassLoaderUtils;
+import java.io.File;
+import java.io.InputStream;
+
 import org.apache.commons.io.FileUtils;
 import org.springframework.core.io.ClassPathResource;
 import org.testng.annotations.Test;
 
-import java.io.File;
-import java.io.InputStream;
+import com.wavemaker.commons.classloader.ClassLoaderUtils;
 
-import static org.testng.Assert.*;
+import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertNotNull;
+import static org.testng.Assert.assertTrue;
 
 /**
  * @author Matt Small

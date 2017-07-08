@@ -22,8 +22,8 @@ import java.util.Map;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
-import com.wavemaker.commons.util.WMTestUtils;
 import com.wavemaker.commons.util.StringUtils;
+import com.wavemaker.commons.util.WMTestUtils;
 
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;

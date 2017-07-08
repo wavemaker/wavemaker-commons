@@ -15,13 +15,13 @@
  */
 package com.wavemaker.commons.json.serializer;
 
+import java.io.IOException;
+
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import com.wavemaker.commons.util.StringUtils;
-
-import java.io.IOException;
 
 /**
  * @author Uday Shankar

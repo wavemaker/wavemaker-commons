@@ -16,16 +16,6 @@
 package com.wavemaker.commons.util.utils;
 
 
-import com.wavemaker.commons.util.WMTestUtils;
-import com.wavemaker.commons.util.FileAccessException;
-import com.wavemaker.commons.util.IOUtils;
-import com.wavemaker.commons.util.SpringUtils;
-import com.wavemaker.commons.util.WMFileUtils;
-import org.testng.Assert;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.DataProvider;
-import org.testng.annotations.Test;
-
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -33,6 +23,17 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+
+import org.testng.Assert;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.DataProvider;
+import org.testng.annotations.Test;
+
+import com.wavemaker.commons.util.FileAccessException;
+import com.wavemaker.commons.util.IOUtils;
+import com.wavemaker.commons.util.SpringUtils;
+import com.wavemaker.commons.util.WMFileUtils;
+import com.wavemaker.commons.util.WMTestUtils;
 
 import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;
@@ -218,7 +219,7 @@ public class IOUtilsTest {
 
         WMFileUtils.writeStringToFile(source, "foo");
 
-        List<String> excludes = new ArrayList<String>();
+        List<String> excludes = new ArrayList<>();
         excludes.add(source.getName());
         IOUtils.copy(source, dest, excludes);
         assertFalse(dest.exists());
@@ -266,7 +267,7 @@ public class IOUtilsTest {
     public void copyDirectoriesExcludesTest() throws Exception {
 
         String excludeName = "DoNotCopy";
-        List<String> excludes = new ArrayList<String>();
+        List<String> excludes = new ArrayList<>();
         excludes.add(excludeName);
 
         File source = IOUtils.createTempDirectory("copyDirectoriesSrcTest", "");

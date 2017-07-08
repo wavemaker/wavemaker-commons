@@ -86,22 +86,22 @@ public abstract class AbstractResources<T extends Resource> implements Resources
     @SuppressWarnings("unchecked")
     public Resources<T> moveTo(Folder folder) {
         Assert.notNull(folder, "Folder must not be null");
-        List<T> movedResources = new ArrayList<T>();
+        List<T> movedResources = new ArrayList<>();
         for (T resource : this) {
             movedResources.add((T) resource.moveTo(calculateDestination(resource, folder)));
         }
-        return new ResourcesCollection<T>(folder, movedResources);
+        return new ResourcesCollection<>(folder, movedResources);
     }
 
     @Override
     @SuppressWarnings("unchecked")
     public Resources<T> copyTo(Folder folder) {
         Assert.notNull(folder, "Folder must not be null");
-        List<T> copiedResources = new ArrayList<T>();
+        List<T> copiedResources = new ArrayList<>();
         for (T resource : this) {
             copiedResources.add((T) resource.copyTo(calculateDestination(resource, folder)));
         }
-        return new ResourcesCollection<T>(folder, copiedResources);
+        return new ResourcesCollection<>(folder, copiedResources);
     }
 
     private Folder calculateDestination(T resource, Folder folder) {
@@ -123,7 +123,7 @@ public abstract class AbstractResources<T extends Resource> implements Resources
 
     @Override
     public List<T> fetchAll() {
-        List<T> all = new ArrayList<T>();
+        List<T> all = new ArrayList<>();
         for (T resource : this) {
             all.add(resource);
         }

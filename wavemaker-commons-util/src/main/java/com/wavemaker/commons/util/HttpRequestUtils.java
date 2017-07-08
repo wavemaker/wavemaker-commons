@@ -35,7 +35,7 @@ import com.wavemaker.commons.json.JSONUtils;
 public class HttpRequestUtils {
 
     public static void writeJsonErrorResponse(MessageResource messageResource, int responseCode, HttpServletResponse response) throws IOException {
-        Map<String, Object> errorMap = new HashMap<String, Object>(1);
+        Map<String, Object> errorMap = new HashMap<>(1);
         ErrorResponse errorResponse = getErrorResponse(messageResource);
         writeErrorResponse(responseCode, response, errorResponse);
     }
@@ -46,7 +46,7 @@ public class HttpRequestUtils {
     }
 
     private static void writeErrorResponse(final int responseCode, final HttpServletResponse response, final ErrorResponse errorResponse) throws IOException {
-        Map<String, Object> errorMap = new HashMap<String, Object>(1);
+        Map<String, Object> errorMap = new HashMap<>(1);
         List<ErrorResponse> errorResponseList = new ArrayList<>(1);
         errorResponseList.add(errorResponse);
         errorMap.put("errors", new ErrorResponses(errorResponseList));
@@ -65,7 +65,7 @@ public class HttpRequestUtils {
     private static ErrorResponse getErrorResponse(MessageResource messageResource) {
         ErrorResponse errorResponse = new ErrorResponse();
         errorResponse.setMessageKey(messageResource.getMessageKey());
-        errorResponse.setParameters(new ArrayList<String>(0));
+        errorResponse.setParameters(new ArrayList<>(0));
         return errorResponse;
     }
 

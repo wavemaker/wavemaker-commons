@@ -17,7 +17,6 @@ package com.wavemaker.commons.util;
 
 import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.Map;
 import java.util.SortedMap;
 import java.util.TreeMap;
@@ -51,7 +50,7 @@ public class XMLWriter {
 
     private boolean hasAttributes = false;
 
-    private final SortedMap<String, String> namespaces = new TreeMap<String, String>();
+    private final SortedMap<String, String> namespaces = new TreeMap<>();
 
     // decides if we write closing element on same line as opening element
     // or on new line. this applies for both </foo> and .../>

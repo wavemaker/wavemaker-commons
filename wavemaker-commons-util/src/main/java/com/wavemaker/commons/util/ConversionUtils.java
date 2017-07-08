@@ -36,7 +36,7 @@ public abstract class ConversionUtils {
     }
 
     public static List<File> convertToFileList(List<Resource> resources) {
-        List<File> files = new ArrayList<File>();
+        List<File> files = new ArrayList<>();
         for (Resource resource : resources) {
             try {
                 files.add(resource.getFile());
@@ -48,7 +48,7 @@ public abstract class ConversionUtils {
     }
 
     public static List<Resource> convertToResourceList(List<File> files) {
-        List<Resource> resources = new ArrayList<Resource>();
+        List<Resource> resources = new ArrayList<>();
         for (File file : files) {
             String path = file.getAbsolutePath();
             if (file.isDirectory() && !path.endsWith("/")) {

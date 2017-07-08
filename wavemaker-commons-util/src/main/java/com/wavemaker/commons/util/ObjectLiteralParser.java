@@ -184,7 +184,7 @@ public class ObjectLiteralParser {
             throw new IllegalArgumentException("List must end with ']'");
         }
 
-        List<Object> rtn = new ArrayList<Object>();
+        List<Object> rtn = new ArrayList<>();
         String s = this.literal.substring(i + 1, j);
         for (String token : s.split(",")) {
             Object o = TypeConversionUtils.fromString(type, token.trim());

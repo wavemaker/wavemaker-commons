@@ -56,7 +56,7 @@ class ZipResourcesStream extends FilterInputStream {
         Assert.notNull(resources, "Resources must not be null");
         this.source = resources.getSource();
         this.prefix = fixupPrefix(prefix);
-        Set<DynamicZipInputStream.Entry> entries = new LinkedHashSet<DynamicZipInputStream.Entry>();
+        Set<DynamicZipInputStream.Entry> entries = new LinkedHashSet<>();
         for (Resource resource : resources) {
             addToEntries(entries, resource);
         }

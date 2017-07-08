@@ -15,13 +15,8 @@
  */
 package com.wavemaker.commons.io;
 
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.never;
-import static org.mockito.Mockito.verify;
-
 import java.io.InputStream;
 
-import com.wavemaker.commons.io.NoCloseInputStream;
 import org.junit.Test;
 import org.mockito.Mockito;
 

@@ -24,9 +24,7 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 
-import com.sun.xml.bind.v2.runtime.MarshallerImpl;
 import com.sun.xml.bind.v2.runtime.unmarshaller.UnmarshallerImpl;
-import com.wavemaker.commons.WMRuntimeException;
 
 /**
  * @author Uday Shankar

@@ -15,13 +15,17 @@
  */
 package com.wavemaker.commons.util.utils;
 
-import com.wavemaker.commons.util.ObjectAccess;
-import org.testng.annotations.Test;
-
 import java.util.Map;
 import java.util.UUID;
 
-import static org.testng.Assert.*;
+import org.testng.annotations.Test;
+
+import com.wavemaker.commons.util.ObjectAccess;
+
+import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertFalse;
+import static org.testng.Assert.assertNotNull;
+import static org.testng.Assert.assertTrue;
 
 /**
  * Created by Prithvi Medavaram on 13/10/15.

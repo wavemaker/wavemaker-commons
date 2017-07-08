@@ -15,13 +15,13 @@
  */
 package com.wavemaker.commons.util.utils;
 
-import com.wavemaker.commons.util.WMUtils;
+import java.io.File;
+import java.io.IOException;
+
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
-import java.io.File;
-import java.io.IOException;
-import java.lang.reflect.Method;
+import com.wavemaker.commons.util.WMUtils;
 
 import static org.testng.Assert.assertEquals;
 

@@ -30,7 +30,7 @@ import com.wavemaker.commons.pattern.URLPattern;
 public class CoreFilterUtil {
 
     public static ArrayList<URLPattern> extractExcludedUrlsList(String excludedUrls) {
-        ArrayList<URLPattern> excludedUrlsList = new ArrayList<URLPattern>();
+        ArrayList<URLPattern> excludedUrlsList = new ArrayList<>();
         if (excludedUrls != null) {
             StringTokenizer tokenizer = new StringTokenizer(excludedUrls, ";");
             if(tokenizer != null) {

@@ -15,11 +15,12 @@
  */
 package com.wavemaker.commons.util.utils;
 
-import com.wavemaker.commons.util.CastUtils;
-import com.wavemaker.commons.util.ObjectLiteralParser;
+import java.util.List;
+
 import org.testng.annotations.Test;
 
-import java.util.List;
+import com.wavemaker.commons.util.CastUtils;
+import com.wavemaker.commons.util.ObjectLiteralParser;
 
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;

@@ -15,15 +15,19 @@
  */
 package com.wavemaker.commons.util.utils;
 
-import com.wavemaker.commons.util.ObjectUtils;
-import org.testng.annotations.Test;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
 
-import static org.testng.Assert.*;
+import org.testng.annotations.Test;
+
+import com.wavemaker.commons.util.ObjectUtils;
+
+import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertFalse;
+import static org.testng.Assert.assertNotNull;
+import static org.testng.Assert.assertTrue;
 
 /**
  * @author Simon Toens
@@ -69,15 +73,15 @@ public class ObjectUtilsTest{
     @Test
     public void getArrayTypeCollectionTest() {
 
-        List<Integer> Is = new ArrayList<Integer>();
+        List<Integer> Is = new ArrayList<>();
         Is.add(Integer.valueOf(1));
         Is.add(Integer.valueOf(2));
 
-        List<Object> Is2 = new ArrayList<Object>();
+        List<Object> Is2 = new ArrayList<>();
         Is2.add(Integer.valueOf(1));
         Is2.add(Integer.valueOf(2));
 
-        List<Object> mm = new ArrayList<Object>();
+        List<Object> mm = new ArrayList<>();
         mm.add("foo");
         mm.add(Integer.valueOf(1));
 

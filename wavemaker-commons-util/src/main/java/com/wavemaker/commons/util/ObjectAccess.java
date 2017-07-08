@@ -174,7 +174,7 @@ public class ObjectAccess {
         Type t = m.getGenericReturnType();
         if (t instanceof ParameterizedType) {
             Type[] gt = ((ParameterizedType) t).getActualTypeArguments();
-            rtn = new ArrayList<Class<?>>(gt.length);
+            rtn = new ArrayList<>(gt.length);
             for (Type i : gt) {
                 rtn.add((Class<?>) i);
             }
@@ -218,7 +218,7 @@ public class ObjectAccess {
 
     public List<String> getPropertyNames(Class<?> clazz) {
         Map<String, Class<?>> m = getProperties(clazz);
-        List<String> rtn = new ArrayList<String>(m.size());
+        List<String> rtn = new ArrayList<>(m.size());
         for (String s : m.keySet()) {
             rtn.add(s);
         }
@@ -227,9 +227,9 @@ public class ObjectAccess {
 
     public Map<String, Class<?>> getProperties(Class<?> clazz) {
 
-        Map<String, Class<?>> rtn = new LinkedHashMap<String, Class<?>>();
+        Map<String, Class<?>> rtn = new LinkedHashMap<>();
 
-        Collection<String> methodNames = new HashSet<String>();
+        Collection<String> methodNames = new HashSet<>();
 
         for (Method m : getMethods(clazz)) {
             methodNames.add(m.getName());

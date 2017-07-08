@@ -15,9 +15,10 @@
  */
 package com.wavemaker.commons.util.classloader;
 
+import org.testng.annotations.Test;
+
 import com.wavemaker.commons.util.ObjectAccess;
 import com.wavemaker.commons.util.utils.Car;
-import org.testng.annotations.Test;
 
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
