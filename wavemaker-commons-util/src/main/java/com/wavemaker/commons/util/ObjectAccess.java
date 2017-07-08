@@ -364,11 +364,7 @@ public class ObjectAccess {
     private Object invokeInternal(Object instance, Method m, Object[] params) {
         try {
             return m.invoke(instance, params);
-        } catch (IllegalArgumentException ex) {
-            throw new WMRuntimeException(ex);
-        } catch (IllegalAccessException ex) {
-            throw new WMRuntimeException(ex);
-        } catch (InvocationTargetException ex) {
+        } catch (IllegalArgumentException | InvocationTargetException | IllegalAccessException ex) {
             throw new WMRuntimeException(ex);
         }
     }

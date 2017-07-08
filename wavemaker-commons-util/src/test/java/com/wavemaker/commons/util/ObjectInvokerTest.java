@@ -113,13 +113,13 @@ public class ObjectInvokerTest {
     }
     @Test
     public void methodArgTest() {
-        Integer i = Integer.valueOf(2);
+        Integer i = 2;
         Integer rtn = this.oi.invoke(new A(), "simpleMethodArg", i);
         assertTrue(rtn == i);
     }
     @Test
     public void methodArgOverloadedTest() {
-        Integer i = Integer.valueOf(2);
+        Integer i = 2;
         ObjectAccess rtn = this.oi.invoke(new A(), "simpleMethodArg", i, this.oi);
         assertTrue(rtn == this.oi);
     }

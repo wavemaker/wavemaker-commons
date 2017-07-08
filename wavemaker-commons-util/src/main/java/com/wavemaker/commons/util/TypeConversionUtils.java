@@ -358,7 +358,7 @@ public abstract class TypeConversionUtils {
         } else if (type == String.class || type == StringBuffer.class) {
             return s;
         } else if (type == Character.class || type == char.class) {
-            return Character.valueOf(s.charAt(0));
+            return s.charAt(0);
         } else {
             throw new AssertionError("Unable to convert \"" + s + "\" to " + type + " - unknown type: " + type);
         }

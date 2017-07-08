@@ -45,15 +45,15 @@ public class FilteredIteratorTest {
     public void shouldFilter() {
         EvenNumbersIterator evenNumbers = new EvenNumbersIterator(NUMBERS.iterator());
         assertThat(evenNumbers.hasNext(), is(true));
-        assertThat(evenNumbers.next(), is(new Integer(0)));
+        assertThat(evenNumbers.next(), is(0));
         assertThat(evenNumbers.hasNext(), is(true));
-        assertThat(evenNumbers.next(), is(new Integer(2)));
+        assertThat(evenNumbers.next(), is(2));
         assertThat(evenNumbers.hasNext(), is(true));
-        assertThat(evenNumbers.next(), is(new Integer(4)));
+        assertThat(evenNumbers.next(), is(4));
         assertThat(evenNumbers.hasNext(), is(true));
-        assertThat(evenNumbers.next(), is(new Integer(6)));
+        assertThat(evenNumbers.next(), is(6));
         assertThat(evenNumbers.hasNext(), is(true));
-        assertThat(evenNumbers.next(), is(new Integer(8)));
+        assertThat(evenNumbers.next(), is(8));
         assertThat(evenNumbers.hasNext(), is(false));
     }
 
@@ -73,7 +73,7 @@ public class FilteredIteratorTest {
         int i = 0;
         while (evenNumbers.hasNext()) {
             assertTrue(evenNumbers.hasNext());
-            assertThat(evenNumbers.next(), is(new Integer(i)));
+            assertThat(evenNumbers.next(), is(i));
             i += 2;
         }
         assertFalse(evenNumbers.hasNext());
@@ -88,7 +88,7 @@ public class FilteredIteratorTest {
 
         @Override
         protected boolean isElementFiltered(Integer element) {
-            return element.intValue() % 2 != 0;
+            return element % 2 != 0;
         }
     }
 

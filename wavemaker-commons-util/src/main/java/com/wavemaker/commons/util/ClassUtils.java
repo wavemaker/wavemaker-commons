@@ -55,9 +55,9 @@ public class ClassUtils {
         Method[] allMethods = c.getMethods();
         List<Method> ret = new ArrayList<>(allMethods.length);
 
-        for (int i = 0; i < allMethods.length; i++) {
-            if (!allMethods[i].getDeclaringClass().equals(Object.class)) {
-                ret.add(allMethods[i]);
+        for (Method method : allMethods) {
+            if (!method.getDeclaringClass().equals(Object.class)) {
+                ret.add(method);
             }
         }
 
@@ -72,17 +72,16 @@ public class ClassUtils {
 
         List<Field> rtn = new ArrayList<>();
 
-        Field[] f = c.getFields();
+        Field[] allFields = c.getFields();
 
-        for (int i = 0; i < f.length; i++) {
+        for (Field field : allFields) {
             if (fieldType != null) {
-                if (!fieldType.isAssignableFrom(f[i].getType())) {
+                if (!fieldType.isAssignableFrom(field.getType())) {
                     continue;
                 }
             }
-            rtn.add(f[i]);
+            rtn.add(field);
         }
-
         return rtn;
     }
 

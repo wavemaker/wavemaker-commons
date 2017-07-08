@@ -74,20 +74,20 @@ public class ObjectUtilsTest{
     public void getArrayTypeCollectionTest() {
 
         List<Integer> Is = new ArrayList<>();
-        Is.add(Integer.valueOf(1));
-        Is.add(Integer.valueOf(2));
+        Is.add(1);
+        Is.add(2);
 
         List<Object> Is2 = new ArrayList<>();
-        Is2.add(Integer.valueOf(1));
-        Is2.add(Integer.valueOf(2));
+        Is2.add(1);
+        Is2.add(2);
 
         List<Object> mm = new ArrayList<>();
         mm.add("foo");
-        mm.add(Integer.valueOf(1));
+        mm.add(1);
 
         Object[] os = new Object[2];
         os[0] = "hi";
-        os[1] = Integer.valueOf(12);
+        os[1] = 12;
 
         assertEquals(Integer.class, ObjectUtils.getArrayType(Is));
         assertEquals(Integer.class, ObjectUtils.getArrayType(Is2));

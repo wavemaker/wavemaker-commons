@@ -92,16 +92,16 @@ public abstract class ObjectUtils {
         }
 
         int totalLength = 0;
-        for (int i = 0; i < o.length; i++) {
-            totalLength += o[i].length;
+        for (Object[] param : o) {
+            totalLength += param.length;
         }
 
         Object[] rtn = (Object[]) Array.newInstance(rtnType, totalLength);
 
         int destPos = 0;
-        for (int i = 0; i < o.length; i++) {
-            System.arraycopy(o[i], 0, rtn, destPos, o[i].length);
-            destPos += o[i].length;
+        for (Object[] param : o) {
+            System.arraycopy(param, 0, rtn, destPos, param.length);
+            destPos += param.length;
         }
 
         return rtn;
@@ -114,8 +114,8 @@ public abstract class ObjectUtils {
     public static Object[] toArray(Collection<?> c, Class<?> arrayType) {
         Object[] rtn = (Object[]) Array.newInstance(arrayType, c.size());
         int i = 0;
-        for (Iterator<?> iter = c.iterator(); iter.hasNext();) {
-            rtn[i++] = iter.next();
+        for (Object param : c) {
+            rtn[i++] = param;
         }
         return rtn;
     }
@@ -159,28 +159,23 @@ public abstract class ObjectUtils {
     public static Collection<?> map(String[] funcNames, Collection<?> c) {
         Collection<Object> rtn = new ArrayList<>(c.size());
         Method[] methods = new Method[funcNames.length];
-        for (Iterator<?> iter = c.iterator(); iter.hasNext();) {
-            Object o = iter.next();
+        for (Object param : c) {
             for (int i = 0; i < funcNames.length; i++) {
                 if (methods[i] == null) {
                     try {
-                        methods[i] = o.getClass().getMethod(funcNames[i], (Class[]) null);
+                        methods[i] = param.getClass().getMethod(funcNames[i], (Class[]) null);
                     } catch (Exception ex) {
                         throw new WMRuntimeException(ex);
                     }
                 }
 
                 try {
-                    o = methods[i].invoke(o, (Object[]) null);
+                    rtn.add(methods[i].invoke(param, (Object[]) null));
                 } catch (Exception ex) {
                     throw new WMRuntimeException(ex);
                 }
             }
-
-            rtn.add(o);
-
         }
-
         return rtn;
     }
 
@@ -196,8 +191,8 @@ public abstract class ObjectUtils {
 
         List<?> getters = getSimpleGetters(o1.getClass());
 
-        for (Iterator<?> iter = getters.iterator(); iter.hasNext();) {
-            Method m = (Method) iter.next();
+        for (Object getter : getters) {
+            Method m = (Method) getter;
             try {
                 Object r1 = m.invoke(o1, (Object[]) null);
                 Object r2 = m.invoke(o2, (Object[]) null);
@@ -223,12 +218,12 @@ public abstract class ObjectUtils {
 
         List<Method> rtn = new ArrayList<>();
 
-        for (int i = 0; i < methods.length; i++) {
+        for (Method method : methods) {
             for (int n = 0; n < names.length; n++) {
-                if (methods[i].getName().startsWith(names[n])) {
+                if (method.getName().startsWith(names[n])) {
                     for (int t = 0; t < rtnTypes.length; t++) {
-                        if (methods[i].getReturnType() == rtnTypes[t]) {
-                            rtn.add(methods[i]);
+                        if (method.getReturnType() == rtnTypes[t]) {
+                            rtn.add(method);
                         }
                     }
                 }

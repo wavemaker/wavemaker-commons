@@ -86,9 +86,7 @@ public abstract class IOUtils {
         BufferedReader br = null;
 
         try {
-
             br = new BufferedReader(new FileReader(f));
-
             while (br.ready()) {
                 String s = br.readLine();
                 if (s == null) {
@@ -101,11 +99,10 @@ public abstract class IOUtils {
                 }
             }
             StringBuilder fileSB = new StringBuilder();
-            for (int i = 0; i < lineList.size(); i++) {
-                fileSB.append(lineList.get(i) + "\n");
+            for (String line : lineList) {
+                fileSB.append(line).append('\n');
             }
             return fileSB.toString();
-
         } finally {
             closeSilently(br);
         }
@@ -149,8 +146,8 @@ public abstract class IOUtils {
         int count = 0;
         try {
             File[] listing = f.listFiles();
-            for (int i = 0; i < listing.length; i++) {
-                if (listing[i].isDirectory() && !listing[i].getName().startsWith(".") && !listing[i].getName()
+            for (File file : listing) {
+                if (file.isDirectory() && !file.getName().startsWith(".") && !file.getName()
                         .startsWith("_")) {
                     count++;
                 }
@@ -227,8 +224,8 @@ public abstract class IOUtils {
             }
 
             File files[] = source.listFiles(new WMFileNameFilter());
-            for (int i = 0; i < files.length; i++) {
-                copy(files[i], new File(destination, files[i].getName()), excludes);
+            for (File file : files) {
+                copy(file, new File(destination, file.getName()), excludes);
             }
         } else if (source.isFile()) {
             if (destination.isDirectory()) {
@@ -320,8 +317,8 @@ public abstract class IOUtils {
 
             File files[] = source.listFiles(new WMFileNameFilter());
 
-            for (int i = 0; i < files.length; i++) {
-                copy(files[i], new File(destination, files[i].getName()), includedPatterns, excludedPatterns);
+            for (File file : files) {
+                copy(file, new File(destination, file.getName()), includedPatterns, excludedPatterns);
             }
         } else if (source.isFile()) {
             if (destination.isDirectory()) {

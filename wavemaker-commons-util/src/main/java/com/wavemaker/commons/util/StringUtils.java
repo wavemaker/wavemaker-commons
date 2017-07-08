@@ -531,7 +531,7 @@ public abstract class StringUtils {
                 return original;
             }
             char[] original_chars = original.toCharArray();
-            StringBuffer buffer = new StringBuffer(original.length());
+            StringBuilder buffer = new StringBuilder(original.length());
             int copy_from = 0;
             while (start != -1) {
                 buffer.append(original_chars, copy_from, start - copy_from);
@@ -549,7 +549,7 @@ public abstract class StringUtils {
             if (start == -1) {
                 return original;
             }
-            StringBuffer buffer = new StringBuffer(original);
+            StringBuilder buffer = new StringBuilder(original);
             while (start != -1) {
                 buffer.replace(start, start + from_length, to);
                 start = original.indexOf(from, start + from_length);
@@ -561,7 +561,7 @@ public abstract class StringUtils {
     public static String removeSpaces(String str) {
         str = str.trim();
         char last = str.charAt(0);
-        StringBuffer argBuf = new StringBuffer();
+        StringBuilder argBuf = new StringBuilder();
 
         for (int cIdx = 0; cIdx < str.length(); cIdx++) {
             char ch = str.charAt(cIdx);

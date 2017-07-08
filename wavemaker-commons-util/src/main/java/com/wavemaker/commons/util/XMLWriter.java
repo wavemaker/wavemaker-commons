@@ -228,8 +228,7 @@ public class XMLWriter {
     public void addAttribute(Map<String, String> attributes) {
         String[] attributesArray = new String[attributes.size() * 2];
         int index = 0;
-        for (Iterator<Map.Entry<String, String>> iter = attributes.entrySet().iterator(); iter.hasNext();) {
-            Map.Entry<String, String> entry = iter.next();
+        for (Map.Entry<String, String> entry : attributes.entrySet()) {
             attributesArray[index] = entry.getKey();
             attributesArray[index + 1] = entry.getValue();
             index += 2;
@@ -259,8 +258,8 @@ public class XMLWriter {
      * Adds nested closed elements.
      */
     public void addNestedElements(String... elementNames) {
-        for (int i = 0; i < elementNames.length; i++) {
-            addElement(elementNames[i]);
+        for (String elementName : elementNames) {
+            addElement(elementName);
         }
     }
 
@@ -268,8 +267,8 @@ public class XMLWriter {
      * Adds many closed elements.
      */
     public void addClosedElements(String... elementNames) {
-        for (int i = 0; i < elementNames.length; i++) {
-            addClosedElement(elementNames[i]);
+        for (String elementName : elementNames) {
+            addClosedElement(elementName);
         }
     }
 
