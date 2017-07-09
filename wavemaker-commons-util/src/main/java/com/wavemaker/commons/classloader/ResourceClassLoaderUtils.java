@@ -84,13 +84,9 @@ public class ResourceClassLoaderUtils {
     }
 
     private static WMCallable<Object> asCallable(final Runnable runnable) {
-        return new WMCallable<Object>() {
-
-            @Override
-            public Object call() {
-                runnable.run();
-                return null;
-            }
+        return () -> {
+            runnable.run();
+            return null;
         };
     }
 }
