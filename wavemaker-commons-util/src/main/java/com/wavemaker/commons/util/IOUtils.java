@@ -440,6 +440,11 @@ public abstract class IOUtils {
         deleteDirectorySilently(dir, true);
     }
 
+    public static void deleteDirectorySilently(Folder folder) {
+        File dir = ((LocalFolder) folder).getLocalFile();
+        deleteDirectorySilently(dir, true);
+    }
+
     public static String toString(InputStream is) {
         try {
             return org.apache.commons.io.IOUtils.toString(is, "UTF-8");
