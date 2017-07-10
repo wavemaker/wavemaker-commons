@@ -23,7 +23,7 @@ import java.io.IOException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.wavemaker.commons.io.local.LocalFolder;
+import com.wavemaker.commons.io.local.LocalFile;
 
 /**
  * @author Uday Shankar
@@ -40,7 +40,7 @@ public class DeleteTempFileOnCloseInputStream extends FileInputStream {
     }
 
     public DeleteTempFileOnCloseInputStream(com.wavemaker.commons.io.File tempFile) throws FileNotFoundException {
-        this(((LocalFolder) tempFile).getLocalFile());
+        this(((LocalFile) tempFile).getLocalFile());
     }
 
     @Override
