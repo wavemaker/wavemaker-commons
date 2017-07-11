@@ -18,7 +18,7 @@ package com.wavemaker.commons.classloader;
 /**
  * @author Uday Shankar
  */
+@FunctionalInterface
 public interface WMCallable<V> {
-
 	V call();
 }
