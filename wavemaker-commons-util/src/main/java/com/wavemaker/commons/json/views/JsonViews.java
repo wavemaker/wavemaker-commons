@@ -8,4 +8,7 @@ public class JsonViews {
 
     public interface BlobAsUrlView {
     }
+
+    public static class DataModelWrapperView {
+    }
 }

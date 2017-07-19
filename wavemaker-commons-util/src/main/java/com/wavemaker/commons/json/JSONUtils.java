@@ -41,6 +41,7 @@ public class JSONUtils {
     static {
         objectMapper = new ObjectMapper();
         objectMapper.setTypeFactory(TypeFactory.defaultInstance().withClassLoader(JSONUtils.class.getClassLoader()));
+        objectMapper.setConfig(objectMapper.getSerializationConfig().withView(Object.class));
     }
 
     public static String prettifyJSON(String data) throws IOException {
