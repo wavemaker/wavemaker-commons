@@ -50,7 +50,7 @@ public class PropertiesFileUtils {
         } catch (IOException e) {
             throw new WMRuntimeException("Failed to read properties input stream", e);
         } finally {
-            IOUtils.closeSilently(is);
+            WMIOUtils.closeSilently(is);
         }
     }
 
@@ -70,7 +70,7 @@ public class PropertiesFileUtils {
         } catch (IOException e) {
             throw new WMRuntimeException("Failed to load properties.", e);
         } finally {
-            IOUtils.closeByLogging(stream);
+            WMIOUtils.closeByLogging(stream);
         }
         return properties;
     }
@@ -83,7 +83,7 @@ public class PropertiesFileUtils {
         } catch (IOException e) {
             throw new WMRuntimeException("Failed to write properties file to output stream", e);
         } finally {
-            IOUtils.closeSilently(os);
+            WMIOUtils.closeSilently(os);
         }
     }
 
@@ -125,7 +125,7 @@ public class PropertiesFileUtils {
         } catch (IOException e) {
             throw new WMRuntimeException("Failed to store properties.", e);
         } finally {
-            IOUtils.closeByLogging(outputStream);
+            WMIOUtils.closeByLogging(outputStream);
         }
     }
 

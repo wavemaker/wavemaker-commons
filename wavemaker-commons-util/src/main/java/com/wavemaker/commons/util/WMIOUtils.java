@@ -27,10 +27,13 @@ import org.slf4j.LoggerFactory;
 import org.springframework.util.AntPathMatcher;
 import org.springframework.util.PathMatcher;
 
+import com.wavemaker.commons.InvalidInvocationException;
 import com.wavemaker.commons.MessageResource;
 import com.wavemaker.commons.WMRuntimeException;
 import com.wavemaker.commons.io.Folder;
+import com.wavemaker.commons.io.Resource;
 import com.wavemaker.commons.io.exception.ResourceException;
+import com.wavemaker.commons.io.local.LocalFile;
 import com.wavemaker.commons.io.local.LocalFolder;
 
 /**
@@ -38,13 +41,13 @@ import com.wavemaker.commons.io.local.LocalFolder;
  * @author Matt Small
  * @author Jeremy Grelle
  */
-public abstract class IOUtils {
+public abstract class WMIOUtils {
 
-    private static final Logger logger = LoggerFactory.getLogger(IOUtils.class);
+    private static final Logger logger = LoggerFactory.getLogger(WMIOUtils.class);
 
     private static final int DEFAULT_BUFFER_SIZE = 1024;
 
-    private IOUtils() {
+    private WMIOUtils() {
     }
 
     /**
@@ -239,8 +242,8 @@ public abstract class IOUtils {
                 outputStream = new FileOutputStream(destination);
                 copy(inputStream, outputStream);
             } finally {
-                IOUtils.closeSilently(inputStream);
-                IOUtils.closeSilently(outputStream);
+                WMIOUtils.closeSilently(inputStream);
+                WMIOUtils.closeSilently(outputStream);
             }
 
         } else {
@@ -332,8 +335,8 @@ public abstract class IOUtils {
                 outputStream = new FileOutputStream(destination);
                 copy(inputStream, outputStream);
             } finally {
-                IOUtils.closeSilently(inputStream);
-                IOUtils.closeSilently(outputStream);
+                WMIOUtils.closeSilently(inputStream);
+                WMIOUtils.closeSilently(outputStream);
             }
         } else {
             throw new IOException(
@@ -488,7 +491,7 @@ public abstract class IOUtils {
         }
 
         File absNewFile = newDir.getAbsoluteFile();
-        IOUtils.makeDirectoriesRecurse(absNewFile, topLevel);
+        WMIOUtils.makeDirectoriesRecurse(absNewFile, topLevel);
     }
 
     /**
@@ -579,6 +582,18 @@ public abstract class IOUtils {
             }
         }
     }
+    
+    public static File getJavaIOFile(Resource resource) {
+        if (resource instanceof LocalFile) {
+            LocalFile localFile = (LocalFile) resource;
+            return localFile.getLocalFile();
+        } else if (resource instanceof LocalFolder) {
+            LocalFolder localFolder = (LocalFolder) resource;
+            return localFolder.getLocalFile();
+        } else {
+            throw new InvalidInvocationException();
+        }
+    } 
 
     static class WMFileNameFilter implements FilenameFilter {
         @Override

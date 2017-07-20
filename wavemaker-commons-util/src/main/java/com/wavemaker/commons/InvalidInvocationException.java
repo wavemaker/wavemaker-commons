@@ -5,7 +5,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *   http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -13,24 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.wavemaker.commons.io;
-
-import java.io.IOException;
-
-import com.wavemaker.commons.io.local.LocalFolder;
-import com.wavemaker.commons.util.WMIOUtils;
+package com.wavemaker.commons;
 
 /**
- * @author <a href="mailto:dilip.gundu@wavemaker.com">Dilip Kumar</a>
- * @since 18/10/15
+ * @author Uday Shankar
  */
-public abstract class FolderUtil {
+public class InvalidInvocationException extends WMRuntimeException {
 
-    public static LocalFolder createTempFolder() {
-        try {
-            return new LocalFolder(WMIOUtils.createTempDirectory());
-        } catch (IOException e) {
-            throw new IllegalStateException(e);
-        }
+    public InvalidInvocationException() {
+        super();
+    }
+
+    public InvalidInvocationException(String message) {
+        super(message);
+    }
+
+    public InvalidInvocationException(MessageResource resource, Object... args) {
+        super(resource, args);
     }
 }

@@ -70,10 +70,10 @@ public class JAXBUtils {
     }
 
     private static void closeResources(AutoCloseable resourceStream, Unmarshaller unmarshaller) {
-        IOUtils.closeByLogging(resourceStream);
+        WMIOUtils.closeByLogging(resourceStream);
         //Doing it on implementation check as the specific needs to be closed to prevent thread local memory leaks
         if (unmarshaller != null && unmarshaller instanceof UnmarshallerImpl) {
-            IOUtils.closeByLogging((UnmarshallerImpl) unmarshaller);
+            WMIOUtils.closeByLogging((UnmarshallerImpl) unmarshaller);
         }
     }
 }

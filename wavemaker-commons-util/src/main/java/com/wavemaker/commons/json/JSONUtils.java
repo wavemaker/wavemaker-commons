@@ -29,7 +29,7 @@ import com.fasterxml.jackson.databind.Module;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.type.TypeFactory;
 import com.wavemaker.commons.WMRuntimeException;
-import com.wavemaker.commons.util.IOUtils;
+import com.wavemaker.commons.util.WMIOUtils;
 
 /**
  * Created by venuj on 19-05-2014.
@@ -56,7 +56,7 @@ public class JSONUtils {
             throw new WMRuntimeException("Can not prettify and persist null data");
         }
         String formattedJson = prettifyJSON(data);
-        IOUtils.write(outputFile, formattedJson);
+        WMIOUtils.write(outputFile, formattedJson);
     }
 
     public static String toJSON(Object object) throws IOException {

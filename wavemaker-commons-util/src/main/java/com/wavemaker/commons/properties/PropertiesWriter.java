@@ -30,7 +30,7 @@ import org.apache.commons.configuration2.ex.ConfigurationException;
 import org.apache.commons.lang3.StringUtils;
 
 import com.wavemaker.commons.WMRuntimeException;
-import com.wavemaker.commons.util.IOUtils;
+import com.wavemaker.commons.util.WMIOUtils;
 
 /**
  * @author <a href="mailto:sunil.pulugula@wavemaker.com">Sunil Kumar</a>
@@ -118,7 +118,7 @@ public class PropertiesWriter {
         } catch (IOException e) {
             throw new WMRuntimeException("Failed to store properties.", e);
         } finally {
-            IOUtils.closeSilently(outputStream);
+            WMIOUtils.closeSilently(outputStream);
         }
     }
 
@@ -128,7 +128,7 @@ public class PropertiesWriter {
         } catch (IOException e) {
             throw new WMRuntimeException("Failed to write properties file to output stream", e);
         } finally {
-            IOUtils.closeSilently(os);
+            WMIOUtils.closeSilently(os);
         }
     }
 
@@ -157,7 +157,7 @@ public class PropertiesWriter {
         } catch (ConfigurationException e) {
             throw new WMRuntimeException("Unable to write properties to output stream", e);
         } finally {
-            IOUtils.closeSilently(os);
+            WMIOUtils.closeSilently(os);
         }
         configuration.clear();
     }

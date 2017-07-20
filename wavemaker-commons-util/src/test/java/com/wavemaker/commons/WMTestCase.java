@@ -20,9 +20,9 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import com.wavemaker.commons.util.IOUtils;
 import com.wavemaker.commons.util.SpringUtils;
 import com.wavemaker.commons.util.WMFileUtils;
+import com.wavemaker.commons.util.WMIOUtils;
 import junit.framework.TestCase;
 
 /**
@@ -65,7 +65,7 @@ public abstract class WMTestCase extends TestCase {
 
     protected File createTempDir() {
         try {
-            return IOUtils.createTempDirectory();
+            return WMIOUtils.createTempDirectory();
         } catch (IOException ex) {
             throw new WMRuntimeException(ex);
         }

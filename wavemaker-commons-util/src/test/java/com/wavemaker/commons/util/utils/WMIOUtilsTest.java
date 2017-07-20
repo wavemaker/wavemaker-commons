@@ -30,9 +30,9 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import com.wavemaker.commons.util.FileAccessException;
-import com.wavemaker.commons.util.IOUtils;
 import com.wavemaker.commons.util.SpringUtils;
 import com.wavemaker.commons.util.WMFileUtils;
+import com.wavemaker.commons.util.WMIOUtils;
 import com.wavemaker.commons.util.WMTestUtils;
 
 import static org.testng.Assert.assertFalse;
@@ -41,7 +41,7 @@ import static org.testng.Assert.assertTrue;
 /**
  * @author Matt Small
  */
-public class IOUtilsTest {
+public class WMIOUtilsTest {
 
     private File tempDir;
 
@@ -49,30 +49,30 @@ public class IOUtilsTest {
     public void setUp() throws Exception {
 
         try {
-            this.tempDir = IOUtils.createTempDirectory();
+            this.tempDir = WMIOUtils.createTempDirectory();
             SpringUtils.initSpringConfig();
         } catch (RuntimeException e) {
-            IOUtils.deleteRecursive(this.tempDir);
+            WMIOUtils.deleteRecursive(this.tempDir);
             throw e;
         }
     }
 
     public void tearDown() throws Exception {
 
-        IOUtils.deleteRecursive(this.tempDir);
+        WMIOUtils.deleteRecursive(this.tempDir);
     }
 
     @Test
     public void createTempDirectory_shortPrefixTest() throws Exception {
 
-        File newTempDir = IOUtils.createTempDirectory("a", "bcd");
+        File newTempDir = WMIOUtils.createTempDirectory("a", "bcd");
         assertTrue(newTempDir.getName().startsWith("aaa"));
     }
 
     @Test
     public void createTempDirectoryTest() throws Exception {
 
-        File newTempDir = IOUtils.createTempDirectory();
+        File newTempDir = WMIOUtils.createTempDirectory();
         assertTrue(newTempDir.exists());
         newTempDir.delete();
         assertFalse(newTempDir.exists());
@@ -81,22 +81,22 @@ public class IOUtilsTest {
     @Test
     public void deleteOneLevelTest() throws Exception {
 
-        File newTempDir = IOUtils.createTempDirectory();
+        File newTempDir = WMIOUtils.createTempDirectory();
         assertTrue(newTempDir.exists());
-        IOUtils.deleteRecursive(newTempDir);
+        WMIOUtils.deleteRecursive(newTempDir);
         assertFalse(newTempDir.exists());
     }
 
     @Test
     public void deleteTwoLevelsTest() throws Exception {
 
-        File newTempDir = IOUtils.createTempDirectory();
+        File newTempDir = WMIOUtils.createTempDirectory();
         assertTrue(newTempDir.exists());
         File newTempDir2 = new File(newTempDir, "foobar");
         newTempDir2.mkdir();
         File newTempFile = new File(newTempDir2, "foo.txt");
         newTempFile.createNewFile();
-        IOUtils.deleteRecursive(newTempDir);
+        WMIOUtils.deleteRecursive(newTempDir);
         assertFalse(newTempDir.exists());
     }
 
@@ -113,7 +113,7 @@ public class IOUtilsTest {
         }
         assertTrue(gotException);
 
-        IOUtils.makeDirectories(wantToCreate.getParentFile(), this.tempDir);
+        WMIOUtils.makeDirectories(wantToCreate.getParentFile(), this.tempDir);
 
         assertTrue(wantToCreate.getParentFile().exists());
 
@@ -121,7 +121,7 @@ public class IOUtilsTest {
 
         File alreadyExists = new File(this.tempDir, "bar");
         alreadyExists.mkdir();
-        IOUtils.makeDirectories(alreadyExists, wantToCreate);
+        WMIOUtils.makeDirectories(alreadyExists, wantToCreate);
     }
 
     @Test
@@ -131,7 +131,7 @@ public class IOUtilsTest {
 
         boolean gotException = false;
         try {
-            IOUtils.makeDirectories(wantToCreate.getParentFile(), this.tempDir);
+            WMIOUtils.makeDirectories(wantToCreate.getParentFile(), this.tempDir);
         } catch (FileAccessException ex) {
             gotException = true;
             assertTrue(ex.getMessage().startsWith("Reached filesystem root"), "got message: " + ex.getMessage());
@@ -146,7 +146,7 @@ public class IOUtilsTest {
         f.delete();
         f.deleteOnExit();
         assertTrue(!f.exists());
-        IOUtils.touch(f);
+        WMIOUtils.touch(f);
         assertTrue(f.exists());
     }
 
@@ -162,7 +162,7 @@ public class IOUtilsTest {
         // UNIX counts in seconds
         Thread.sleep(3000);
 
-        IOUtils.touch(f);
+        WMIOUtils.touch(f);
 
         assertTrue(lastModified < f.lastModified());
     }
@@ -173,19 +173,19 @@ public class IOUtilsTest {
         File f = null;
 
         try {
-            f = IOUtils.createTempDirectory();
+            f = WMIOUtils.createTempDirectory();
 
             long lastModified = f.lastModified();
 
             // UNIX counts in seconds
             Thread.sleep(3000);
 
-            IOUtils.touch(f);
+            WMIOUtils.touch(f);
 
             assertTrue(lastModified < f.lastModified());
         } finally {
             if (f != null) {
-                IOUtils.deleteRecursive(f);
+                WMIOUtils.deleteRecursive(f);
             }
         }
     }
@@ -202,7 +202,7 @@ public class IOUtilsTest {
 
         WMFileUtils.writeStringToFile(source, "foo");
 
-        IOUtils.copy(source, dest);
+        WMIOUtils.copy(source, dest);
         assertTrue(dest.exists());
         WMTestUtils.assertEquals(source, dest);
     }
@@ -221,18 +221,18 @@ public class IOUtilsTest {
 
         List<String> excludes = new ArrayList<>();
         excludes.add(source.getName());
-        IOUtils.copy(source, dest, excludes);
+        WMIOUtils.copy(source, dest, excludes);
         assertFalse(dest.exists());
     }
 
     @Test
     public void copyDirectoriesTest() throws Exception {
 
-        File source = IOUtils.createTempDirectory("copyDirectoriesSrcTest", "");
-        File dest = IOUtils.createTempDirectory("copyDirectoriesSrcTest", "");
+        File source = WMIOUtils.createTempDirectory("copyDirectoriesSrcTest", "");
+        File dest = WMIOUtils.createTempDirectory("copyDirectoriesSrcTest", "");
 
         try {
-            IOUtils.deleteRecursive(dest);
+            WMIOUtils.deleteRecursive(dest);
             assertTrue(source.exists());
             assertTrue(source.isDirectory());
             assertFalse(dest.exists());
@@ -244,7 +244,7 @@ public class IOUtilsTest {
             File sourceDirFile = new File(sourceDir, "barfile");
             WMFileUtils.writeStringToFile(sourceDirFile, "foobarbaz");
 
-            IOUtils.copy(source, dest);
+            WMIOUtils.copy(source, dest);
             assertTrue(dest.exists());
             assertTrue(dest.isDirectory());
 
@@ -258,8 +258,8 @@ public class IOUtilsTest {
             assertTrue(destDirFile.exists());
             WMTestUtils.assertEquals(sourceDirFile, destDirFile);
         } finally {
-            IOUtils.deleteRecursive(source);
-            IOUtils.deleteRecursive(dest);
+            WMIOUtils.deleteRecursive(source);
+            WMIOUtils.deleteRecursive(dest);
         }
     }
 
@@ -270,11 +270,11 @@ public class IOUtilsTest {
         List<String> excludes = new ArrayList<>();
         excludes.add(excludeName);
 
-        File source = IOUtils.createTempDirectory("copyDirectoriesSrcTest", "");
-        File dest = IOUtils.createTempDirectory("copyDirectoriesSrcTest", "");
+        File source = WMIOUtils.createTempDirectory("copyDirectoriesSrcTest", "");
+        File dest = WMIOUtils.createTempDirectory("copyDirectoriesSrcTest", "");
 
         try {
-            IOUtils.deleteRecursive(dest);
+            WMIOUtils.deleteRecursive(dest);
             assertTrue(source.exists());
             assertTrue(source.isDirectory());
             assertFalse(dest.exists());
@@ -290,7 +290,7 @@ public class IOUtilsTest {
             File sourceExcludeFile = new File(sourceDir, excludeName);
             WMFileUtils.writeStringToFile(sourceExcludeFile, "a");
 
-            IOUtils.copy(source, dest, excludes);
+            WMIOUtils.copy(source, dest, excludes);
             assertTrue(dest.exists());
             assertTrue(dest.isDirectory());
 
@@ -308,8 +308,8 @@ public class IOUtilsTest {
             assertFalse(destExcludeDir.exists());
             assertFalse(destExcludeFile.exists());
         } finally {
-            IOUtils.deleteRecursive(source);
-            IOUtils.deleteRecursive(dest);
+            WMIOUtils.deleteRecursive(source);
+            WMIOUtils.deleteRecursive(dest);
         }
     }
 
@@ -320,12 +320,12 @@ public class IOUtilsTest {
         try {
             byteArrayInputStream = new ByteArrayInputStream(inputString.getBytes());
             byteArrayOutputStream = new ByteArrayOutputStream();
-            int size = IOUtils.copy(byteArrayInputStream, byteArrayOutputStream);
+            int size = WMIOUtils.copy(byteArrayInputStream, byteArrayOutputStream);
             Assert.assertEquals(size, inputString.length());
             Assert.assertEquals(byteArrayOutputStream.toString(), inputString);
         } finally {
-            IOUtils.closeSilently(byteArrayInputStream);
-            IOUtils.closeSilently(byteArrayOutputStream);
+            WMIOUtils.closeSilently(byteArrayInputStream);
+            WMIOUtils.closeSilently(byteArrayOutputStream);
         }
     }
 
@@ -343,7 +343,7 @@ public class IOUtilsTest {
     public void closeSilentlyTest(String inputString) {
         final boolean[] isClosed = {false};
         ByteArrayInputStream byteArrayInputStream = getByteArrayInputStream(inputString, isClosed);
-        IOUtils.closeSilently(byteArrayInputStream);
+        WMIOUtils.closeSilently(byteArrayInputStream);
         assertTrue(isClosed[0]);
 
     }
@@ -352,7 +352,7 @@ public class IOUtilsTest {
     public void closeByLoggingTest(String inputString) {
         final boolean[] isClosed = {false};
         ByteArrayInputStream byteArrayInputStream = getByteArrayInputStream(inputString, isClosed);
-        IOUtils.closeByLogging(byteArrayInputStream);
+        WMIOUtils.closeByLogging(byteArrayInputStream);
         assertTrue(isClosed[0]);
 
     }
