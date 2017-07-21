@@ -27,4 +27,8 @@ public class InvalidInputException extends WMRuntimeException {
     public InvalidInputException(String message) {
         super(message);
     }
+
+    public InvalidInputException(String message, Throwable e) {
+        super(message, e);
+    }
 }
