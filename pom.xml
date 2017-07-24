@@ -7,7 +7,7 @@
 
     <groupId>com.wavemaker.commons</groupId>
     <artifactId>wavemaker-commons</artifactId>
-    <version>9.0</version>
+    <version>9.0.0</version>
 
     <packaging>pom</packaging>
 
@@ -212,7 +212,7 @@
                 <plugin>
                    <groupId>com.mycila.maven-license-plugin</groupId>
                      <artifactId>maven-license-plugin</artifactId>
-                        <version>1.9.0</version>
+                        <version>1.9.0.0</version>
                         <configuration>
                           <header>${license.header.file}</header>
                             <strictCheck>true</strictCheck>
