@@ -21,6 +21,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.wavemaker.commons.MessageResource;
@@ -69,5 +70,12 @@ public class HttpRequestUtils {
         return errorResponse;
     }
 
-
+    public static String getBaseUrl(HttpServletRequest httpServletRequest) {
+        StringBuilder sb = new StringBuilder(httpServletRequest.getScheme()).append("://").append(httpServletRequest.getServerName());
+        int serverPort = httpServletRequest.getServerPort();
+        if (serverPort != 80 && serverPort != 443) {
+            sb.append(":").append(serverPort).toString();
+        }
+        return sb.toString();
+    }
 }
