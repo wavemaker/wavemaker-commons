@@ -46,7 +46,7 @@ public class ThreadLocalSystemProperties extends Properties {
      * Will set ThreadLocalProperties as the default System properties at the vm level
      * Existing System properties are still available by default at global level across all threads
      */
-    public synchronized void enable() {
+    public synchronized ThreadLocalSystemProperties enable() {
         Properties currentSystemProperties = System.getProperties();
         if (currentSystemProperties instanceof ThreadLocalSystemProperties) {
             logger.info("ThreadLocal based Properties is already set for System Properties");
@@ -55,6 +55,7 @@ public class ThreadLocalSystemProperties extends Properties {
             System.setProperties(ThreadLocalSystemProperties.INSTANCE);
             logger.info("Set ThreadLocal based Properties for System.setProperties!!");
         }
+        return INSTANCE;
     }
 
     /**
