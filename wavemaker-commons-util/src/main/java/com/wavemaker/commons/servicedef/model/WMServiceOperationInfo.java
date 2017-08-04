@@ -21,6 +21,7 @@ import java.util.Map;
 import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.wavemaker.tools.apidocs.tools.core.model.auth.SecuritySchemeDefinition;
 
 /**
  * @author <a href="mailto:sunil.pulugula@wavemaker.com">Sunil Kumar</a>
@@ -37,8 +38,8 @@ public class WMServiceOperationInfo {
     private Map<String, Set<Parameter>> definitions;
     private List<String> produces;
     private List<String> consumes;
-    private String authorization;
     private RuntimeProxySettings proxySettings;
+    private List<SecuritySchemeDefinition> securityDefinitions;
 
     @JsonIgnore
     public static synchronized WMServiceOperationInfo getNewInstance() {
@@ -150,19 +151,6 @@ public class WMServiceOperationInfo {
         return this;
     }
 
-    public String getAuthorization() {
-        return authorization;
-    }
-
-    public void setAuthorization(final String authorization) {
-        this.authorization = authorization;
-    }
-
-    public WMServiceOperationInfo addAuthorization(final String authorization) {
-        this.authorization = authorization;
-        return this;
-    }
-
     public RuntimeProxySettings getProxySettings() {
         return proxySettings;
     }
@@ -187,6 +175,19 @@ public class WMServiceOperationInfo {
         this.definitions = definitions;
     }
 
+    public List<SecuritySchemeDefinition> getSecurityDefinition() {
+        return securityDefinitions;
+    }
+
+    public void setSecurityDefinitions(List<SecuritySchemeDefinition> securityDefinitions) {
+        this.securityDefinitions = securityDefinitions;
+    }
+
+    public WMServiceOperationInfo addSecurityDefinition(List<SecuritySchemeDefinition> securityDefinitions) {
+        this.securityDefinitions = securityDefinitions;
+        return this;
+    }
+
     public WMServiceOperationInfo addDefinitions(final Map<String, Set<Parameter>> definitions) {
         this.setDefinitions(definitions);
         return this;
@@ -204,7 +205,7 @@ public class WMServiceOperationInfo {
                 ", parameters=" + parameters +
                 ", produces=" + produces +
                 ", consumes=" + consumes +
-                ", authorization='" + authorization + '\'' +
+                ", securityDefinitions='" + securityDefinitions + '\'' +
                 '}';
     }
 }
