@@ -22,15 +22,9 @@ public abstract class CommonConstants {
 
     public static final String WM_SYSTEM_PROPERTY_PREFIX = "wm.";
 
-    public static final String APP_PROPERTY_FILE = "app.properties";
-
-    public static final String SECURITY_SERVICE_CONTROLLER_CLAZZ = "com.wavemaker.runtime.security.controller.SecurityController";
-
     public static final String FEED_SERVICE_CONTROLLER_CLAZZ = "com.wavemaker.runtime.feed.controller.FeedServiceController";
 
     public static final String UTF8 = "UTF-8";
-
-    public static final String SYSTEM_PARAM_PREFIX = "_SYSTEM_";
 
     //hibernate sql type codes
     public static final Integer DATE_TIME_WM_TYPE_CODE = -777;
