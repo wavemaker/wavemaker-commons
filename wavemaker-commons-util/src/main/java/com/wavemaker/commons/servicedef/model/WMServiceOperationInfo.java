@@ -175,7 +175,7 @@ public class WMServiceOperationInfo {
         this.definitions = definitions;
     }
 
-    public List<SecuritySchemeDefinition> getSecurityDefinition() {
+    public List<SecuritySchemeDefinition> getSecurityDefinitions() {
         return securityDefinitions;
     }
 
@@ -183,7 +183,7 @@ public class WMServiceOperationInfo {
         this.securityDefinitions = securityDefinitions;
     }
 
-    public WMServiceOperationInfo addSecurityDefinition(List<SecuritySchemeDefinition> securityDefinitions) {
+    public WMServiceOperationInfo addSecurityDefinitions(List<SecuritySchemeDefinition> securityDefinitions) {
         this.securityDefinitions = securityDefinitions;
         return this;
     }
