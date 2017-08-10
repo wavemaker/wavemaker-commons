@@ -440,12 +440,21 @@ public abstract class WMIOUtils {
     }
 
     public static void deleteDirectorySilently(File dir) {
-        deleteDirectorySilently(dir, true);
+        deleteFileSilently(dir, true);
     }
 
-    public static void deleteDirectorySilently(Folder folder) {
-        File dir = ((LocalFolder) folder).getLocalFile();
-        deleteDirectorySilently(dir, true);
+    public static void deleteResourceSilently(Resource folder) {
+        deleteResourceSilently(folder, true);
+    }
+
+    public static void deleteResourceSilently(Resource resource, boolean noLogging) {
+        File file;
+        if (resource instanceof com.wavemaker.commons.io.File) {
+            file = ((LocalFile) resource).getLocalFile();
+        } else {
+            file = ((LocalFolder) resource).getLocalFile();
+        }
+        deleteFileSilently(file, noLogging);
     }
 
     public static String toString(InputStream is) {
@@ -458,7 +467,7 @@ public abstract class WMIOUtils {
         }
     }
 
-    public static void deleteDirectorySilently(File dir, boolean noLogging) {
+    public static void deleteFileSilently(File dir, boolean noLogging) {
         if (dir == null) {
             return;
         }
