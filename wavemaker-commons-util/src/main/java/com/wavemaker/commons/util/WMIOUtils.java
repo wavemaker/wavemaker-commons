@@ -364,8 +364,12 @@ public abstract class WMIOUtils {
     }
 
     public static Folder createTempFolder() {
+        return createTempFolder("tempFolder", null);
+    }
+
+    public static Folder createTempFolder(String prefix, String suffix) {
         try {
-            return new LocalFolder(createTempDirectory("tempFolder", null));
+            return new LocalFolder(createTempDirectory(prefix, suffix));
         } catch (IOException e) {
             throw new ResourceException("Failed to create temp folder", e);
         }
@@ -448,6 +452,9 @@ public abstract class WMIOUtils {
     }
 
     public static void deleteResourceSilently(Resource resource, boolean noLogging) {
+        if (resource == null) {
+            return;
+        }
         File file;
         if (resource instanceof com.wavemaker.commons.io.File) {
             file = ((LocalFile) resource).getLocalFile();
