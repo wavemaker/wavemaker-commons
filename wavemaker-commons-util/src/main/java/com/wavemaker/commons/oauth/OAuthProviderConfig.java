@@ -1,5 +1,7 @@
 package com.wavemaker.commons.oauth;
 
+import java.util.List;
+
 /**
  * da
  * Created by srujant on 18/7/17.
@@ -11,6 +13,7 @@ public class OAuthProviderConfig {
     private String accessTokenUrl;
     private String clientId;
     private String clientSecret;
+    private List<Scope> scopes;
 
 
     public String getProviderId() {
@@ -51,5 +54,13 @@ public class OAuthProviderConfig {
 
     public void setAccessTokenUrl(String accessTokenUrl) {
         this.accessTokenUrl = accessTokenUrl;
+    }
+
+    public List<Scope> getScopes() {
+        return scopes;
+    }
+
+    public void setScopes(List<Scope> scopes) {
+        this.scopes = scopes;
     }
 }

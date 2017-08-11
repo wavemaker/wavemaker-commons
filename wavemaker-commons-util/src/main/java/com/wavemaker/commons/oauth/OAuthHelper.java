@@ -3,8 +3,11 @@ package com.wavemaker.commons.oauth;
 import java.io.IOException;
 import java.util.Base64;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.text.StrSubstitutor;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -16,7 +19,7 @@ import com.wavemaker.commons.ResourceNotFoundException;
 import com.wavemaker.commons.WMRuntimeException;
 import com.wavemaker.commons.io.ClassPathFile;
 
-/**
+/**x
  * Created by srujant on 26/7/17.
  */
 public class OAuthHelper {
@@ -25,15 +28,19 @@ public class OAuthHelper {
 
     private static final Logger logger = LoggerFactory.getLogger(OAuthHelper.class);
 
-    public static String getAuthorizationUrl(OAuthProviderConfig oAuthProviderConfig, String redirectUrl, String scope, JSONObject stateObject) {
-        String encodedstate = new String(Base64.getEncoder().encode(stateObject.toString().getBytes()));
-        return new StringBuilder(oAuthProviderConfig.getAuthorizationUrl()).append("?client_id=")
+    public static String getAuthorizationUrl(OAuthProviderConfig oAuthProviderConfig, String redirectUrl, JSONObject stateObject) {
+        String scope = getScopeValue(oAuthProviderConfig);
+        String encodedState = new String(Base64.getEncoder().encode(stateObject.toString().getBytes()));
+        StringBuilder sb = new StringBuilder(oAuthProviderConfig.getAuthorizationUrl()).append("?client_id=")
                 .append(oAuthProviderConfig.getClientId())
                 .append("&redirect_uri=").append(redirectUrl)
-                .append("&scope=").append(scope)
                 .append("&response_type=code")
                 .append("&prompt=consent")
-                .append("&state=").append(encodedstate).toString();
+                .append("&state=").append(encodedState);
+        if (StringUtils.isNotBlank(scope)) {
+            sb.append("scope=").append(scope);
+        }
+        return sb.toString();
     }
 
     public static JSONObject getStateObject(String stateParameter) {
@@ -72,5 +79,10 @@ public class OAuthHelper {
         input.put("accessToken", accessToken);
         StrSubstitutor strSubstitutor = new StrSubstitutor(input);
         return strSubstitutor.replace(new ClassPathFile(OAUTH_CALLBACK_URL_RESPONSE).getContent().asString());
+    }
+
+    private static String getScopeValue(OAuthProviderConfig oAuthProviderConfig) {
+        List<Scope> scopesList = oAuthProviderConfig.getScopes();
+        return scopesList.stream().map(scope -> scope.getValue()).distinct().collect(Collectors.joining(" "));
     }
 }
