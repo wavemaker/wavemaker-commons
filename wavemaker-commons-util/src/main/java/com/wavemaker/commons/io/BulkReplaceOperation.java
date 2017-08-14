@@ -17,6 +17,7 @@ package com.wavemaker.commons.io;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * This operation can be used for bulk replace of tokens. The operation has a single write at the end.
@@ -41,10 +42,13 @@ public class BulkReplaceOperation implements ResourceOperation<File> {
 
     @Override
     public void perform(final File resource) {
-        String content = resource.getContent().asString();
+        String originalContent = resource.getContent().asString();
+        String content = originalContent;
         for (String from : map.keySet()) {
             content = content.replace(from, map.get(from));
         }
-        resource.getContent().write(content);
+        if (!Objects.equals(content, originalContent)) {
+            resource.getContent().write(content);
+        }
     }
 }
