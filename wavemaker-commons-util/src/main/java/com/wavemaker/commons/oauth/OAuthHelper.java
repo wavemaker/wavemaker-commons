@@ -38,7 +38,7 @@ public class OAuthHelper {
                 .append("&prompt=consent")
                 .append("&state=").append(encodedState);
         if (StringUtils.isNotBlank(scope)) {
-            sb.append("scope=").append(scope);
+            sb.append("&scope=").append(scope);
         }
         return sb.toString();
     }
