@@ -1,4 +1,4 @@
-package com.wavemaker.commons.oauth;
+package com.wavemaker.commons.oauth2;
 
 /**
  * Created by srujant on 11/8/17.

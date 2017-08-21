@@ -1,4 +1,4 @@
-package com.wavemaker.commons.oauth;
+package com.wavemaker.commons.oauth2;
 
 import java.util.List;
 
@@ -6,7 +6,7 @@ import java.util.List;
  * da
  * Created by srujant on 18/7/17.
  */
-public class OAuthProviderConfig {
+public class OAuth2ProviderConfig {
 
     private String providerId;
     private String authorizationUrl;
