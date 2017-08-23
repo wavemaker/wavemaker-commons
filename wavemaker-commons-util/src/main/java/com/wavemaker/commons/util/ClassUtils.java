@@ -101,7 +101,7 @@ public class ClassUtils {
         if (!(type instanceof Class) || ((Class) type).isArray()) {
             return false;
         }
-        Class<Object> klass = (Class) type;
+        Class<?> klass = (Class) type;
         List<PropertyDescriptor> propertyDescriptors = getPropertyDescriptors(klass);
         for (PropertyDescriptor propertyDescriptor : propertyDescriptors) {
             Class<?> propertyType = propertyDescriptor.getPropertyType();

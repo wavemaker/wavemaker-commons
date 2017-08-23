@@ -35,16 +35,7 @@ import org.joda.time.LocalDateTime;
 
 import com.wavemaker.commons.json.deserializer.WMDateDeSerializer;
 import com.wavemaker.commons.json.deserializer.WMLocalDateTimeDeSerializer;
-import com.wavemaker.commons.wrapper.BooleanWrapper;
-import com.wavemaker.commons.wrapper.ByteWrapper;
-import com.wavemaker.commons.wrapper.CharacterWrapper;
-import com.wavemaker.commons.wrapper.DateWrapper;
-import com.wavemaker.commons.wrapper.DoubleWrapper;
-import com.wavemaker.commons.wrapper.FloatWrapper;
-import com.wavemaker.commons.wrapper.IntegerWrapper;
-import com.wavemaker.commons.wrapper.LongWrapper;
-import com.wavemaker.commons.wrapper.ShortWrapper;
-import com.wavemaker.commons.wrapper.StringWrapper;
+import com.wavemaker.commons.wrapper.*;
 
 /**
  * @author Simon Toens
@@ -186,9 +177,7 @@ public abstract class TypeConversionUtils {
     }
 
     public static boolean isPrimitive(String dataType) {
-        if (PRIMITIVE_DATA_TYPES.contains(dataType))
-            return true;
-        return false;
+        return PRIMITIVE_DATA_TYPES.contains(dataType);
     }
 
     public static Class<?> primitiveForName(String className) {
@@ -269,11 +258,8 @@ public abstract class TypeConversionUtils {
             return true;
         }
 
-        if (PRIMITIVE_WRAPPERS.contains(clazz)) {
-            return true;
-        }
+        return PRIMITIVE_WRAPPERS.contains(clazz);
 
-        return false;
     }
 
     /**
@@ -404,11 +390,8 @@ public abstract class TypeConversionUtils {
         if (compare(p1, p2, Short.class, short.class)) {
             return true;
         }
-        if (compare(p1, p2, Character.class, char.class)) {
-            return true;
-        }
+        return compare(p1, p2, Character.class, char.class);
 
-        return false;
     }
 
     private static boolean compare(Class<?> p1, Class<?> p2, Class<?> t1, Class<?> t2) {
@@ -417,10 +400,7 @@ public abstract class TypeConversionUtils {
             return true;
         }
 
-        if (p1 == t2 && p2 == t1) {
-            return true;
-        }
+        return p1 == t2 && p2 == t1;
 
-        return false;
     }
 }
