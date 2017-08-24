@@ -1,0 +1,35 @@
+package com.wavemaker.commons.oauth2.extractors;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.json.JSONTokener;
+import org.springframework.http.MediaType;
+
+import com.wavemaker.commons.WMRuntimeException;
+import com.wavemaker.commons.oauth2.OAuth2Constants;
+
+/**
+ * Created by srujant on 24/8/17.
+ */
+public class JsonFormatAccessTokenResponseExtractor implements AccessTokenExtractor {
+
+
+    @Override
+    public boolean canRead(MediaType mediaType) {
+        return MediaType.APPLICATION_JSON.equals(mediaType) || MediaType.APPLICATION_JSON_UTF8.equals(mediaType);
+    }
+
+    @Override
+    public String getAccessToken(String accessTokenResponse) {
+        JSONTokener jsonTokener = new JSONTokener(accessTokenResponse);
+        JSONObject accesTokenObject = null;
+        String accessToken;
+        try {
+            accesTokenObject = new JSONObject(jsonTokener);
+            accessToken = (String) accesTokenObject.get(OAuth2Constants.ACCESS_TOKEN);
+        } catch (JSONException e) {
+            throw new WMRuntimeException(e);
+        }
+        return accessToken;
+    }
+}

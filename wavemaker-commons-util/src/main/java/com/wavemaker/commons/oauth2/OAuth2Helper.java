@@ -14,13 +14,13 @@ import org.json.JSONObject;
 import org.json.JSONTokener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.MediaType;
 
-import com.wavemaker.commons.ResourceNotFoundException;
 import com.wavemaker.commons.WMRuntimeException;
 import com.wavemaker.commons.io.ClassPathFile;
+import com.wavemaker.commons.oauth2.extractors.AccessTokenResponseExtractor;
 
 /**
- * x
  * Created by srujant on 26/7/17.
  */
 public class OAuth2Helper {
@@ -29,16 +29,18 @@ public class OAuth2Helper {
 
     private static final Logger logger = LoggerFactory.getLogger(OAuth2Helper.class);
 
+    private static AccessTokenResponseExtractor accessTokenResponseExtractor = new AccessTokenResponseExtractor();
+
     public static String getAuthorizationUrl(OAuth2ProviderConfig oAuth2ProviderConfig, String redirectUrl, JSONObject stateObject) {
         String scope = getScopeValue(oAuth2ProviderConfig);
         String encodedState = new String(Base64.getEncoder().encode(stateObject.toString().getBytes()));
-        StringBuilder sb = new StringBuilder(oAuth2ProviderConfig.getAuthorizationUrl()).append("?client_id=")
-                .append(oAuth2ProviderConfig.getClientId())
-                .append("&redirect_uri=").append(redirectUrl)
-                .append("&response_type=code")
-                .append("&state=").append(encodedState);
+        StringBuilder sb = new StringBuilder(oAuth2ProviderConfig.getAuthorizationUrl()).append("?")
+                .append(OAuth2Constants.CLIENT_ID).append("=").append(oAuth2ProviderConfig.getClientId())
+                .append("&").append(OAuth2Constants.REDIRECT_URI).append("=").append(redirectUrl)
+                .append("&").append(OAuth2Constants.RESPONSE_TYPE).append("=code")
+                .append("&").append(OAuth2Constants.STATE).append("=").append(encodedState);
         if (StringUtils.isNotBlank(scope)) {
-            sb.append("&scope=").append(scope);
+            sb.append("&").append(OAuth2Constants.SCOPE).append("=").append(scope);
         }
         return sb.toString();
     }
@@ -53,24 +55,22 @@ public class OAuth2Helper {
         }
     }
 
-    public static String getAccessTokenApiRequestBody(OAuth2ProviderConfig oAuth2ProviderConfig, String providerId, String code, String redirectUri) {
-        if (oAuth2ProviderConfig == null) {
-            throw new ResourceNotFoundException("No AuthProviders configured for provider with providerId " + providerId);
-        }
-        String requestBody = new StringBuilder("client_id=").append(oAuth2ProviderConfig.getClientId())
-                .append("&client_secret=").append(oAuth2ProviderConfig.getClientSecret())
-                .append("&code=").append(code)
-                .append("&redirect_uri=").append(redirectUri)
-                .append("&grant_type=authorization_code").toString();
 
+    public static String getAccessTokenApiRequestBody(OAuth2ProviderConfig oAuth2ProviderConfig, String code, String redirectUri) {
+        String requestBody = new StringBuilder(OAuth2Constants.CLIENT_ID).append("=").append(oAuth2ProviderConfig.getClientId())
+                .append("&").append(OAuth2Constants.CLIENT_SECRET).append("=").append(oAuth2ProviderConfig.getClientSecret())
+                .append("&").append(OAuth2Constants.CODE).append("=").append(code)
+                .append("&").append(OAuth2Constants.REDIRECT_URI).append("=").append(redirectUri)
+                .append("&").append(OAuth2Constants.GRANT_TYPE).append("=authorization_code").toString();
         return requestBody;
     }
 
-    public static String extractAccessToken(String accessTokenApiResponseBody) throws IOException, JSONException {
+    public static String extractAccessToken(MediaType mediaType, String accessTokenApiResponseBody) throws IOException, JSONException {
         logger.debug("AuthorizationServerResponse for get token api is {}", accessTokenApiResponseBody);
-        JSONTokener jsonTokener = new JSONTokener(accessTokenApiResponseBody);
-        JSONObject accesTokenObject = new JSONObject(jsonTokener);
-        return (String) accesTokenObject.get("access_token");
+        if (accessTokenApiResponseBody.contains(OAuth2Constants.ACCESS_TOKEN)) {
+            return accessTokenResponseExtractor.getAccessToken(accessTokenApiResponseBody, mediaType);
+        }
+        throw new WMRuntimeException("Couldn't find access_token in server response");
     }
 
     public static String getCallbackResponse(String providerId, String accessToken) throws IOException, JSONException {
