@@ -14,10 +14,10 @@ import org.json.JSONObject;
 import org.json.JSONTokener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.MediaType;
 
 import com.wavemaker.commons.WMRuntimeException;
 import com.wavemaker.commons.io.ClassPathFile;
+import com.wavemaker.commons.oauth2.extractors.AccessTokenRequestContext;
 import com.wavemaker.commons.oauth2.extractors.AccessTokenResponseExtractor;
 
 /**
@@ -65,12 +65,13 @@ public class OAuth2Helper {
         return requestBody;
     }
 
-    public static String extractAccessToken(MediaType mediaType, String accessTokenApiResponseBody) throws IOException, JSONException {
-        logger.debug("AuthorizationServerResponse for get token api is {}", accessTokenApiResponseBody);
-        if (accessTokenApiResponseBody.contains(OAuth2Constants.ACCESS_TOKEN)) {
-            return accessTokenResponseExtractor.getAccessToken(accessTokenApiResponseBody, mediaType);
+    public static String extractAccessToken(AccessTokenRequestContext accessTokenRequestContext) throws IOException, JSONException {
+        logger.debug("AuthorizationServerResponse for get token api is {}", accessTokenRequestContext.getResponseBody());
+        String accessToken = accessTokenResponseExtractor.getAccessToken(accessTokenRequestContext);
+        if (accessToken == null) {
+            throw new WMRuntimeException("No AccessTokenResponseExtractor found for MediaType " + accessTokenRequestContext.getMediaType());
         }
-        throw new WMRuntimeException("Couldn't find access_token in server response");
+        return accessToken;
     }
 
     public static String getCallbackResponse(String providerId, String accessToken) throws IOException, JSONException {

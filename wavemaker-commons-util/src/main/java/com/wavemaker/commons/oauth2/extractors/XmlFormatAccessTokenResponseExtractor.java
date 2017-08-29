@@ -21,7 +21,7 @@ import com.wavemaker.commons.oauth2.OAuth2Constants;
  *
  * Created by srujant on 24/8/17.
  */
-public class XmlFormatAccessTokenResponseExtractor implements AccessTokenExtractor {
+public class XmlFormatAccessTokenResponseExtractor extends MediaTypeBasedAccessTokenExtractor {
 
     private static final String OAUTH = "OAuth";
 
@@ -31,11 +31,11 @@ public class XmlFormatAccessTokenResponseExtractor implements AccessTokenExtract
     }
 
     @Override
-    public String getAccessToken(String accessTokenResponse) {
+    protected String obtainAccessToken(AccessTokenRequestContext accessTokenRequestContext) {
         DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
         try {
             DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
-            Document document = documentBuilder.parse(accessTokenResponse);
+            Document document = documentBuilder.parse(accessTokenRequestContext.getResponseBody());
             NodeList nodeList = document.getElementsByTagName(OAUTH);
             Element element = (Element) nodeList.item(0);
             return element.getElementsByTagName(OAuth2Constants.ACCESS_TOKEN).item(0).getTextContent();
@@ -49,4 +49,5 @@ public class XmlFormatAccessTokenResponseExtractor implements AccessTokenExtract
         }
 
     }
+
 }
