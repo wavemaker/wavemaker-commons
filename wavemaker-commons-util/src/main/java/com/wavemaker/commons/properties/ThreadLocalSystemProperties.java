@@ -2,7 +2,11 @@ package com.wavemaker.commons.properties;
 
 import java.io.PrintStream;
 import java.io.PrintWriter;
+import java.util.Collections;
 import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
 
@@ -148,6 +152,25 @@ public class ThreadLocalSystemProperties extends Properties {
     @Override
     public void list(PrintWriter out) {
         getLocalProperties().list(out);
+    }
+
+    @Override
+    public Set<Map.Entry<Object, Object>> entrySet() {
+        Properties localProperties = getLocalProperties();
+        if (localProperties instanceof ThreadLocalSystemProperties) {
+            Set<Map.Entry<Object, Object>> parentEntries = VM_LEVEL_PROPERTIES.entrySet();
+            Set<Map.Entry<Object, Object>> childEntries = localProperties.entrySet();
+            Map<Object, Map.Entry<Object, Object>> entrySetMap = new HashMap(parentEntries.size());
+            parentEntries.forEach(entry-> {
+                entrySetMap.put(entry.getKey(), entry);
+            });
+            childEntries.forEach(entry-> {
+                entrySetMap.put(entry.getKey(), entry);
+            });
+            return Collections.unmodifiableSet(new HashSet<>(entrySetMap.values()));
+        } else {
+            return localProperties.entrySet();
+        }
     }
 
     private static Properties getLocalProperties() {
