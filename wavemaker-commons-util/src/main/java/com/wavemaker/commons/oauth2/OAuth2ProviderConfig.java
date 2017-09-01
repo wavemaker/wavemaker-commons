@@ -13,6 +13,8 @@ public class OAuth2ProviderConfig {
     private String accessTokenUrl;
     private String clientId;
     private String clientSecret;
+    private String sendAccessTokenAs;
+    private String accessTokenParamName;
     private List<Scope> scopes;
 
 
@@ -62,5 +64,21 @@ public class OAuth2ProviderConfig {
 
     public void setScopes(List<Scope> scopes) {
         this.scopes = scopes;
+    }
+
+    public String getSendAccessTokenAs() {
+        return sendAccessTokenAs;
+    }
+
+    public void setSendAccessTokenAs(String sendAccessTokenAs) {
+        this.sendAccessTokenAs = sendAccessTokenAs;
+    }
+
+    public String getAccessTokenParamName() {
+        return accessTokenParamName;
+    }
+
+    public void setAccessTokenParamName(String accessTokenParamName) {
+        this.accessTokenParamName = accessTokenParamName;
     }
 }

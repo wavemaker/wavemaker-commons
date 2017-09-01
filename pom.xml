@@ -43,7 +43,7 @@
 
         <servlet.version>2.5</servlet.version>
         <jaxb.impl.version>2.2.5.1</jaxb.impl.version>
-        <wavemaker-api-tools.version>2.18</wavemaker-api-tools.version>
+        <wavemaker-api-tools.version>2.19</wavemaker-api-tools.version>
     </properties>
 
     <dependencyManagement>
