@@ -1,4 +1,4 @@
-package com.wavemaker.commons.oauth2.extractors;
+package com.wavemaker.commons.auth.oauth2.extractors;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -13,7 +13,7 @@ import com.wavemaker.commons.json.JSONUtils;
 /**
  * Created by srujant on 29/8/17.
  */
-public class YammerAccessTokenResponseExtractor implements AccessTokenExtractor {
+public class YammerAccessTokenExtractor implements AccessTokenExtractor {
 
 
     @Override

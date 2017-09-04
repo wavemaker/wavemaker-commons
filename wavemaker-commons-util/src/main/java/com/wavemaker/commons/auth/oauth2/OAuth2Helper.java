@@ -1,4 +1,4 @@
-package com.wavemaker.commons.oauth2;
+package com.wavemaker.commons.auth.oauth2;
 
 import java.io.IOException;
 import java.util.Base64;
@@ -17,8 +17,8 @@ import org.slf4j.LoggerFactory;
 
 import com.wavemaker.commons.WMRuntimeException;
 import com.wavemaker.commons.io.ClassPathFile;
-import com.wavemaker.commons.oauth2.extractors.AccessTokenRequestContext;
-import com.wavemaker.commons.oauth2.extractors.AccessTokenResponseExtractor;
+import com.wavemaker.commons.auth.oauth2.extractors.AccessTokenRequestContext;
+import com.wavemaker.commons.auth.oauth2.extractors.AccessTokenResponseExtractor;
 
 /**
  * Created by srujant on 26/7/17.
