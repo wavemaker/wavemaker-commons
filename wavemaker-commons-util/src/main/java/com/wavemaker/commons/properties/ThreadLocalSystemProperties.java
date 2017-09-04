@@ -9,6 +9,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -93,7 +94,7 @@ public class ThreadLocalSystemProperties extends Properties {
         Properties currentSystemProperties = System.getProperties();
         if (currentSystemProperties instanceof ThreadLocalSystemProperties) {
             Properties threadLocalProperties = getLocalProperties();
-            if (threadLocalProperties != null) {
+            if (threadLocalProperties instanceof ThreadLocalSystemProperties) {
                 logger.info("Usage of Thread Local properties for current thread is already enabled");
             } else {
                 logger.info("Enabling usage of Thread Local properties for current thread");
@@ -155,9 +156,41 @@ public class ThreadLocalSystemProperties extends Properties {
     }
 
     @Override
+    public Set<Object> keySet() {
+        Properties localProperties = getLocalProperties();
+        if (localProperties == VM_LEVEL_PROPERTIES) {
+            return localProperties.keySet();
+        } else {
+            return entrySet().stream().map(entry->entry.getKey()).collect(Collectors.toSet());
+        }
+    }
+
+    @Override
+    public Set<Object> values() {
+        Properties localProperties = getLocalProperties();
+        if (localProperties == VM_LEVEL_PROPERTIES) {
+            return localProperties.keySet();
+        } else {
+            return entrySet().stream().map(entry->entry.getValue()).collect(Collectors.toSet());
+        }
+    }
+
+    @Override
+    public int size() {
+        Properties localProperties = getLocalProperties();
+        if (localProperties == VM_LEVEL_PROPERTIES) {
+            return localProperties.size();
+        } else {
+            return entrySet().size();
+        }
+    }
+
+    @Override
     public Set<Map.Entry<Object, Object>> entrySet() {
         Properties localProperties = getLocalProperties();
-        if (localProperties instanceof ThreadLocalSystemProperties) {
+        if (localProperties == VM_LEVEL_PROPERTIES) {
+            return localProperties.entrySet();
+        } else {
             Set<Map.Entry<Object, Object>> parentEntries = VM_LEVEL_PROPERTIES.entrySet();
             Set<Map.Entry<Object, Object>> childEntries = localProperties.entrySet();
             Map<Object, Map.Entry<Object, Object>> entrySetMap = new HashMap(parentEntries.size());
@@ -168,8 +201,6 @@ public class ThreadLocalSystemProperties extends Properties {
                 entrySetMap.put(entry.getKey(), entry);
             });
             return Collections.unmodifiableSet(new HashSet<>(entrySetMap.values()));
-        } else {
-            return localProperties.entrySet();
         }
     }
 
