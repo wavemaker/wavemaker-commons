@@ -1,4 +1,4 @@
-package com.wavemaker.commons.oauth2.extractors;
+package com.wavemaker.commons.auth.oauth2.extractors;
 
 import org.springframework.http.MediaType;
 

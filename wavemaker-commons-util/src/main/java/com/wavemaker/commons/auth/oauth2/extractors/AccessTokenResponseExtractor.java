@@ -1,4 +1,4 @@
-package com.wavemaker.commons.oauth2.extractors;
+package com.wavemaker.commons.auth.oauth2.extractors;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,10 +11,10 @@ public class AccessTokenResponseExtractor {
     private List<AccessTokenExtractor> accessTokenExtractorsList = new ArrayList<>();
 
     public AccessTokenResponseExtractor() {
-        accessTokenExtractorsList.add(new JsonFormatAccessTokenResponseExtractor());
-        accessTokenExtractorsList.add(new FormUrlEncodedFormatAccessTokenResponseExtractor());
-        accessTokenExtractorsList.add(new XmlFormatAccessTokenResponseExtractor());
-        accessTokenExtractorsList.add(new YammerAccessTokenResponseExtractor());
+        accessTokenExtractorsList.add(new JsonFormatAccessTokenExtractor());
+        accessTokenExtractorsList.add(new FormUrlEncodedFormatAccessTokenExtractor());
+        accessTokenExtractorsList.add(new XmlFormatAccessTokenExtractor());
+        accessTokenExtractorsList.add(new YammerAccessTokenExtractor());
     }
 
     public String getAccessToken(AccessTokenRequestContext accessTokenRequestContext) {

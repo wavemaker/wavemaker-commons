@@ -1,4 +1,4 @@
-package com.wavemaker.commons.oauth2.extractors;
+package com.wavemaker.commons.auth.oauth2.extractors;
 
 import java.io.IOException;
 
@@ -13,7 +13,7 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 import com.wavemaker.commons.WMRuntimeException;
-import com.wavemaker.commons.oauth2.OAuth2Constants;
+import com.wavemaker.commons.auth.oauth2.OAuth2Constants;
 
 /**
  * Extracts access token when the response body type is application/xml
@@ -21,7 +21,7 @@ import com.wavemaker.commons.oauth2.OAuth2Constants;
  *
  * Created by srujant on 24/8/17.
  */
-public class XmlFormatAccessTokenResponseExtractor extends MediaTypeBasedAccessTokenExtractor {
+public class XmlFormatAccessTokenExtractor extends MediaTypeBasedAccessTokenExtractor {
 
     private static final String OAUTH = "OAuth";
 
