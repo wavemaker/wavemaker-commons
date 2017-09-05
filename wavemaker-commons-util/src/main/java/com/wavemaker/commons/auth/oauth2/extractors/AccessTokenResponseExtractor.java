@@ -14,7 +14,7 @@ public class AccessTokenResponseExtractor {
         accessTokenExtractorsList.add(new JsonFormatAccessTokenExtractor());
         accessTokenExtractorsList.add(new FormUrlEncodedFormatAccessTokenExtractor());
         accessTokenExtractorsList.add(new XmlFormatAccessTokenExtractor());
-        accessTokenExtractorsList.add(new YammerAccessTokenExtractor());
+        accessTokenExtractorsList.add(new AccessTokenInObjectExtractor());
     }
 
     public String getAccessToken(AccessTokenRequestContext accessTokenRequestContext) {
