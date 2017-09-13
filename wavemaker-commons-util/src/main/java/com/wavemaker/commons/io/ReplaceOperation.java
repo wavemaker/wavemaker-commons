@@ -15,6 +15,8 @@
  */
 package com.wavemaker.commons.io;
 
+import org.apache.commons.lang3.StringUtils;
+
 /**
 * @author Uday Shankar
 */
@@ -31,8 +33,10 @@ public class ReplaceOperation implements ResourceOperation<File> {
 
    @Override
    public void perform(File file) {
-       String content = file.getContent().asString();
-       content = content.replace(this.fromExpression, this.toExpression);
-       file.getContent().write(content);
+       String originalContent = file.getContent().asString();
+       String updatedContent = originalContent.replace(this.fromExpression, this.toExpression);
+       if (!StringUtils.equals(originalContent, updatedContent)) {
+           file.getContent().write(updatedContent);
+       }
    }
 }
