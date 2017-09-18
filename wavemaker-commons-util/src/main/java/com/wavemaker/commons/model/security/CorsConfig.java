@@ -8,6 +8,7 @@ import java.util.List;
 public class CorsConfig {
     private boolean enabled;
     private long maxAge;
+    private boolean allowCredentials;
     private List<PathEntry> pathEntries;
 
     public CorsConfig() {
@@ -37,5 +38,11 @@ public class CorsConfig {
         this.maxAge = maxAge;
     }
 
+    public boolean isAllowCredentials() {
+        return allowCredentials;
+    }
 
+    public void setAllowCredentials(boolean allowCredentials) {
+        this.allowCredentials = allowCredentials;
+    }
 }
