@@ -30,6 +30,7 @@ import com.wavemaker.commons.io.Folder;
 import com.wavemaker.commons.io.Resource;
 import com.wavemaker.commons.io.Resources;
 import com.wavemaker.commons.io.exception.ResourceException;
+import junit.framework.Assert;
 
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
@@ -163,5 +164,16 @@ public class LocalFolderTest {
         } catch (ResourceException e) {
         }
         assertThat(folder.exists(), is(false));
+    }
+    
+    @Test
+    public void testNewLocalFolder() {
+        Folder folder = new LocalFolder(this.temp.getRoot() + java.io.File.separator + "test");
+        Folder childFolder = folder.getFolder("abcd");
+        File file = childFolder.getFile("jfsdnfdjk");
+        file.createIfMissing();
+
+        File file1 = folder.getFile("njvkdf nhvd.txt");
+        file1.createIfMissing();
     }
 }

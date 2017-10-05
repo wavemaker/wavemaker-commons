@@ -56,8 +56,9 @@ abstract class LocalResourceStore implements ResourceStore {
     public LocalResourceStore(java.io.File root, JailedResourcePath path) {
         Assert.notNull(root, "Root must not be null");
         Assert.notNull(path, "Path must not be null");
-        Assert.state(root.exists(), "The root folder '" + root + "' does not exist");
-        Assert.state(root.isDirectory(), "The root '" + root + "' is not a folder");
+        if (root.exists()) {
+            Assert.state(root.isDirectory(), "The root '" + root + "' is not a folder");
+        }
         this.root = root;
         this.path = path;
         this.file = getFileForPath(path);
