@@ -15,10 +15,15 @@
  */
 package com.wavemaker.commons.proxy;
 
+import java.util.Arrays;
+import java.util.stream.Collectors;
+
+import org.springframework.util.MimeTypeUtils;
+
 /**
  * Created by srujant on 26/12/16.
  */
-public class AppPropertiesConstants {
+public final class AppPropertiesConstants {
 
     public static final String APP_PREFIX = "app";
 
@@ -28,10 +33,19 @@ public class AppPropertiesConstants {
     public static final String APP_PROXY_USERNAME = getAppPropertyKey("proxy.username");
     public static final String APP_PROXY_PASSWORD = getAppPropertyKey("proxy.password");
 
+    public static final String APP_GZIP_ENABLED = getAppPropertyKey("web.compress.enabled");
+    public static final String APP_GZIP_MIN_SIZE = getAppPropertyKey("web.compress.minsize");
+    public static final String APP_GZIP_COMPRESS_INCLUDE_TYPES = getAppPropertyKey("web.compress.mimetypes.include");
+    public static final String APP_GZIP_COMPRESS_EXCLUDE_TYPES = getAppPropertyKey("web.compress.mimetypes.exclude");
+
     private static String getAppPropertyKey(String key) {
         return new StringBuilder(APP_PREFIX).append(".").append(key).toString();
     }
 
     private AppPropertiesConstants() {
     }
+
+    public static final String DEFAULT_EXCLUDE_COMPRESSION_MIME_TYPES = Arrays.asList(MimeTypeUtils.IMAGE_GIF_VALUE, MimeTypeUtils.IMAGE_JPEG_VALUE, MimeTypeUtils
+            .IMAGE_PNG_VALUE).stream().collect(Collectors.joining(","));
+
 }
