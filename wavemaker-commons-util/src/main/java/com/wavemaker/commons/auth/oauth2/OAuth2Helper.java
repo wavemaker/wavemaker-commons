@@ -74,10 +74,14 @@ public class OAuth2Helper {
         return accessToken;
     }
 
-    public static String getCallbackResponse(String providerId, String accessToken) throws IOException, JSONException {
+    public static String getCallbackResponse(String providerId, String accessToken, String customUrlScheme, String requestSourceType) throws IOException,
+            JSONException {
         Map<String, Object> input = new HashMap<>();
         input.put("providerId", providerId);
+        input.put(OAuth2Constants.CUSTOM_URL_SCHEME, customUrlScheme);
+        input.put(OAuth2Constants.REQUEST_SOURCE_TYPE, requestSourceType);
         input.put("accessToken", accessToken);
+
         StrSubstitutor strSubstitutor = new StrSubstitutor(input);
         return strSubstitutor.replace(new ClassPathFile(OAUTH_CALLBACK_URL_RESPONSE).getContent().asString());
     }
