@@ -16,6 +16,6 @@ public class OAuth2Constants {
     public static final String SCOPE = "scope";
 
     public static final String REQUEST_SOURCE_TYPE = "requestSourceType";
-    public static final String CUSTOM_URL_SCHEME = "customURLScheme";
+    public static final String CUSTOM_URL_SCHEME = "customUrlScheme";
 
 }
