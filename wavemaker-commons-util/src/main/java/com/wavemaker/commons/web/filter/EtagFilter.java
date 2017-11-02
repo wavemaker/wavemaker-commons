@@ -37,35 +37,32 @@ public class EtagFilter extends ShallowEtagHeaderFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        //Disabling etag for ie browser as it is not honouring etag header.
-        boolean requestedFromIeBrowser = isRequestFromIeBrowser(request);
+        boolean clientSupportsEtag = doesClientSupportEtag(request);
 
-        if(request.getRequestURL().indexOf("/services") != -1){
-            logger.debug("Etag Request for url {}, IE browser {}, user-agent {}, servlet Path {} ", request.getRequestURL(), requestedFromIeBrowser, request.getHeader("User-Agent"), request.getServletPath());
-        }
-
-        //Setting no cache for ie as etag is disabled for it.
-        if(requestedFromIeBrowser && (request.getServletPath().startsWith("/services") || request.getServletPath().startsWith("/app") || request.getServletPath().startsWith("/pages") || request.getServletPath().startsWith("/prefabs") || request.getServletPath().endsWith(".json"))){
-            response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1
-            response.setHeader("Pragma", "no-cache"); // HTTP 1.0
-            response.setDateHeader("Expires", 0); // Proxies.
-        }
-        if(HttpMethod.GET.name().equals(request.getMethod()) && !requestedFromIeBrowser){
+        if(HttpMethod.GET.name().equals(request.getMethod()) && clientSupportsEtag) {
+            logger.debug("Setting Etag header for request for url {}, user-agent {}", request.getRequestURL(), request.getHeader("User-Agent"));
             response.setHeader("Cache-Control", "max-age=0"); // HTTP 1.1
             super.doFilterInternal(request, response, filterChain);
         } else {
+            if (!clientSupportsEtag) {
+                logger.debug("Client doesn't support Etag headers for request url {}, user-agent {}", request.getRequestURL(),request.getHeader("User-Agent"));
+                response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1
+                response.setHeader("Pragma", "no-cache"); // HTTP 1.0
+                response.setDateHeader("Expires", 0); // Proxies.    
+            }
             filterChain.doFilter(request, response);
         }
-
     }
 
     @Override
     protected boolean isEligibleForEtag(HttpServletRequest request, HttpServletResponse response, int responseStatusCode, InputStream inputStream) {
-        return (responseStatusCode >= 200 && responseStatusCode < 300)
-                && HttpMethod.GET.name().equals(request.getMethod());
+        return (responseStatusCode >= 200 && responseStatusCode < 300) && HttpMethod.GET.name().equals(request.getMethod());
     }
 
-    private boolean isRequestFromIeBrowser(HttpServletRequest request) {
-        return request.getHeader("User-Agent") != null && (request.getHeader("User-Agent").contains("Trident") || request.getHeader("User-Agent").contains("MSIE"));
+    /**
+     * To disable etag header for clients which doesn't support etag header.
+     */
+    protected boolean doesClientSupportEtag(HttpServletRequest request) {
+        return true;
     }
 }
