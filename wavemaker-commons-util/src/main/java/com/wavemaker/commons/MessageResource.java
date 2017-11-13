@@ -144,6 +144,9 @@ public class MessageResource {
     @ResourceConstraint(numArgs = 2, hasDetailMsg = false)
     public static final MessageResource UTIL_FILEUTILS_REACHEDROOT = new MessageResource("com.wavemaker.commons.util$FileUtils_ReachedRoot");
 
+    @ResourceConstraint(numArgs = 0, hasDetailMsg = false)
+    public static final MessageResource SEMAPHORE_ACQUISITION_TIMEOUT = new MessageResource("com.wavemaker.commons.util$SemaphoreAcquisitionTimeout");
+
     @ResourceConstraint(numArgs = 1, hasDetailMsg = false)
     public static final MessageResource JSON_FAILED_PARSING = new MessageResource("com.wavemaker.studio.json$FailedParsing");
 
