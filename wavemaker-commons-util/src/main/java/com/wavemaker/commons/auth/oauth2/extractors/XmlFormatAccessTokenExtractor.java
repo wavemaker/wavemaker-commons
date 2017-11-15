@@ -1,19 +1,14 @@
 package com.wavemaker.commons.auth.oauth2.extractors;
 
-import java.io.IOException;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
-import org.xml.sax.SAXException;
 
-import com.wavemaker.commons.WMRuntimeException;
 import com.wavemaker.commons.auth.oauth2.OAuth2Constants;
+import com.wavemaker.commons.util.XMLUtils;
 
 /**
  * Extracts access token when the response body type is application/xml
@@ -24,6 +19,7 @@ import com.wavemaker.commons.auth.oauth2.OAuth2Constants;
 public class XmlFormatAccessTokenExtractor extends MediaTypeBasedAccessTokenExtractor {
 
     private static final String OAUTH = "OAuth";
+    private static final Logger logger = LoggerFactory.getLogger(XmlFormatAccessTokenExtractor.class);
 
     @Override
     public boolean canRead(MediaType mediaType) {
@@ -32,22 +28,20 @@ public class XmlFormatAccessTokenExtractor extends MediaTypeBasedAccessTokenExtr
 
     @Override
     protected String obtainAccessToken(AccessTokenRequestContext accessTokenRequestContext) {
-        DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
-        try {
-            DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
-            Document document = documentBuilder.parse(accessTokenRequestContext.getResponseBody());
-            NodeList nodeList = document.getElementsByTagName(OAUTH);
-            Element element = (Element) nodeList.item(0);
-            return element.getElementsByTagName(OAuth2Constants.ACCESS_TOKEN).item(0).getTextContent();
-
-        } catch (ParserConfigurationException e) {
-            throw new WMRuntimeException(e);
-        } catch (SAXException e) {
-            throw new WMRuntimeException(e);
-        } catch (IOException e) {
-            throw new WMRuntimeException(e);
+        Document document = XMLUtils.getDocument(accessTokenRequestContext.getResponseBody());
+        NodeList nodeList = document.getElementsByTagName(OAUTH);
+        if (nodeList.getLength() == 0) {
+            logger.warn("No oauth tag found");
+            return null;
         }
+        Element element = (Element) nodeList.item(0);
 
+        NodeList accessTokenNodeList = element.getElementsByTagName(OAuth2Constants.ACCESS_TOKEN);
+        if (accessTokenNodeList.getLength() == 0) {
+            logger.warn("No accessToken tag found in response");
+            return null;
+        }
+        return accessTokenNodeList.item(0).getTextContent();
     }
 
 }

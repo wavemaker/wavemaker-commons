@@ -5,7 +5,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *   http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -15,14 +15,37 @@
  */
 package com.wavemaker.commons.util;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.nio.charset.Charset;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.stream.XMLStreamReader;
+import javax.xml.transform.Result;
+import javax.xml.transform.Source;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
 
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringEscapeUtils;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
+
+import com.wavemaker.commons.WMRuntimeException;
+import com.wavemaker.commons.io.File;
 
 /**
  * @author Simon Toens
@@ -64,4 +87,78 @@ public abstract class XMLUtils {
         }
         return rtn;
     }
+
+    public static Document getDocument(File file) {
+        return getDocument(file.getContent().asInputStream());
+    }
+
+    public static Document getNewDocument() {
+        return getDocumentBuilder().newDocument();
+    }
+
+
+    public static Document getDocument(String input) {
+        return getDocument(IOUtils.toInputStream(input, Charset.forName("UTF-8")));
+    }
+
+    public static Document getDocument(InputStream inputStream) {
+        try {
+            DocumentBuilder documentBuilder = getDocumentBuilder();
+            return documentBuilder.parse(inputStream);
+        } catch (SAXException | IOException e) {
+            throw new WMRuntimeException("Failed to parse xml file", e);
+        } finally {
+            WMIOUtils.closeSilently(inputStream);
+        }
+    }
+
+
+    public static void putSimpleTextElement(Document document, Element parentElement, String key, String value) {
+        NodeList childNodes = parentElement.getChildNodes();
+        boolean hasElement = false;
+        for (int i = 0; i < childNodes.getLength(); i++) {
+            if (childNodes.item(i).getNodeType() == Node.ELEMENT_NODE) {
+                Element element = (Element) childNodes.item(i);
+                if (key.equals(element.getTagName())) {
+                    element.setTextContent(value);
+                    hasElement = true;
+                }
+            }
+        }
+        if (!hasElement) {
+            Element element = document.createElement(key);
+            element.setTextContent(value);
+            parentElement.appendChild(element);
+        }
+    }
+
+    public static void updateDocument(Document document, File file) {
+        updateDocument(document, file.getContent().asOutputStream());
+    }
+
+
+    public static void updateDocument(Document document, OutputStream outputStream) {
+        try {
+            TransformerFactory transformerFactory = TransformerFactory.newInstance();
+            Transformer transformer = transformerFactory.newTransformer();
+            Source source = new DOMSource(document);
+            Result dest = new StreamResult(outputStream);
+            transformer.transform(source, dest);
+        } catch (TransformerException e) {
+            throw new WMRuntimeException("Failed to write Document", e);
+        } finally {
+            WMIOUtils.closeSilently(outputStream);
+        }
+    }
+
+
+    private static DocumentBuilder getDocumentBuilder() {
+        try {
+            DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
+            return documentBuilderFactory.newDocumentBuilder();
+        } catch (ParserConfigurationException e) {
+            throw new WMRuntimeException("Failed to fetch documentBuilder", e);
+        }
+    }
+
 }
