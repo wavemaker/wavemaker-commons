@@ -28,6 +28,7 @@ import java.util.List;
 import org.apache.commons.io.FileUtils;
 
 import com.wavemaker.commons.WMRuntimeException;
+import com.wavemaker.commons.io.Resource;
 
 /**
  * @author Uday Shankar
@@ -58,4 +59,9 @@ public class WMFileUtils {
             throw new WMRuntimeException("Failed to find matched ignore patterns for " + pattern, e);
         }
     }
+
+    public static boolean isExists(Resource resource) {
+        return resource != null && resource.exists();
+    }
+
 }
