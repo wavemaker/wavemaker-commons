@@ -117,7 +117,11 @@ public class ClassUtils {
             PropertyDescriptor[] propertyDescriptors = Introspector.getBeanInfo(klass).getPropertyDescriptors();
             List<PropertyDescriptor> propertyDescriptorList = new ArrayList<>();
             for (PropertyDescriptor propertyDescriptor : propertyDescriptors) {
-                if(Object.class.equals(propertyDescriptor.getReadMethod().getDeclaringClass())) {
+                Method method = propertyDescriptor.getReadMethod();
+                if (method == null) {
+                    method = propertyDescriptor.getWriteMethod();
+                }
+                if(Object.class.equals(method.getDeclaringClass())) {
                     continue;
                 }
                 propertyDescriptorList.add(propertyDescriptor);
