@@ -20,9 +20,12 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.nio.charset.Charset;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -130,6 +133,19 @@ public abstract class XMLUtils {
             element.setTextContent(value);
             parentElement.appendChild(element);
         }
+    }
+
+    public static List<Element> getFirstLevelElementsByTagName(Element element, String name) {
+        NodeList allChilds = element.getElementsByTagName(name);
+        List<Element> childElements = new ArrayList<>();
+        
+        for (int i = 0; i < allChilds.getLength(); i++) {
+            Node child = allChilds.item(i);
+            if (Objects.equals(child.getParentNode(), element)) {
+                childElements.add((Element) child);
+            }
+        }
+        return childElements;
     }
 
     public static void updateDocument(Document document, File file) {
