@@ -5,7 +5,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *   http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -26,6 +26,7 @@ import java.util.Collection;
 import java.util.List;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.FilenameUtils;
 
 import com.wavemaker.commons.WMRuntimeException;
 import com.wavemaker.commons.io.Resource;
@@ -64,4 +65,12 @@ public class WMFileUtils {
         return resource != null && resource.exists();
     }
 
+   public static void renameFile(Resource resource, String newFileName) {
+        Path path = WMIOUtils.getJavaIOFile(resource).toPath();
+        try {
+            Files.move(path, path.resolveSibling(newFileName));
+        } catch (IOException e) {
+            throw new WMRuntimeException("Failed to renameFile" + resource.getName(), e);
+        }
+    }
 }
