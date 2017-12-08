@@ -129,6 +129,8 @@ public abstract class StringUtils {
         HQL_KEYWORDS.add("new");
         HQL_KEYWORDS.add("not");
         HQL_KEYWORDS.add("null");
+        HQL_KEYWORDS.add("nulls");
+        HQL_KEYWORDS.add("object");
         HQL_KEYWORDS.add("or");
         HQL_KEYWORDS.add("order");
         HQL_KEYWORDS.add("outer");
@@ -142,7 +144,6 @@ public abstract class StringUtils {
         HQL_KEYWORDS.add("update");
         HQL_KEYWORDS.add("versioned");
         HQL_KEYWORDS.add("where");
-        HQL_KEYWORDS.add("nulls");
     }
 
     private StringUtils() {
