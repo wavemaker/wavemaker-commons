@@ -36,10 +36,6 @@
         <wm.jackson.databind.version>2.6.3.wm-1</wm.jackson.databind.version>
         <json.version>20090211</json.version>
 
-        <joda-time.version>2.3</joda-time.version>
-        <jadira-usertype-spi.version>6.0.1.GA</jadira-usertype-spi.version>
-        <jadira-usertype-jodatime.version>2.0.1</jadira-usertype-jodatime.version>
-
         <gson.version>2.2.4</gson.version>
 
         <servlet.version>3.1.0</servlet.version>
@@ -135,21 +131,7 @@
                 <artifactId>hibernate-core</artifactId>
                 <version>${hibernate.version}</version>
             </dependency>
-            <dependency>
-                <groupId>org.jadira.usertype</groupId>
-                <artifactId>usertype.spi</artifactId>
-                <version>${jadira-usertype-spi.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.jadira.usertype</groupId>
-                <artifactId>usertype.jodatime</artifactId>
-                <version>${jadira-usertype-jodatime.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>joda-time</groupId>
-                <artifactId>joda-time</artifactId>
-                <version>${joda-time.version}</version>
-            </dependency>
+
 
             <dependency>
                 <groupId>com.google.code.gson</groupId>
