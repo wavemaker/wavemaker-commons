@@ -16,10 +16,9 @@
 package com.wavemaker.commons.json.serializer;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
-import org.joda.time.LocalDateTime;
-import org.joda.time.format.DateTimeFormatter;
-import org.joda.time.format.ISODateTimeFormat;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -31,10 +30,10 @@ import com.fasterxml.jackson.databind.SerializerProvider;
  */
 public class WMLocalDateTimeSerializer extends JsonSerializer<LocalDateTime> {
 
-    private final static DateTimeFormatter format = ISODateTimeFormat.dateTime();
+    private final static DateTimeFormatter format = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
 
     @Override
     public void serialize(LocalDateTime value, JsonGenerator jgen, SerializerProvider provider) throws IOException, JsonProcessingException {
-        jgen.writeString(format.print(value));
+        jgen.writeString(value.format(format));
     }
 }

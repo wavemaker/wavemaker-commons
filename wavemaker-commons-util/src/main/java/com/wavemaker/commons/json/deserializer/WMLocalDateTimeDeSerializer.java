@@ -16,11 +16,10 @@
 package com.wavemaker.commons.json.deserializer;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import org.apache.commons.lang3.StringUtils;
-import org.joda.time.LocalDateTime;
-import org.joda.time.format.DateTimeFormatter;
-import org.joda.time.format.ISODateTimeFormat;
 
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -34,7 +33,7 @@ import com.wavemaker.commons.WMRuntimeException;
  */
 public class WMLocalDateTimeDeSerializer extends JsonDeserializer<LocalDateTime> {
 
-    private final static DateTimeFormatter parser = ISODateTimeFormat.localDateOptionalTimeParser();
+    private final static DateTimeFormatter parser = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
 
     @Override
     public LocalDateTime deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
@@ -50,6 +49,6 @@ public class WMLocalDateTimeDeSerializer extends JsonDeserializer<LocalDateTime>
         if (StringUtils.isBlank(value)) {
             return null;
         }
-        return parser.parseLocalDateTime(value);
+        return LocalDateTime.parse(value, parser);
     }
 }

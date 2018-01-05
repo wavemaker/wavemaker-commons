@@ -17,10 +17,9 @@ package com.wavemaker.commons.swaggerdoc.util;
 
 import java.sql.Time;
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.Map;
 import java.util.Objects;
-
-import org.joda.time.LocalDateTime;
 
 import com.wavemaker.commons.SwaggerException;
 import com.wavemaker.tools.apidocs.tools.core.model.Operation;

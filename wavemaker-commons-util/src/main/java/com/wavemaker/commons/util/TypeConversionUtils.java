@@ -20,6 +20,7 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.sql.Time;
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
@@ -30,8 +31,6 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import org.joda.time.LocalDateTime;
 
 import com.wavemaker.commons.json.deserializer.WMDateDeSerializer;
 import com.wavemaker.commons.json.deserializer.WMLocalDateTimeDeSerializer;
