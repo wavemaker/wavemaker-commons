@@ -293,6 +293,10 @@ public class MessageResource {
     public static final MessageResource BLOB_INPUT_ONLY_SUPPORTED_FOR_INSERT_UPDATE_QUERIES =
             new MessageResource("com.wavemaker.studio.core.data$BlobInputOnlySupportedForInsertUpdateQueries");
 
+    @ResourceConstraint(numArgs = 2, hasDetailMsg = false)
+    public static final MessageResource REST_CLIENT_RESPONSE_ERROR = new MessageResource("com.wavemaker.studio.json$RestClientResponseError");
+
+
     private static final Map<MessageResource, ResourceConstraint> annotations = new HashMap<>();
 
     static {
