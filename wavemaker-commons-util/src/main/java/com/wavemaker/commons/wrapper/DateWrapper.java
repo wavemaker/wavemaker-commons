@@ -20,15 +20,9 @@ import java.util.Date;
 /**
  * Created by Kishore Routhu on 31/8/16 3:57 PM.
  */
-public class DateWrapper {
-
-    private Date result;
+public class DateWrapper extends AbstractPrimitiveWrapper<Date> {
 
     public DateWrapper(Date result) {
-        this.result = result;
-    }
-
-    public Date getResult() {
-        return result;
+        super(result);
     }
 }

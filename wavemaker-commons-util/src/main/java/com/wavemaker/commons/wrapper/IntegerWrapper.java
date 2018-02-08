@@ -18,15 +18,9 @@ package com.wavemaker.commons.wrapper;
 /**
  * Created by nileshk on 11/11/14.
  */
-public class IntegerWrapper {
-
-    private Integer result;
+public class IntegerWrapper extends AbstractPrimitiveWrapper<Integer> {
 
     public IntegerWrapper(Integer result) {
-        this.result = result;
-    }
-
-    public Integer getResult() {
-        return result;
+        super(result);
     }
 }
