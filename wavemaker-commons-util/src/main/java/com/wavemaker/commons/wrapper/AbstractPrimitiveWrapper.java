@@ -13,7 +13,6 @@ public class AbstractPrimitiveWrapper<T> {
         this.result = result;
     }
 
-    @JsonProperty("__result__")
     public T getResult() {
         return result;
     }
