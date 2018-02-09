@@ -161,6 +161,21 @@ public abstract class WMIOUtils {
         return count;
     }
 
+    public static void copyContent(com.wavemaker.commons.io.File sourceFile, com.wavemaker.commons.io.File destinationFile) {
+        InputStream inputStream = null;
+        OutputStream outputStream = null;
+        try {
+            inputStream = sourceFile.getContent().asInputStream();
+            outputStream = destinationFile.getContent().asOutputStream();
+            WMIOUtils.copy(inputStream, outputStream);
+        } catch (IOException e) {
+            throw new WMRuntimeException(e);
+        } finally {
+            WMIOUtils.closeSilently(inputStream);
+            WMIOUtils.closeSilently(outputStream);
+        }
+    }
+
     /**
      * copies content of InputStream into OutputStream os.
      * @param is InputStream to read from.
