@@ -296,6 +296,8 @@ public class MessageResource {
     @ResourceConstraint(numArgs = 2, hasDetailMsg = false)
     public static final MessageResource REST_CLIENT_RESPONSE_ERROR = new MessageResource("com.wavemaker.studio.json$RestClientResponseError");
 
+    @ResourceConstraint(numArgs = 1, hasDetailMsg = false)
+    public static final MessageResource TIMEOUT_ERROR = new MessageResource("com.wavemaker.commons.TimeoutError");
 
     private static final Map<MessageResource, ResourceConstraint> annotations = new HashMap<>();
 
