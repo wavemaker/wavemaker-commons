@@ -5,7 +5,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *   http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -16,15 +16,19 @@
 package com.wavemaker.commons.util;
 
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.wavemaker.commons.MessageResource;
+import com.wavemaker.commons.WMRuntimeException;
 import com.wavemaker.commons.core.web.rest.ErrorResponse;
 import com.wavemaker.commons.core.web.rest.ErrorResponses;
 import com.wavemaker.commons.json.JSONUtils;
@@ -43,7 +47,7 @@ public class HttpRequestUtils {
         writeErrorResponse(responseCode, response, errorResponse);
     }
 
-    public static void writeJsonErrorResponse(String message, int responseCode, HttpServletResponse response) throws IOException{
+    public static void writeJsonErrorResponse(String message, int responseCode, HttpServletResponse response) throws IOException {
         ErrorResponse errorResponse = getErrorResponse(message);
         writeErrorResponse(responseCode, response, errorResponse);
     }
@@ -72,6 +76,27 @@ public class HttpRequestUtils {
         return errorResponse;
     }
 
+    public static String getBaseUrl(String requestUrl) {
+        if (Objects.nonNull(requestUrl)) {
+            try {
+                URI uri = new URI(requestUrl);
+                return getBaseUrl(uri);
+            } catch (URISyntaxException e) {
+                throw new WMRuntimeException("Invalid request URL",e);
+            }
+        }
+        return null;
+    }
+
+    public static String getBaseUrl(URI uri) {
+        StringBuilder stringBuilder = new StringBuilder(uri.getScheme()).append("://").append(uri.getHost());
+        int serverPort = uri.getPort();
+        if (serverPort != 80 && serverPort != 443) {
+            stringBuilder.append(":").append(serverPort).toString();
+        }
+        return stringBuilder.toString();
+    }
+
     public static String getBaseUrl(HttpServletRequest httpServletRequest) {
         StringBuilder sb = new StringBuilder(httpServletRequest.getScheme()).append("://").append(httpServletRequest.getServerName());
         int serverPort = httpServletRequest.getServerPort();
@@ -79,5 +104,10 @@ public class HttpRequestUtils {
             sb.append(":").append(serverPort).toString();
         }
         return sb.toString();
+    }
+
+    public static boolean isRequestedFromIEBrowser(HttpServletRequest httpServletRequest) {
+        String userAgent = httpServletRequest.getHeader("User-Agent");
+        return (userAgent != null && userAgent.contains("MSIE"));
     }
 }

@@ -3,9 +3,9 @@ package com.wavemaker.commons.model.security;
 /**
  * Created by srujant on 25/4/17.
  */
-public class XFrameOptions {
+public class FrameOptions {
 
-
+    private boolean enabled;
     private Mode mode;
     private String allowFromUrl;
 
@@ -25,17 +25,23 @@ public class XFrameOptions {
         this.allowFromUrl = allowFromUrl;
     }
 
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
+
     @Override
     public String toString() {
-        return "XFrameOptions{" +
+        return "FrameOptions{" +
                 "mode=" + mode +
                 ", allowFromUrl='" + allowFromUrl + '\'' +
                 '}';
     }
 
     public enum Mode {
-
         DENY, SAMEORIGIN, ALLOW_FROM;
-
     }
 }
