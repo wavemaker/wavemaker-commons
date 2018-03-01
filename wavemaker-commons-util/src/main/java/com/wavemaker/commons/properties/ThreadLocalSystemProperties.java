@@ -35,7 +35,7 @@ import org.slf4j.LoggerFactory;
 
 public class ThreadLocalSystemProperties extends Properties {
 
-    private static final ThreadLocal<Properties> THREAD_LOCAL_PROPERTIES = new ThreadLocal<Properties>();
+    private static final ThreadLocal<Properties> THREAD_LOCAL_PROPERTIES = new ThreadLocal<>();
 
     private static final Properties VM_LEVEL_PROPERTIES = System.getProperties();
 

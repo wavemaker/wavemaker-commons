@@ -154,7 +154,7 @@ abstract class ZipResourceStore implements ResourceStore {
         throw new ReadOnlyResourceException("The Zip File " + getZipFile() + " is read-only");
     }
 
-    class ZipFileStore extends ZipResourceStore implements FileStore {
+    static class ZipFileStore extends ZipResourceStore implements FileStore {
 
         public ZipFileStore(ZipFile zipFile, JailedResourcePath path) {
             super(zipFile, path);

@@ -260,7 +260,7 @@ public abstract class ObjectUtils {
     public static Class<?> getArrayType(Object array) {
 
         if (array == null) {
-            throw new IllegalArgumentException("Argument must be an array or a collection, not " + array);
+            throw new IllegalArgumentException("Argument must be an array or a collection, not null");
         }
 
         Class<?> arrayType;

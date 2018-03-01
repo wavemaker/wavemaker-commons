@@ -16,6 +16,7 @@
 package com.wavemaker.commons.swaggerdoc.handler;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -65,7 +66,7 @@ public class OperationHandler {
             RefProperty refProperty = (RefProperty) property;
             List<Property> typeArgumentsProperties = refProperty.getTypeArguments();
             if (typeArgumentsProperties.size() == 0) {
-                return null;
+                return Collections.EMPTY_LIST;
             }
             List<String> argumentTypeList = new ArrayList<>();
             for(Property argProperty : typeArgumentsProperties)
@@ -80,7 +81,7 @@ public class OperationHandler {
             }
             return argumentTypeList;
         } else {
-            return null;
+            return Collections.EMPTY_LIST;
         }
     }
 

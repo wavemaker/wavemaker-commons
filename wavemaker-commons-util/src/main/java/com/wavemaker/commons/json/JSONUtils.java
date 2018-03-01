@@ -47,6 +47,9 @@ public class JSONUtils {
         objectMapper.setTypeFactory(TypeFactory.defaultInstance().withClassLoader(JSONUtils.class.getClassLoader()));
     }
 
+    private JSONUtils() {
+    }
+
     public static String prettifyJSON(String data) throws IOException {
         if (StringUtils.isNotBlank(data)) {
             JsonNode tree = objectMapper.readTree(data);

@@ -26,7 +26,6 @@ import java.util.Collection;
 import java.util.List;
 
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.FilenameUtils;
 
 import com.wavemaker.commons.WMRuntimeException;
 import com.wavemaker.commons.io.Resource;
@@ -37,6 +36,9 @@ import com.wavemaker.commons.io.Resource;
 public class WMFileUtils {
 
     public static final Charset UTF_8_ENCODING = Charset.forName("UTF-8");
+
+    private WMFileUtils() {
+    }
 
     public static String readFileToString(File file) throws IOException {
         return FileUtils.readFileToString(file, UTF_8_ENCODING);

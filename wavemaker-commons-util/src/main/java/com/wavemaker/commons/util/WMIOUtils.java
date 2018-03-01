@@ -22,6 +22,7 @@ import java.util.HashSet;
 import java.util.List;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang3.ArrayUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.AntPathMatcher;
@@ -149,10 +150,12 @@ public abstract class WMIOUtils {
         int count = 0;
         try {
             File[] listing = f.listFiles();
-            for (File file : listing) {
-                if (file.isDirectory() && !file.getName().startsWith(".") && !file.getName()
-                        .startsWith("_")) {
-                    count++;
+            if (ArrayUtils.isNotEmpty(listing)) {
+                for (File file : listing) {
+                    if (file.isDirectory() && !file.getName().startsWith(".") && !file.getName()
+                            .startsWith("_")) {
+                        count++;
+                    }
                 }
             }
 
@@ -242,8 +245,10 @@ public abstract class WMIOUtils {
             }
 
             File files[] = source.listFiles(new WMFileNameFilter());
-            for (File file : files) {
-                copy(file, new File(destination, file.getName()), excludes);
+            if (ArrayUtils.isNotEmpty(files)) {
+                for (File file : files) {
+                    copy(file, new File(destination, file.getName()), excludes);
+                }
             }
         } else if (source.isFile()) {
             if (destination.isDirectory()) {
@@ -335,8 +340,10 @@ public abstract class WMIOUtils {
 
             File files[] = source.listFiles(new WMFileNameFilter());
 
-            for (File file : files) {
-                copy(file, new File(destination, file.getName()), includedPatterns, excludedPatterns);
+            if (ArrayUtils.isNotEmpty(files)) {
+                for (File file : files) {
+                    copy(file, new File(destination, file.getName()), includedPatterns, excludedPatterns);
+                }
             }
         } else if (source.isFile()) {
             if (destination.isDirectory()) {
@@ -536,7 +543,7 @@ public abstract class WMIOUtils {
      * Get all files (excluding directories) under dir.
      */
     public static Collection<File> getFiles(File indir) {
-        if (!indir.isDirectory()) {
+        if (indir != null && !indir.isDirectory()) {
             throw new IllegalArgumentException("Expected directory as input");
         }
         Collection<File> rtn = new HashSet<>();
@@ -549,12 +556,14 @@ public abstract class WMIOUtils {
             File dir = dirs.remove(0);
 
             String[] files = dir.list();
-            for (String s : files) {
-                File f = new File(dir, s);
-                if (f.isDirectory()) {
-                    dirs.add(f);
-                } else {
-                    rtn.add(f);
+            if(ArrayUtils.isNotEmpty(files)) {
+                for (String s : files) {
+                    File f = new File(dir, s);
+                    if (f.isDirectory()) {
+                        dirs.add(f);
+                    } else {
+                        rtn.add(f);
+                    }
                 }
             }
         }
@@ -636,7 +645,7 @@ public abstract class WMIOUtils {
     static class WMFileNameFilter implements FilenameFilter {
         @Override
         public boolean accept(File dir, String name) {
-            return name.indexOf("#") == -1 && name.indexOf("~") == -1;
+            return name.indexOf('#') == -1 && name.indexOf('~') == -1;
         }
     }
 }

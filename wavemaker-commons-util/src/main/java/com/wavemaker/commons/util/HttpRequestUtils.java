@@ -35,8 +35,10 @@ import com.wavemaker.commons.json.JSONUtils;
  */
 public class HttpRequestUtils {
 
+    private HttpRequestUtils() {
+    }
+
     public static void writeJsonErrorResponse(MessageResource messageResource, int responseCode, HttpServletResponse response) throws IOException {
-        Map<String, Object> errorMap = new HashMap<>(1);
         ErrorResponse errorResponse = getErrorResponse(messageResource);
         writeErrorResponse(responseCode, response, errorResponse);
     }

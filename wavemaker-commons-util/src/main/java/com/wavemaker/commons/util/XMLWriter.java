@@ -38,7 +38,7 @@ public class XMLWriter {
 
     private int startIndent = 0;
 
-    private final String encoding = "utf-8";
+    private static final String encoding = "utf-8";
 
     private String currentShortNS = null;
 
@@ -508,7 +508,7 @@ public class XMLWriter {
         return ns + ":" + name;
     }
 
-    private class MalformedXMLRuntimeException extends RuntimeException {
+    private static class MalformedXMLRuntimeException extends RuntimeException {
 
         private static final long serialVersionUID = 1L;
 
@@ -517,7 +517,7 @@ public class XMLWriter {
         }
     }
 
-    private class Stack extends ArrayList<String> {
+    private static class Stack extends ArrayList<String> {
 
         private static final long serialVersionUID = 1L;
 

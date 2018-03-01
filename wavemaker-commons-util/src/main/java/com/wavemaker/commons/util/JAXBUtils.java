@@ -33,6 +33,9 @@ public class JAXBUtils {
 
     private final static String JAXB_ENCODING = "UTF-8";
 
+    private JAXBUtils() {
+    }
+
     public static <T> T unMarshall(JAXBContext context, InputStream inputStream) throws JAXBException {
         Unmarshaller unmarshaller = null;
         try {

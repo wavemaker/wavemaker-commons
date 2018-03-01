@@ -37,6 +37,9 @@ public class SSLUtils {
 
     private static SSLContext allTrustedSSLContext;
 
+    private SSLUtils() {
+    }
+
     public static SSLContext getAllTrustedCertificateSSLContext() {
         if (allTrustedSSLContext == null) {
 
@@ -65,7 +68,7 @@ public class SSLUtils {
 
         @Override
         public X509Certificate[] getAcceptedIssuers() {
-            return null;
+            return new X509Certificate[0];
         }
 
         @Override

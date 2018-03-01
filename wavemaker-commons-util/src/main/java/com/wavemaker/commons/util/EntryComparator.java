@@ -15,6 +15,7 @@
  */
 package com.wavemaker.commons.util;
 
+import java.io.Serializable;
 import java.util.Comparator;
 import java.util.Map.Entry;
 
@@ -24,7 +25,7 @@ import java.util.Map.Entry;
  * 
  * @author Matt Small
  */
-public class EntryComparator implements Comparator<Entry<?, ?>> {
+public class EntryComparator implements Comparator<Entry<?, ?>>, Serializable {
 
     @Override
     public int compare(Entry<?, ?> o1, Entry<?, ?> o2) {

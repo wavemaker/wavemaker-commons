@@ -60,4 +60,6 @@ public final class CastUtils {
         return (Enumeration<T>) e;
     }
 
+    private CastUtils() {
+    }
 }

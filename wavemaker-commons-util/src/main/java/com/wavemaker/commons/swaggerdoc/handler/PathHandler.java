@@ -23,11 +23,9 @@ import com.wavemaker.tools.apidocs.tools.core.model.Path;
  */
 public class PathHandler {
 
-    private final String pathName;
     private final Path path;
 
-    public PathHandler(String pathName, Path path) {
-        this.pathName = pathName;
+    public PathHandler(Path path) {
         this.path = path;
     }
 

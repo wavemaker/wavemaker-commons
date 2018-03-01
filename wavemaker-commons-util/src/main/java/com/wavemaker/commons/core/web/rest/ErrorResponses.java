@@ -34,7 +34,7 @@ public class ErrorResponses  {
     private List<ErrorResponse> error;
 
     private ErrorResponses() {
-        this(Collections.<ErrorResponse> emptyList());
+        this(Collections.emptyList());
     }
 
     public ErrorResponses(List<ErrorResponse> errorResponses) {

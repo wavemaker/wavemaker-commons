@@ -101,9 +101,9 @@ public final class ResourcePath implements Serializable {
             rtn = new ResourcePath();
             path = path.substring(1);
         }
-        while (path.indexOf("/") != -1) {
-            rtn = rtn.newPath(path.substring(0, path.indexOf("/")));
-            path = path.substring(path.indexOf("/") + 1);
+        while (path.indexOf('/') != -1) {
+            rtn = rtn.newPath(path.substring(0, path.indexOf('/')));
+            path = path.substring(path.indexOf('/') + 1);
         }
         return rtn.newPath(path);
     }

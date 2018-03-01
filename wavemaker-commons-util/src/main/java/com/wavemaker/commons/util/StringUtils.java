@@ -175,24 +175,24 @@ public abstract class StringUtils {
             return inputString;
         }
 
-        String result = "";
+        StringBuilder result = new StringBuilder();
         char firstChar = inputString.charAt(0);
         char firstCharToUpperCase = Character.toLowerCase(firstChar);
-        result += firstCharToUpperCase;
+        result.append(firstCharToUpperCase);
         for (int i = 1; i < inputString.length(); i++) {
             char currentChar = inputString.charAt(i);
             if (currentChar != '_') {
                 char previousChar = inputString.charAt(i - 1);
                 if (previousChar == '_') {
                     char currentCharToUpperCase = Character.toUpperCase(currentChar);
-                    result += currentCharToUpperCase;
+                    result.append(currentCharToUpperCase);
                 } else {
                     char currentCharToLowerCase = Character.toLowerCase(currentChar);
-                    result += currentCharToLowerCase;
+                    result.append(currentCharToLowerCase);
                 }
             }
         }
-        return result;
+        return result.toString();
     }
 
 
@@ -230,7 +230,7 @@ public abstract class StringUtils {
         }
 
         String unquoted = unquote(s);
-        if (!unquoted.isEmpty()) {
+        if (unquoted != null && !unquoted.isEmpty()) {
             s = unquoted;
         }
 
@@ -295,7 +295,7 @@ public abstract class StringUtils {
      * c).
      */
     public static Tuple.Two<String, String> splitPackageAndClass(String s) {
-        int i = s.lastIndexOf(".");
+        int i = s.lastIndexOf('.');
         if (i == -1) {
             return Tuple.tuple("", s);
         }

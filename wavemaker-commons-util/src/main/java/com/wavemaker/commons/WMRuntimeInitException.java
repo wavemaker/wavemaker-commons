@@ -26,11 +26,11 @@ public class WMRuntimeInitException extends WMRuntimeException {
     private final Integer msgId;
 
     public WMRuntimeInitException(String message) {
-        this(message, (String) null);
+        this(message, null);
     }
 
     public WMRuntimeInitException(String message, String detailedMessage) {
-        this(message, detailedMessage, (Throwable) null);
+        this(message, detailedMessage, null);
     }
 
     public WMRuntimeInitException(String message, String detailedMessage, Throwable cause) {

@@ -31,6 +31,9 @@ public class OAuth2Helper {
 
     private static AccessTokenResponseExtractor accessTokenResponseExtractor = new AccessTokenResponseExtractor();
 
+    private OAuth2Helper() {
+    }
+
     public static String getAuthorizationUrl(OAuth2ProviderConfig oAuth2ProviderConfig, String redirectUrl, JSONObject stateObject) {
         String scope = getScopeValue(oAuth2ProviderConfig);
         String encodedState = new String(Base64.getEncoder().encode(stateObject.toString().getBytes()));

@@ -5,4 +5,7 @@ package com.wavemaker.commons.validations;
  */
 public class DbValidationsConstants {
     public static final String DB_VALIDATIONS_JSON_FILE = "dbValidations.json";
+
+    private DbValidationsConstants() {
+    }
 }

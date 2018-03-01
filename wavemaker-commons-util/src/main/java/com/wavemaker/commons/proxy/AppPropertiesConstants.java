@@ -32,4 +32,6 @@ public class AppPropertiesConstants {
         return new StringBuilder(APP_PREFIX).append(".").append(key).toString();
     }
 
+    private AppPropertiesConstants() {
+    }
 }

@@ -23,7 +23,7 @@ public class XmlFormatAccessTokenExtractor extends MediaTypeBasedAccessTokenExtr
 
     @Override
     public boolean canRead(MediaType mediaType) {
-        return MediaType.APPLICATION_XML.equals(mediaType.getType() + "/" + mediaType.getSubtype());
+        return MediaType.APPLICATION_XML.equals(mediaType);
     }
 
     @Override

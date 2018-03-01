@@ -178,7 +178,7 @@ public class ObjectLiteralParser {
             throw new IllegalArgumentException("List must start with '['");
         }
 
-        int j = this.literal.indexOf("]", i + 1);
+        int j = this.literal.indexOf(']', i + 1);
 
         if (j == -1) {
             throw new IllegalArgumentException("List must end with ']'");

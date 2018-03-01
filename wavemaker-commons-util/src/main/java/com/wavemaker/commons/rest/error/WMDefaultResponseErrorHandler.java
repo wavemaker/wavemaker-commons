@@ -9,7 +9,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.client.ClientHttpResponse;
 import org.springframework.web.client.DefaultResponseErrorHandler;
 
-import com.wavemaker.commons.util.StringUtils;
 
 /**
  * @author Uday Shankar

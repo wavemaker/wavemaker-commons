@@ -133,13 +133,7 @@ public class ClassLoaderUtils {
 
         final List<Resource> filesList = Arrays.asList(files);
 
-        ClassLoader ret = AccessController.doPrivileged(new PrivilegedAction<ThrowawayFileClassLoader>() {
-
-            @Override
-            public ThrowawayFileClassLoader run() {
-                return new ThrowawayFileClassLoader(filesList, getClassLoader().getParent());
-            }
-        });
+        ClassLoader ret = AccessController.doPrivileged((PrivilegedAction<ThrowawayFileClassLoader>) () -> new ThrowawayFileClassLoader(filesList, getClassLoader().getParent()));
         return ret;
     }
 

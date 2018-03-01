@@ -24,6 +24,10 @@ import javax.net.ssl.HttpsURLConnection;
  * Created by ArjunSahasranam on 7/7/16.
  */
 public class InitializeHttpsURLConnection {
+
+    private InitializeHttpsURLConnection() {
+    }
+
     static {
         // Sets the default SSLSocketFactory inherited by new instances of this class.
         HttpsURLConnection.setDefaultSSLSocketFactory(SSLUtils.getAllTrustedCertificateSSLContext().getSocketFactory());

@@ -36,6 +36,9 @@ public class ResourceClassLoaderUtils {
 
     private static final Logger logger = LoggerFactory.getLogger(ResourceClassLoaderUtils.class);
 
+    private ResourceClassLoaderUtils() {
+    }
+
     public static ClassLoader getClassLoaderForResources(final ClassLoader parent, Resource... resources) {
         return getClassLoaderForResources(false, parent, resources);
     }
@@ -44,13 +47,7 @@ public class ResourceClassLoaderUtils {
         try {
             final URL[] urls = ResourceURL.getForResources(Arrays.asList(resources), nonLocking).toArray(new URL[resources.length]);
 
-            URLClassLoader ret = AccessController.doPrivileged(new PrivilegedAction<URLClassLoader>() {
-
-                @Override
-                public URLClassLoader run() {
-                    return new URLClassLoader(urls, parent);
-                }
-            });
+            URLClassLoader ret = AccessController.doPrivileged((PrivilegedAction<URLClassLoader>) () -> new URLClassLoader(urls, parent));
             return ret;
         } catch (MalformedURLException ex) {
             throw new AssertionError(ex);

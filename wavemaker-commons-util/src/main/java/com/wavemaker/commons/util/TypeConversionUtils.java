@@ -324,7 +324,7 @@ public abstract class TypeConversionUtils {
             return WMDateDeSerializer.getDate(s);
         } else if (type == Timestamp.class) {
             if (StringUtils.isNumber(s)) {
-                return new Timestamp(Long.valueOf(s));
+                return new Timestamp(Long.parseLong(s));
             } else {
                 throw new IllegalArgumentException("Unable to convert " + s + " to " + Timestamp.class.getName());
             }

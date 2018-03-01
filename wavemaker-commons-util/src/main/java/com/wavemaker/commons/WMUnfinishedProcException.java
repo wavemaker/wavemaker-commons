@@ -26,11 +26,11 @@ public class WMUnfinishedProcException extends RuntimeException {
     private final Integer msgId;
 
     public WMUnfinishedProcException(String message) {
-        this(message, (String) null);
+        this(message, null);
     }
 
     public WMUnfinishedProcException(String message, String detailedMessage) {
-        this(message, detailedMessage, (Throwable) null);
+        this(message, detailedMessage, null);
     }
 
     public WMUnfinishedProcException(String message, String detailedMessage, Throwable cause) {

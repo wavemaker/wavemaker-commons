@@ -34,6 +34,9 @@ import com.wavemaker.commons.properties.SortedProperties;
  */
 public class PropertiesFileUtils {
 
+    private PropertiesFileUtils() {
+    }
+
     public static Properties loadFromXml(File file) {
         try {
             return loadFromXml(new BufferedInputStream(new FileInputStream(file)));
