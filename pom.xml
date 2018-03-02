@@ -21,15 +21,15 @@
 
         <slf4j.version>1.7.21</slf4j.version>
 
-        <spring.version>4.3.9.RELEASE</spring.version>
-        <spring.security.version>3.2.3.RELEASE</spring.security.version>
+        <spring.version>4.3.14.RELEASE</spring.version>
+        <spring.security.version>4.2.4.RELEASE</spring.security.version>
 
         <hibernate.version>5.2.10.Final</hibernate.version>
 
-        <commons.io.version>2.4</commons.io.version>
-        <commons.codec.version>1.10</commons.codec.version>
-        <commons.lang3.version>3.4</commons.lang3.version>
-        <commons.configuration2.version>2.0</commons.configuration2.version>
+        <commons.io.version>2.6</commons.io.version>
+        <commons.codec.version>1.11</commons.codec.version>
+        <commons.lang3.version>3.7</commons.lang3.version>
+        <commons.configuration2.version>2.2</commons.configuration2.version>
         <commons.collections.version>3.2.2</commons.collections.version>
 
         <fasterxml.json.version>2.6.3</fasterxml.json.version>
