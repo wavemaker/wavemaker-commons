@@ -5,7 +5,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *   http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -26,14 +26,13 @@ import com.wavemaker.commons.io.Resource;
 import com.wavemaker.commons.io.ResourceOperation;
 import com.wavemaker.commons.io.ResourceStringFormat;
 import com.wavemaker.commons.io.exception.ResourceDoesNotExistException;
-import com.wavemaker.commons.io.exception.ResourceExistsException;
 
 /**
  * Base for {@link StoredFile} and {@link StoredFolder}.
- * 
+ *
  * @see StoredFile
  * @see StoredFolder
- * 
+ *
  * @author Phillip Webb
  */
 public abstract class StoredResource implements Resource {
@@ -51,8 +50,9 @@ public abstract class StoredResource implements Resource {
     }
 
     protected final void createParentIfMissing() {
-        if (getParent() != null) {
-            getParent(true).createIfMissing();
+        final Folder parent = getParent(true);
+        if (parent != null) {
+            parent.createIfMissing();
         }
     }
 
@@ -61,22 +61,13 @@ public abstract class StoredResource implements Resource {
         return getParent(false);
     }
 
-    private Folder getParent(boolean unjailed) {
-        JailedResourcePath path = getPath();
-        JailedResourcePath parentPath = (unjailed ? path.unjail() : path).getParent();
-        if (parentPath == null) {
-            return null;
-        }
-        return getStore().getFolder(parentPath);
+    @Override
+    public String getName() {
+        return getPath().getPath().getName();
     }
 
     @Override
-    public boolean exists() {
-        return getStore().exists();
-    }
-
-    @Override
-    public Resource rename(String name) throws ResourceExistsException {
+    public Resource rename(String name) {
         Assert.hasLength(name, "Name must not be empty");
         Assert.isTrue(!name.contains("/"), "Name must not contain path elements");
         ensureExists();
@@ -85,22 +76,8 @@ public abstract class StoredResource implements Resource {
     }
 
     @Override
-    @SuppressWarnings("unchecked")
-    public <R extends Resource, O extends ResourceOperation<R>> O performOperation(O operation) {
-        Class<?> typeArgument = GenericTypeResolver.resolveTypeArgument(operation.getClass(), ResourceOperation.class);
-        Assert.isInstanceOf(typeArgument, this);
-        operation.perform((R) this);
-        return operation;
-    }
-
-    @Override
-    public String getName() {
-        return getPath().getPath().getName();
-    }
-
-    @Override
-    public String toString() {
-        return toString(ResourceStringFormat.FULL);
+    public boolean exists() {
+        return getStore().exists();
     }
 
     @Override
@@ -121,6 +98,24 @@ public abstract class StoredResource implements Resource {
     }
 
     @Override
+    @SuppressWarnings("unchecked")
+    public <R extends Resource, O extends ResourceOperation<R>> O performOperation(O operation) {
+        Class<?> typeArgument = GenericTypeResolver.resolveTypeArgument(operation.getClass(), ResourceOperation.class);
+        Assert.isInstanceOf(typeArgument, this);
+        operation.perform((R) this);
+        return operation;
+    }
+
+    private Folder getParent(boolean unjailed) {
+        JailedResourcePath path = getPath();
+        JailedResourcePath parentPath = (unjailed ? path.unjail() : path).getParent();
+        if (parentPath == null) {
+            return null;
+        }
+        return getStore().getFolder(parentPath);
+    }
+
+    @Override
     public int hashCode() {
         return getStore().hashCode();
     }
@@ -138,5 +133,10 @@ public abstract class StoredResource implements Resource {
         }
         StoredResource other = (StoredResource) obj;
         return ObjectUtils.nullSafeEquals(getStore(), other.getStore());
+    }
+
+    @Override
+    public String toString() {
+        return toString(ResourceStringFormat.FULL);
     }
 }
