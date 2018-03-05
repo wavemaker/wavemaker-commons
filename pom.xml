@@ -32,7 +32,7 @@
         <commons.configuration2.version>2.2</commons.configuration2.version>
         <commons.collections.version>3.2.2</commons.collections.version>
 
-        <fasterxml.json.version>2.9.4</fasterxml.json.version>
+        <fasterxml.json.version>2.6.3</fasterxml.json.version>
         <wm.jackson.databind.version>2.6.3.wm-1</wm.jackson.databind.version>
         <json.version>20090211</json.version>
 
