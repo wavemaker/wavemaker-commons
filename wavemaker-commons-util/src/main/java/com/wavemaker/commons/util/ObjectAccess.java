@@ -5,7 +5,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *   http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -36,14 +36,14 @@ import com.wavemaker.commons.classloader.ClassLoaderUtils;
 
 /**
  * Encapsulates logic for Class/instance access using reflection.
- * 
+ *
  * Only throws runtime exceptions.
- * 
+ *
  * Has logic for:
- * 
+ *
  * o instantiation. o invoking methods given a String method name and optionally method arguments. o checking annotation
  * presence. o getting input and output types for properties and methods. o object string representation.
- * 
+ *
  * @author Simon Toens
  */
 public class ObjectAccess {
@@ -84,7 +84,7 @@ public class ObjectAccess {
     @SuppressWarnings("unchecked")
     public <T> T invoke(Object o, String methodName, Object... params) {
 
-        Class<?> paramTypes[] = null;
+        Class<?>[] paramTypes = null;
         boolean paramIsNull = false;
 
         if (params != null) {
@@ -150,7 +150,7 @@ public class ObjectAccess {
         if (m != null) {
             return Arrays.asList(m.getParameterTypes());
         }
-        return null;
+        return Collections.emptyList();
     }
 
     public Class<?> getMethodReturnType(Class<?> clazz, String methodName, int numParams) {
@@ -164,7 +164,7 @@ public class ObjectAccess {
     public List<Class<?>> getGenericReturnTypes(Class<?> clazz, String methodName, int numParams) {
         Method m = getMethod(clazz, methodName, numParams);
         if (m == null) {
-            return null;
+            return Collections.emptyList();
         }
         return getGenericReturnTypes(m);
     }
@@ -186,7 +186,8 @@ public class ObjectAccess {
         return hasAnnotation(annotation, o, methodName, (Class<?>[]) null);
     }
 
-    public <T extends Annotation> boolean hasAnnotation(Class<T> annotation, Object o, String methodName, Class<?>... paramTypes) {
+    public <T extends Annotation> boolean hasAnnotation(
+            Class<T> annotation, Object o, String methodName, Class<?>... paramTypes) {
         Method m = getMethod(getClassForObject(o), methodName, paramTypes);
         if (m == null) {
             return false;
@@ -194,7 +195,8 @@ public class ObjectAccess {
         return m.getAnnotation(annotation) != null;
     }
 
-    public <T extends Annotation> boolean hasAnnotation(Class<T> annotation, Object o, String methodName, int numParams) {
+    public <T extends Annotation> boolean hasAnnotation(
+            Class<T> annotation, Object o, String methodName, int numParams) {
         Method m = getMethod(getClassForObject(o), methodName, numParams);
         if (m == null) {
             return false;
@@ -281,10 +283,8 @@ public class ObjectAccess {
                     if (!((Collection<?>) v).isEmpty()) {
                         v = "[...]";
                     }
-                } else if (v instanceof Map) {
-                    if (!((Map<?, ?>) v).isEmpty()) {
-                        v = "{...}";
-                    }
+                } else if (v instanceof Map && !((Map<?, ?>) v).isEmpty()) {
+                    v = "{...}";
                 }
             }
             sb.append(e.getKey() + ":" + v);
@@ -328,10 +328,8 @@ public class ObjectAccess {
 
     private Method getMethod(Class<?> c, String methodName, Class<?>... paramTypes) {
         for (Method m : getMethods(c)) {
-            if (m.getName().equals(methodName)) {
-                if (paramsMatch(m, paramTypes)) {
-                    return m;
-                }
+            if (m.getName().equals(methodName) && paramsMatch(m, paramTypes)) {
+                return m;
             }
         }
         return null;
@@ -339,9 +337,9 @@ public class ObjectAccess {
 
     private boolean paramsMatch(Method m, Class<?>... paramTypes) {
 
-        Class<?> methodParams[] = m.getParameterTypes();
+        Class<?>[] methodParams = m.getParameterTypes();
 
-        if(methodParams.length == 0) {
+        if (methodParams.length == 0) {
             return (paramTypes == null || paramTypes.length == 0);
         }
 
@@ -350,7 +348,8 @@ public class ObjectAccess {
         }
 
         for (int i = 0; i < methodParams.length; i++) {
-            if (!methodParams[i].isAssignableFrom(paramTypes[i]) && !TypeConversionUtils.primitivesMatch(methodParams[i], paramTypes[i])) {
+            if (!methodParams[i].isAssignableFrom(paramTypes[i]) && !TypeConversionUtils
+                    .primitivesMatch(methodParams[i], paramTypes[i])) {
                 return false;
             }
         }

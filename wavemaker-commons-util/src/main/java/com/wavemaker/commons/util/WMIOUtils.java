@@ -5,7 +5,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *   http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -164,7 +164,8 @@ public abstract class WMIOUtils {
         return count;
     }
 
-    public static void copyContent(com.wavemaker.commons.io.File sourceFile, com.wavemaker.commons.io.File destinationFile) {
+    public static void copyContent(
+            com.wavemaker.commons.io.File sourceFile, com.wavemaker.commons.io.File destinationFile) {
         InputStream inputStream = null;
         OutputStream outputStream = null;
         try {
@@ -244,7 +245,7 @@ public abstract class WMIOUtils {
                                 .getAbsolutePath());
             }
 
-            File files[] = source.listFiles(new WMFileNameFilter());
+            File[] files = source.listFiles(new WMFileNameFilter());
             if (ArrayUtils.isNotEmpty(files)) {
                 for (File file : files) {
                     copy(file, new File(destination, file.getName()), excludes);
@@ -274,7 +275,8 @@ public abstract class WMIOUtils {
 
     public static void copy(
             File source, File destination, String includedPattern, String excludedPattern) throws IOException {
-        List<String> includedPatterns = null, excludedPatterns = null;
+        List<String> includedPatterns = null;
+        List<String> excludedPatterns = null;
         if (includedPattern != null) {
             includedPatterns = new ArrayList();
             includedPatterns.add(includedPattern);
@@ -338,7 +340,7 @@ public abstract class WMIOUtils {
                                 .getAbsolutePath());
             }
 
-            File files[] = source.listFiles(new WMFileNameFilter());
+            File[] files = source.listFiles(new WMFileNameFilter());
 
             if (ArrayUtils.isNotEmpty(files)) {
                 for (File file : files) {
@@ -556,7 +558,7 @@ public abstract class WMIOUtils {
             File dir = dirs.remove(0);
 
             String[] files = dir.list();
-            if(ArrayUtils.isNotEmpty(files)) {
+            if (ArrayUtils.isNotEmpty(files)) {
                 for (String s : files) {
                     File f = new File(dir, s);
                     if (f.isDirectory()) {
@@ -629,7 +631,7 @@ public abstract class WMIOUtils {
             }
         }
     }
-    
+
     public static File getJavaIOFile(Resource resource) {
         if (resource instanceof LocalFile) {
             LocalFile localFile = (LocalFile) resource;
@@ -640,7 +642,7 @@ public abstract class WMIOUtils {
         } else {
             throw new InvalidInvocationException();
         }
-    } 
+    }
 
     static class WMFileNameFilter implements FilenameFilter {
         @Override

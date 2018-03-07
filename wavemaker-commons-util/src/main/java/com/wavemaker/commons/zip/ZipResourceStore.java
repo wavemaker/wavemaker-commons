@@ -274,7 +274,8 @@ abstract class ZipResourceStore implements ResourceStore {
          * @return if the underlying file has changed.
          */
         private boolean isUnderlyingZipFileChanged() {
-            return !this.loadedAtLeastOnce || this.size != this.zipFile.getSize() || this.lastModified != this.zipFile.getLastModified();
+            return !this.loadedAtLeastOnce || this.size != this.zipFile
+                    .getSize() || this.lastModified != this.zipFile.getLastModified();
         }
 
         private void reloadZipFile() throws IOException {

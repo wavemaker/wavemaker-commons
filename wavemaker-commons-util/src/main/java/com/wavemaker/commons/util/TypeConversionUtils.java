@@ -294,8 +294,7 @@ public abstract class TypeConversionUtils {
                 return null;
             }
             ObjectLiteralParser p = new ObjectLiteralParser(s, type);
-            Object o = p.parse();
-            return o;
+            return p.parse();
         }
 
         if (s == null) {

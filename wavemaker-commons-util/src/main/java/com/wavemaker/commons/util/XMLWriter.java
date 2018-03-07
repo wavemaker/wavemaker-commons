@@ -30,11 +30,11 @@ import org.apache.commons.lang3.StringEscapeUtils;
  */
 public class XMLWriter {
 
-    private final static String sep = "\n";
+    private static final String sep = "\n";
 
-    private final static int DEFAULT_INDENT = 2;
+    private static final int DEFAULT_INDENT = 2;
 
-    private final static int DEFAULT_MAX_ATTRS_ON_SAME_LINE = 2;
+    private static final int DEFAULT_MAX_ATTRS_ON_SAME_LINE = 2;
 
     private int startIndent = 0;
 

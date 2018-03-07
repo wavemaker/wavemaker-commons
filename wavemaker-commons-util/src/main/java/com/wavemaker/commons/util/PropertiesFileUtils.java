@@ -5,7 +5,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *   http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -34,6 +34,9 @@ import com.wavemaker.commons.properties.SortedProperties;
  */
 public class PropertiesFileUtils {
 
+    private static final String FILE_CONSTANT = "File:";
+    private static final String NOT_FOUND = " not found";
+
     private PropertiesFileUtils() {
     }
 
@@ -41,7 +44,7 @@ public class PropertiesFileUtils {
         try {
             return loadFromXml(new BufferedInputStream(new FileInputStream(file)));
         } catch (FileNotFoundException e) {
-            throw new WMRuntimeException("File:" + file.getAbsolutePath() + " not found", e);
+            throw new WMRuntimeException(FILE_CONSTANT + file.getAbsolutePath() + NOT_FOUND, e);
         }
     }
 
@@ -62,7 +65,7 @@ public class PropertiesFileUtils {
             InputStream is = new BufferedInputStream(new FileInputStream(file));
             return loadProperties(is);
         } catch (FileNotFoundException e) {
-            throw new WMRuntimeException("File:" + file.getAbsolutePath() + " not found", e);
+            throw new WMRuntimeException(FILE_CONSTANT + file.getAbsolutePath() + NOT_FOUND, e);
         }
     }
 
@@ -78,8 +81,13 @@ public class PropertiesFileUtils {
         return properties;
     }
 
+    /**
+     * @deprecated(this api is deprecated,use PropertiesWriter to store properties in file)
+     * @param properties
+     * @param os
+     * @param comment
+     */
     @Deprecated
-    // this api is deprecated,use PropertiesWriter to store properties in file
     public static void storeToXml(Properties properties, OutputStream os, String comment) {
         try {
             properties.storeToXML(os, comment, "UTF-8");
@@ -90,38 +98,60 @@ public class PropertiesFileUtils {
         }
     }
 
+    /**
+     * @deprecated (this api is deprecated,use PropertiesWriter to store properties in file)
+     * @param properties
+     * @param file
+     * @param comment
+     */
     @Deprecated
-    // this api is deprecated,use PropertiesWriter to store properties in file
     public static void storeToXml(Properties properties, File file, String comment) {
         try {
             storeToXml(properties, new BufferedOutputStream(new FileOutputStream(file)), comment);
         } catch (FileNotFoundException e) {
-            throw new WMRuntimeException("File:" + file.getAbsolutePath() + " not found", e);
+            throw new WMRuntimeException(FILE_CONSTANT + file.getAbsolutePath() + NOT_FOUND, e);
         }
     }
 
+    /**
+     * @deprecated (this api is deprecated,use PropertiesWriter to store properties in file)
+     * @param props
+     * @param file
+     * @param comments
+     */
     @Deprecated
-    // this api is deprecated,use PropertiesWriter to store properties in file
     public static void storeProperties(Properties props, File file, String comments) {
         try {
             OutputStream os = new BufferedOutputStream(new FileOutputStream(file));
             storeProperties(props, os, comments);
         } catch (FileNotFoundException e) {
-            throw new WMRuntimeException("File:" + file.getAbsolutePath() + " not found", e);
+            throw new WMRuntimeException(FILE_CONSTANT + file.getAbsolutePath() + NOT_FOUND, e);
         }
     }
 
+    /**
+     * @deprecated (this api is deprecated,use PropertiesWriter to store properties in file)
+     * @param props
+     * @param outputStream
+     * @param comments
+     * @param sortProperties
+     */
     @Deprecated
-    // this api is deprecated,use PropertiesWriter to store properties in file
-    public static void storeProperties(Properties props, OutputStream outputStream, String comments, boolean sortProperties) {
+    public static void storeProperties(
+            Properties props, OutputStream outputStream, String comments, boolean sortProperties) {
         if (sortProperties) {
             props = sortProperties(props);
         }
         storeProperties(props, outputStream, comments);
     }
 
+    /**
+     * @deprecated (this api is @deprecated,use PropertiesWriter to store properties in file)
+     * @param props
+     * @param outputStream
+     * @param comments
+     */
     @Deprecated
-    // this api is deprecated,use PropertiesWriter to store properties in file
     public static void storeProperties(Properties props, OutputStream outputStream, String comments) {
         try {
             props.store(outputStream, comments);

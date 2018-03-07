@@ -33,17 +33,14 @@ public class MethodNotFoundRuntimeException extends WMRuntimeException {
 
         sb.append("\"" + clazz.getName() + "\" does not have method \"" + name + "\"");
 
-        if (paramTypes != null) {
+        if (paramTypes != null && paramTypes.length > 0) {
 
-            if (paramTypes.length > 0) {
+            sb.append(" params:");
 
-                sb.append(" params:");
-
-                for (int i = 0; i < paramTypes.length; i++) {
-                    sb.append(paramTypes[i].getName());
-                    if (i < paramTypes.length - 1) {
-                        sb.append(",");
-                    }
+            for (int i = 0; i < paramTypes.length; i++) {
+                sb.append(paramTypes[i].getName());
+                if (i < paramTypes.length - 1) {
+                    sb.append(",");
                 }
             }
         }

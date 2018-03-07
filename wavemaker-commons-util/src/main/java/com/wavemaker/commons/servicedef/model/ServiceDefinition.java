@@ -127,9 +127,7 @@ public class ServiceDefinition {
 
         if(id == null || that.getId() == null) return false;
 
-        if (!id.equals(that.id)) return false;
-
-        return true;
+        return id.equals(that.id);
     }
 
     @Override

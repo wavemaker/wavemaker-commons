@@ -5,7 +5,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *   http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -30,10 +30,11 @@ import com.wavemaker.commons.io.Resources;
 import com.wavemaker.commons.io.exception.ResourceException;
 import com.wavemaker.commons.io.store.FolderStore;
 import com.wavemaker.commons.io.store.StoredFolder;
+import com.wavemaker.commons.util.WMIOUtils;
 
 /**
  * Adapter class that can be used present a zip file as a {@link Folder}.
- * 
+ *
  * @author Phillip Webb
  */
 public class ZipArchive extends StoredFolder {
@@ -42,7 +43,7 @@ public class ZipArchive extends StoredFolder {
 
     /**
      * Create a new {@link ZipArchive} instance from the specified zip file.
-     * 
+     *
      * @param zipFile the zip file
      */
     public ZipArchive(File zipFile) {
@@ -56,7 +57,7 @@ public class ZipArchive extends StoredFolder {
 
     /**
      * Unzip the specified zip file into a folder.
-     * 
+     *
      * @param file the file to unzip (this must reference a zip file)
      * @param destination the destination folder
      */
@@ -68,7 +69,7 @@ public class ZipArchive extends StoredFolder {
 
     /**
      * Unzip the specified input stream into a folder.
-     * 
+     *
      * @param inputStream the input stream to unzip (this must contain zip contents)
      * @param destination the destination folder
      */
@@ -91,16 +92,13 @@ public class ZipArchive extends StoredFolder {
         } catch (IOException e) {
             throw new ResourceException(e);
         } finally {
-            try {
-                zip.close();
-            } catch (IOException e) {
-            }
+            WMIOUtils.closeSilently(zip);
         }
     }
 
     /**
      * Create a {@link InputStream} containing a zip representation of the given folder.
-     * 
+     *
      * @param folder the folder to compress
      */
     public static InputStream compress(Folder folder) {
@@ -109,7 +107,7 @@ public class ZipArchive extends StoredFolder {
 
     /**
      * Create a {@link InputStream} containing a zip representation of the given folder.
-     * 
+     *
      * @param folder the folder to compress
      * @param prefix an optional entry prefix. This allows a entries to be nested within a folder if required
      */
@@ -119,7 +117,7 @@ public class ZipArchive extends StoredFolder {
 
     /**
      * Create a {@link InputStream} containing a zip representation of the given resources.
-     * 
+     *
      * @param resources resources to compress
      */
     public static InputStream compress(Resources<?> resources) {
@@ -128,7 +126,7 @@ public class ZipArchive extends StoredFolder {
 
     /**
      * Create a {@link InputStream} containing a zip representation of the given resources.
-     * 
+     *
      * @param resources resources to compress
      * @param prefix an optional entry prefix. This allows a entries to be nested within a folder if required
      */

@@ -47,11 +47,8 @@ public abstract class ObjectUtils {
             return true;
         }
 
-        if (s.trim().length() == 0) {
-            return true;
-        }
+        return s.trim().length() == 0;
 
-        return false;
     }
 
     public static boolean isNullOrEmpty(Object[] o) {
@@ -59,11 +56,8 @@ public abstract class ObjectUtils {
             return true;
         }
 
-        if (o.length == 0) {
-            return true;
-        }
+        return o.length == 0;
 
-        return false;
     }
 
     public static boolean isNullOrEmpty(List<?> l) {
@@ -71,11 +65,8 @@ public abstract class ObjectUtils {
             return true;
         }
 
-        if (l.isEmpty()) {
-            return true;
-        }
+        return l.isEmpty();
 
-        return false;
     }
 
     /**

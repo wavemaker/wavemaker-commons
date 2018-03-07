@@ -342,11 +342,10 @@ public class MessageResource {
     }
 
     private String getMessage(String key, int numArgsRequired, Object... args) {
-        if (numArgsRequired > 0) {
-            if (args == null || args.length != numArgsRequired) {
-                throw new IllegalArgumentException(key + ": " + "args don't match.  msg requires: " + numArgsRequired + " " + "passed in: "
-                        + (args == null ? "null" : args.length));
-            }
+        if (numArgsRequired > 0 && (args == null || args.length != numArgsRequired)) {
+            throw new IllegalArgumentException(
+                    key + ": " + "args don't match.  msg requires: " + numArgsRequired + " " + "passed in: "
+                            + (args == null ? "null" : args.length));
         }
         return ResourceManager.getInstance().getMessage(key, args);
     }

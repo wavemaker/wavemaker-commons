@@ -45,6 +45,6 @@ public abstract class URLPattern {
      * @param requestURI
      * @return
      */
-    abstract public boolean matches(String requestURI);
+    public abstract boolean matches(String requestURI);
 }
 

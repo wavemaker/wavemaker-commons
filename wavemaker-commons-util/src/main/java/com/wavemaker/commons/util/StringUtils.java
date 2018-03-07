@@ -5,7 +5,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *   http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -267,10 +267,10 @@ public abstract class StringUtils {
 
         return rtn.toString();
     }
-  
+
     public static boolean isJavaKeyword(final String s) {
         return JAVA_KEYWORDS.contains(s.toLowerCase());
-    }  
+    }
 
     public static List<String> getItemsStartingWith(Collection<String> items, String prefix, boolean removePrefix) {
         List<String> rtn = new ArrayList<>();
@@ -365,12 +365,10 @@ public abstract class StringUtils {
             }
 
             boolean add = true;
-            if (sep.contains(c)) {
-                if (!inDoubleQuotes && !inSingleQuotes && bracesDepth == 0 && bracketsDepth == 0) {
-                    add = false;
-                    rtn.add(sb.toString().trim());
-                    sb.delete(0, sb.length());
-                }
+            if (sep.contains(c) && !inDoubleQuotes && !inSingleQuotes && bracesDepth == 0 && bracketsDepth == 0) {
+                add = false;
+                rtn.add(sb.toString().trim());
+                sb.delete(0, sb.length());
             }
 
             if (add) {
@@ -430,7 +428,7 @@ public abstract class StringUtils {
     }
 
     public static boolean isFullyQualified(String className) {
-        return className.indexOf(".") != -1;
+        return className.indexOf('.') != -1;
     }
 
     public static String fq(String packageName, String className) {
@@ -522,10 +520,8 @@ public abstract class StringUtils {
         int from_length = from.length();
 
         if (from_length != to.length()) {
-            if (from_length == 0) {
-                if (to.length() != 0) {
-                    throw new IllegalArgumentException("Replacing the empty string with something was attempted");
-                }
+            if (from_length == 0 && to.length() != 0) {
+                throw new IllegalArgumentException("Replacing the empty string with something was attempted");
             }
             int start = original.indexOf(from);
             if (start == -1) {
@@ -619,7 +615,7 @@ public abstract class StringUtils {
             return stringBuilder.toString();
         } catch (IOException e) {
             throw new WMRuntimeException("Failed to read line.", e);
-        }finally {
+        } finally {
             org.apache.commons.io.IOUtils.closeQuietly(bufferedReader);
         }
     }
@@ -631,7 +627,6 @@ public abstract class StringUtils {
             return s.substring(0, i);
         }
     }
-
 
 
 }

@@ -32,8 +32,8 @@ public class CoreFilterUtil {
     private CoreFilterUtil() {
     }
 
-    public static ArrayList<URLPattern> extractExcludedUrlsList(String excludedUrls) {
-        ArrayList<URLPattern> excludedUrlsList = new ArrayList<>();
+    public static List<URLPattern> extractExcludedUrlsList(String excludedUrls) {
+        List<URLPattern> excludedUrlsList = new ArrayList<>();
         if (excludedUrls != null) {
             StringTokenizer tokenizer = new StringTokenizer(excludedUrls, ";");
             while (tokenizer.hasMoreTokens()) {

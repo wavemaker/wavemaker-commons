@@ -65,8 +65,8 @@ public class OperationHandler {
         if (property instanceof RefProperty) {
             RefProperty refProperty = (RefProperty) property;
             List<Property> typeArgumentsProperties = refProperty.getTypeArguments();
-            if (typeArgumentsProperties.size() == 0) {
-                return Collections.EMPTY_LIST;
+            if (typeArgumentsProperties.isEmpty()) {
+                return Collections.emptyList();
             }
             List<String> argumentTypeList = new ArrayList<>();
             for(Property argProperty : typeArgumentsProperties)
@@ -81,7 +81,7 @@ public class OperationHandler {
             }
             return argumentTypeList;
         } else {
-            return Collections.EMPTY_LIST;
+            return Collections.emptyList();
         }
     }
 

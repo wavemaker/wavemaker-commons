@@ -75,10 +75,8 @@ public class ClassUtils {
         Field[] allFields = c.getFields();
 
         for (Field field : allFields) {
-            if (fieldType != null) {
-                if (!fieldType.isAssignableFrom(field.getType())) {
-                    continue;
-                }
+            if (fieldType != null && !fieldType.isAssignableFrom(field.getType())) {
+                continue;
             }
             rtn.add(field);
         }

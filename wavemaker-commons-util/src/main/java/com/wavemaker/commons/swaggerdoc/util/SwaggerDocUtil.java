@@ -42,6 +42,14 @@ public class SwaggerDocUtil {
     public static final String FILE = "file";
     public static final String ARRAY = "array";
     public static final String STRING = "string";
+    private static final String INT64 = "int64";
+    private static final String INT32 = "int32";
+    private static final String INTEGER = "integer";
+    private static final String FLOAT = "float";
+    private static final String OPERATION_DOES_NOT_EXIST_WITH_ID = "Operation does not exist with id ";
+    private static final String DATE_TIME_TYPE = "date-time";
+    private static final String DOUBLE_TYPE = "double";
+    private static final String NUMBER_TYPE = "number";
 
     enum OperationType {
         get, post, delete, put, patch, options
@@ -78,7 +86,7 @@ public class SwaggerDocUtil {
                 }
             }
         }
-        throw new SwaggerException("Operation does not exist with id " + operationUid);
+        throw new SwaggerException(OPERATION_DOES_NOT_EXIST_WITH_ID + operationUid);
     }
 
     /**
@@ -96,7 +104,7 @@ public class SwaggerDocUtil {
                 }
             }
         }
-        throw new SwaggerException("Operation does not exist with id " + operationUid);
+        throw new SwaggerException(OPERATION_DOES_NOT_EXIST_WITH_ID + operationUid);
     }
 
     /**
@@ -114,7 +122,7 @@ public class SwaggerDocUtil {
                 return operation;
             }
         }
-        throw new SwaggerException("Operation does not exist with id " + operationUid);
+        throw new SwaggerException(OPERATION_DOES_NOT_EXIST_WITH_ID + operationUid);
     }
 
     /**
@@ -150,7 +158,7 @@ public class SwaggerDocUtil {
         if (operationOptions != null && operationOptions.getOperationId().equals(operationUid)) {
             return OperationType.options.name();
         }
-        throw new SwaggerException("Operation does not exist with id " + operationUid);
+        throw new SwaggerException(OPERATION_DOES_NOT_EXIST_WITH_ID + operationUid);
     }
 
     /**
@@ -165,43 +173,43 @@ public class SwaggerDocUtil {
             return PropertyBuilder.build(type, null, null);
         }
         if ("date".equals(type)) {
-            return PropertyBuilder.build("string", "date", null);
+            return PropertyBuilder.build(STRING, "date", null);
         }
-        if ("date-time".equals(type)) {
-            return PropertyBuilder.build("string", "date-time", null);
+        if (DATE_TIME_TYPE.equals(type)) {
+            return PropertyBuilder.build(STRING, DATE_TIME_TYPE, null);
         }
-        if ("double".equals(type)) {
-            return PropertyBuilder.build("number", "double", null);
+        if (DOUBLE_TYPE.equals(type)) {
+            return PropertyBuilder.build(NUMBER_TYPE, DOUBLE_TYPE, null);
         }
-        if ("float".equals(type)) {
-            return PropertyBuilder.build("number", "float", null);
+        if (FLOAT.equals(type)) {
+            return PropertyBuilder.build(NUMBER_TYPE, FLOAT, null);
         }
         if ("file".equals(type)) {
             return PropertyBuilder.build("file", null, null);
         }
-        if ("number".equals(type)) {
-            return PropertyBuilder.build("number", null, null);
+        if (NUMBER_TYPE.equals(type)) {
+            return PropertyBuilder.build(NUMBER_TYPE, null, null);
         }
-        if ("integer".equals(type) && "int32".equals(format)) {
-            return PropertyBuilder.build("integer", format, null);
+        if (INTEGER.equals(type) && INT32.equals(format)) {
+            return PropertyBuilder.build(INTEGER, format, null);
         }
-        if ("integer".equals(type) && "int64".equals(format)) {
-            return PropertyBuilder.build("integer", format, null);
+        if (INTEGER.equals(type) && INT64.equals(format)) {
+            return PropertyBuilder.build(INTEGER, format, null);
         }
-        if ("integer".equals(type)) {
-            return PropertyBuilder.build("integer", "int32", null);
+        if (INTEGER.equals(type)) {
+            return PropertyBuilder.build(INTEGER, INT32, null);
         }
         if ("long".equals(type)) {
-            return PropertyBuilder.build("integer", "int64", null);
+            return PropertyBuilder.build(INTEGER, INT64, null);
         }
         if ("$ref".equals(type)) {
             return PropertyBuilder.build("$ref", format, null);
         }
-        if ("string".equals(type)) {
-            return PropertyBuilder.build("string", null, null);
+        if (STRING.equals(type)) {
+            return PropertyBuilder.build(STRING, null, null);
         }
-        if ("string".equals(type) && "uuid".equals(format)) {
-            return PropertyBuilder.build("string", "uuid", null);
+        if (STRING.equals(type) && "uuid".equals(format)) {
+            return PropertyBuilder.build(STRING, "uuid", null);
         }
         return null;
 
@@ -224,22 +232,22 @@ public class SwaggerDocUtil {
         if ("boolean".equals(type)) {
             return Boolean.class.getName();
         }
-        if ("number".equals(type) && "double".equals(format)) {
+        if (NUMBER_TYPE.equals(type) && DOUBLE_TYPE.equals(format)) {
             return Double.class.getName();
         }
-        if ("number".equals(type) && "float".equals(format)) {
+        if (NUMBER_TYPE.equals(type) && FLOAT.equals(format)) {
             return Float.class.getName();
         }
-        if ("integer".equals(type) && "int32".equals(format)) {
+        if (INTEGER.equals(type) && INT32.equals(format)) {
             return Integer.class.getName();
         }
-        if ("integer".equals(type) && "int64".equals(format)) {
+        if (INTEGER.equals(type) && INT64.equals(format)) {
             return Long.class.getName();
         }
-        if ("string".equals(type) && "uuid".equals(format)) {
+        if (STRING.equals(type) && "uuid".equals(format)) {
             return String.class.getName();
         }
-        if ("string".equals(type)) {
+        if (STRING.equals(type)) {
             return String.class.getName();
         }
         return null;
@@ -265,7 +273,7 @@ public class SwaggerDocUtil {
 
     public static Class<?> findDateType(final DateProperty property) {
         Class<?> javaType = java.sql.Date.class;
-        if ("date-time".equals(property.getSubFormat())) {
+        if (DATE_TIME_TYPE.equals(property.getSubFormat())) {
             javaType = LocalDateTime.class;
         } else if ("time".equals(property.getSubFormat())) {
             javaType = Time.class;

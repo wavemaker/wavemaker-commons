@@ -62,9 +62,7 @@ public class Tuple {
             Two two = (Two) o;
 
             if (v1 != null ? !v1.equals(two.v1) : two.v1 != null) return false;
-            if (v2 != null ? !v2.equals(two.v2) : two.v2 != null) return false;
-
-            return true;
+            return v2 != null ? v2.equals(two.v2) : two.v2 == null;
         }
 
         @Override
@@ -97,9 +95,7 @@ public class Tuple {
 
             Three three = (Three) o;
 
-            if (v3 != null ? !v3.equals(three.v3) : three.v3 != null) return false;
-
-            return true;
+            return v3 != null ? v3.equals(three.v3) : three.v3 == null;
         }
 
         @Override
@@ -132,9 +128,7 @@ public class Tuple {
 
             Four four = (Four) o;
 
-            if (v4 != null ? !v4.equals(four.v4) : four.v4 != null) return false;
-
-            return true;
+            return v4 != null ? v4.equals(four.v4) : four.v4 == null;
         }
 
         @Override

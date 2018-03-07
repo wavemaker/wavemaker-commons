@@ -19,15 +19,19 @@ import org.slf4j.LoggerFactory;
  * Mainly used to deal with third party libraries which sets new system properties and never clear them.
  * <p>
  * To Enable usage of this class a single call to {@link #enable()} has to be done.
- * To Disable usage of this class, a call to {@link #disable()} need to be made. This needs to be done to remove all references for this class's classloader for
+ * To Disable usage of this class, a call to {@link #disable()} need to be made. This needs to be done to remove all
+ * references for this class's classloader for
  * smooth class unloading.
  * <p>
- * Calling {@link #record()} before any such operation will store all calls to {@link System#setProperty(String, String)} in the current thread local only.
+ * Calling {@link #record()} before any such operation will store all calls to {@link System#setProperty(String,
+ * String)} in the current thread local only.
  * Even for properties which are already defined in global level a new property is created in thread local
- * Also calls to {@link System#getProperty(String)} will return values from current thread local and falls back to global vm level properties if not present
+ * Also calls to {@link System#getProperty(String)} will return values from current thread local and falls back to
+ * global vm level properties if not present
  * in thread local.
  * <p>
- * Calling {@link #stop()} will stop storing in thread local and any call to {@link System#setProperty(String, String)} will be store in global vm level
+ * Calling {@link #stop()} will stop storing in thread local and any call to {@link System#setProperty(String, String)}
+ * will be store in global vm level
  * properties for the current thread.
  *
  * @author Uday Shankar
@@ -78,7 +82,7 @@ public class ThreadLocalSystemProperties extends Properties {
         }
     }
 
-    public synchronized static void executeInThreadLocalSystemProperties(Runnable runnable) {
+    public static synchronized void executeInThreadLocalSystemProperties(Runnable runnable) {
         try {
             INSTANCE.record();
             runnable.run();
@@ -102,7 +106,8 @@ public class ThreadLocalSystemProperties extends Properties {
                 logger.info("Enabled usage of Thread Local properties for current thread");
             }
         } else {
-            throw new IllegalStateException("Request for recording ThreadLocal for current thread without enabling the ThreadLocalSystemProperties");
+            throw new IllegalStateException(
+                    "Request for recording ThreadLocal for current thread without enabling the ThreadLocalSystemProperties");
         }
     }
 
@@ -116,7 +121,8 @@ public class ThreadLocalSystemProperties extends Properties {
             THREAD_LOCAL_PROPERTIES.remove();
             logger.info("Disabled usage of Thread Local properties for current thread");
         } else {
-            throw new IllegalStateException("Request for stopping ThreadLocal for current thread without enabling the ThreadLocalSystemProperties");
+            throw new IllegalStateException(
+                    "Request for stopping ThreadLocal for current thread without enabling the ThreadLocalSystemProperties");
         }
     }
 
@@ -161,7 +167,7 @@ public class ThreadLocalSystemProperties extends Properties {
         if (localProperties == VM_LEVEL_PROPERTIES) {
             return localProperties.keySet();
         } else {
-            return entrySet().stream().map(entry->entry.getKey()).collect(Collectors.toSet());
+            return entrySet().stream().map(Map.Entry::getKey).collect(Collectors.toSet());
         }
     }
 
@@ -171,7 +177,7 @@ public class ThreadLocalSystemProperties extends Properties {
         if (localProperties == VM_LEVEL_PROPERTIES) {
             return localProperties.keySet();
         } else {
-            return entrySet().stream().map(entry->entry.getValue()).collect(Collectors.toSet());
+            return entrySet().stream().map(Map.Entry::getValue).collect(Collectors.toSet());
         }
     }
 
@@ -194,12 +200,12 @@ public class ThreadLocalSystemProperties extends Properties {
             Set<Map.Entry<Object, Object>> parentEntries = VM_LEVEL_PROPERTIES.entrySet();
             Set<Map.Entry<Object, Object>> childEntries = localProperties.entrySet();
             Map<Object, Map.Entry<Object, Object>> entrySetMap = new HashMap(parentEntries.size());
-            parentEntries.forEach(entry-> {
-                entrySetMap.put(entry.getKey(), entry);
-            });
-            childEntries.forEach(entry-> {
-                entrySetMap.put(entry.getKey(), entry);
-            });
+            parentEntries.forEach(entry ->
+                    entrySetMap.put(entry.getKey(), entry)
+            );
+            childEntries.forEach(entry ->
+                    entrySetMap.put(entry.getKey(), entry)
+            );
             return Collections.unmodifiableSet(new HashSet<>(entrySetMap.values()));
         }
     }

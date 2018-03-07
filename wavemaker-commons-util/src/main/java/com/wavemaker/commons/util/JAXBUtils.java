@@ -31,7 +31,7 @@ import com.sun.xml.bind.v2.runtime.unmarshaller.UnmarshallerImpl;
  */
 public class JAXBUtils {
 
-    private final static String JAXB_ENCODING = "UTF-8";
+    private static final String JAXB_ENCODING = "UTF-8";
 
     private JAXBUtils() {
     }
