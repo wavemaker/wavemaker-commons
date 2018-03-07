@@ -28,16 +28,17 @@ import com.wavemaker.commons.io.Resource;
 public class ResourceDoesNotExistException extends ResourceException {
 
     private static final long serialVersionUID = 1L;
+    private static final String RESOURCE_PREFIX = "The resource '";
 
     public ResourceDoesNotExistException(Folder folder, String missingResourceName) {
-        super("The resource '" + missingResourceName + "' does not exist in the folder '" + folder + "'");
+        super(RESOURCE_PREFIX + missingResourceName + "' does not exist in the folder '" + folder + "'");
     }
 
     public ResourceDoesNotExistException(Resource resource) {
-        super("The resource '" + resource.toString() + "' does not exist");
+        super(RESOURCE_PREFIX + resource.toString() + "' does not exist");
     }
 
     public ResourceDoesNotExistException(File file) {
-        super("The resource '" + file.getAbsolutePath() + "' does not exist");
+        super(RESOURCE_PREFIX + file.getAbsolutePath() + "' does not exist");
     }
 }

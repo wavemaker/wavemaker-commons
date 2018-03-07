@@ -11,9 +11,6 @@ public class CorsConfig {
     private boolean allowCredentials;
     private List<PathEntry> pathEntries;
 
-    public CorsConfig() {
-    }
-
     public boolean isEnabled() {
         return enabled;
     }

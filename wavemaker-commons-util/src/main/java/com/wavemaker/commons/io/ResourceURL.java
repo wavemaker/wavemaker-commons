@@ -40,6 +40,9 @@ public abstract class ResourceURL {
 
     public static final String PROTOCOL = "rfs";
 
+    private ResourceURL() {
+    }
+
     /**
      * Get a URL for the given {@link Resource}.
      * 

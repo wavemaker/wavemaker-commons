@@ -19,7 +19,6 @@ import java.io.IOException;
 import java.nio.charset.Charset;
 
 import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 
@@ -29,7 +28,7 @@ import com.fasterxml.jackson.databind.JsonDeserializer;
 public class StringifiedByteArrayDeSerializer extends JsonDeserializer<byte[]> {
 
     @Override
-    public byte[] deserialize(JsonParser p, DeserializationContext ctxt) throws IOException, JsonProcessingException {
+    public byte[] deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
         return p.getValueAsString().getBytes(Charset.forName("UTF-8"));
     }
 }

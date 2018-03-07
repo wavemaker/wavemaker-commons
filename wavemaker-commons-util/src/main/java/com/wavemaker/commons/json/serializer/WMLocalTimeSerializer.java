@@ -20,7 +20,6 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
 import com.fasterxml.jackson.core.JsonGenerator;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
 
@@ -28,10 +27,10 @@ import com.fasterxml.jackson.databind.SerializerProvider;
  * Created by saddhamp on 12/7/16.
  */
 public class WMLocalTimeSerializer extends JsonSerializer<LocalTime> {
-    private final static DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+    private static final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
 
     @Override
-    public void serialize(LocalTime localTime, JsonGenerator jsonGenerator, SerializerProvider serializers) throws IOException, JsonProcessingException {
+    public void serialize(LocalTime localTime, JsonGenerator jsonGenerator, SerializerProvider serializers) throws IOException {
         jsonGenerator.writeString(dateTimeFormatter.format(localTime));
     }
 }

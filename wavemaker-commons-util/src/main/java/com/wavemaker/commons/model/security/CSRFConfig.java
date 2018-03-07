@@ -23,9 +23,6 @@ public class CSRFConfig {
     private boolean enforceCsrfSecurity;
     private String headerName;
 
-    public CSRFConfig() {
-    }
-
     public boolean isEnforceCsrfSecurity() {
         return enforceCsrfSecurity;
     }

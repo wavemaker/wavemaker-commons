@@ -60,12 +60,11 @@ public class OAuth2Helper {
 
 
     public static String getAccessTokenApiRequestBody(OAuth2ProviderConfig oAuth2ProviderConfig, String code, String redirectUri) {
-        String requestBody = new StringBuilder(OAuth2Constants.CLIENT_ID).append("=").append(oAuth2ProviderConfig.getClientId())
+        return new StringBuilder(OAuth2Constants.CLIENT_ID).append("=").append(oAuth2ProviderConfig.getClientId())
                 .append("&").append(OAuth2Constants.CLIENT_SECRET).append("=").append(oAuth2ProviderConfig.getClientSecret())
                 .append("&").append(OAuth2Constants.CODE).append("=").append(code)
                 .append("&").append(OAuth2Constants.REDIRECT_URI).append("=").append(redirectUri)
                 .append("&").append(OAuth2Constants.GRANT_TYPE).append("=authorization_code").toString();
-        return requestBody;
     }
 
     public static String extractAccessToken(AccessTokenRequestContext accessTokenRequestContext) throws IOException, JSONException {
@@ -91,6 +90,6 @@ public class OAuth2Helper {
 
     private static String getScopeValue(OAuth2ProviderConfig oAuth2ProviderConfig) {
         List<Scope> scopesList = oAuth2ProviderConfig.getScopes();
-        return scopesList.stream().map(scope -> scope.getValue()).distinct().collect(Collectors.joining(" "));
+        return scopesList.stream().map(Scope::getValue).distinct().collect(Collectors.joining(" "));
     }
 }

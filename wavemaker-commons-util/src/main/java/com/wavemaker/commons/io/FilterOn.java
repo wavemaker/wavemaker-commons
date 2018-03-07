@@ -32,7 +32,7 @@ import org.springframework.util.Assert;
  */
 public abstract class FilterOn {
 
-    public static enum PathStyle {
+    public enum PathStyle {
         RELATIVE_TO_SOURCE, FULL
     }
 
@@ -193,7 +193,7 @@ public abstract class FilterOn {
     /**
      * Various attributes that can be used to filter resources.
      */
-    public static abstract class ResourceAttribute {
+    public abstract static class ResourceAttribute {
 
         private final boolean ignoreCase;
 

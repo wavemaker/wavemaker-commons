@@ -7,9 +7,6 @@ public class Scope {
     private String name;
     private String value;
 
-    public Scope() {
-    }
-
     public String getName() {
         return name;
     }

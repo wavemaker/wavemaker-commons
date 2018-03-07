@@ -28,7 +28,7 @@ import org.springframework.util.Assert;
  */
 public class FilteredResources<T extends Resource> extends AbstractResources<T> {
 
-    private static enum Type {
+    private enum Type {
         INCLUDE, EXCLUDE
     }
 
@@ -53,7 +53,7 @@ public class FilteredResources<T extends Resource> extends AbstractResources<T> 
 
     @Override
     public Iterator<T> iterator() {
-        FilteredIterator<T> filteredIterator = new FilteredIterator<T>(this.resources.iterator()) {
+        return new FilteredIterator<T>(this.resources.iterator()) {
 
             @Override
             protected boolean isElementFiltered(T element) {
@@ -70,7 +70,6 @@ public class FilteredResources<T extends Resource> extends AbstractResources<T> 
             }
 
         };
-        return filteredIterator;
     }
 
     public static <T extends Resource> Resources<T> include(Resources<T> resources, ResourceFilter... filters) {

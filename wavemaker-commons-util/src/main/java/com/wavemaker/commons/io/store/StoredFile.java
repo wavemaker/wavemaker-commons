@@ -39,6 +39,7 @@ import com.wavemaker.commons.io.exception.ResourceExistsException;
  */
 public abstract class StoredFile extends StoredResource implements File {
 
+    private static final String FOLDER_NULL_MESSAGE = "Folder must not be null";
     private final StoredFileContent content = new StoredFileContent();
 
     @Override
@@ -79,7 +80,7 @@ public abstract class StoredFile extends StoredResource implements File {
 
     @Override
     public File moveTo(Folder folder) {
-        Assert.notNull(folder, "Folder must not be null");
+        Assert.notNull(folder, FOLDER_NULL_MESSAGE);
         ensureExists();
         File destination = folder.getFile(getName().toString());
         destination.getContent().write(getContent().asInputStream());
@@ -89,7 +90,7 @@ public abstract class StoredFile extends StoredResource implements File {
 
     @Override
     public File copyTo(Folder folder) {
-        Assert.notNull(folder, "Folder must not be null");
+        Assert.notNull(folder, FOLDER_NULL_MESSAGE);
         ensureExists();
         File destination = folder.getFile(getName().toString());
         destination.getContent().write(this);
@@ -98,7 +99,7 @@ public abstract class StoredFile extends StoredResource implements File {
 
     @Override
     public File copyToIfNewer(Folder folder) {
-        Assert.notNull(folder, "Folder must not be null");
+        Assert.notNull(folder, FOLDER_NULL_MESSAGE);
         ensureExists();
         File destination = folder.getFile(getName().toString());
         if (this.getLastModified() > destination.getLastModified() || !destination.exists()) {

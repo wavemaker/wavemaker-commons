@@ -19,9 +19,7 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-
 import com.fasterxml.jackson.core.JsonGenerator;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
 
@@ -30,10 +28,10 @@ import com.fasterxml.jackson.databind.SerializerProvider;
  */
 public class WMLocalDateTimeSerializer extends JsonSerializer<LocalDateTime> {
 
-    private final static DateTimeFormatter format = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
+    private static final DateTimeFormatter format = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
 
     @Override
-    public void serialize(LocalDateTime value, JsonGenerator jgen, SerializerProvider provider) throws IOException, JsonProcessingException {
+    public void serialize(LocalDateTime value, JsonGenerator jgen, SerializerProvider provider) throws IOException {
         jgen.writeString(value.format(format));
     }
 }

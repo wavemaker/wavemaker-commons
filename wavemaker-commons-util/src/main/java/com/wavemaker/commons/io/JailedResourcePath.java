@@ -17,6 +17,9 @@ package com.wavemaker.commons.io;
 
 import org.springframework.util.Assert;
 
+import static com.wavemaker.commons.io.ResourceStringFormat.FULL;
+import static com.wavemaker.commons.io.ResourceStringFormat.UNJAILED;
+
 /**
  * A {@link ResourcePath} that is jailed to a specific location.
  * 
@@ -137,12 +140,11 @@ public final class JailedResourcePath {
     }
 
     public String toString(ResourceStringFormat format) {
-        format = format == null ? ResourceStringFormat.FULL : format;
-        switch (format) {
-            case FULL:
-                return getPath().toString();
-            case UNJAILED:
-                return getUnjailedPath().toString();
+        format = format == null ? FULL : format;
+        if (format == FULL) {
+            return getPath().toString();
+        } else if (format == UNJAILED) {
+            return getUnjailedPath().toString();
         }
         throw new UnsupportedOperationException("Unable to display path with the format " + format);
     }

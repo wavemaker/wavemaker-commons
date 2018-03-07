@@ -23,9 +23,6 @@ import java.util.Objects;
 public class RoleConfig {
     private String landingPage = null;
 
-    public RoleConfig() {
-    }
-
     public String getLandingPage() {
         return landingPage;
     }

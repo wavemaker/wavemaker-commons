@@ -45,12 +45,14 @@ import com.wavemaker.commons.io.exception.ResourceExistsException;
  */
 public abstract class StoredFolder extends StoredResource implements Folder {
 
+    private static final String NAME_EMPTY_MESSAGE = "Name must not be empty";
+
     @Override
     protected abstract FolderStore getStore();
 
     @Override
     public Resource getExisting(String name) throws ResourceDoesNotExistException {
-        Assert.hasLength(name, "Name must not be empty");
+        Assert.hasLength(name, NAME_EMPTY_MESSAGE);
         JailedResourcePath resourcePath = getPath().get(name);
         Resource resource = getStore().getExisting(resourcePath);
         if (resource == null) {
@@ -61,7 +63,7 @@ public abstract class StoredFolder extends StoredResource implements Folder {
 
     @Override
     public boolean hasExisting(String name) {
-        Assert.hasLength(name, "Name must not be empty");
+        Assert.hasLength(name, NAME_EMPTY_MESSAGE);
         JailedResourcePath resourcePath = getPath().get(name);
         Resource existing = getStore().getExisting(resourcePath);
         return existing != null;
@@ -69,14 +71,14 @@ public abstract class StoredFolder extends StoredResource implements Folder {
 
     @Override
     public Folder getFolder(String name) {
-        Assert.hasLength(name, "Name must not be empty");
+        Assert.hasLength(name, NAME_EMPTY_MESSAGE);
         JailedResourcePath folderPath = getPath().get(name);
         return getStore().getFolder(folderPath);
     }
 
     @Override
     public File getFile(String name) {
-        Assert.hasLength(name, "Name must not be empty");
+        Assert.hasLength(name, NAME_EMPTY_MESSAGE);
         JailedResourcePath filePath = getPath().get(name);
         return getStore().getFile(filePath);
     }
@@ -84,7 +86,7 @@ public abstract class StoredFolder extends StoredResource implements Folder {
     @SuppressWarnings("unchecked")
     @Override
     public <T extends Resource> T get(String name, Class<T> resourceType) {
-        Assert.hasLength(name, "Name must not be empty");
+        Assert.hasLength(name, NAME_EMPTY_MESSAGE);
         Assert.notNull(resourceType, "ResourceType must not be null");
         if (resourceType.equals(Folder.class)) {
             return (T) getFolder(name);
@@ -105,13 +107,7 @@ public abstract class StoredFolder extends StoredResource implements Folder {
         if (!exists()) {
             return new ResourcesCollection<>(this);
         }
-        return new ChildResources(new Iterable<Resource>() {
-
-            @Override
-            public Iterator<Resource> iterator() {
-                return new ChildResourceIterator(StoredFolder.this);
-            }
-        });
+        return new ChildResources(() -> new ChildResourceIterator(StoredFolder.this));
     }
 
     @Override
@@ -119,13 +115,7 @@ public abstract class StoredFolder extends StoredResource implements Folder {
         if (!exists()) {
             return new ResourcesCollection<>(this);
         }
-        return new ChildResources(new Iterable<Resource>() {
-
-            @Override
-            public Iterator<Resource> iterator() {
-                return new RecursiveChildResourceIterator(StoredFolder.this);
-            }
-        });
+        return new ChildResources(() -> new RecursiveChildResourceIterator(StoredFolder.this));
     }
 
     @Override

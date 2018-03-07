@@ -30,9 +30,6 @@ public class XSSConfig {
     private XSSFilterStrategy xssFilterStrategy;
     private XSSPolicyType policyType;
 
-    public XSSConfig() {
-    }
-
     public boolean isEnforceXssSecurity() {
         return enforceXssSecurity;
     }

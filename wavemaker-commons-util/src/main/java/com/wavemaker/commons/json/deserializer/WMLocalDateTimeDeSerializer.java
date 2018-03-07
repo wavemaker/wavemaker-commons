@@ -22,7 +22,6 @@ import java.time.format.DateTimeFormatter;
 import org.apache.commons.lang3.StringUtils;
 
 import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.JsonToken;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
@@ -33,10 +32,10 @@ import com.wavemaker.commons.WMRuntimeException;
  */
 public class WMLocalDateTimeDeSerializer extends JsonDeserializer<LocalDateTime> {
 
-    private final static DateTimeFormatter parser = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
+    private static final DateTimeFormatter parser = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
 
     @Override
-    public LocalDateTime deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+    public LocalDateTime deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
         JsonToken currentToken = jsonParser.getCurrentToken();
         if (currentToken == JsonToken.VALUE_STRING) {
             String value = jsonParser.getText();
