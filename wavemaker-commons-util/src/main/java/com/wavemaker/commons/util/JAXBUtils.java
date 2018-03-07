@@ -24,7 +24,7 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 
-import com.sun.xml.bind.v2.runtime.unmarshaller.UnmarshallerImpl;
+
 
 /**
  * @author Uday Shankar
@@ -75,8 +75,8 @@ public class JAXBUtils {
     private static void closeResources(AutoCloseable resourceStream, Unmarshaller unmarshaller) {
         WMIOUtils.closeByLogging(resourceStream);
         //Doing it on implementation check as the specific needs to be closed to prevent thread local memory leaks
-        if (unmarshaller != null && unmarshaller instanceof UnmarshallerImpl) {
-            WMIOUtils.closeByLogging((UnmarshallerImpl) unmarshaller);
+        if (unmarshaller != null && unmarshaller instanceof AutoCloseable) {
+            WMIOUtils.closeByLogging((AutoCloseable) unmarshaller);
         }
     }
 }
