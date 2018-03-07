@@ -78,7 +78,7 @@ public class ObjectAccess {
 
     @SuppressWarnings("unchecked")
     public <T> T invoke(Object o, String methodName) {
-        return (T) invoke(o, methodName, (Object[]) null);
+        return invoke(o, methodName, (Object[]) null);
     }
 
     @SuppressWarnings("unchecked")
@@ -119,7 +119,12 @@ public class ObjectAccess {
     @SuppressWarnings("unchecked")
     public <T> T getProperty(Object o, String propertyName) {
         Method m = getGetterMethod(getClassForObject(o), propertyName);
-        return (T) invokeInternal(o, m, null);
+        if (m != null) {
+            return (T) invokeInternal(o, m, null);
+        } else {
+            throw new WMRuntimeException("Getter method not found for propertyName:" + propertyName + ", in class:" +
+                    o.getClass().getName());
+        }
     }
 
     public void setProperty(Object o, String propertyName, Object propertyValue) {
@@ -287,7 +292,7 @@ public class ObjectAccess {
                     v = "{...}";
                 }
             }
-            sb.append(e.getKey() + ":" + v);
+            sb.append(e.getKey()).append(":").append(v);
             if (i++ < propNames.size() - 1) {
                 sb.append(",");
             }

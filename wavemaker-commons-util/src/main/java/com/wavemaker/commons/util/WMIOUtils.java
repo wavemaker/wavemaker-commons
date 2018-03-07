@@ -5,7 +5,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ *   http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -16,6 +16,7 @@
 package com.wavemaker.commons.util;
 
 import java.io.*;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
@@ -381,19 +382,19 @@ public abstract class WMIOUtils {
      * Create a temporary directory, which will be deleted when the VM exits.
      *
      * @return The newly create temp directory
-     * @throws IOException
+     * @throws IOException in case of IOExceptions.
      */
     public static File createTempDirectory() throws IOException {
-        return createTempDirectory("fileUtils_createTempDirectory", null);
+        return createTempDirectory("fileUtils_createTempDirectory");
     }
 
     public static Folder createTempFolder() {
-        return createTempFolder("tempFolder", null);
+        return createTempFolder("tempFolder");
     }
 
-    public static Folder createTempFolder(String prefix, String suffix) {
+    public static Folder createTempFolder(String prefix) {
         try {
-            return new LocalFolder(createTempDirectory(prefix, suffix));
+            return new LocalFolder(createTempDirectory(prefix));
         } catch (IOException e) {
             throw new ResourceException("Failed to create temp folder", e);
         }
@@ -403,40 +404,11 @@ public abstract class WMIOUtils {
      * Create a temporary directory, which will be deleted when the VM exits.
      *
      * @param prefix String used for directory name
-     * @param suffix String used for directory name extension
      * @return The newly create temp directory
      * @throws IOException
      */
-    public static File createTempDirectory(String prefix, String suffix) throws IOException {
-        // prefix has to be at least 3 chars long
-        StringBuilder prefixSB = new StringBuilder(prefix);
-        while (prefixSB.length() < 3) {
-            prefixSB.append("a");
-        }
-        prefix = prefixSB.toString();
-
-        // we're seeing a bug on Windows where createTempFile() will fail; as
-        // a workaround, we're trying a few times.
-        File dir = null;
-        IOException exception = null;
-        for (int i = 0; i < 10; i++) {
-            try {
-                dir = File.createTempFile(prefix, suffix);
-                break;
-            } catch (IOException e) {
-                exception = e;
-            }
-        }
-        if (dir == null) {
-            throw exception;
-        }
-
-        if (!dir.delete()) {
-            throw new IOException("Couldn't delete: " + dir);
-        } else if (!dir.mkdir()) {
-            throw new IOException("Couldn't mkdir: " + dir);
-        }
-        return dir;
+    public static File createTempDirectory(String prefix) throws IOException {
+        return Files.createTempDirectory(prefix).toFile();
     }
 
     /**
@@ -444,8 +416,9 @@ public abstract class WMIOUtils {
      */
     public static File createFile(String path) throws IOException {
         File file = new File(path);
-        if (!file.exists())
+        if (!file.exists()) {
             file.createNewFile();
+        }
         return file;
     }
 
