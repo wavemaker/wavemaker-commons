@@ -15,7 +15,6 @@
  */
 package com.wavemaker.commons.io;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
@@ -24,8 +23,7 @@ import org.springframework.util.Assert;
 
 import com.wavemaker.commons.io.exception.ReadOnlyResourceException;
 import com.wavemaker.commons.io.exception.ResourceDoesNotExistException;
-import com.wavemaker.commons.io.exception.ResourceException;
-import com.wavemaker.commons.io.exception.ResourceExistsException;
+import com.wavemaker.commons.util.WMIOUtils;
 
 /**
  * Abstract base class for read-only {@link File} implementations that are not contained in any {@link #getParent()
@@ -74,13 +72,7 @@ public abstract class AbstractReadOnlyFile implements File {
         try {
             return inputStream != null;
         } finally {
-            try {
-                if (inputStream != null) {
-                    inputStream.close();
-                }
-            } catch (IOException e) {
-                throw new ResourceException(e);
-            }
+            WMIOUtils.closeSilently(inputStream);
         }
     }
 
@@ -107,12 +99,12 @@ public abstract class AbstractReadOnlyFile implements File {
     }
 
     @Override
-    public File rename(String name) throws ResourceExistsException {
+    public File rename(String name) {
         throw newReadOnlyResourceException();
     }
 
     @Override
-    public void touch() throws ResourceDoesNotExistException {
+    public void touch() {
         throw newReadOnlyResourceException();
     }
 

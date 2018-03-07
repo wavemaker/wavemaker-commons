@@ -63,13 +63,6 @@ public class WMIOUtilsTest {
     }
 
     @Test
-    public void createTempDirectory_shortPrefixTest() throws Exception {
-
-        File newTempDir = WMIOUtils.createTempDirectory("a", "bcd");
-        assertTrue(newTempDir.getName().startsWith("aaa"));
-    }
-
-    @Test
     public void createTempDirectoryTest() throws Exception {
 
         File newTempDir = WMIOUtils.createTempDirectory();
@@ -228,8 +221,8 @@ public class WMIOUtilsTest {
     @Test
     public void copyDirectoriesTest() throws Exception {
 
-        File source = WMIOUtils.createTempDirectory("copyDirectoriesSrcTest", "");
-        File dest = WMIOUtils.createTempDirectory("copyDirectoriesSrcTest", "");
+        File source = WMIOUtils.createTempDirectory("copyDirectoriesSrcTest");
+        File dest = WMIOUtils.createTempDirectory("copyDirectoriesSrcTest");
 
         try {
             WMIOUtils.deleteRecursive(dest);
@@ -270,8 +263,8 @@ public class WMIOUtilsTest {
         List<String> excludes = new ArrayList<>();
         excludes.add(excludeName);
 
-        File source = WMIOUtils.createTempDirectory("copyDirectoriesSrcTest", "");
-        File dest = WMIOUtils.createTempDirectory("copyDirectoriesSrcTest", "");
+        File source = WMIOUtils.createTempDirectory("copyDirectoriesSrcTest");
+        File dest = WMIOUtils.createTempDirectory("copyDirectoriesSrcTest");
 
         try {
             WMIOUtils.deleteRecursive(dest);
