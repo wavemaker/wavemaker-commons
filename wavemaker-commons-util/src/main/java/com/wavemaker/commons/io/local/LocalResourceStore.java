@@ -87,11 +87,11 @@ abstract class LocalResourceStore implements ResourceStore {
         while (true) {
             count++;
             try {
-                java.io.File file = getFileForPath(path);
-                if (!file.exists()) {
+                java.io.File resourceFile = getFileForPath(path);
+                if (!resourceFile.exists()) {
                     return null;
                 }
-                return file.isDirectory() ? getFolder(path) : getFile(path);
+                return resourceFile.isDirectory() ? getFolder(path) : getFile(path);
             } catch (ResourceException e) {
                 // Re-trying on ResourceException as this exception can be caused when the file/directory being fetched is deleted/changed type midway during execution by another thread
                 if (count == 3) {

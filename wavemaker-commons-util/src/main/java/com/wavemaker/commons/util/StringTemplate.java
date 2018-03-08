@@ -90,7 +90,7 @@ public class StringTemplate {
         if (value == null) {
             if (optionalValue == null) {
                 replacement = (blankIfNull) ? "" : keyWithPlaceHolder;
-            } // else replacement = "";
+            }
         } else {
             if (optionalValue == null) {
                 replacement = value.toString();

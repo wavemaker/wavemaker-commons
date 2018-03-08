@@ -30,6 +30,11 @@ public class NoCloseInputStream extends FilterInputStream {
         super(in);
     }
 
+    /**
+     * Intentionally ignoring the implementation to avoid closing the enclosing stream
+     * in such cases like iterating through zip entries... etc
+     * @throws IOException
+     */
     @Override
     public void close() throws IOException {
     }

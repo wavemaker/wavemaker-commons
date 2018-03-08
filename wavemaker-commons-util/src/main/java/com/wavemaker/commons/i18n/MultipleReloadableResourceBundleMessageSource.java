@@ -73,7 +73,7 @@ public class MultipleReloadableResourceBundleMessageSource extends ReloadableRes
 
     private Resource[] getMergedResources(Resource[] resources1, Resource[] resources2) {
         if (resources1 == null && resources2 == null){
-            return null;
+            return new Resource[0];
         } if (resources1 == null){
             return resources2;
         } else if (resources2 == null){

@@ -119,11 +119,11 @@ public abstract class ResourceURL {
         }
 
         private Folder findRoot(Resource resource) {
-            Resource root = resource;
-            while (root.getParent() != null) {
-                root = root.getParent();
+            Resource rootResource = resource;
+            while (rootResource.getParent() != null) {
+                rootResource = rootResource.getParent();
             }
-            return (Folder) root;
+            return (Folder) rootResource;
         }
 
         @Override

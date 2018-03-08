@@ -26,15 +26,15 @@ public class AccessTokenInObjectExtractor implements AccessTokenExtractor {
         String accessToken = null;
         try {
             HashMap<String, Object> responseMap = JSONUtils.toObject(accessTokenRequestContext.getResponseBody(), LinkedHashMap.class);
-            Object access_token = responseMap.get("access_token");
-            if (access_token instanceof Map) {
-                Map<Object, Object> accessTokenObject = (Map<Object, Object>) access_token;
-                accessToken = (String) accessTokenObject.get("token");
+            Object accessTokenObject = responseMap.get("access_token");
+            if (accessTokenObject instanceof Map) {
+                Map<Object, Object> accessTokenMap = (Map<Object, Object>) accessTokenObject;
+                accessToken = (String) accessTokenMap.get("token");
             }
-        } catch (IOException e) {
-            if (!(e instanceof JsonMappingException)) {
-                logger.warn("Failed to extract access_token.token path in json string", e);
-            }
+        } catch (JsonMappingException e) {
+            //do nothing
+        } catch (IOException ioe) {
+            logger.warn("Failed to extract access_token.token path in json string", ioe);
         }
         return accessToken;
 

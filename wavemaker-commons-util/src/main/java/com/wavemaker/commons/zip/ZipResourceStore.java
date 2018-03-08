@@ -46,6 +46,7 @@ import com.wavemaker.commons.io.store.FolderStore;
 import com.wavemaker.commons.io.store.ResourceStore;
 import com.wavemaker.commons.io.store.StoredFile;
 import com.wavemaker.commons.io.store.StoredFolder;
+import com.wavemaker.commons.util.WMIOUtils;
 
 /**
  * {@link ResourceStore}s for {@link ZipFile} and {@link ZipArchive}.
@@ -213,7 +214,7 @@ abstract class ZipResourceStore implements ResourceStore {
 
     private static class ZipFile {
 
-        private final File zipFile;
+        private final File file;
 
         private final Map<ResourcePath, ZipFileDetailsEntry> entries = new HashMap<>();
 
@@ -223,14 +224,14 @@ abstract class ZipResourceStore implements ResourceStore {
 
         private long lastModified;
 
-        public ZipFile(File zipFile) {
-            Assert.notNull(zipFile, "ZipFile must not be null");
-            Assert.isTrue(zipFile.exists(), "ZipFile must exist");
-            this.zipFile = zipFile;
+        public ZipFile(File file) {
+            Assert.notNull(file, "ZipFile must not be null");
+            Assert.isTrue(file.exists(), "ZipFile must exist");
+            this.file = file;
         }
 
         public long getLastModified() {
-            return this.zipFile.getLastModified();
+            return this.file.getLastModified();
         }
 
         /**
@@ -274,20 +275,20 @@ abstract class ZipResourceStore implements ResourceStore {
          * @return if the underlying file has changed.
          */
         private boolean isUnderlyingZipFileChanged() {
-            return !this.loadedAtLeastOnce || this.size != this.zipFile
-                    .getSize() || this.lastModified != this.zipFile.getLastModified();
+            return !this.loadedAtLeastOnce || this.size != this.file
+                    .getSize() || this.lastModified != this.file.getLastModified();
         }
 
         private void reloadZipFile() throws IOException {
             addZipEntries();
             createMissingFolderEntries();
-            this.size = this.zipFile.getSize();
-            this.lastModified = this.zipFile.getLastModified();
+            this.size = this.file.getSize();
+            this.lastModified = this.file.getLastModified();
             this.loadedAtLeastOnce = true;
         }
 
         protected final ZipInputStream openZipInputStream() {
-            return new ZipInputStream(new BufferedInputStream(this.zipFile.getContent().asInputStream()));
+            return new ZipInputStream(new BufferedInputStream(this.file.getContent().asInputStream()));
         }
 
         /**
@@ -331,7 +332,7 @@ abstract class ZipResourceStore implements ResourceStore {
 
         @Override
         public int hashCode() {
-            return this.zipFile.hashCode();
+            return this.file.hashCode();
         }
 
         @Override
@@ -346,7 +347,7 @@ abstract class ZipResourceStore implements ResourceStore {
                 return false;
             }
             ZipFile other = (ZipFile) obj;
-            return ObjectUtils.nullSafeEquals(this.zipFile, other.zipFile);
+            return ObjectUtils.nullSafeEquals(this.file, other.file);
         }
 
         /**
@@ -458,7 +459,7 @@ abstract class ZipResourceStore implements ResourceStore {
                     }
                     throw new IllegalStateException("Unable to find ZipEntry for " + getPath());
                 } finally {
-                    IOUtils.closeQuietly(zipInputStream);
+                    WMIOUtils.closeSilently(zipInputStream);
                 }
             }
 

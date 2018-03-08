@@ -30,7 +30,7 @@ import org.apache.commons.lang3.StringEscapeUtils;
  */
 public class XMLWriter {
 
-    private static final String sep = "\n";
+    private static final String SEPARATOR = "\n";
 
     private static final int DEFAULT_INDENT = 2;
 
@@ -38,7 +38,7 @@ public class XMLWriter {
 
     private int startIndent = 0;
 
-    private static final String encoding = "utf-8";
+    private static final String ENCODING = "utf-8";
 
     private String currentShortNS = null;
 
@@ -112,14 +112,12 @@ public class XMLWriter {
             dtdString.append(" PUBLIC \"").append(publicID).append("\"");
         }
 
-        if (systemID != null) {
-            if (publicID == null) {
-                dtdString.append(" SYSTEM");
-            }
+        if (systemID != null && publicID == null) {
+            dtdString.append(" SYSTEM");
         }
         dtdString.append(" \"").append(systemID).append("\"");
 
-        dtdString.append(">").append(sep);
+        dtdString.append(">").append(SEPARATOR);
 
         writeGeneric(dtdString.toString());
     }
@@ -136,12 +134,12 @@ public class XMLWriter {
             throw new MalformedXMLRuntimeException("Cannot write version after elements have been added");
         }
 
-        this.pw.print("<?xml version=\"1.0\" encoding=\"" + this.encoding + "\"");
+        this.pw.print("<?xml version=\"1.0\" encoding=\"" + ENCODING + "\"");
         if (standalone) {
             this.pw.print(" standalone=\"yes\"");
         }
         this.pw.print("?>");
-        this.pw.print(sep);
+        this.pw.print(SEPARATOR);
     }
 
     public void setCurrentShortNS(String s) {
@@ -188,13 +186,13 @@ public class XMLWriter {
 
         if (this.hasElements) {
             finishIncompleteTag();
-            sb.append(sep);
+            sb.append(SEPARATOR);
         }
 
         sb.append(getIndent()).append("<!-- ").append(comment).append(" -->");
 
         if (!this.hasElements) {
-            sb.append(sep);
+            sb.append(SEPARATOR);
         }
         writeGeneric(sb.toString());
     }
@@ -209,7 +207,7 @@ public class XMLWriter {
 
         this.hasAttributes = true;
         if (this.closeOnNewLine) {
-            this.pw.print(sep);
+            this.pw.print(SEPARATOR);
             this.pw.print(getIndent());
         } else {
             this.pw.print(" ");
@@ -299,7 +297,7 @@ public class XMLWriter {
         boolean addNamespaces = !this.wroteFirstElement;
 
         if (this.wroteFirstElement) {
-            this.pw.print(sep);
+            this.pw.print(SEPARATOR);
         } else {
             this.wroteFirstElement = true;
         }
@@ -394,14 +392,14 @@ public class XMLWriter {
 
         if (this.incompleteOpenTag) {
             if (this.closeOnNewLine) {
-                this.pw.print(sep);
+                this.pw.print(SEPARATOR);
                 this.pw.print(getIndent());
             }
             this.pw.print("/>");
             this.incompleteOpenTag = false;
         } else {
             if (elementOnNewLine) {
-                this.pw.print(sep);
+                this.pw.print(SEPARATOR);
                 this.pw.print(getIndent());
             }
             this.pw.print("</");
@@ -426,7 +424,7 @@ public class XMLWriter {
 
         finishIncompleteTag();
         if (onNewLine) {
-            this.pw.print(sep);
+            this.pw.print(SEPARATOR);
             this.pw.print(getIndent());
         }
         this.pw.print(StringEscapeUtils.escapeXml(in.trim()));
@@ -438,16 +436,16 @@ public class XMLWriter {
         }
         finishIncompleteTag();
         StringBuilder sb = new StringBuilder();
-        sb.append(sep).append(getIndent()).append("<![CDATA[");
+        sb.append(SEPARATOR).append(getIndent()).append("<![CDATA[");
 
         String data = in.trim();
 
         // indentation
-        for (String token : data.split(sep)) {
-            sb.append(sep).append(getIndent()).append(getDefaultIndent()).append(token.trim());
+        for (String token : data.split(SEPARATOR)) {
+            sb.append(SEPARATOR).append(getIndent()).append(getDefaultIndent()).append(token.trim());
         }
 
-        sb.append(sep).append(getIndent()).append("]]>");
+        sb.append(SEPARATOR).append(getIndent()).append("]]>");
         writeGeneric(sb.toString());
     }
 
@@ -467,7 +465,7 @@ public class XMLWriter {
     }
 
     public String getLineSep() {
-        return sep;
+        return SEPARATOR;
     }
 
     private void closeAll() {

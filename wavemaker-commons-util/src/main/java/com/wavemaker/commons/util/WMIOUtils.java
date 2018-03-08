@@ -145,26 +145,6 @@ public abstract class WMIOUtils {
 
     }
 
-    // Returns the number of folders there are in the current folder; ignores
-    // any folder with a "private" name (i.e. name starts with _ or .)
-    public static int countFoldersInDir(File f) {
-        int count = 0;
-        try {
-            File[] listing = f.listFiles();
-            if (ArrayUtils.isNotEmpty(listing)) {
-                for (File file : listing) {
-                    if (file.isDirectory() && !file.getName().startsWith(".") && !file.getName()
-                            .startsWith("_")) {
-                        count++;
-                    }
-                }
-            }
-
-        } catch (Exception e) {
-        }
-        return count;
-    }
-
     public static void copyContent(
             com.wavemaker.commons.io.File sourceFile, com.wavemaker.commons.io.File destinationFile) {
         InputStream inputStream = null;

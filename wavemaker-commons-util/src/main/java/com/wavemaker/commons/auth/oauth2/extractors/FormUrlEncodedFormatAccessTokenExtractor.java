@@ -20,7 +20,7 @@ public class FormUrlEncodedFormatAccessTokenExtractor extends MediaTypeBasedAcce
         String[] response = accessTokenRequestContext.getResponseBody().split("&");
         for (String string : response) {
             if (string.contains(OAuth2Constants.ACCESS_TOKEN)) {
-                accessToken = string.substring(string.indexOf("=") + 1);
+                accessToken = string.substring(string.indexOf('=') + 1);
                 break;
             }
         }

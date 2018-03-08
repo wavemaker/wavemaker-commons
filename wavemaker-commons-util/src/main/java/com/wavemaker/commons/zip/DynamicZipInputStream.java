@@ -34,7 +34,7 @@ public class DynamicZipInputStream extends InputStream {
 
     private static final int BUFFER_SIZE = 4096;
 
-    private static InputStream EMPTY_STREAM = new InputStream() {
+    private static final InputStream EMPTY_STREAM = new InputStream() {
 
         @Override
         public int read() throws IOException {
