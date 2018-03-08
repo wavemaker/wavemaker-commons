@@ -19,6 +19,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.nio.file.Files;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -57,8 +58,8 @@ public class DeleteTempFileOnCloseInputStream extends FileInputStream {
 
     private void deleteTempFile() {
         try {
-            tempFile.delete();
-        } catch (Throwable e) {
+            Files.delete(tempFile.toPath());
+        } catch (Exception e) {
             logger.warn("Unable to delete the temp file {} on closing the stream.", tempFile, e);
         }
     }

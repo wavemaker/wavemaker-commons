@@ -52,13 +52,13 @@ public class SwaggerDocUtil {
     private static final String NUMBER_TYPE = "number";
 
     enum OperationType {
-        get, post, delete, put, patch, options
+        GET, POST, DELETE, PUT, PATCH, OPTIONS
     }
 
     /**
      * Return Path from the Swagger object based on endPoint
      *
-     * @param swagger  : Searches in Swagger Object
+     * @param swagger : Searches in Swagger Object
      * @param endPoint : search based on endPoint
      * @return Path
      */
@@ -74,7 +74,7 @@ public class SwaggerDocUtil {
     /**
      * Return Operation from the Path object based on first occurrence in paths
      *
-     * @param swagger      : searches in Swagger Object
+     * @param swagger : searches in Swagger Object
      * @param operationUid : search based on operationUid
      * @return path
      */
@@ -92,7 +92,7 @@ public class SwaggerDocUtil {
     /**
      * Return Operation from the Swagger object based on first occurrence in paths
      *
-     * @param swagger      : searches in Swagger Object
+     * @param swagger : searches in Swagger Object
      * @param operationUid : search based on operationUid
      * @return Operation
      */
@@ -110,13 +110,14 @@ public class SwaggerDocUtil {
     /**
      * Return Operation from the Swagger object based on operationUid in provided endPoint.
      *
-     * @param swagger      : Searches in Swagger Object
-     * @param endPoint     :   search operation in this endPoint
+     * @param swagger : Searches in Swagger Object
+     * @param endPoint :   search operation in this endPoint
      * @param operationUid : search based on operationUid
      * @return Operation
      */
     public static Operation getOperation(Swagger swagger, String endPoint, String operationUid) {
-        Path path = Objects.requireNonNull(swagger.getPaths().get(endPoint), "Endpoint does not exist with id " + endPoint);
+        Path path = Objects
+                .requireNonNull(swagger.getPaths().get(endPoint), "Endpoint does not exist with id " + endPoint);
         for (Operation operation : path.getOperations()) {
             if (operationUid.equals(operation.getOperationId())) {
                 return operation;
@@ -128,7 +129,7 @@ public class SwaggerDocUtil {
     /**
      * Return method type of the operation in a path
      *
-     * @param path         : searches in path object
+     * @param path : searches in path object
      * @param operationUid : search operation based on this id.
      * @return method type
      */
@@ -140,31 +141,37 @@ public class SwaggerDocUtil {
         Operation operationPut = path.getPut();
         Operation operationOptions = path.getOptions();
 
+        OperationType operationType = null;
         if (operationGet != null && operationGet.getOperationId().equals(operationUid)) {
-            return OperationType.get.name();
+            operationType = OperationType.GET;
         }
         if (operationPost != null && operationPost.getOperationId().equals(operationUid)) {
-            return OperationType.post.name();
+            operationType = OperationType.POST;
         }
         if (operationDelete != null && operationDelete.getOperationId().equals(operationUid)) {
-            return OperationType.delete.name();
+            operationType = OperationType.DELETE;
         }
         if (operationPatch != null && operationPatch.getOperationId().equals(operationUid)) {
-            return OperationType.patch.name();
+            operationType = OperationType.PATCH;
         }
         if (operationPut != null && operationPut.getOperationId().equals(operationUid)) {
-            return OperationType.put.name();
+            operationType = OperationType.PUT;
         }
         if (operationOptions != null && operationOptions.getOperationId().equals(operationUid)) {
-            return OperationType.options.name();
+            operationType = OperationType.OPTIONS;
         }
-        throw new SwaggerException(OPERATION_DOES_NOT_EXIST_WITH_ID + operationUid);
+
+        if (operationType != null) {
+            return operationType.name().toLowerCase();
+        } else {
+            throw new SwaggerException(OPERATION_DOES_NOT_EXIST_WITH_ID + operationUid);
+        }
     }
 
     /**
      * Builds property based on given type and format.
      *
-     * @param type   : type of the property
+     * @param type : type of the property
      * @param format : format of the property
      * @return Property, may returns null if type and format is not based on swagger property.
      */
@@ -205,11 +212,11 @@ public class SwaggerDocUtil {
         if ("$ref".equals(type)) {
             return PropertyBuilder.build("$ref", format, null);
         }
-        if (STRING.equals(type)) {
-            return PropertyBuilder.build(STRING, null, null);
-        }
         if (STRING.equals(type) && "uuid".equals(format)) {
             return PropertyBuilder.build(STRING, "uuid", null);
+        }
+        if (STRING.equals(type)) {
+            return PropertyBuilder.build(STRING, null, null);
         }
         return null;
 
@@ -262,7 +269,8 @@ public class SwaggerDocUtil {
                 fullyQualifiedType = formParameter.getItems().getType();
             } else if (FILE.equals(formParameter.getType())) {
                 fullyQualifiedType = formParameter.getType();
-            } else if (STRING.equals(formParameter.getType()) && ((AbstractParameter) parameter).getFullyQualifiedType() != null) {
+            } else if (STRING.equals(formParameter.getType()) && ((AbstractParameter) parameter)
+                    .getFullyQualifiedType() != null) {
                 fullyQualifiedType = ((AbstractParameter) parameter).getFullyQualifiedType();
             }
         } else {

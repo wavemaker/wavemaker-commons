@@ -64,35 +64,37 @@ public class ThrowawayFileClassLoader extends ClassLoader {
         try {
             InputStream is = null;
             JarFile jarFile = null;
+            try {
+                for (Resource entry : this.classPath) {
+                    if (entry.getFilename().toLowerCase().endsWith(".jar")) {
+                        jarFile = new JarFile(entry.getFile());
+                        ZipEntry ze = jarFile.getEntry(classNamePath);
 
-            for (Resource entry : this.classPath) {
-                if (entry.getFilename().toLowerCase().endsWith(".jar")) {
-                    jarFile = new JarFile(entry.getFile());
-                    ZipEntry ze = jarFile.getEntry(classNamePath);
-
-                    if (ze != null) {
-                        is = jarFile.getInputStream(ze);
-                        break;
+                        if (ze != null) {
+                            is = jarFile.getInputStream(ze);
+                            break;
+                        } else {
+                            jarFile.close();
+                        }
                     } else {
-                        jarFile.close();
-                    }
-                } else {
-                    Resource classFile = entry.createRelative(classNamePath);
-                    if (classFile.exists()) {
-                        is = classFile.getInputStream();
-                        break;
+                        Resource classFile = entry.createRelative(classNamePath);
+                        if (classFile.exists()) {
+                            is = classFile.getInputStream();
+                            break;
+                        }
                     }
                 }
-            }
 
-            if (is != null) {
-                try {
-                    fileBytes = IOUtils.toByteArray(is);
-                    is.close();
-                } finally {
-                    if (jarFile != null) {
-                        jarFile.close();
+                if (is != null) {
+                    try {
+                        fileBytes = IOUtils.toByteArray(is);
+                    } finally {
+                        is.close();
                     }
+                }
+            } finally {
+                if (jarFile != null) {
+                    jarFile.close();
                 }
             }
         } catch (IOException e) {

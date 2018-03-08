@@ -43,7 +43,7 @@ public class ThreadLocalSystemProperties extends Properties {
 
     private static final Properties VM_LEVEL_PROPERTIES = System.getProperties();
 
-    public static final ThreadLocalSystemProperties INSTANCE = new ThreadLocalSystemProperties();
+    private static final ThreadLocalSystemProperties INSTANCE = new ThreadLocalSystemProperties();
 
     private static final Logger logger = LoggerFactory.getLogger(ThreadLocalSystemProperties.class);
 
@@ -199,13 +199,9 @@ public class ThreadLocalSystemProperties extends Properties {
         } else {
             Set<Map.Entry<Object, Object>> parentEntries = VM_LEVEL_PROPERTIES.entrySet();
             Set<Map.Entry<Object, Object>> childEntries = localProperties.entrySet();
-            Map<Object, Map.Entry<Object, Object>> entrySetMap = new HashMap(parentEntries.size());
-            parentEntries.forEach(entry ->
-                    entrySetMap.put(entry.getKey(), entry)
-            );
-            childEntries.forEach(entry ->
-                    entrySetMap.put(entry.getKey(), entry)
-            );
+            Map<Object, Map.Entry<Object, Object>> entrySetMap = new HashMap<>(parentEntries.size());
+            parentEntries.forEach(entry -> entrySetMap.put(entry.getKey(), entry));
+            childEntries.forEach(entry -> entrySetMap.put(entry.getKey(), entry));
             return Collections.unmodifiableSet(new HashSet<>(entrySetMap.values()));
         }
     }

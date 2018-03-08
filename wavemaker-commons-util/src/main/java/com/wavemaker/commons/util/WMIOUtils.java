@@ -591,6 +591,9 @@ public abstract class WMIOUtils {
             try {
                 stream.close();
             } catch (Exception exc) {
+                if (logger.isDebugEnabled()) {
+                    logger.debug("Error while closing stream", stream);
+                }
             }
         }
     }
