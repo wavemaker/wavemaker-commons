@@ -35,7 +35,7 @@ import com.wavemaker.commons.wrapper.StringWrapper;
  */
 public class WMUtils {
 
-    public static Boolean isSharedLibSetup;
+    private static Boolean isSharedLibSetup;
 
     public static final String SUCCESS = "success";
 

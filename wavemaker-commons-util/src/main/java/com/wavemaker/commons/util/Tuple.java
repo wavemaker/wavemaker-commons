@@ -36,9 +36,9 @@ public class Tuple {
 
     public static class Two<T1, T2> {
 
-        public T1 v1;
+        public final T1 v1;
 
-        public T2 v2;
+        public final T2 v2;
 
         public Two(T1 v1, T2 v2) {
             this.v1 = v1;
