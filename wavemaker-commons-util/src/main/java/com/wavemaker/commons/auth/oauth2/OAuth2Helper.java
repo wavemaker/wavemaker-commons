@@ -9,16 +9,14 @@ import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.text.StrSubstitutor;
-import org.json.JSONException;
-import org.json.JSONObject;
-import org.json.JSONTokener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.wavemaker.commons.WMRuntimeException;
-import com.wavemaker.commons.io.ClassPathFile;
 import com.wavemaker.commons.auth.oauth2.extractors.AccessTokenRequestContext;
 import com.wavemaker.commons.auth.oauth2.extractors.AccessTokenResponseExtractor;
+import com.wavemaker.commons.io.ClassPathFile;
+import com.wavemaker.commons.json.JSONUtils;
 
 /**
  * Created by srujant on 26/7/17.
@@ -26,7 +24,6 @@ import com.wavemaker.commons.auth.oauth2.extractors.AccessTokenResponseExtractor
 public class OAuth2Helper {
 
     private static final String OAUTH_CALLBACK_URL_RESPONSE = "templates/oauth2/oauth_callback_url_response.ftl";
-
     private static final Logger logger = LoggerFactory.getLogger(OAuth2Helper.class);
 
     private static AccessTokenResponseExtractor accessTokenResponseExtractor = new AccessTokenResponseExtractor();
@@ -34,9 +31,9 @@ public class OAuth2Helper {
     private OAuth2Helper() {
     }
 
-    public static String getAuthorizationUrl(OAuth2ProviderConfig oAuth2ProviderConfig, String redirectUrl, JSONObject stateObject) {
+    public static String getAuthorizationUrl(OAuth2ProviderConfig oAuth2ProviderConfig, String redirectUrl, String state) {
         String scope = getScopeValue(oAuth2ProviderConfig);
-        String encodedState = new String(Base64.getEncoder().encode(stateObject.toString().getBytes()));
+        String encodedState = new String(Base64.getEncoder().encode(state.getBytes()));
         StringBuilder sb = new StringBuilder(oAuth2ProviderConfig.getAuthorizationUrl()).append("?")
                 .append(OAuth2Constants.CLIENT_ID).append("=").append(oAuth2ProviderConfig.getClientId())
                 .append("&").append(OAuth2Constants.REDIRECT_URI).append("=").append(redirectUrl)
@@ -48,13 +45,12 @@ public class OAuth2Helper {
         return sb.toString();
     }
 
-    public static JSONObject getStateObject(String stateParameter) {
+    public static Map<String, String> getStateObject(String stateParameter) {
+        String stateParam = new String(Base64.getDecoder().decode(stateParameter));
         try {
-            String stateParam = new String(Base64.getDecoder().decode(stateParameter));
-            JSONTokener jsonTokener = new JSONTokener(stateParam);
-            return new JSONObject(jsonTokener);
-        } catch (JSONException e) {
-            throw new WMRuntimeException("Failed to read state parameter", e);
+            return JSONUtils.toObject(stateParam, Map.class);
+        } catch (IOException e) {
+            throw new WMRuntimeException(e);
         }
     }
 
@@ -67,7 +63,7 @@ public class OAuth2Helper {
                 .append("&").append(OAuth2Constants.GRANT_TYPE).append("=authorization_code").toString();
     }
 
-    public static String extractAccessToken(AccessTokenRequestContext accessTokenRequestContext) throws IOException, JSONException {
+    public static String extractAccessToken(AccessTokenRequestContext accessTokenRequestContext) throws IOException {
         logger.debug("AuthorizationServerResponse for get token api is {}", accessTokenRequestContext.getResponseBody());
         String accessToken = accessTokenResponseExtractor.getAccessToken(accessTokenRequestContext);
         if (accessToken == null) {
@@ -76,8 +72,7 @@ public class OAuth2Helper {
         return accessToken;
     }
 
-    public static String getCallbackResponse(String providerId, String accessToken, String customUrlScheme, String requestSourceType) throws IOException,
-            JSONException {
+    public static String getCallbackResponse(String providerId, String accessToken, String customUrlScheme, String requestSourceType) throws IOException {
         Map<String, Object> input = new HashMap<>();
         input.put("providerId", providerId);
         input.put(OAuth2Constants.CUSTOM_URL_SCHEME, customUrlScheme);
