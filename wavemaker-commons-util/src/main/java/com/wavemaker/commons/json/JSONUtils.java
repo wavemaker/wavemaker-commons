@@ -18,9 +18,9 @@ package com.wavemaker.commons.json;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.OutputStream;
 
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -31,9 +31,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.type.TypeFactory;
 import com.wavemaker.commons.WMRuntimeException;
 import com.wavemaker.commons.util.WMIOUtils;
-import org.json.JSONException;
-import org.json.JSONObject;
-import org.json.JSONTokener;
 
 /**
  * Created by venuj on 19-05-2014.
@@ -91,10 +88,14 @@ public class JSONUtils {
     }
 
     public static void toJSON(OutputStream outputStream, Object object, boolean prettify) throws IOException {
-        if (prettify)
-            objectMapper.writerWithDefaultPrettyPrinter().writeValue(outputStream, object);
-        else
-            objectMapper.writeValue(outputStream, object);
+        try {
+            if (prettify)
+                objectMapper.writerWithDefaultPrettyPrinter().writeValue(outputStream, object);
+            else
+                objectMapper.writeValue(outputStream, object);
+        } finally {
+            WMIOUtils.closeSilently(outputStream);
+        }
     }
 
     public static <T> T toObject(String jsonString, Class<T> t) throws IOException {
@@ -102,7 +103,11 @@ public class JSONUtils {
     }
 
     public static <T> T toObject(InputStream jsonStream, Class<T> t) throws IOException {
-        return (T) objectMapper.readValue(jsonStream, t);
+        try {
+            return (T) objectMapper.readValue(jsonStream, t);
+        } finally {
+            WMIOUtils.closeSilently(jsonStream);
+        }
     }
 
     public static <T> T toObject(File file, Class<T> targetClass) throws IOException {
@@ -118,15 +123,33 @@ public class JSONUtils {
     }
 
     public static <T> T toObject(InputStream inputStream, TypeReference<T> typeReference) throws IOException {
-        return objectMapper.readValue(inputStream, typeReference);
+        try {
+            return objectMapper.readValue(inputStream, typeReference);
+        } finally {
+            WMIOUtils.closeSilently(inputStream);
+        }
     }
 
     public static void registerModule(Module module) {
         objectMapper.registerModule(module);
     }
 
-    public static JSONObject toJSONObject(InputStream inputStream) throws JSONException {
-        return new JSONObject(new JSONTokener(new InputStreamReader(inputStream)));
+    public static JsonNode readTree(InputStream inputStream) {
+        try {
+            return objectMapper.readTree(inputStream);
+        } catch (IOException e) {
+            throw new WMRuntimeException("Failed to parse jsonData", e);
+        } finally {
+            WMIOUtils.closeSilently(inputStream);
+        }
+    }
+
+    public static JsonNode readTree(String str) {
+        try {
+            return objectMapper.readTree(str);
+        } catch (IOException e) {
+            throw new WMRuntimeException("Failed to parse jsonData", e);
+        }
     }
 
 }

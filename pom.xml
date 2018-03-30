@@ -34,7 +34,6 @@
 
         <fasterxml.json.version>2.6.3</fasterxml.json.version>
         <wm.jackson.databind.version>2.6.3.wm-1</wm.jackson.databind.version>
-        <json.version>20180130</json.version>
 
         <gson.version>2.2.4</gson.version>
 
@@ -115,11 +114,6 @@
                 <groupId>com.fasterxml.jackson.core</groupId>
                 <artifactId>jackson-databind</artifactId>
                 <version>${wm.jackson.databind.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.json</groupId>
-                <artifactId>json</artifactId>
-                <version>${json.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.hibernate</groupId>
