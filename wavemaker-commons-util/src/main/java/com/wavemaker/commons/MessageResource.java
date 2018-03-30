@@ -338,7 +338,12 @@ public class MessageResource {
     }
 
     public int getNumArgsRequired() {
-        return annotations.get(this).numArgs();
+        ResourceConstraint resourceConstraint = annotations.get(this);
+        if (resourceConstraint != null) {
+            return resourceConstraint.numArgs();
+        } else {
+            return -1;
+        }
     }
 
     private String getMessage(String key, int numArgsRequired, Object... args) {
@@ -348,6 +353,10 @@ public class MessageResource {
                             + (args == null ? "null" : args.length));
         }
         return ResourceManager.getInstance().getMessage(key, args);
+    }
+    
+    public static MessageResource create(String messageKey) {
+        return new MessageResource(messageKey);
     }
 
 }
