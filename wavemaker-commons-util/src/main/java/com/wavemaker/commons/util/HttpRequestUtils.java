@@ -82,7 +82,7 @@ public class HttpRequestUtils {
                 URI uri = new URI(requestUrl);
                 return getBaseUrl(uri);
             } catch (URISyntaxException e) {
-                throw new WMRuntimeException("Invalid request URL",e);
+                throw new WMRuntimeException("Invalid request URL", e);
             }
         }
         return null;
@@ -91,7 +91,7 @@ public class HttpRequestUtils {
     public static String getBaseUrl(URI uri) {
         StringBuilder stringBuilder = new StringBuilder(uri.getScheme()).append("://").append(uri.getHost());
         int serverPort = uri.getPort();
-        if (serverPort != 80 && serverPort != 443) {
+        if (serverPort != 80 && serverPort != 443 && serverPort != -1) {
             stringBuilder.append(":").append(serverPort).toString();
         }
         return stringBuilder.toString();
