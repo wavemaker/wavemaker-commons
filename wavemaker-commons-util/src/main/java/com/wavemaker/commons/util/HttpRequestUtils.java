@@ -108,6 +108,10 @@ public class HttpRequestUtils {
 
     public static boolean isRequestedFromIEBrowser(HttpServletRequest httpServletRequest) {
         String userAgent = httpServletRequest.getHeader("User-Agent");
-        return (userAgent != null && userAgent.contains("MSIE"));
+        /*
+        * Latest versions of IE(from IE11) doesn't include 'MSIE' header. We depend on revisionVersion(rv) and layout engine("Trident") properties, to verify
+        * if the request is from IE.
+        * */
+        return (userAgent != null && (userAgent.contains("MSIE") || (userAgent.contains("rv") && userAgent.contains("Trident"))));
     }
 }
