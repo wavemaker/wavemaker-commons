@@ -133,7 +133,7 @@ public abstract class AbstractFileContent implements FileContent {
         OutputStream outputStream = null;
         try {
             outputStream = asOutputStream();
-            IOUtils.copyLarge(inputStream, asOutputStream());
+            IOUtils.copyLarge(inputStream, outputStream);
         } catch (IOException e) {
             throw new ResourceException(e);
         } finally {
