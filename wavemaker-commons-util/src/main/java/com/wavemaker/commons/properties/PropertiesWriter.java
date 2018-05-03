@@ -86,6 +86,10 @@ public class PropertiesWriter {
         write(new BufferedOutputStream(new FileOutputStream(file)));
     }
 
+    public synchronized void write(com.wavemaker.commons.io.File file) {
+        write(file.getContent().asOutputStream());
+    }
+
     public synchronized void write(OutputStream stream) {
         if (stream == null) {
             throw new WMRuntimeException("Output stream can not be null");
