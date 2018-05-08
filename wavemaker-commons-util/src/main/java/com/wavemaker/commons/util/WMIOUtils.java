@@ -412,11 +412,11 @@ public abstract class WMIOUtils {
         FileUtils.forceDelete(dir);
     }
 
-    public static void cleanResourceSilently(Resource resource) {
-        if (resource == null) {
+    public static void cleanFolderSilently(Folder folder) {
+        if (folder == null) {
             return;
         }
-        cleanDirectorySilently(getJavaIOFile(resource));
+        cleanDirectorySilently(getJavaIOFile(folder));
     }
 
     public static void cleanDirectorySilently(File dir) {
