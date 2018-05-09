@@ -117,13 +117,7 @@ public class MessageResource {
     public static final MessageResource MULTIPLE_SERVICE_BEANS = new MessageResource("com.wavemaker.runtime.service$MultipleServiceBeans");
 
     @ResourceConstraint(numArgs = 1, hasDetailMsg = false)
-    public static final MessageResource SERVICEWIRE_ID_DUP = new MessageResource("com.wavemaker.runtime.service$DuplicateServiceIDs");
-
-    @ResourceConstraint(numArgs = 1, hasDetailMsg = false)
     public static final MessageResource EXPECTED_REFLECT_SW = new MessageResource("com.wavemaker.runtime.service.reflect$ExpectedReflectSW");
-
-    @ResourceConstraint(numArgs = 1, hasDetailMsg = false)
-    public static final MessageResource NO_SERVICEWIRE = new MessageResource("com.wavemaker.runtime.service$NoServiceWireForService");
 
     // input: service id
     @ResourceConstraint(numArgs = 1, hasDetailMsg = false)
