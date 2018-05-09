@@ -412,6 +412,17 @@ public abstract class WMIOUtils {
         FileUtils.forceDelete(dir);
     }
 
+    public static void cleanFolder(Folder folder) {
+        if (folder == null) {
+            return;
+        }
+        try {
+            FileUtils.cleanDirectory(getJavaIOFile(folder));
+        } catch (IOException e) {
+            throw new WMRuntimeException("Failed to clean folder " + folder.getName(), e);
+        }
+    }
+
     public static void cleanFolderSilently(Folder folder) {
         if (folder == null) {
             return;
