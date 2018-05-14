@@ -51,6 +51,12 @@ public class MessageResource {
     public static final MessageResource UNKNOWN_FIELD_NAME = new MessageResource("com.wavemaker.runtime.data$UnknownFieldName");
 
     @ResourceConstraint(numArgs = 3, hasDetailMsg = false)
+    public static final MessageResource MISSING_VALIDATOR_PARAM_VALUE = new MessageResource("com.wavemaker.studio.core$validatorValueEmpty");
+
+    @ResourceConstraint(numArgs = 2, hasDetailMsg = false)
+    public static final MessageResource MISSING_REF_CONSTRAINT = new MessageResource("com.wavemaker.studio.core$RefConstraintEmpty");
+
+    @ResourceConstraint(numArgs = 3, hasDetailMsg = false)
     public static final MessageResource JSONRPC_CONTROLLER_METHOD_NOT_FOUND = new MessageResource("com.wavemaker.runtime.server$MethodNotFound");
 
     @ResourceConstraint(numArgs = 2, hasDetailMsg = false)
