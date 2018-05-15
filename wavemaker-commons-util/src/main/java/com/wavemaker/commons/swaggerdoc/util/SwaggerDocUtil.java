@@ -18,12 +18,17 @@ package com.wavemaker.commons.swaggerdoc.util;
 import java.sql.Time;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
 import com.wavemaker.commons.SwaggerException;
+import com.wavemaker.tools.apidocs.tools.core.model.ComposedModel;
+import com.wavemaker.tools.apidocs.tools.core.model.Model;
 import com.wavemaker.tools.apidocs.tools.core.model.Operation;
 import com.wavemaker.tools.apidocs.tools.core.model.Path;
+import com.wavemaker.tools.apidocs.tools.core.model.RefModel;
 import com.wavemaker.tools.apidocs.tools.core.model.Swagger;
 import com.wavemaker.tools.apidocs.tools.core.model.parameters.AbstractParameter;
 import com.wavemaker.tools.apidocs.tools.core.model.parameters.FormParameter;
@@ -290,5 +295,29 @@ public class SwaggerDocUtil {
         }
         return javaType;
     }
+
+    public static Map<String, Property> getProperties(Swagger swagger, Model model) {
+        Map<String, Property> propertyMap = new LinkedHashMap<>();
+
+        if (model instanceof ComposedModel) {
+            final List<Model> parentModels = ((ComposedModel) model).getAllOf();
+
+            for (final Model parent : parentModels) {
+                propertyMap.putAll(getProperties(swagger, parent));
+            }
+        } else if (model instanceof RefModel) {
+            final Model refModel = swagger.getDefinitions().get(((RefModel) model).getSimpleRef());
+            if (refModel != null) {
+                propertyMap.putAll(getProperties(swagger, refModel));
+            }
+        }
+
+        if (model.getProperties() != null) {
+            propertyMap.putAll(model.getProperties());
+        }
+
+        return propertyMap;
+    }
+
 
 }
