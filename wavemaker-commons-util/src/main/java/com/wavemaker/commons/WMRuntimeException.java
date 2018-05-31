@@ -15,6 +15,10 @@
  */
 package com.wavemaker.commons;
 
+import com.wavemaker.commons.i18n.LocaleMessageProvider;
+import com.wavemaker.commons.i18n.LocaleProvider;
+import com.wavemaker.commons.i18n.MessageFactory;
+
 /**
  * @author Simon Toens
  */
@@ -100,5 +104,16 @@ public class WMRuntimeException extends RuntimeException {
 
     public String getDetailedMessage() {
         return detailedMessage;
+    }
+
+    @Override
+    public String getMessage() {
+        if (messageResource != null) {
+            LocaleProvider localeProvider = MessageFactory.getLocaleProvider();
+            String locale = localeProvider.getLocale();
+            LocaleMessageProvider localeMessageProvider = MessageFactory.getLocaleMessageProvider();
+            return localeMessageProvider.getMessage(locale, messageResource, args);
+        }
+        return super.getMessage();
     }
 }

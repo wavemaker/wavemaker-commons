@@ -17,6 +17,7 @@ package com.wavemaker.commons.io.exception;
 
 import java.io.File;
 
+import com.wavemaker.commons.MessageResource;
 import com.wavemaker.commons.io.Folder;
 import com.wavemaker.commons.io.Resource;
 
@@ -28,17 +29,16 @@ import com.wavemaker.commons.io.Resource;
 public class ResourceDoesNotExistException extends ResourceException {
 
     private static final long serialVersionUID = 1L;
-    private static final String RESOURCE_PREFIX = "The resource '";
 
     public ResourceDoesNotExistException(Folder folder, String missingResourceName) {
-        super(RESOURCE_PREFIX + missingResourceName + "' does not exist in the folder '" + folder + "'");
+        super(MessageResource.create("com.wavemaker.commons.resource.does.not.exist.in.the.folder"),missingResourceName, folder);
     }
 
     public ResourceDoesNotExistException(Resource resource) {
-        super(RESOURCE_PREFIX + resource.toString() + "' does not exist");
+        super(MessageResource.create("com.wavemaker.commons.resource.does.not.exist"), resource.toString());
     }
 
     public ResourceDoesNotExistException(File file) {
-        super(RESOURCE_PREFIX + file.getAbsolutePath() + "' does not exist");
+        super(MessageResource.create("com.wavemaker.commons.file.not.found"), file.getAbsolutePath());
     }
 }

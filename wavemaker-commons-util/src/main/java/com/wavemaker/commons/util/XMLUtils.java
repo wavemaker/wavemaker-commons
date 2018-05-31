@@ -47,6 +47,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
+import com.wavemaker.commons.MessageResource;
 import com.wavemaker.commons.WMRuntimeException;
 import com.wavemaker.commons.io.File;
 
@@ -109,7 +110,7 @@ public abstract class XMLUtils {
             DocumentBuilder documentBuilder = getDocumentBuilder();
             return documentBuilder.parse(inputStream);
         } catch (SAXException | IOException e) {
-            throw new WMRuntimeException("Failed to parse xml file", e);
+            throw new WMRuntimeException(MessageResource.create("com.wavemaker.commons.xml.parse.error"), e);
         } finally {
             WMIOUtils.closeSilently(inputStream);
         }
@@ -161,7 +162,7 @@ public abstract class XMLUtils {
             Result dest = new StreamResult(outputStream);
             transformer.transform(source, dest);
         } catch (TransformerException e) {
-            throw new WMRuntimeException("Failed to write Document", e);
+            throw new WMRuntimeException(MessageResource.create("com.wavemaker.commons.failed.to.write.document"), e);
         } finally {
             WMIOUtils.closeSilently(outputStream);
         }
@@ -173,7 +174,7 @@ public abstract class XMLUtils {
             DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
             return documentBuilderFactory.newDocumentBuilder();
         } catch (ParserConfigurationException e) {
-            throw new WMRuntimeException("Failed to fetch documentBuilder", e);
+            throw new WMRuntimeException(MessageResource.create("com.wavemaker.commons.failed.to.fetch.documentbuilder"), e);
         }
     }
 

@@ -21,6 +21,7 @@ import java.io.OutputStream;
 import org.springframework.core.GenericTypeResolver;
 import org.springframework.util.Assert;
 
+import com.wavemaker.commons.MessageResource;
 import com.wavemaker.commons.io.exception.ReadOnlyResourceException;
 import com.wavemaker.commons.io.exception.ResourceDoesNotExistException;
 import com.wavemaker.commons.util.WMIOUtils;
@@ -164,6 +165,6 @@ public abstract class AbstractReadOnlyFile implements File {
      * @return the exception
      */
     protected ReadOnlyResourceException newReadOnlyResourceException() {
-        return new ReadOnlyResourceException("The resource " + toString() + " is read-only");
+        return new ReadOnlyResourceException(MessageResource.create("com.wavemaker.commons.read.only.resource"), toString());
     }
 }

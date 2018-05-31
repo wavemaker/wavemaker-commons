@@ -25,6 +25,7 @@ import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.wavemaker.commons.MessageResource;
 import com.wavemaker.commons.WMRuntimeException;
 
 /**
@@ -41,7 +42,7 @@ public class WMLocalDateTimeDeSerializer extends JsonDeserializer<LocalDateTime>
             String value = jsonParser.getText();
             return getLocalDateTime(value);
         }
-        throw new WMRuntimeException("Not a String value");
+        throw new WMRuntimeException(MessageResource.create("com.wavemaker.commons.not.a.string.value"));
     }
 
     public static LocalDateTime getLocalDateTime(String value) {

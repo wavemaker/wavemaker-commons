@@ -30,6 +30,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.wavemaker.commons.MessageResource;
 import com.wavemaker.commons.MethodNotFoundRuntimeException;
 import com.wavemaker.commons.WMRuntimeException;
 import com.wavemaker.commons.classloader.ClassLoaderUtils;
@@ -122,8 +123,7 @@ public class ObjectAccess {
         if (m != null) {
             return (T) invokeInternal(o, m, null);
         } else {
-            throw new WMRuntimeException("Getter method not found for propertyName:" + propertyName + ", in class:" +
-                    o.getClass().getName());
+            throw new WMRuntimeException(MessageResource.create("com.wavemaker.commons.getter.method.not.found"), propertyName, o.getClass().getName());
         }
     }
 

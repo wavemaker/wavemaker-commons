@@ -15,6 +15,7 @@
  */
 package com.wavemaker.commons.swaggerdoc.handler;
 
+import com.wavemaker.commons.MessageResource;
 import com.wavemaker.commons.WMRuntimeException;
 import com.wavemaker.tools.apidocs.tools.core.model.Path;
 
@@ -48,6 +49,6 @@ public class PathHandler {
         if (path.getOptions() != null && path.getOptions().getOperationId().equals(operationId)) {
             return "options";
         }
-        throw new WMRuntimeException("Operation does not exist with id " + operationId);
+        throw new WMRuntimeException(MessageResource.create("com.wavemaker.runtime.operation.doesnt.exist"), operationId);
     }
 }

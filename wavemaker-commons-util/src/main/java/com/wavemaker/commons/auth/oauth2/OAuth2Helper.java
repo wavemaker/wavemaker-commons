@@ -12,6 +12,7 @@ import org.apache.commons.lang3.text.StrSubstitutor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.wavemaker.commons.MessageResource;
 import com.wavemaker.commons.WMRuntimeException;
 import com.wavemaker.commons.auth.oauth2.extractors.AccessTokenRequestContext;
 import com.wavemaker.commons.auth.oauth2.extractors.AccessTokenResponseExtractor;
@@ -67,7 +68,7 @@ public class OAuth2Helper {
         logger.debug("AuthorizationServerResponse for get token api is {}", accessTokenRequestContext.getResponseBody());
         String accessToken = accessTokenResponseExtractor.getAccessToken(accessTokenRequestContext);
         if (accessToken == null) {
-            throw new WMRuntimeException("No AccessTokenResponseExtractor found for MediaType " + accessTokenRequestContext.getMediaType());
+            throw new WMRuntimeException(MessageResource.create("com.wavemaker.commons.AccessTokenResponseExtractor.not.found"), accessTokenRequestContext.getMediaType());
         }
         return accessToken;
     }

@@ -33,6 +33,7 @@ import org.apache.commons.io.IOUtils;
 import org.springframework.util.Assert;
 import org.springframework.util.ObjectUtils;
 
+import com.wavemaker.commons.MessageResource;
 import com.wavemaker.commons.io.File;
 import com.wavemaker.commons.io.Folder;
 import com.wavemaker.commons.io.JailedResourcePath;
@@ -152,7 +153,7 @@ abstract class ZipResourceStore implements ResourceStore {
      * @return the ReadOnlyResourceException exception to throw
      */
     protected final ReadOnlyResourceException createReadOnlyException() {
-        throw new ReadOnlyResourceException("The Zip File " + getZipFile() + " is read-only");
+        throw new ReadOnlyResourceException(MessageResource.create("com.wavemaker.commons.readOnly.zip.file"), getZipFile());
     }
 
     static class ZipFileStore extends ZipResourceStore implements FileStore {

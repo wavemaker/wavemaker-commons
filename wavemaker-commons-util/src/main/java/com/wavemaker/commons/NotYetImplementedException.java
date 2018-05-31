@@ -23,7 +23,11 @@ public class NotYetImplementedException extends WMRuntimeException {
         this(null);
     }
 
-    public NotYetImplementedException(String message) {
-        super(message);
+    public NotYetImplementedException(MessageResource resource) {
+        super(resource);
+    }
+
+    public NotYetImplementedException(MessageResource resource, Object... args) {
+        super(resource, args);
     }
 }

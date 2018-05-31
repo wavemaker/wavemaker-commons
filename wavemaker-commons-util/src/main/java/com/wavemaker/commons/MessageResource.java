@@ -33,16 +33,10 @@ import com.wavemaker.commons.util.ClassUtils;
 public class MessageResource {
 
     @ResourceConstraint(numArgs = 1, hasDetailMsg = false)
-    public static final MessageResource MISSING_FIELD_VALUE = new MessageResource("com.wavemaker.studio.json$MissingFieldValue");
+    public static final MessageResource INVALID_FIELD_VALUE = new MessageResource("com.wavemaker.runtime.json$InvalidFieldValue");
 
     @ResourceConstraint(numArgs = 1, hasDetailMsg = false)
-    public static final MessageResource INVALID_FIELD_VALUE = new MessageResource("com.wavemaker.studio.json$InvalidFieldValue");
-
-    @ResourceConstraint(numArgs = 1, hasDetailMsg = false)
-    public static final MessageResource INVALID_OBJECT = new MessageResource("com.wavemaker.studio.json$InvalidObject");
-
-    @ResourceConstraint(numArgs = 0, hasDetailMsg = false)
-    public static final MessageResource QUERY_CONV_FAILURE = new MessageResource("com.wavemaker.runtime.data$QueryConvFailure");
+    public static final MessageResource INVALID_OBJECT = new MessageResource("com.wavemaker.commons.json$InvalidObject");
 
     @ResourceConstraint(numArgs = 0, hasDetailMsg = false)
     public static final MessageResource CLASS_NOT_FOUND = new MessageResource("com.wavemaker.runtime.data$ClassNotFound");
@@ -50,84 +44,23 @@ public class MessageResource {
     @ResourceConstraint(numArgs = 1, hasDetailMsg = false)
     public static final MessageResource UNKNOWN_FIELD_NAME = new MessageResource("com.wavemaker.runtime.data$UnknownFieldName");
 
-    @ResourceConstraint(numArgs = 3, hasDetailMsg = false)
-    public static final MessageResource MISSING_VALIDATOR_PARAM_VALUE = new MessageResource("com.wavemaker.studio.core$validatorValueEmpty");
-
-    @ResourceConstraint(numArgs = 2, hasDetailMsg = false)
-    public static final MessageResource MISSING_REF_CONSTRAINT = new MessageResource("com.wavemaker.studio.core$RefConstraintEmpty");
-
-    @ResourceConstraint(numArgs = 3, hasDetailMsg = false)
-    public static final MessageResource JSONRPC_CONTROLLER_METHOD_NOT_FOUND = new MessageResource("com.wavemaker.runtime.server$MethodNotFound");
-
-    @ResourceConstraint(numArgs = 2, hasDetailMsg = false)
-    public static final MessageResource JSONRPC_CONTROLLER_BAD_PARAMS_NON_EMPTY = new MessageResource(
-            "com.wavemaker.runtime.server$BadParamsNonEmpty");
-
-    @ResourceConstraint(numArgs = 2, hasDetailMsg = false)
-    public static final MessageResource JSONRPC_CONTROLLER_BAD_PARAMS_UNKNOWN_TYPE = new MessageResource(
-            "com.wavemaker.runtime.server$BadParamsUnknownType");
-
-    // input: method name, class name
-    @ResourceConstraint(numArgs = 2, hasDetailMsg = false)
-    public static final MessageResource JSONUTILS_BADMETHODOVERLOAD = new MessageResource("com.wavemaker.runtime.server$BadMethodOverload");
-
-    // input name of method, name of declaring class (maybe through
-    // ((Method)obj).getDeclaringClass())
-    @ResourceConstraint(numArgs = 2, hasDetailMsg = false)
-    public static final MessageResource JSONUTILS_FAILEDINVOKE = new MessageResource("com.wavemaker.runtime.server$InvokeMethodFailed");
-
-    @ResourceConstraint(numArgs = 2, hasDetailMsg = false)
-    public static final MessageResource JSONUTILS_PARAMTYPEGENERIC = new MessageResource("com.wavemaker.runtime.server$JSONParamTypeNoGenerics");
+    @ResourceConstraint(numArgs = 1, hasDetailMsg = false)
+    public static final MessageResource UNEXPECTED_ERROR = new MessageResource("com.wavemaker.commons.json$UnexpectedError");
 
     @ResourceConstraint(numArgs = 1, hasDetailMsg = false)
-    public static final MessageResource SERVER_NOMETHODORID = new MessageResource("com.wavemaker.runtime.server$NoMethodIdFound");
-
-    @ResourceConstraint(numArgs = 3, hasDetailMsg = false)
-    public static final MessageResource JSONPARAMETER_COULD_NOTLLOAD_TYPE = new MessageResource(
-            "com.wavemaker.runtime.server$JSONParameterCouldNotLoadType");
-
-    @ResourceConstraint(numArgs = 2, hasDetailMsg = false)
-    public static final MessageResource BOTH_ARGUMENT_TYPES = new MessageResource("com.wavemaker.runtime.server$BothArgumentTypes");
+    public static final MessageResource DYNAMIC_ERROR_MESSAGE = new MessageResource("com.wavemaker.commons.json$dynamicErrorMessage");
 
     @ResourceConstraint(numArgs = 1, hasDetailMsg = false)
-    public static final MessageResource FAILED_TO_PARSE_REQUEST = new MessageResource("com.wavemaker.runtime.server$FailedToParseRequest");
-
-    // input: service id
-    @ResourceConstraint(numArgs = 1, hasDetailMsg = false)
-    public static final MessageResource UNKNOWN_SERVICE = new MessageResource("com.wavemaker.runtime.service$UnknownService");
+    public static final MessageResource UNRECOGNIZED_FIELD = new MessageResource("com.wavemaker.commons.json$UnrecognizedField");
 
     @ResourceConstraint(numArgs = 1, hasDetailMsg = false)
-    public static final MessageResource UNEXPECTED_ERROR = new MessageResource("com.wavemaker.studio.json$UnexpectedError");
+    public static final MessageResource INVALID_JSON = new MessageResource("com.wavemaker.commons.json$InvalidJsonObject");
 
     @ResourceConstraint(numArgs = 1, hasDetailMsg = false)
-    public static final MessageResource DYNAMIC_ERROR_MESSAGE = new MessageResource("com.wavemaker.studio.json$dynamicErrorMessage");
+    public static final MessageResource MESSAGE_NOT_READABLE = new MessageResource("com.wavemaker.commons.json$MessageNotReadable");
 
     @ResourceConstraint(numArgs = 1, hasDetailMsg = false)
-    public static final MessageResource UNRECOGNIZED_FIELD = new MessageResource("com.wavemaker.studio.json$UnrecognizedField");
-
-    @ResourceConstraint(numArgs = 1, hasDetailMsg = false)
-    public static final MessageResource INVALID_JSON = new MessageResource("com.wavemaker.studio.json$InvalidJsonObject");
-
-    @ResourceConstraint(numArgs = 1, hasDetailMsg = false)
-    public static final MessageResource MESSAGE_NOT_READABLE = new MessageResource("com.wavemaker.studio.json$MessageNotReadable");
-
-    @ResourceConstraint(numArgs = 1, hasDetailMsg = false)
-    public static final MessageResource ACCESS_DENIED = new MessageResource("com.wavemaker.studio.json$AccessDenied");
-
-    // input: service type
-    @ResourceConstraint(numArgs = 1, hasDetailMsg = false)
-    public static final MessageResource UNKNOWN_SERVICE_TYPE = new MessageResource("com.wavemaker.runtime.service$UnknownServiceType");
-
-    // input: service type
-    @ResourceConstraint(numArgs = 1, hasDetailMsg = false)
-    public static final MessageResource MULTIPLE_SERVICE_BEANS = new MessageResource("com.wavemaker.runtime.service$MultipleServiceBeans");
-
-    @ResourceConstraint(numArgs = 1, hasDetailMsg = false)
-    public static final MessageResource EXPECTED_REFLECT_SW = new MessageResource("com.wavemaker.runtime.service.reflect$ExpectedReflectSW");
-
-    // input: service id
-    @ResourceConstraint(numArgs = 1, hasDetailMsg = false)
-    public static final MessageResource NO_SERVICE_GENERATOR = new MessageResource("com.wavemaker.runtime.service$NoServiceGenerator");
+    public static final MessageResource ACCESS_DENIED = new MessageResource("com.wavemaker.runtime.json$AccessDenied");
 
     @ResourceConstraint(numArgs = 1, hasDetailMsg = false)
     public static final MessageResource UTIL_FILEUTILS_PATHDNE = new MessageResource("com.wavemaker.commons.util$FileUtils_PathDNE");
@@ -139,104 +72,14 @@ public class MessageResource {
     public static final MessageResource NULL_CLASS = new MessageResource("com.wavemaker.commons.util$NullClass");
 
     @ResourceConstraint(numArgs = 2, hasDetailMsg = false)
-    public static final MessageResource STUDIO_UNKNOWN_LOCATION = new MessageResource("com.wavemaker.studio$UnknownStaticFileLocation");
-
-    @ResourceConstraint(numArgs = 2, hasDetailMsg = false)
     public static final MessageResource UTIL_FILEUTILS_REACHEDROOT = new MessageResource("com.wavemaker.commons.util$FileUtils_ReachedRoot");
 
     @ResourceConstraint(numArgs = 0, hasDetailMsg = false)
     public static final MessageResource SEMAPHORE_ACQUISITION_TIMEOUT = new MessageResource("com.wavemaker.commons.util$SemaphoreAcquisitionTimeout");
 
-    @ResourceConstraint(numArgs = 1, hasDetailMsg = false)
-    public static final MessageResource JSON_FAILED_PARSING = new MessageResource("com.wavemaker.studio.json$FailedParsing");
-
-    @ResourceConstraint(numArgs = 2, hasDetailMsg = false)
-    public static final MessageResource JSON_TYPE_UNKNOWNRAWTYPE = new MessageResource("com.wavemaker.studio.json$Type_UnknownRawType");
-
-    @ResourceConstraint(numArgs = 2, hasDetailMsg = false)
-    public static final MessageResource JSON_TYPE_UNKNOWNPARAMTYPE = new MessageResource("com.wavemaker.studio.json$Type_UnknownParameterType");
-
-    @ResourceConstraint(numArgs = 1, hasDetailMsg = false)
-    public static final MessageResource JSON_TYPE_NOGENERICS = new MessageResource("com.wavemaker.studio.json$Type_NoGenerics");
-
-    @ResourceConstraint(numArgs = 2, hasDetailMsg = false)
-    public static final MessageResource JSON_FAILED_GENERICARRAYTYPE = new MessageResource("com.wavemaker.studio.json$FailedGenericArrayType");
-
-    @ResourceConstraint(numArgs = 1, hasDetailMsg = false)
-    public static final MessageResource JSON_FAILEDINSTANCE_MAP = new MessageResource("com.wavemaker.studio.json$FailedInstantiationMap");
-
-    @ResourceConstraint(numArgs = 2, hasDetailMsg = false)
-    public static final MessageResource JSON_OBJECT_REQUIRED_FOR_MAP_CONVERSION = new MessageResource("com.wavemaker.studio.json$JSONObjectRequiredForMap");
-
-    @ResourceConstraint(numArgs = 0, hasDetailMsg = false)
-    public static final MessageResource JSON_TYPEDEF_REQUIRED = new MessageResource("com.wavemaker.studio.json$TypeDefRequired");
-
-    @ResourceConstraint(numArgs = 2, hasDetailMsg = false)
-    public static final MessageResource JSON_OBJECTTYPEDEF_REQUIRED = new MessageResource("com.wavemaker.studio.json$ObjectTypeDefRequired");
-
-    @ResourceConstraint(numArgs = 1, hasDetailMsg = false)
-    public static final MessageResource JSON_FAILEDINSTANCE_COLLECTION = new MessageResource("com.wavemaker.studio.json$FailedInstantiationCollection");
-
-    @ResourceConstraint(numArgs = 1, hasDetailMsg = false)
-    public static final MessageResource JSON_UNKNOWN_COLL_OR_ARRAY = new MessageResource("com.wavemaker.studio.json$UnknownCollectionType");
-
-    @ResourceConstraint(numArgs = 2, hasDetailMsg = false)
-    public static final MessageResource JSON_UNKNOWN_COLL_IN_SET = new MessageResource("com.wavemaker.studio.json$UnknownCollInSet");
-
-    @ResourceConstraint(numArgs = 2, hasDetailMsg = false)
-    public static final MessageResource JSON_UNHANDLED_TYPE = new MessageResource("com.wavemaker.studio.json$UnhandledType");
-
-    @ResourceConstraint(numArgs = 1, hasDetailMsg = false)
-    public static final MessageResource JSON_PRIM_NEWINSTANCE_ARG_REQ = new MessageResource("com.wavemaker.studio.json$PrimitiveNewInstanceRequiresArg");
-
-    @ResourceConstraint(numArgs = 2, hasDetailMsg = false)
-    public static final MessageResource JSON_UNKNOWN_NUMBER_TYPE = new MessageResource("com.wavemaker.studio.json$UnknownNumberType");
-
-    @ResourceConstraint(numArgs = 2, hasDetailMsg = false)
-    public static final MessageResource JSON_FAILED_TO_CONVERT = new MessageResource("com.wavemaker.studio.json$FailedToConvert");
-
-    @ResourceConstraint(numArgs = 3, hasDetailMsg = false)
-    public static final MessageResource JSON_UNKNOWN_OBJECT_TYPE = new MessageResource("com.wavemaker.studio.json$UnknownObjectType");
-
-    @ResourceConstraint(numArgs = 2, hasDetailMsg = false)
-    public static final MessageResource JSON_NO_PROP_MATCHES_KEY = new MessageResource("com.wavemaker.studio.json$NoPropertyMatchKey");
-
-    @ResourceConstraint(numArgs = 2, hasDetailMsg = false)
-    public static final MessageResource JSON_NO_WRITE_METHOD = new MessageResource("com.wavemaker.studio.json$NoWriteMethod");
-
-    @ResourceConstraint(numArgs = 2, hasDetailMsg = false)
-    public static final MessageResource JSON_UNKNOWN_PRIMITIVE_TYPE = new MessageResource("com.wavemaker.studio.json$UnknownPrimitiveType");
-
-    @ResourceConstraint(numArgs = 1, hasDetailMsg = false)
-    public static final MessageResource JSON_RAW_TYPE_NOT_CLASS = new MessageResource("com.wavemaker.studio.json$RawTypeNotClass");
-
-    @ResourceConstraint(numArgs = 1, hasDetailMsg = false)
-    public static final MessageResource JSON_EXPECTED_COLLECTION = new MessageResource("com.wavemaker.studio.json$ExpectedCollection");
-
-    @ResourceConstraint(numArgs = 1, hasDetailMsg = false)
-    public static final MessageResource JSON_UNKNOWN_TYPE = new MessageResource("com.wavemaker.studio.json$UnknownType");
-
-    @ResourceConstraint(numArgs = 1, hasDetailMsg = false)
-    public static final MessageResource JSON_USE_FIELD_FOR_ARRAY = new MessageResource("com.wavemaker.studio.json$UseFieldForArray");
-
-    @ResourceConstraint(numArgs = 3, hasDetailMsg = false)
-    public static final MessageResource JSON_NO_GETTER_IN_TYPE = new MessageResource("com.wavemaker.studio.json$NoGetterInType");
-
-    @ResourceConstraint(numArgs = 3, hasDetailMsg = false)
-    public static final MessageResource ERROR_GETTING_PROPERTY = new MessageResource("com.wavemaker.studio.json$ErrorGettingProperty");
-
     @ResourceConstraint(numArgs = 2, hasDetailMsg = false)
     public static final MessageResource TYPE_MAPPING_FAILURE = new MessageResource(
             "com.wavemaker.runtime.data$TypeMappingFailure");
-
-    @ResourceConstraint(numArgs = 1, hasDetailMsg = false)
-    public static final MessageResource JSON_BAD_HANDLE_TYPE = new MessageResource("com.wavemaker.studio.json$UnexpectedHandleType");
-
-    @ResourceConstraint(numArgs = 2, hasDetailMsg = false)
-    public static final MessageResource JSON_CYCLE_FOUND = new MessageResource("com.wavemaker.studio.json$CycleFound");
-
-    @ResourceConstraint(numArgs = 1, hasDetailMsg = false)
-    public static final MessageResource JSON_BAD_CYCLE_HANDLER = new MessageResource("com.wavemaker.studio.json$UnknownCycleHandler");
 
     @ResourceConstraint(numArgs = 0, hasDetailMsg = false)
     public static final MessageResource DATABASE_CONNECTION_EXCEPTION = new MessageResource("com.wavemaker.runtime.data$DBConnectionException");
@@ -244,17 +87,11 @@ public class MessageResource {
     @ResourceConstraint(numArgs = 2, hasDetailMsg = false)
     public static final MessageResource REST_SERVICE_INVOKE_FAILED = new MessageResource("com.wavemaker.runtime.$RestServiceInvokeFailed");
 
-    @ResourceConstraint(numArgs = 2, hasDetailMsg = false)
-    public static final MessageResource DATA_TRUNCATION_POSSIBILITY = new MessageResource("com.wavemaker.studio.core.data$DataTruncationPossibility");
-
     @ResourceConstraint(numArgs = 1, hasDetailMsg = false)
     public static final MessageResource DATA_INTEGRITY_VIOALATION = new MessageResource("com.wavemaker.runtime.data$DataIntegrityViolation");
 
     @ResourceConstraint(numArgs = 0, hasDetailMsg = false)
     public static final MessageResource ENTITY_NOT_FOUND = new MessageResource("com.wavemaker.runtime.data$EntityNotFound");
-
-    @ResourceConstraint(numArgs = 1, hasDetailMsg = false)
-    public static final MessageResource UPDATE_DB_FAILED = new MessageResource("com.wavemaker.studio.core.data.helpers.SchemaUpdater$updateDBFailed");
 
     @ResourceConstraint(numArgs = 0, hasDetailMsg = false)
     public static final MessageResource RELATION_WITH_IDENTITY_COLUMN_NOT_POSSIBLE = new MessageResource("com.wavemaker.runtime.data$RelationWithIdentityColumnNotPossible");
@@ -271,33 +108,8 @@ public class MessageResource {
     public static final MessageResource INVALID_TYPE_AS_UNIQUE = new MessageResource(
             "com.wavemaker.runtime.data$InvalidTypeAsUnique");
 
-    @ResourceConstraint(numArgs = 0, hasDetailMsg = false)
-    public static final MessageResource INVALID_SQL_QUERY = new MessageResource("com.wavemaker.runtime.data$InvalidSqlQuery");
-
     @ResourceConstraint(numArgs = 1, hasDetailMsg = false)
     public static final MessageResource INVALID_INPUT = new MessageResource("com.wavemaker.runtime.data$InvalidInput");
-
-    @ResourceConstraint
-    public static final MessageResource OTHER_THAN_BLOB_OUT_PARAMETER = new MessageResource(
-            "com.wavemaker.studio.core.data$OtherThanBlobResponse");
-
-    @ResourceConstraint
-    public static final MessageResource IDENTIFIER_NOT_SPECIFIED =
-            new MessageResource("com.wavemaker.studio.core.data$IdentifierNotSpecified");
-
-    @ResourceConstraint
-    public static final MessageResource BLOB_RESPONSE_NOT_SUPPORTED_FOR_HQL =
-            new MessageResource("com.wavemaker.studio.core.data$BlobResponseNotSupportedForHql");
-
-    @ResourceConstraint
-    public static final MessageResource BLOB_INPUT_ONLY_SUPPORTED_FOR_INSERT_UPDATE_QUERIES =
-            new MessageResource("com.wavemaker.studio.core.data$BlobInputOnlySupportedForInsertUpdateQueries");
-
-    @ResourceConstraint(numArgs = 2, hasDetailMsg = false)
-    public static final MessageResource REST_CLIENT_RESPONSE_ERROR = new MessageResource("com.wavemaker.studio.json$RestClientResponseError");
-
-    @ResourceConstraint(numArgs = 1, hasDetailMsg = false)
-    public static final MessageResource TIMEOUT_ERROR = new MessageResource("com.wavemaker.commons.TimeoutError");
 
     private static final Map<MessageResource, ResourceConstraint> annotations = new HashMap<>();
 

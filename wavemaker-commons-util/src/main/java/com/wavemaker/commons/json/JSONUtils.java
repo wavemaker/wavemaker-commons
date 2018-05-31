@@ -29,6 +29,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.Module;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.type.TypeFactory;
+import com.wavemaker.commons.MessageResource;
 import com.wavemaker.commons.WMRuntimeException;
 import com.wavemaker.commons.util.WMIOUtils;
 
@@ -57,7 +58,7 @@ public class JSONUtils {
 
     public static void prettifyJSON(String data, File outputFile) throws IOException {
         if (data == null) {
-            throw new WMRuntimeException("Can not prettify and persist null data");
+            throw new WMRuntimeException(MessageResource.create("com.wavemaker.commons.null.json.prettify.error"));
         }
         String formattedJson = prettifyJSON(data);
         WMIOUtils.write(outputFile, formattedJson);
@@ -138,7 +139,7 @@ public class JSONUtils {
         try {
             return objectMapper.readTree(inputStream);
         } catch (IOException e) {
-            throw new WMRuntimeException("Failed to parse jsonData", e);
+            throw new WMRuntimeException(MessageResource.create("com.wavemaker.commons.jsonData.parse.failed"), e);
         } finally {
             WMIOUtils.closeSilently(inputStream);
         }
@@ -148,7 +149,7 @@ public class JSONUtils {
         try {
             return objectMapper.readTree(str);
         } catch (IOException e) {
-            throw new WMRuntimeException("Failed to parse jsonData", e);
+            throw new WMRuntimeException(MessageResource.create("com.wavemaker.commons.jsonData.parse.failed"), e);
         }
     }
 

@@ -30,6 +30,7 @@ import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.deser.std.DateDeserializers;
+import com.wavemaker.commons.MessageResource;
 import com.wavemaker.commons.WMRuntimeException;
 
 /**
@@ -77,6 +78,6 @@ public class WMDateDeSerializer extends DateDeserializers.DateDeserializer {
         } catch (ParseException e) {
             logger.trace("{} is not in the expected time format {}", value, DEFAULT_TIME_FORMAT);
         }
-        throw new WMRuntimeException("Failed to parse the string " + value + "as java.util.Date");
+        throw new WMRuntimeException(MessageResource.create("com.wavemaker.commons.string.to.date.parse.failure"), value, "java.util.Date");
     }
 }

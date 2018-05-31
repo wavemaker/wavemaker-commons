@@ -29,6 +29,7 @@ import java.util.List;
 import org.springframework.util.Assert;
 import org.springframework.util.ObjectUtils;
 
+import com.wavemaker.commons.MessageResource;
 import com.wavemaker.commons.io.File;
 import com.wavemaker.commons.io.Folder;
 import com.wavemaker.commons.io.JailedResourcePath;
@@ -118,7 +119,7 @@ abstract class LocalResourceStore implements ResourceStore {
         java.io.File dest = new java.io.File(getFile().getParent(), name);
         JailedResourcePath destPath = getPath().getParent().get(name);
         if (!getFile().renameTo(dest)) {
-            throw new ResourceException("Unable to rename file '" + getFile() + "' to '" + dest + "'");
+            throw new ResourceException(MessageResource.create("com.wavemaker.commons.unable.to,rename.file"), getFile(), dest);
         }
         return getRenamedResource(destPath);
     }
@@ -133,7 +134,7 @@ abstract class LocalResourceStore implements ResourceStore {
     @Override
     public void delete() {
         if (!this.file.delete()) {
-            throw new ResourceException("Unable to delete " + this.file);
+            throw new ResourceException(MessageResource.create("com.wavemaker.commons.unable.to.delete.file"), this.file);
         }
     }
 
@@ -176,7 +177,7 @@ abstract class LocalResourceStore implements ResourceStore {
         public void create() {
             try {
                 if (!getFile().createNewFile()) {
-                    throw new ResourceException("Unable to create file " + getFile());
+                    throw new ResourceException(MessageResource.create("com.wavemaker.commons.unable.to.create.file"), getFile());
                 }
             } catch (IOException e) {
                 throw new ResourceException(e);
@@ -240,7 +241,7 @@ abstract class LocalResourceStore implements ResourceStore {
         @Override
         public void create() {
             if (!getFile().mkdirs()) {
-                throw new ResourceException("Unable to create folder " + getFile());
+                throw new ResourceException(MessageResource.create("com.wavemaker.commons.unable.to.create.folder"), getFile());
             }
         }
 

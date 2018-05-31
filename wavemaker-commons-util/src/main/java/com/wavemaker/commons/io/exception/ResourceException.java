@@ -15,6 +15,9 @@
  */
 package com.wavemaker.commons.io.exception;
 
+import java.util.concurrent.ThreadLocalRandom;
+
+import com.wavemaker.commons.MessageResource;
 import com.wavemaker.commons.WMRuntimeException;
 
 /**
@@ -39,6 +42,18 @@ public class ResourceException extends WMRuntimeException {
 
     public ResourceException(String message, Throwable cause) {
         super(message, cause);
+    }
+
+    public ResourceException(MessageResource resource) {
+        super(resource);
+    }
+
+    public ResourceException(MessageResource resource, Object... args) {
+        super(resource, args);
+    }
+
+    public ResourceException(MessageResource resource, Throwable cause) {
+        super(resource, cause);
     }
 
 }

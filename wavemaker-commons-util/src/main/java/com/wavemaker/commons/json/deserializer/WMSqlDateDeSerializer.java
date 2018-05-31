@@ -26,6 +26,7 @@ import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.wavemaker.commons.MessageResource;
 import com.wavemaker.commons.WMRuntimeException;
 
 /**
@@ -44,7 +45,7 @@ public class WMSqlDateDeSerializer extends JsonDeserializer<Date> {
             String value = jsonParser.getText();
             return getDate(value);
         }
-        throw new WMRuntimeException("Unable to read the token as java.sql.Date");
+        throw new WMRuntimeException(MessageResource.create("com.wavemaker.commons.failed.to.read.token.as.java.sql.Date"));
     }
 
     public static Date getDate(String value) {
@@ -55,7 +56,7 @@ public class WMSqlDateDeSerializer extends JsonDeserializer<Date> {
             java.util.Date parsedDate = new SimpleDateFormat(DEFAULT_DATE_FORMAT).parse(value);
             return new Date(parsedDate.getTime());
         } catch (ParseException e) {
-            throw new WMRuntimeException("Failed to parse the string " + value + "as java.sql.Date", e);
+            throw new WMRuntimeException(MessageResource.create("com.wavemaker.commons.string.to.date.parse.failure"), e, value, "java.sql.Date");
         }
     }
 }

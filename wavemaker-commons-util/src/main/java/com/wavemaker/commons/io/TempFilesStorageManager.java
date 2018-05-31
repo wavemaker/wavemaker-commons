@@ -15,6 +15,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.wavemaker.commons.MessageResource;
 import com.wavemaker.commons.ResourceNotFoundException;
 import com.wavemaker.commons.WMRuntimeException;
 import com.wavemaker.commons.util.WMIOUtils;
@@ -70,7 +71,7 @@ public class TempFilesStorageManager {
             WMIOUtils.copy(inputStream, outputStream);
         } catch (IOException e) {
             WMIOUtils.deleteDirectorySilently(uniqueDirectory);
-            throw new WMRuntimeException("Failed to copy input stream to file " + filename, e);
+            throw new WMRuntimeException(MessageResource.create("com.wavemaker.commons.failed.to.copy.input.stream.to.file"), e, filename);
         } finally {
             WMIOUtils.closeSilently(inputStream);
             WMIOUtils.closeSilently(outputStream);
@@ -92,7 +93,7 @@ public class TempFilesStorageManager {
             uniqueFile.createNewFile();
         } catch (IOException e) {
             WMIOUtils.deleteDirectorySilently(uniqueDirectory);
-            throw new WMRuntimeException("Failed to create empty file " + filename, e);
+            throw new WMRuntimeException(MessageResource.create("com.wavemaker.commons.failed.to.create.empty.file"), e, filename);
         }
         purgeOldFiles();
         return fileId;
@@ -118,12 +119,12 @@ public class TempFilesStorageManager {
         logger.info("Accessing file output stream for fileId {}", fileId);
         File uniqueFile = getUniqueFile(fileId);
         if (!uniqueFile.exists()) {
-            throw new ResourceNotFoundException("No files found with fileId:" + fileId);
+            throw new ResourceNotFoundException(MessageResource.create("com.wavemaker.commons.no.files.found.with.fileid"), fileId);
         }
         try {
             return new FileInputStream(uniqueFile);
         } catch (IOException e) {
-            throw new WMRuntimeException("Failed to get output stream for the file with fileId:" + fileId, e);
+            throw new WMRuntimeException(MessageResource.create("com.wavemaker.commons.failed.to.get.output.stream"), e, fileId);
         }
     }
 
@@ -131,12 +132,12 @@ public class TempFilesStorageManager {
         logger.info("Accessing file output stream for fileId {}", fileId);
         File uniqueFile = getUniqueFile(fileId);
         if (!uniqueFile.exists()) {
-            throw new ResourceNotFoundException("No files found with fileId:" + fileId);
+            throw new ResourceNotFoundException(MessageResource.create("com.wavemaker.commons.no.files.found.with.fileid"), fileId);
         }
         try {
             return new FileOutputStream(uniqueFile);
         } catch (IOException e) {
-            throw new WMRuntimeException("Failed to get output stream for the file with fileId:" + fileId, e);
+            throw new WMRuntimeException(MessageResource.create("com.wavemaker.commons.failed.to.get.output.stream"), e, fileId);
         }
     }
 

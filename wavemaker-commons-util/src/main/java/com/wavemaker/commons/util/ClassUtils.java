@@ -24,6 +24,7 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.wavemaker.commons.MessageResource;
 import com.wavemaker.commons.WMRuntimeException;
 
 /**
@@ -126,7 +127,7 @@ public class ClassUtils {
             }
             return propertyDescriptorList;
         } catch (IntrospectionException e) {
-            throw new WMRuntimeException("Failed to introspect class [" + klass + "]", e);
+            throw new WMRuntimeException(MessageResource.create("com.wavemaker.commons.failed.to.introspect.class"), e, klass);
         }
     }
 

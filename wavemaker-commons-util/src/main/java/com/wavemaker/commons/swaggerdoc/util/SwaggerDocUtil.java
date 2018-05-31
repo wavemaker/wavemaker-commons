@@ -23,7 +23,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+import com.wavemaker.commons.MessageResource;
 import com.wavemaker.commons.SwaggerException;
+import com.wavemaker.commons.WMRuntimeException;
 import com.wavemaker.tools.apidocs.tools.core.model.ComposedModel;
 import com.wavemaker.tools.apidocs.tools.core.model.Model;
 import com.wavemaker.tools.apidocs.tools.core.model.Operation;
@@ -51,7 +53,6 @@ public class SwaggerDocUtil {
     private static final String INT32 = "int32";
     private static final String INTEGER = "integer";
     private static final String FLOAT = "float";
-    private static final String OPERATION_DOES_NOT_EXIST_WITH_ID = "Operation does not exist with id ";
     private static final String DATE_TIME_TYPE = "date-time";
     private static final String DOUBLE_TYPE = "double";
     private static final String NUMBER_TYPE = "number";
@@ -73,7 +74,7 @@ public class SwaggerDocUtil {
                 return pathEntry.getValue();
             }
         }
-        throw new SwaggerException("Path does not exist with end point " + endPoint);
+        throw new SwaggerException(MessageResource.create("com.wavemaker.commons.path.does.not.exist.with.endPoint"), endPoint);
     }
 
     /**
@@ -91,7 +92,7 @@ public class SwaggerDocUtil {
                 }
             }
         }
-        throw new SwaggerException(OPERATION_DOES_NOT_EXIST_WITH_ID + operationUid);
+        throw new SwaggerException(MessageResource.create("com.wavemaker.runtime.operation.doesnt.exist"), operationUid);
     }
 
     /**
@@ -109,7 +110,7 @@ public class SwaggerDocUtil {
                 }
             }
         }
-        throw new SwaggerException(OPERATION_DOES_NOT_EXIST_WITH_ID + operationUid);
+        throw new SwaggerException(MessageResource.create("com.wavemaker.runtime.operation.doesnt.exist"), operationUid);
     }
 
     /**
@@ -128,7 +129,7 @@ public class SwaggerDocUtil {
                 return operation;
             }
         }
-        throw new SwaggerException(OPERATION_DOES_NOT_EXIST_WITH_ID + operationUid);
+        throw new SwaggerException(MessageResource.create("com.wavemaker.runtime.operation.doesnt.exist"), operationUid);
     }
 
     /**
@@ -169,7 +170,7 @@ public class SwaggerDocUtil {
         if (operationType != null) {
             return operationType.name().toLowerCase();
         } else {
-            throw new SwaggerException(OPERATION_DOES_NOT_EXIST_WITH_ID + operationUid);
+            throw new SwaggerException(MessageResource.create("com.wavemaker.runtime.operation.doesnt.exist"), operationUid);
         }
     }
 

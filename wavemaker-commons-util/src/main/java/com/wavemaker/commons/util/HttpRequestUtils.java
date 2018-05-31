@@ -82,7 +82,7 @@ public class HttpRequestUtils {
                 URI uri = new URI(requestUrl);
                 return getBaseUrl(uri);
             } catch (URISyntaxException e) {
-                throw new WMRuntimeException("Invalid request URL", e);
+                throw new WMRuntimeException(MessageResource.create("com.wavemaker.commons.invalid.request.url"), e);
             }
         }
         return null;

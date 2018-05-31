@@ -29,6 +29,7 @@ import org.apache.commons.configuration2.PropertiesConfiguration;
 import org.apache.commons.configuration2.ex.ConfigurationException;
 import org.apache.commons.lang3.StringUtils;
 
+import com.wavemaker.commons.MessageResource;
 import com.wavemaker.commons.WMRuntimeException;
 import com.wavemaker.commons.util.WMIOUtils;
 
@@ -55,7 +56,7 @@ public class PropertiesWriter {
 
     private void init() {
         if (properties == null) {
-            throw new WMRuntimeException("Properties can not be null");
+            throw new WMRuntimeException(MessageResource.create("com.wavemaker.commons.object.can.not.be.null"), "properties");
         }
     }
 
@@ -81,7 +82,7 @@ public class PropertiesWriter {
 
     public synchronized void write(File file) throws FileNotFoundException {
         if (file == null) {
-            throw new WMRuntimeException("File can not be null");
+            throw new WMRuntimeException(MessageResource.create("com.wavemaker.commons.object.can.not.be.null"), "file");
         }
         write(new BufferedOutputStream(new FileOutputStream(file)));
     }
@@ -92,7 +93,7 @@ public class PropertiesWriter {
 
     public synchronized void write(OutputStream stream) {
         if (stream == null) {
-            throw new WMRuntimeException("Output stream can not be null");
+            throw new WMRuntimeException(MessageResource.create("com.wavemaker.commons.object.can.not.be.null"), "Output Stream");
         }
 
         sort();
@@ -120,7 +121,7 @@ public class PropertiesWriter {
         try {
             properties.store(outputStream, comments);
         } catch (IOException e) {
-            throw new WMRuntimeException("Failed to store properties.", e);
+            throw new WMRuntimeException(MessageResource.create("com.wavemaker.commons.failed.to.store.properties"), e);
         } finally {
             WMIOUtils.closeSilently(outputStream);
         }
@@ -130,7 +131,7 @@ public class PropertiesWriter {
         try {
             properties.storeToXML(os, comments, "UTF-8");
         } catch (IOException e) {
-            throw new WMRuntimeException("Failed to write properties file to output stream", e);
+            throw new WMRuntimeException(MessageResource.create("com.wavemaker.commons.properties.file.write.failure"), e);
         } finally {
             WMIOUtils.closeSilently(os);
         }
@@ -159,7 +160,7 @@ public class PropertiesWriter {
             configuration.getLayout().save(configuration, new OutputStreamWriter(os));
 
         } catch (ConfigurationException e) {
-            throw new WMRuntimeException("Unable to write properties to output stream", e);
+            throw new WMRuntimeException(MessageResource.create("com.wavemaker.commons.properties.file.write.failure"), e);
         } finally {
             WMIOUtils.closeSilently(os);
         }

@@ -28,6 +28,7 @@ import java.util.List;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 
+import com.wavemaker.commons.MessageResource;
 import com.wavemaker.commons.WMRuntimeException;
 import com.wavemaker.commons.util.ConversionUtils;
 import com.wavemaker.commons.util.TypeConversionUtils;
@@ -45,7 +46,7 @@ public class ClassLoaderUtils {
             findLoadedClassMethod = ClassLoader.class.getDeclaredMethod("findLoadedClass", new Class[] { String.class });
             findLoadedClassMethod.setAccessible(true);
         } catch (NoSuchMethodException e) {
-            throw new WMRuntimeException("Failed to initialize class", e);
+            throw new WMRuntimeException(MessageResource.create("com.wavemaker.commons.failed.to.initialize.class"), e);
         }
     }
 

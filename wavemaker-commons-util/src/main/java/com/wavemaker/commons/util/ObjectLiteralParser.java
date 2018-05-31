@@ -18,6 +18,7 @@ package com.wavemaker.commons.util;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.wavemaker.commons.MessageResource;
 import com.wavemaker.commons.WMRuntimeException;
 import com.wavemaker.commons.classloader.ClassLoaderUtils;
 
@@ -145,14 +146,14 @@ public class ObjectLiteralParser {
 
             i++;
         }
-        throw new WMRuntimeException("Mismatched braces in \"" + this.literal + "\"");
+        throw new WMRuntimeException(MessageResource.create("com.wavemaker.commons.mismatched.braces"), this.literal);
     }
 
     private Class<?> getPropertyType(Class<?> clazz, String propertyName) {
 
         Class<?> rtn = this.objectAccess.getPropertyType(clazz, propertyName);
         if (rtn == null) {
-            throw new WMRuntimeException("\"" + clazz.getName() + "\" does not have a property \"" + propertyName + "\"");
+            throw new WMRuntimeException(MessageResource.create("com.wavemaker.commons.invalid.property"), clazz.getName(), propertyName);
         }
         return rtn;
     }

@@ -15,6 +15,7 @@
  */
 package com.wavemaker.commons.io.exception;
 
+import com.wavemaker.commons.MessageResource;
 import com.wavemaker.commons.io.Resource;
 import com.wavemaker.commons.io.ResourcePath;
 
@@ -38,7 +39,7 @@ public class ResourceTypeMismatchException extends ResourceException {
      * @param expected the expected type
      */
     public ResourceTypeMismatchException(ResourcePath path, boolean accessingAsFolder) {
-        super("Unable to access resource '" + path + "' as " + (accessingAsFolder ? "folder" : "file") + " due to existing resource");
+        super(MessageResource.create("com.wavemaker.commons.unable.to.access.resource"), path, accessingAsFolder ? "folder" : "file");
         this.path = path;
     }
 

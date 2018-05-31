@@ -26,6 +26,7 @@ import javax.net.ssl.X509TrustManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.wavemaker.commons.MessageResource;
 import com.wavemaker.commons.WMRuntimeException;
 
 /**
@@ -53,7 +54,7 @@ public class SSLUtils {
                 allTrustedSSLContext = sc;
             } catch (Exception e) {
                 logger.warn("Failed in initialize ssl context", e);
-                throw new WMRuntimeException("Failed in initialize ssl context",e);
+                throw new WMRuntimeException(MessageResource.create("com.wavemaker.commons.ssl.context.init.failed"),e);
             }
         }
         return allTrustedSSLContext;

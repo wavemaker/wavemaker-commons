@@ -25,6 +25,7 @@ import org.springframework.http.MediaType;
 import org.springframework.util.Assert;
 
 import com.wavemaker.commons.CommonConstants;
+import com.wavemaker.commons.MessageResource;
 import com.wavemaker.commons.WMRuntimeException;
 import com.wavemaker.commons.wrapper.BooleanWrapper;
 import com.wavemaker.commons.wrapper.IntegerWrapper;
@@ -55,7 +56,7 @@ public class WMUtils {
         try {
             return URLDecoder.decode(requestURI, CommonConstants.UTF8);
         } catch (UnsupportedEncodingException e) {
-            throw new WMRuntimeException("Failed to decode request URI", e);
+            throw new WMRuntimeException(MessageResource.create("com.wavemaker.commons.failed.to.decode.request.uri"), e);
         }
     }
 
@@ -78,7 +79,7 @@ public class WMUtils {
             List o = (List) obj;
             return (String[]) o.toArray(new String[]{});
         }
-        throw new WMRuntimeException("obj of type " + obj.getClass() + " not supported by this method");
+        throw new WMRuntimeException(MessageResource.create("com.wavemaker.commons.unsupported.object.type"), obj.getClass());
     }
 
     public static boolean areObjectsEqual(Object o1, Object o2) {

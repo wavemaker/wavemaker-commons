@@ -15,6 +15,8 @@
  */
 package com.wavemaker.commons.io.exception;
 
+import com.wavemaker.commons.MessageResource;
+
 public class ReadOnlyResourceException extends ResourceException {
 
     private static final long serialVersionUID = 1L;
@@ -23,16 +25,7 @@ public class ReadOnlyResourceException extends ResourceException {
         super();
     }
 
-    public ReadOnlyResourceException(Throwable cause) {
-        super(cause);
+    public ReadOnlyResourceException(MessageResource resource, Object... args) {
+        super(resource, args);
     }
-
-    public ReadOnlyResourceException(String message, Throwable cause) {
-        super(message, cause);
-    }
-
-    public ReadOnlyResourceException(String message) {
-        super(message);
-    }
-
 }

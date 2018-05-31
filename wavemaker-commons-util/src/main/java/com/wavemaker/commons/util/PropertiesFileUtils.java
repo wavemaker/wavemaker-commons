@@ -26,6 +26,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Properties;
 
+import com.wavemaker.commons.MessageResource;
 import com.wavemaker.commons.WMRuntimeException;
 import com.wavemaker.commons.properties.SortedProperties;
 
@@ -34,9 +35,6 @@ import com.wavemaker.commons.properties.SortedProperties;
  */
 public class PropertiesFileUtils {
 
-    private static final String FILE_CONSTANT = "File:";
-    private static final String NOT_FOUND = " not found";
-
     private PropertiesFileUtils() {
     }
 
@@ -44,7 +42,7 @@ public class PropertiesFileUtils {
         try {
             return loadFromXml(new BufferedInputStream(new FileInputStream(file)));
         } catch (FileNotFoundException e) {
-            throw new WMRuntimeException(FILE_CONSTANT + file.getAbsolutePath() + NOT_FOUND, e);
+            throw new WMRuntimeException(MessageResource.create("com.wavemaker.commons.file.not.found"), e, file.getAbsolutePath());
         }
     }
 
@@ -54,7 +52,7 @@ public class PropertiesFileUtils {
             properties.loadFromXML(is);
             return properties;
         } catch (IOException e) {
-            throw new WMRuntimeException("Failed to read properties input stream", e);
+            throw new WMRuntimeException(MessageResource.create("com.wavemaker.commons.properties.inputStream.read.failure"), e);
         } finally {
             WMIOUtils.closeSilently(is);
         }
@@ -65,7 +63,7 @@ public class PropertiesFileUtils {
             InputStream is = new BufferedInputStream(new FileInputStream(file));
             return loadProperties(is);
         } catch (FileNotFoundException e) {
-            throw new WMRuntimeException(FILE_CONSTANT + file.getAbsolutePath() + NOT_FOUND, e);
+            throw new WMRuntimeException(MessageResource.create("com.wavemaker.commons.file.not.found"), e, file.getAbsolutePath());
         }
     }
 
@@ -74,7 +72,7 @@ public class PropertiesFileUtils {
         try {
             properties.load(stream);
         } catch (IOException e) {
-            throw new WMRuntimeException("Failed to load properties.", e);
+            throw new WMRuntimeException(MessageResource.create("com.wavemaker.commons.failed.to.load.properties"), e);
         } finally {
             WMIOUtils.closeByLogging(stream);
         }
@@ -92,7 +90,7 @@ public class PropertiesFileUtils {
         try {
             properties.storeToXML(os, comment, "UTF-8");
         } catch (IOException e) {
-            throw new WMRuntimeException("Failed to write properties file to output stream", e);
+            throw new WMRuntimeException(MessageResource.create("com.wavemaker.commons.properties.file.write.failure"), e);
         } finally {
             WMIOUtils.closeSilently(os);
         }
@@ -109,7 +107,7 @@ public class PropertiesFileUtils {
         try {
             storeToXml(properties, new BufferedOutputStream(new FileOutputStream(file)), comment);
         } catch (FileNotFoundException e) {
-            throw new WMRuntimeException(FILE_CONSTANT + file.getAbsolutePath() + NOT_FOUND, e);
+            throw new WMRuntimeException(MessageResource.create("com.wavemaker.commons.file.not.found"), e, file.getAbsolutePath());
         }
     }
 
@@ -125,7 +123,7 @@ public class PropertiesFileUtils {
             OutputStream os = new BufferedOutputStream(new FileOutputStream(file));
             storeProperties(props, os, comments);
         } catch (FileNotFoundException e) {
-            throw new WMRuntimeException(FILE_CONSTANT + file.getAbsolutePath() + NOT_FOUND, e);
+            throw new WMRuntimeException(MessageResource.create("com.wavemaker.commons.file.not.found"), e, file.getAbsolutePath());
         }
     }
 
@@ -156,7 +154,7 @@ public class PropertiesFileUtils {
         try {
             props.store(outputStream, comments);
         } catch (IOException e) {
-            throw new WMRuntimeException("Failed to store properties.", e);
+            throw new WMRuntimeException(MessageResource.create("com.wavemaker.commons.failed.to.store.properties"), e);
         } finally {
             WMIOUtils.closeByLogging(outputStream);
         }

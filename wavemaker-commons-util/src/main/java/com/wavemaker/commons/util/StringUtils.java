@@ -30,6 +30,7 @@ import java.util.List;
 
 import org.apache.commons.lang3.math.NumberUtils;
 
+import com.wavemaker.commons.MessageResource;
 import com.wavemaker.commons.WMRuntimeException;
 
 /**
@@ -614,7 +615,7 @@ public abstract class StringUtils {
             }
             return stringBuilder.toString();
         } catch (IOException e) {
-            throw new WMRuntimeException("Failed to read line.", e);
+            throw new WMRuntimeException(MessageResource.create("com.wavemaker.commons.failed.to.read.line"), e);
         } finally {
             org.apache.commons.io.IOUtils.closeQuietly(bufferedReader);
         }

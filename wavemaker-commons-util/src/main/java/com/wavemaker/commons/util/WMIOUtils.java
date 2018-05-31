@@ -354,7 +354,7 @@ public abstract class WMIOUtils {
             File tempFile = File.createTempFile(prefix, suffix);
             return new LocalFolder(tempFile.getParent()).getFile(tempFile.getName());
         } catch (IOException e) {
-            throw new ResourceException("Failed to create temp file", e);
+            throw new ResourceException(MessageResource.create("com.wavemaker.commons.failed.to.create.temp.file"), e);
         }
     }
 
@@ -376,7 +376,7 @@ public abstract class WMIOUtils {
         try {
             return new LocalFolder(createTempDirectory(prefix));
         } catch (IOException e) {
-            throw new ResourceException("Failed to create temp folder", e);
+            throw new ResourceException(MessageResource.create("com.wavemaker.commons.failed.to.create.temp.folder"), e);
         }
     }
 
@@ -419,7 +419,7 @@ public abstract class WMIOUtils {
         try {
             FileUtils.cleanDirectory(getJavaIOFile(folder));
         } catch (IOException e) {
-            throw new WMRuntimeException("Failed to clean folder " + folder.getName(), e);
+            throw new WMRuntimeException(MessageResource.create("com.wavemaker.commons.folder.clean.error"), e, folder.getName());
         }
     }
 
@@ -463,7 +463,7 @@ public abstract class WMIOUtils {
         try {
             return org.apache.commons.io.IOUtils.toString(is, "UTF-8");
         } catch (IOException e) {
-            throw new WMRuntimeException("Failed to get string from input stream", e);
+            throw new WMRuntimeException(MessageResource.create("com.wavemaker.commons.failed.to.get.string.from.input.stream"), e);
         } finally {
             closeSilently(is);
         }

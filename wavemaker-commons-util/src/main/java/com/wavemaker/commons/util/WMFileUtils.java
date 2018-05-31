@@ -27,6 +27,7 @@ import java.util.List;
 
 import org.apache.commons.io.FileUtils;
 
+import com.wavemaker.commons.MessageResource;
 import com.wavemaker.commons.WMRuntimeException;
 import com.wavemaker.commons.io.Resource;
 
@@ -59,7 +60,7 @@ public class WMFileUtils {
             }
             return matchedFilePaths;
         } catch (IOException e) {
-            throw new WMRuntimeException("Failed to find matched ignore patterns for " + pattern, e);
+            throw new WMRuntimeException(MessageResource.create("com.wavemaker.commons.failed.to.find.matched.ignore.patterns"), e, pattern);
         }
     }
 
@@ -72,7 +73,7 @@ public class WMFileUtils {
         try {
             Files.move(path, path.resolveSibling(newFileName));
         } catch (IOException e) {
-            throw new WMRuntimeException("Failed to renameFile" + resource.getName(), e);
+            throw new WMRuntimeException(MessageResource.create("com.wavemaker.commons.failed.to.rename.file"), e, resource.getName());
         }
     }
 }
