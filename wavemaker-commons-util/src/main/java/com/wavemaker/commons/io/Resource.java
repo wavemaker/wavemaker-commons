@@ -98,6 +98,16 @@ public interface Resource {
     void createIfMissing();
 
     /**
+     * Gets the time this file object was last modified. The time is measured in milliseconds since the epoch (00:00:00
+     * GMT, January 1, 1970).
+     *
+     * @return the time this file object was last modified; or 0 if the file object does not exist, if an I/O error
+     *         occurred, or if the operation is not supported
+     */
+    long getLastModified();
+
+
+    /**
      * Returns the complete name of the resource. This name includes path elements. Folders always end in '/'.
      * 
      * @return the full name of the resource, for example <tt>"/folder/file.txt"</tt> or <tt>"/folder/"</tt>

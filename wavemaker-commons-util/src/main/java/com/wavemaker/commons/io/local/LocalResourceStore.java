@@ -259,5 +259,10 @@ abstract class LocalResourceStore implements ResourceStore {
             Collections.sort(filenames);
             return Collections.unmodifiableList(filenames);
         }
+
+        @Override
+        public long getLastModified() {
+            return getFile().lastModified();
+        }
     }
 }

@@ -31,4 +31,13 @@ public interface FolderStore extends ResourceStore {
      * @return the folder contents
      */
     Iterable<String> list();
+
+
+    /**
+     * Return the date/time that the file was last modified.
+     *
+     * @return the last modified timestamp
+     */
+    long getLastModified();
+
 }

@@ -210,6 +210,11 @@ abstract class ZipResourceStore implements ResourceStore {
         public Iterable<String> list() {
             return getZipFile().getEntry(getPath()).list();
         }
+
+        @Override
+        public long getLastModified() {
+            return getZipFile().getLastModified();
+        }
     }
 
     private static class ZipFile {

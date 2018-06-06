@@ -5,7 +5,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *   http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -18,12 +18,12 @@ package com.wavemaker.commons.io;
 /**
  * {@link ResourceOperation} to get the latest last modified value.
  */
-public class LatestLastModified implements ResourceOperation<File> {
+public class LatestLastModified<T extends Resource> implements ResourceOperation<T> {
 
     private long value;
 
     @Override
-    public void perform(File resource) {
+    public void perform(T resource) {
         long lastModified = resource.getLastModified();
         if (lastModified > this.value) {
             this.value = lastModified;
@@ -33,5 +33,4 @@ public class LatestLastModified implements ResourceOperation<File> {
     public long getValue() {
         return this.value;
     }
-
 }

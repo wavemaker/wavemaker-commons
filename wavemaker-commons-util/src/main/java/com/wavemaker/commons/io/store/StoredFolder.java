@@ -51,6 +51,11 @@ public abstract class StoredFolder extends StoredResource implements Folder {
     protected abstract FolderStore getStore();
 
     @Override
+    public long getLastModified() {
+        return getStore().getLastModified();
+    }
+
+    @Override
     public Resource getExisting(String name) throws ResourceDoesNotExistException {
         Assert.hasLength(name, NAME_EMPTY_MESSAGE);
         JailedResourcePath resourcePath = getPath().get(name);
@@ -151,6 +156,9 @@ public abstract class StoredFolder extends StoredResource implements Folder {
     public Resources<Resource> moveContentsTo(Folder folder) {
         return list().moveTo(folder);
     }
+
+
+
 
     private Folder createDestinationFolder(Folder folder) {
         Folder destination = folder.getFolder(getName());
