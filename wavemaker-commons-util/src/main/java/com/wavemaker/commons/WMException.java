@@ -15,10 +15,14 @@
  */
 package com.wavemaker.commons;
 
+import com.wavemaker.commons.i18n.LocaleMessageProvider;
+import com.wavemaker.commons.i18n.LocaleProvider;
+import com.wavemaker.commons.i18n.MessageFactory;
+
 /**
  * @author Simon Toens
  */
-public abstract class WMException extends Exception {
+public abstract class WMException extends Exception implements MessageResourceHolder {
 
     private static final long serialVersionUID = 1L;
 
@@ -82,11 +86,25 @@ public abstract class WMException extends Exception {
         this.detailedMessage = detailedMessage;
     }
 
+    @Override
     public MessageResource getMessageResource() {
         return messageResource;
     }
 
+    public void setMessageResource(MessageResource messageResource) {
+        this.messageResource = messageResource;
+    }
+
+    @Override
     public Object[] getArgs() {
         return args;
+    }
+
+    @Override
+    public String getMessage() {
+        if (messageResource != null) {
+            return messageResource.getMessage(args);
+        }
+        return super.getMessage();
     }
 }

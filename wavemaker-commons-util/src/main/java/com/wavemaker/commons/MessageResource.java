@@ -20,8 +20,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.wavemaker.commons.i18n.LocaleMessageProvider;
+import com.wavemaker.commons.i18n.LocaleProvider;
+import com.wavemaker.commons.i18n.MessageFactory;
 import com.wavemaker.commons.i18n.ResourceConstraint;
-import com.wavemaker.commons.i18n.ResourceManager;
 import com.wavemaker.commons.util.ClassUtils;
 
 /**
@@ -137,38 +139,26 @@ public class MessageResource {
         this.key = key;
     }
 
-    public String getMessage() {
-        return getMessage((Object[]) null);
-    }
-
-    public String getMessage(Object... args) {
-        return getMessage(this.key, getNumArgsRequired(), args);
-    }
-
     public String getMessageKey() {
         return this.key;
-    }
-
-    public int getNumArgsRequired() {
-        ResourceConstraint resourceConstraint = annotations.get(this);
-        if (resourceConstraint != null) {
-            return resourceConstraint.numArgs();
-        } else {
-            return -1;
-        }
-    }
-
-    private String getMessage(String key, int numArgsRequired, Object... args) {
-        if (numArgsRequired > 0 && (args == null || args.length != numArgsRequired)) {
-            throw new IllegalArgumentException(
-                    key + ": " + "args don't match.  msg requires: " + numArgsRequired + " " + "passed in: "
-                            + (args == null ? "null" : args.length));
-        }
-        return ResourceManager.getInstance().getMessage(key, args);
     }
     
     public static MessageResource create(String messageKey) {
         return new MessageResource(messageKey);
+    }
+
+    public String getMessage(Object... args) {
+        LocaleProvider localeProvider = MessageFactory.getLocaleProvider();
+        String locale = localeProvider.getLocale();
+        LocaleMessageProvider localeMessageProvider = MessageFactory.getLocaleMessageProvider();
+        return localeMessageProvider.getLocaleMessage(locale, this, args);
+    }
+
+    public String getMessageWithPlaceholders() {
+        LocaleProvider localeProvider = MessageFactory.getLocaleProvider();
+        String locale = localeProvider.getLocale();
+        LocaleMessageProvider localeMessageProvider = MessageFactory.getLocaleMessageProvider();
+        return localeMessageProvider.getLocaleMessage(locale, this);
     }
 
 }

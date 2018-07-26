@@ -22,7 +22,7 @@ import com.wavemaker.commons.i18n.MessageFactory;
 /**
  * @author Simon Toens
  */
-public class WMRuntimeException extends RuntimeException {
+public class WMRuntimeException extends RuntimeException implements MessageResourceHolder {
 
     private MessageResource messageResource;
 
@@ -94,10 +94,16 @@ public class WMRuntimeException extends RuntimeException {
         this.detailedMessage = message;
     }
 
+    @Override
     public MessageResource getMessageResource() {
         return messageResource;
     }
 
+    public void setMessageResource(MessageResource messageResource) {
+        this.messageResource = messageResource;
+    }
+
+    @Override
     public Object[] getArgs() {
         return args;
     }
@@ -109,10 +115,7 @@ public class WMRuntimeException extends RuntimeException {
     @Override
     public String getMessage() {
         if (messageResource != null) {
-            LocaleProvider localeProvider = MessageFactory.getLocaleProvider();
-            String locale = localeProvider.getLocale();
-            LocaleMessageProvider localeMessageProvider = MessageFactory.getLocaleMessageProvider();
-            return localeMessageProvider.getMessage(locale, messageResource, args);
+            return messageResource.getMessage(args);
         }
         return super.getMessage();
     }
