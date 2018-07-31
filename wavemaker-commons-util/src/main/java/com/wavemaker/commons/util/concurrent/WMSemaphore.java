@@ -28,7 +28,7 @@ public class WMSemaphore {
         try {
             semaphore.acquire();
         } catch (InterruptedException e) {
-            throw new ThreadInterruptedException(e);
+            handleInterruptedException(e);
         }
     }
 
@@ -36,7 +36,7 @@ public class WMSemaphore {
         try {
             semaphore.acquire(permits);
         } catch (InterruptedException e) {
-            throw new ThreadInterruptedException(e);
+            handleInterruptedException(e);
         }
     }
 
@@ -52,16 +52,18 @@ public class WMSemaphore {
         try {
             return semaphore.tryAcquire(timeout, unit);
         } catch (InterruptedException e) {
-            throw new ThreadInterruptedException(e);
+            handleInterruptedException(e);
         }
+        return false;
     }
 
     public boolean tryAcquire(int permits, int timeout, TimeUnit unit) {
         try {
             return semaphore.tryAcquire(permits, timeout, unit);
         } catch (InterruptedException e) {
-            throw new ThreadInterruptedException(e);
+            handleInterruptedException(e);
         }
+        return false;
     }
 
     public void acquire(int timeout, TimeUnit unit) {
@@ -71,7 +73,7 @@ public class WMSemaphore {
                 throw new SemaphoreAcquisitionTimeoutException();
             }
         } catch (InterruptedException e) {
-            throw new ThreadInterruptedException(e);
+            handleInterruptedException(e);
         }
     }
 
@@ -82,7 +84,7 @@ public class WMSemaphore {
                 throw new SemaphoreAcquisitionTimeoutException();
             }
         } catch (InterruptedException e) {
-            throw new ThreadInterruptedException(e);
+            handleInterruptedException(e);
         }
     }
 
@@ -92,5 +94,10 @@ public class WMSemaphore {
 
     public void release(int permits) {
         semaphore.release(permits);
+    }
+
+    private void handleInterruptedException(InterruptedException e) {
+        Thread.currentThread().interrupt();
+        throw new ThreadInterruptedException(e);
     }
 }
