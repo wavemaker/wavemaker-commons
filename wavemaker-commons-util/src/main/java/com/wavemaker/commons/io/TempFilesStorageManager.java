@@ -27,8 +27,8 @@ public class TempFilesStorageManager {
 
     private static final Logger logger = LoggerFactory.getLogger(TempFilesStorageManager.class);
     private static final int CLEAN_INTERVAL = 5 * 60 * 1000;
-    private final String AUTO_PURGE_DIR = "auto-purge";
-    private final int AUTO_PURGE_TIME = 30 * 60 * 1000;
+    private static final String AUTO_PURGE_DIR = "auto-purge";
+    private static final int AUTO_PURGE_TIME = 30 * 60 * 1000;
     private Long previousCleanUpExecutedTime = System.currentTimeMillis();
     private volatile boolean purgeTaskInProgress = false;
 
