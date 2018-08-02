@@ -1,12 +1,12 @@
 /**
  * Copyright © 2013 - 2017 WaveMaker, Inc.
- *
+ * <p>
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
- *   http://www.apache.org/licenses/LICENSE-2.0
- *
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -14,14 +14,6 @@
  * limitations under the License.
  */
 package com.wavemaker.commons.json;
-
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-
-import org.apache.commons.io.IOUtils;
-import org.apache.commons.lang3.StringUtils;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JavaType;
@@ -32,6 +24,12 @@ import com.fasterxml.jackson.databind.type.TypeFactory;
 import com.wavemaker.commons.MessageResource;
 import com.wavemaker.commons.WMRuntimeException;
 import com.wavemaker.commons.util.WMIOUtils;
+import org.apache.commons.lang3.StringUtils;
+
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 
 /**
  * Created by venuj on 19-05-2014.
@@ -100,23 +98,23 @@ public class JSONUtils {
     }
 
     public static <T> T toObject(String jsonString, Class<T> t) throws IOException {
-        return (T) objectMapper.readValue(jsonString, t);
+        return objectMapper.readValue(jsonString, t);
     }
 
     public static <T> T toObject(InputStream jsonStream, Class<T> t) throws IOException {
         try {
-            return (T) objectMapper.readValue(jsonStream, t);
+            return objectMapper.readValue(jsonStream, t);
         } finally {
             WMIOUtils.closeSilently(jsonStream);
         }
     }
 
     public static <T> T toObject(File file, Class<T> targetClass) throws IOException {
-        return (T) objectMapper.readValue(file, targetClass);
+        return objectMapper.readValue(file, targetClass);
     }
 
     public static <T> T toObject(File file, JavaType javaType) throws IOException {
-        return (T) objectMapper.readValue(file, javaType);
+        return objectMapper.readValue(file, javaType);
     }
 
     public static <T> T toObject(String jsonString, TypeReference<T> valueTypeRef) throws IOException {

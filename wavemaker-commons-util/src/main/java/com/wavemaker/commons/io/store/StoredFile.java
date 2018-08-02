@@ -82,7 +82,7 @@ public abstract class StoredFile extends StoredResource implements File {
     public File moveTo(Folder folder) {
         Assert.notNull(folder, FOLDER_NULL_MESSAGE);
         ensureExists();
-        File destination = folder.getFile(getName().toString());
+        File destination = folder.getFile(getName());
         destination.getContent().write(getContent().asInputStream());
         getStore().delete();
         return destination;
@@ -92,7 +92,7 @@ public abstract class StoredFile extends StoredResource implements File {
     public File copyTo(Folder folder) {
         Assert.notNull(folder, FOLDER_NULL_MESSAGE);
         ensureExists();
-        File destination = folder.getFile(getName().toString());
+        File destination = folder.getFile(getName());
         destination.getContent().write(this);
         return destination;
     }
@@ -101,7 +101,7 @@ public abstract class StoredFile extends StoredResource implements File {
     public File copyToIfNewer(Folder folder) {
         Assert.notNull(folder, FOLDER_NULL_MESSAGE);
         ensureExists();
-        File destination = folder.getFile(getName().toString());
+        File destination = folder.getFile(getName());
         if (this.getLastModified() > destination.getLastModified() || !destination.exists()) {
             destination.getContent().write(this);
             return destination;

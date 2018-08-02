@@ -38,9 +38,6 @@ import com.wavemaker.commons.io.exception.ResourceException;
 public abstract class AbstractFileContent implements FileContent {
 
     @Override
-    public abstract InputStream asInputStream();
-
-    @Override
     public Reader asReader() {
         try {
             return new InputStreamReader(asInputStream(), CommonConstants.UTF8);
@@ -102,12 +99,6 @@ public abstract class AbstractFileContent implements FileContent {
             IOUtils.closeQuietly(writer);
         }
     }
-
-    @Override
-    public abstract OutputStream asOutputStream();
-
-    @Override
-    public abstract OutputStream asOutputStream(boolean append);
 
     @Override
     public Writer asWriter() throws ResourceException {
