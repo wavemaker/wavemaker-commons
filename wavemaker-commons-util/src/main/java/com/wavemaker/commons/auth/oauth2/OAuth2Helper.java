@@ -56,6 +56,16 @@ public class OAuth2Helper {
     }
 
 
+    public static String getStateParameterValue(Map<String, String> stateObject) {
+        try {
+            String stateParameter = JSONUtils.toJSON(stateObject);
+            return new String(Base64.getEncoder().encode(stateParameter.getBytes()));
+        } catch (IOException e) {
+            throw new WMRuntimeException(e);
+        }
+    }
+
+
     public static String getAccessTokenApiRequestBody(OAuth2ProviderConfig oAuth2ProviderConfig, String code, String redirectUri) {
         return new StringBuilder(OAuth2Constants.CLIENT_ID).append("=").append(oAuth2ProviderConfig.getClientId())
                 .append("&").append(OAuth2Constants.CLIENT_SECRET).append("=").append(oAuth2ProviderConfig.getClientSecret())

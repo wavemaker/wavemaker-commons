@@ -14,6 +14,8 @@ public class OAuth2Constants {
     public static final String RESPONSE_TYPE = "response_type";
     public static final String STATE = "state";
     public static final String SCOPE = "scope";
+    public static final String ERROR = "error";
+
 
     public static final String REQUEST_SOURCE_TYPE = "requestSourceType";
     public static final String CUSTOM_URL_SCHEME = "customUrlScheme";
