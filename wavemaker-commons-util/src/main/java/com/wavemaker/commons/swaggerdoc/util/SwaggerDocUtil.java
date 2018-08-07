@@ -25,7 +25,6 @@ import java.util.Objects;
 
 import com.wavemaker.commons.MessageResource;
 import com.wavemaker.commons.SwaggerException;
-import com.wavemaker.commons.WMRuntimeException;
 import com.wavemaker.tools.apidocs.tools.core.model.ComposedModel;
 import com.wavemaker.tools.apidocs.tools.core.model.Model;
 import com.wavemaker.tools.apidocs.tools.core.model.Operation;

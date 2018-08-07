@@ -15,10 +15,6 @@
  */
 package com.wavemaker.commons;
 
-import com.wavemaker.commons.i18n.LocaleMessageProvider;
-import com.wavemaker.commons.i18n.LocaleProvider;
-import com.wavemaker.commons.i18n.MessageFactory;
-
 /**
  * @author Simon Toens
  */
