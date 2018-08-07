@@ -16,7 +16,6 @@
 package com.wavemaker.commons.io;
 
 import com.wavemaker.commons.io.exception.ResourceDoesNotExistException;
-import com.wavemaker.commons.io.exception.ResourceExistsException;
 
 /**
  * A file {@link Resource} that may be stored on a physical disk or using some other mechanism.
@@ -35,7 +34,7 @@ public interface File extends Resource {
     File copyTo(Folder folder);
 
     @Override
-    File rename(String name) throws ResourceExistsException;
+    File rename(String name);
 
     /**
      * Returns the size in bytes of the virtual file.
@@ -58,7 +57,7 @@ public interface File extends Resource {
      * 
      * @throws ResourceDoesNotExistException if the resource does not exist
      */
-    void touch() throws ResourceDoesNotExistException;
+    void touch();
 
     /**
      * Provides access to file content. Calling any method on a file that does not {@link #exists() exist} will cause it

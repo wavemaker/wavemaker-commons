@@ -55,7 +55,7 @@ public interface FileContent {
      * @return the contents as a <tt>String</tt>
      * @throws ResourceException
      */
-    String asString() throws ResourceException;
+    String asString();
 
     /**
      * Return the contents of the file as a new <tt>byte array</tt>. This method should be used with caution if working
@@ -64,7 +64,7 @@ public interface FileContent {
      * @return the contents as a new byte array.
      * @throws ResourceException
      */
-    byte[] asBytes() throws ResourceException;
+    byte[] asBytes();
 
     /**
      * Copy the contents of the file to another stream, closing the stream when complete.
@@ -72,7 +72,7 @@ public interface FileContent {
      * @param outputStream
      * @throws ResourceException
      */
-    void copyTo(OutputStream outputStream) throws ResourceException;
+    void copyTo(OutputStream outputStream);
 
     /**
      * Copy the contents of the file to another writer, closing the writer when complete.
@@ -80,7 +80,7 @@ public interface FileContent {
      * @param outputStream
      * @throws ResourceException
      */
-    void copyTo(Writer writer) throws ResourceException;
+    void copyTo(Writer writer);
 
     /**
      * Return an {@link OutputStream} that can be used to write file contents. The output stream should be closed by the
@@ -106,16 +106,19 @@ public interface FileContent {
      * possible, consider using the {@link #write(Reader)} method instead to ensure that streams are closed.
      * 
      * @return The writer
+     * @throws ResourceException
      */
-    Writer asWriter() throws ResourceException;
+    Writer asWriter();
 
     /**
      * @param append if <code>true</code>, open the file Writer in append mode, otherwise as new file
      * Return a {@link Writer} that can be used to write file contents with append mode. The writer should be closed by
      * the caller. When possible, consider using the {@link #write(Reader)} method instead to ensure that streams are closed.
+     *
      * @return The writer
+     * @throws ResourceException
      */
-    Writer asWriter(boolean append) throws ResourceException;
+    Writer asWriter(boolean append);
 
     /**
      * Write the contents of the specified file to this file.
@@ -130,7 +133,7 @@ public interface FileContent {
      * @param inputStream the input stream to write
      * @throws ResourceException
      */
-    void write(InputStream inputStream) throws ResourceException;
+    void write(InputStream inputStream);
 
     /**
      * Write the contents of the specified reader to this file, closing the reader when complete.
@@ -138,7 +141,7 @@ public interface FileContent {
      * @param reader the reader to write
      * @throws ResourceException
      */
-    void write(Reader reader) throws ResourceException;
+    void write(Reader reader);
 
     /**
      * Write the contents of the specified string to this file.
@@ -146,5 +149,5 @@ public interface FileContent {
      * @param string the string contents
      * @throws ResourceException
      */
-    void write(String string) throws ResourceException;
+    void write(String string);
 }

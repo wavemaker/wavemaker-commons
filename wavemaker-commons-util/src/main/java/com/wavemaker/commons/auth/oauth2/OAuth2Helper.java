@@ -64,7 +64,7 @@ public class OAuth2Helper {
                 .append("&").append(OAuth2Constants.GRANT_TYPE).append("=authorization_code").toString();
     }
 
-    public static String extractAccessToken(AccessTokenRequestContext accessTokenRequestContext) throws IOException {
+    public static String extractAccessToken(AccessTokenRequestContext accessTokenRequestContext) {
         logger.debug("AuthorizationServerResponse for get token api is {}", accessTokenRequestContext.getResponseBody());
         String accessToken = accessTokenResponseExtractor.getAccessToken(accessTokenRequestContext);
         if (accessToken == null) {
@@ -73,7 +73,7 @@ public class OAuth2Helper {
         return accessToken;
     }
 
-    public static String getCallbackResponse(String providerId, String accessToken, String customUrlScheme, String requestSourceType) throws IOException {
+    public static String getCallbackResponse(String providerId, String accessToken, String customUrlScheme, String requestSourceType) {
         Map<String, Object> input = new HashMap<>();
         input.put("providerId", providerId);
         input.put(OAuth2Constants.CUSTOM_URL_SCHEME, customUrlScheme);

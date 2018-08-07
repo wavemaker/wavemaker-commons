@@ -27,7 +27,7 @@ public class WMSemaphore {
     public void acquire() {
         try {
             semaphore.acquire();
-        } catch (InterruptedException e) {
+        } catch (InterruptedException e) { //NOSONAR
             handleInterruptedException(e);
         }
     }
@@ -35,7 +35,7 @@ public class WMSemaphore {
     public void acquire(int permits) {
         try {
             semaphore.acquire(permits);
-        } catch (InterruptedException e) {
+        } catch (InterruptedException e) { //NOSONAR
             handleInterruptedException(e);
         }
     }
@@ -51,7 +51,7 @@ public class WMSemaphore {
     public boolean tryAcquire(int timeout, TimeUnit unit) {
         try {
             return semaphore.tryAcquire(timeout, unit);
-        } catch (InterruptedException e) {
+        } catch (InterruptedException e) { //NOSONAR
             handleInterruptedException(e);
         }
         return false;
@@ -60,7 +60,7 @@ public class WMSemaphore {
     public boolean tryAcquire(int permits, int timeout, TimeUnit unit) {
         try {
             return semaphore.tryAcquire(permits, timeout, unit);
-        } catch (InterruptedException e) {
+        } catch (InterruptedException e) { //NOSONAR
             handleInterruptedException(e);
         }
         return false;
@@ -72,7 +72,7 @@ public class WMSemaphore {
             if (!acquired) {
                 throw new SemaphoreAcquisitionTimeoutException();
             }
-        } catch (InterruptedException e) {
+        } catch (InterruptedException e) { //NOSONAR
             handleInterruptedException(e);
         }
     }
@@ -83,7 +83,7 @@ public class WMSemaphore {
             if (!acquired) {
                 throw new SemaphoreAcquisitionTimeoutException();
             }
-        } catch (InterruptedException e) {
+        } catch (InterruptedException e) { //NOSONAR
             handleInterruptedException(e);
         }
     }

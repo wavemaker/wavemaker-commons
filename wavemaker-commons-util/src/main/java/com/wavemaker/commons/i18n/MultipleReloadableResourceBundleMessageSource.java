@@ -51,7 +51,7 @@ public class MultipleReloadableResourceBundleMessageSource extends ReloadableRes
 
             resources = getMergedResources(propertiesResources, xmlResources);
 
-            if (resources != null && resources.length>0){
+            if (resources.length > 0) {
                 String sourcePath = null;
                 PropertiesHolder holder = null;
                 for (Resource resource : resources) {

@@ -25,7 +25,7 @@ import com.wavemaker.commons.json.JSONUtils;
  */
 public class LocaleMessageProviderImpl implements LocaleMessageProvider {
 
-    private static String CLASSPATH_MESSAGE_RESOURCE_PATH = "classpath*:i18n/wm";
+    private static final String CLASSPATH_MESSAGE_RESOURCE_PATH = "classpath*:i18n/wm";
     private static String DEFAULT_LOCALE = "en";
     private static LinkedHashSet<String> SUPPORTED_LOCALES= new LinkedHashSet();
     private static Cache<String, Map<String, String>> messages;
@@ -46,7 +46,7 @@ public class LocaleMessageProviderImpl implements LocaleMessageProvider {
                 SUPPORTED_LOCALES.add(locale);
             }
             if (!SUPPORTED_LOCALES.contains(DEFAULT_LOCALE)) {
-                if (SUPPORTED_LOCALES.size() == 0) {
+                if (SUPPORTED_LOCALES.isEmpty()) {
                     throw new WMError("No locales available in the project");
                 } else {
                     String previousDefaultLocale = DEFAULT_LOCALE;

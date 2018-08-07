@@ -24,8 +24,6 @@ import com.wavemaker.commons.io.AbstractFileContent;
 import com.wavemaker.commons.io.File;
 import com.wavemaker.commons.io.FileContent;
 import com.wavemaker.commons.io.Folder;
-import com.wavemaker.commons.io.exception.ResourceDoesNotExistException;
-import com.wavemaker.commons.io.exception.ResourceExistsException;
 
 /**
  * A {@link File} that is backed by a {@link FileStore}. Allows developers to use the simpler {@link FileStore}
@@ -56,7 +54,7 @@ public abstract class StoredFile extends StoredResource implements File {
     }
 
     @Override
-    public void touch() throws ResourceDoesNotExistException {
+    public void touch() {
         ensureExists();
         getStore().touch();
     }
@@ -67,7 +65,7 @@ public abstract class StoredFile extends StoredResource implements File {
     }
 
     @Override
-    public File rename(String name) throws ResourceExistsException {
+    public File rename(String name) {
         return (File) super.rename(name);
     }
 

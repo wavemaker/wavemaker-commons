@@ -15,8 +15,6 @@
  */
 package com.wavemaker.commons.io;
 
-import com.wavemaker.commons.io.exception.ResourceDoesNotExistException;
-import com.wavemaker.commons.io.exception.ResourceExistsException;
 import com.wavemaker.commons.io.exception.ResourceTypeMismatchException;
 
 /**
@@ -55,7 +53,7 @@ public interface Folder extends Resource, Iterable<Resource> {
     Resources<Resource> copyContentsTo(Folder folder);
 
     @Override
-    Folder rename(String name) throws ResourceExistsException;
+    Folder rename(String name);
 
     /**
      * Return a child from the current folder that refers to an existing {@link File} or {@link Folder}. If the
@@ -68,7 +66,7 @@ public interface Folder extends Resource, Iterable<Resource> {
      * @throws com.wavemaker.commons.io.exception.ResourceDoesNotExistException if the resource does not exist
      * @see #hasExisting(String)
      */
-    Resource getExisting(String name) throws ResourceDoesNotExistException;
+    Resource getExisting(String name);
 
     /**
      * Returns <tt>true</tt> if this folder already contains a resource with the specified name. This method supports
@@ -88,7 +86,7 @@ public interface Folder extends Resource, Iterable<Resource> {
      * @return the {@link Folder}
      * @throws com.wavemaker.commons.io.exception.ResourceTypeMismatchException if the an existing resource exits that is not a folder
      */
-    Folder getFolder(String name) throws ResourceTypeMismatchException;
+    Folder getFolder(String name);
 
     /**
      * Get a child file of the current folder. This method supports the same naming rules as
@@ -98,7 +96,7 @@ public interface Folder extends Resource, Iterable<Resource> {
      * @return the {@link File}
      * @throws ResourceTypeMismatchException if the an existing resource exits that is not a file
      */
-    File getFile(String name) throws ResourceTypeMismatchException;
+    File getFile(String name);
 
     /**
      * Get a child file or folder of the current folder. Depending on the <tt>resourceType</tt> {@link #getFile(String)}
@@ -110,7 +108,7 @@ public interface Folder extends Resource, Iterable<Resource> {
      * @return the resource.
      * @throws ResourceTypeMismatchException if the an existing resource exits that is of the wrong type
      */
-    <T extends Resource> T get(String name, Class<T> resourceType) throws ResourceTypeMismatchException;
+    <T extends Resource> T get(String name, Class<T> resourceType);
 
     /**
      * List all immediate child resources of this folder. If this resource does not exist empty resources are returned.
