@@ -17,6 +17,7 @@ public class OpenIdProviderInfo {
     private String userInfoUrl;
     private List<String> scopes;
     private String redirectUrlTemplate;
+    private String userNameAttributeName;
 
 
     public OpenIdProviderInfo() {
@@ -96,5 +97,13 @@ public class OpenIdProviderInfo {
 
     public void setRedirectUrlTemplate(String redirectUrlTemplate) {
         this.redirectUrlTemplate = redirectUrlTemplate;
+    }
+
+    public String getUserNameAttributeName() {
+        return userNameAttributeName;
+    }
+
+    public void setUserNameAttributeName(String userNameAttributeName) {
+        this.userNameAttributeName = userNameAttributeName;
     }
 }
