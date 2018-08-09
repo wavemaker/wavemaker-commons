@@ -68,7 +68,12 @@ public class LocaleMessageProviderImpl implements LocaleMessageProvider {
     @Override
     public String getLocaleMessage(String locale, MessageResource messageResource, Object[] args) {
         String localeMessage = getLocaleMessage(locale, messageResource);
-        return MessageFormat.format(localeMessage, args);
+        if (localeMessage != null) {
+            return MessageFormat.format(localeMessage, args);
+        } else {
+            logger.warn("message for {} not found, its args are {}", messageResource.getMessageKey(), args);
+            return messageResource.getMessageKey();
+        }
     }
 
     public Map<String, String> getLocaleMessages(String locale) {
