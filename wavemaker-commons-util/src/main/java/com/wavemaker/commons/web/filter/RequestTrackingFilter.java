@@ -29,7 +29,7 @@ public class RequestTrackingFilter extends DelegatingFilterProxy {
     
     private static ThreadLocal<Request> requestTrackingMap = new ThreadLocal<>();
 
-    private static final Logger logger = LoggerFactory.getLogger(RequestTrackingFilter.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(RequestTrackingFilter.class);
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
@@ -38,7 +38,7 @@ public class RequestTrackingFilter extends DelegatingFilterProxy {
         String requestTrackingId = httpServletRequest.getHeader(requestTrackingHeaderName);
         if (StringUtils.isBlank(requestTrackingId)) {
             requestTrackingId = generateNewRequestId();
-            logger.debug("Request tracking id not set in header, setting new tracking id {}", requestTrackingId);
+            LOGGER.debug("Request tracking id not set in header, setting new tracking id {}", requestTrackingId);
         }
         try {
             MDC.put(requestTrackingHeaderName, requestTrackingId);
@@ -60,11 +60,11 @@ public class RequestTrackingFilter extends DelegatingFilterProxy {
         String subRequestId;
         if (currentRequest == null) {
             subRequestId = generateNewRequestId();
-            logger.info("creating a new sub request id with value {} for context {}",
+            LOGGER.info("creating a new sub request id with value {} for context {}",
                     subRequestId, context);
         } else if (currentRequest.getRequestId().length() > 56) {
             subRequestId = generateNewRequestId();
-            logger.warn("Current Request tracking id {} is too long, creating a new sub request id with value {} for context {} ", currentRequest.getRequestId(),
+            LOGGER.warn("Current Request tracking id {} is too long, creating a new sub request id with value {} for context {} ", currentRequest.getRequestId(),
                     subRequestId, context);
         } else {
             StringBuilder sb = new StringBuilder(currentRequest.getRequestId()).append(REQUEST_ID_SEPARATOR);
@@ -74,7 +74,7 @@ public class RequestTrackingFilter extends DelegatingFilterProxy {
             }
             sb.append(currentRequest.getAndIncrementSubRequestCounter());
             subRequestId = sb.toString();
-            logger.info("Creating new sub request tracking id {} for request context {}", subRequestId, context);
+            LOGGER.info("Creating new sub request tracking id {} for request context {}", subRequestId, context);
         }
         return subRequestId;
     }

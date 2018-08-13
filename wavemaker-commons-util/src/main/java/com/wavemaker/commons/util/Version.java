@@ -43,7 +43,12 @@ public class Version implements Comparable<Version> {
         return 0;
     }
 
-    @Override 
+    @Override
+    public int hashCode() {
+        return get().hashCode();
+    }
+
+    @Override
     public boolean equals(Object that) {
         if (this == that) {
             return true;

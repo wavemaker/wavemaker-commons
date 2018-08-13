@@ -5,6 +5,9 @@ package com.wavemaker.commons.i18n;
  */
 public class MessageFactory {
 
+    private MessageFactory(){
+    }
+
     private static LocaleProvider localeProvider = new DefaultLocaleProvider();
     private static LocaleMessageProvider localeMessageProvider = new LocaleMessageProviderImpl();
 

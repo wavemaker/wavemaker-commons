@@ -28,6 +28,7 @@ import java.util.Properties;
 
 import com.wavemaker.commons.MessageResource;
 import com.wavemaker.commons.WMRuntimeException;
+import com.wavemaker.commons.properties.PropertiesWriter;
 import com.wavemaker.commons.properties.SortedProperties;
 
 /**
@@ -79,30 +80,17 @@ public class PropertiesFileUtils {
         return properties;
     }
 
-    /**
-     * @deprecated(this api is deprecated,use PropertiesWriter to store properties in file)
-     * @param properties
-     * @param os
-     * @param comment
-     */
-    @Deprecated
     public static void storeToXml(Properties properties, OutputStream os, String comment) {
         try {
-            properties.storeToXML(os, comment, "UTF-8");
-        } catch (IOException e) {
-            throw new WMRuntimeException(MessageResource.create("com.wavemaker.commons.properties.file.write.failure"), e);
+            PropertiesWriter propertiesWriter = new PropertiesWriter(properties);
+            propertiesWriter.setComments(comment).setToXML(true);
+            propertiesWriter.write(os);
         } finally {
             WMIOUtils.closeSilently(os);
         }
     }
 
-    /**
-     * @deprecated (this api is deprecated,use PropertiesWriter to store properties in file)
-     * @param properties
-     * @param file
-     * @param comment
-     */
-    @Deprecated
+
     public static void storeToXml(Properties properties, File file, String comment) {
         try {
             storeToXml(properties, new BufferedOutputStream(new FileOutputStream(file)), comment);
