@@ -15,15 +15,10 @@
  */
 package com.wavemaker.commons.model.security;
 
-import java.util.regex.Pattern;
-
-
 /**
  * Created by kishorer on 6/7/16.
  */
 public class XSSConfig {
-
-    public static final Pattern ALLOWED_METHODS = Pattern.compile("^(GET|HEAD|TRACE|OPTION)$");
 
     private boolean enforceXssSecurity;
     private String policyFile;
