@@ -29,10 +29,11 @@ import org.apache.commons.io.IOUtils;
 import com.wavemaker.commons.CommonConstants;
 import com.wavemaker.commons.WMRuntimeException;
 import com.wavemaker.commons.io.exception.ResourceException;
+import com.wavemaker.commons.util.WMIOUtils;
 
 /**
  * Abstract base class for {@link FileContent}.
- * 
+ *
  * @author Phillip Webb
  */
 public abstract class AbstractFileContent implements FileContent {
@@ -47,7 +48,7 @@ public abstract class AbstractFileContent implements FileContent {
     }
 
     @Override
-    public String asString() throws ResourceException {
+    public String asString() {
         Reader reader = null;
         try {
              reader = asReader();
@@ -55,12 +56,12 @@ public abstract class AbstractFileContent implements FileContent {
         } catch (IOException e) {
             throw new ResourceException(e);
         } finally {
-            IOUtils.closeQuietly(reader);
+            WMIOUtils.closeSilently(reader);
         }
     }
 
     @Override
-    public byte[] asBytes() throws ResourceException {
+    public byte[] asBytes() {
         InputStream inputStream = null;
         try {
             inputStream = asInputStream();
@@ -68,12 +69,12 @@ public abstract class AbstractFileContent implements FileContent {
         } catch (IOException e) {
             throw new ResourceException(e);
         } finally {
-            IOUtils.closeQuietly(inputStream);
+            WMIOUtils.closeSilently(inputStream);
         }
     }
 
     @Override
-    public void copyTo(OutputStream outputStream) throws ResourceException {
+    public void copyTo(OutputStream outputStream) {
         InputStream inputStream = null;
         try {
             inputStream = asInputStream();
@@ -81,13 +82,13 @@ public abstract class AbstractFileContent implements FileContent {
         } catch (IOException e) {
             throw new ResourceException(e);
         } finally {
-            IOUtils.closeQuietly(inputStream);
-            IOUtils.closeQuietly(outputStream);
+            WMIOUtils.closeSilently(inputStream);
+            WMIOUtils.closeSilently(outputStream);
         }
     }
 
     @Override
-    public void copyTo(Writer writer) throws ResourceException {
+    public void copyTo(Writer writer) {
         Reader reader = null;
         try {
             reader = asReader();
@@ -95,18 +96,18 @@ public abstract class AbstractFileContent implements FileContent {
         } catch (IOException e) {
             throw new ResourceException(e);
         } finally {
-            IOUtils.closeQuietly(reader);
-            IOUtils.closeQuietly(writer);
+            WMIOUtils.closeSilently(reader);
+            WMIOUtils.closeSilently(writer);
         }
     }
 
     @Override
-    public Writer asWriter() throws ResourceException {
+    public Writer asWriter() {
         return asWriter(false);
     }
 
     @Override
-    public Writer asWriter(boolean append) throws ResourceException {
+    public Writer asWriter(boolean append) {
         try {
             return new OutputStreamWriter(asOutputStream(append), CommonConstants.UTF8);
         } catch (UnsupportedEncodingException e) {
@@ -120,7 +121,7 @@ public abstract class AbstractFileContent implements FileContent {
     }
 
     @Override
-    public void write(InputStream inputStream) throws ResourceException {
+    public void write(InputStream inputStream) {
         OutputStream outputStream = null;
         try {
             outputStream = asOutputStream();
@@ -128,13 +129,13 @@ public abstract class AbstractFileContent implements FileContent {
         } catch (IOException e) {
             throw new ResourceException(e);
         } finally {
-            IOUtils.closeQuietly(inputStream);
-            IOUtils.closeQuietly(outputStream);
+            WMIOUtils.closeSilently(inputStream);
+            WMIOUtils.closeSilently(outputStream);
         }
     }
 
     @Override
-    public void write(Reader reader) throws ResourceException {
+    public void write(Reader reader) {
         Writer writer = null;
         try {
             writer = asWriter();
@@ -142,13 +143,13 @@ public abstract class AbstractFileContent implements FileContent {
         } catch (IOException e) {
             throw new ResourceException(e);
         } finally {
-            IOUtils.closeQuietly(reader);
-            IOUtils.closeQuietly(writer);
+            WMIOUtils.closeSilently(reader);
+            WMIOUtils.closeSilently(writer);
         }
     }
 
     @Override
-    public void write(String string) throws ResourceException {
+    public void write(String string) {
         Writer writer = null;
         try {
             writer = asWriter();
@@ -156,7 +157,7 @@ public abstract class AbstractFileContent implements FileContent {
         } catch (IOException e) {
             throw new ResourceException(e);
         } finally {
-            IOUtils.closeQuietly(writer);
+            WMIOUtils.closeSilently(writer);
         }
     }
 }

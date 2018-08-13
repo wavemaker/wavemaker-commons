@@ -9,6 +9,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.client.ClientHttpResponse;
 import org.springframework.web.client.DefaultResponseErrorHandler;
 
+import com.wavemaker.commons.util.WMIOUtils;
+
 
 /**
  * @author Uday Shankar
@@ -26,7 +28,7 @@ public class WMDefaultResponseErrorHandler extends DefaultResponseErrorHandler {
         } catch (IOException e) {
             logger.error("Failed to read error response", e);
         } finally {
-            IOUtils.closeQuietly(inputStream);
+            WMIOUtils.closeSilently(inputStream);
         }
         return new byte[0];
     }

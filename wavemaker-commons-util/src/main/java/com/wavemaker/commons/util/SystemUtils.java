@@ -133,7 +133,7 @@ public abstract class SystemUtils {
      * @return The property line.separator as a String.
      */
     public static String getLineBreak() {
-        return org.apache.commons.lang3.SystemUtils.LINE_SEPARATOR;
+        return System.lineSeparator();
     }
 
 }

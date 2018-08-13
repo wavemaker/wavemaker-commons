@@ -31,7 +31,6 @@ import com.wavemaker.commons.io.ResourceStringFormat;
 import com.wavemaker.commons.io.Resources;
 import com.wavemaker.commons.io.ResourcesCollection;
 import com.wavemaker.commons.io.exception.ResourceDoesNotExistException;
-import com.wavemaker.commons.io.exception.ResourceExistsException;
 
 /**
  * A {@link Folder} that is backed by a {@link FolderStore}. Allows developers to use the simpler {@link FolderStore}
@@ -51,7 +50,7 @@ public abstract class StoredFolder extends StoredResource implements Folder {
     protected abstract FolderStore getStore();
 
     @Override
-    public Resource getExisting(String name) throws ResourceDoesNotExistException {
+    public Resource getExisting(String name) {
         Assert.hasLength(name, NAME_EMPTY_MESSAGE);
         JailedResourcePath resourcePath = getPath().get(name);
         Resource resource = getStore().getExisting(resourcePath);
@@ -159,7 +158,7 @@ public abstract class StoredFolder extends StoredResource implements Folder {
     }
 
     @Override
-    public Folder rename(String name) throws ResourceExistsException {
+    public Folder rename(String name) {
         return (Folder) super.rename(name);
     }
 

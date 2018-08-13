@@ -82,7 +82,7 @@ public interface Resource {
      * @return a new resource (the current resource will no longer {@link #exists() exist}
      * @throws ResourceExistsException if a resource already exists with the specified name
      */
-    Resource rename(String name) throws ResourceExistsException;
+    Resource rename(String name);
 
     /**
      * Returns <tt>true</tt> if the resource exists in the underlying store.

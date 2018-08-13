@@ -119,7 +119,7 @@ public final class ResourcePath implements Serializable {
             return this;
         }
         if ("..".equals(name)) {
-            Assert.state(this.parent != null);
+            Assert.state(this.parent != null,"[Assertion failed] - Parent cannot be null");
             return this.parent;
         }
         return new ResourcePath(this, name);
