@@ -18,29 +18,34 @@ package com.wavemaker.commons;
 /**
  * @author Simon Toens
  */
-public class WMRuntimeException extends RuntimeException implements MessageResourceHolder {
+public class WMRuntimeException extends RuntimeException implements WMCommonException {
 
-    private MessageResource messageResource;
 
-    private Object args[];
-
-    private String detailedMessage;
+    private MessageResourceHolder messageResourceHolder = new MessageResourceHolder();
 
     public WMRuntimeException(WMRuntimeException e) {
-        super(e.getMessage(), e);
-        this.messageResource = e.messageResource;
-        this.args = e.args;
-        this.detailedMessage = e.detailedMessage;
+        super(e.getCause());
+    }
+
+    public WMRuntimeException(String message) {
+        messageResourceHolder.setMessage(message);
     }
 
     public WMRuntimeException(MessageResource resource) {
-        this(resource.getMessageKey());
-        this.messageResource = resource;
+        messageResourceHolder.setMessageResource(resource);
+
     }
 
-    public WMRuntimeException(String detailedMessage, MessageResource resource) {
-        this(resource);
-        this.detailedMessage = detailedMessage;
+    public WMRuntimeException(MessageResource resource, Throwable cause, Object... args) {
+        this(cause);
+        messageResourceHolder.setMessageResource(resource);
+        messageResourceHolder.setArgs(args);
+    }
+
+
+    public WMRuntimeException(MessageResource resource, String detailedMessage, Throwable cause, Object... args) {
+        this(resource, cause, args);
+        messageResourceHolder.setMessage(detailedMessage);
     }
 
     public WMRuntimeException(MessageResource resource, Throwable cause) {
@@ -52,33 +57,12 @@ public class WMRuntimeException extends RuntimeException implements MessageResou
     }
 
     public WMRuntimeException(MessageResource resource, Object... args) {
-        this(resource.getMessageKey());
-        this.messageResource = resource;
-        this.args = args;
-    }
-
-    public WMRuntimeException(String detailedMessage, MessageResource resource, Object... args) {
-        this(resource, args);
-        this.detailedMessage = detailedMessage;
-    }
-
-    public WMRuntimeException(MessageResource resource, Throwable cause, Object... args) {
-        this(resource.getMessageKey(), cause);
-        this.messageResource = resource;
-        this.args = args;
-    }
-
-    public WMRuntimeException(MessageResource resource, String detailedMessage, Throwable cause, Object... args) {
-        this(resource, cause, args);
-        this.detailedMessage = detailedMessage;
+        messageResourceHolder.setArgs(args);
+        messageResourceHolder.setMessageResource(resource);
     }
 
     public WMRuntimeException() {
         super();
-    }
-
-    public WMRuntimeException(String message) {
-        super(message);
     }
 
     public WMRuntimeException(Throwable cause) {
@@ -87,32 +71,22 @@ public class WMRuntimeException extends RuntimeException implements MessageResou
 
     public WMRuntimeException(String message, Throwable cause) {
         super(message, cause);
-        this.detailedMessage = message;
+        messageResourceHolder.setMessage(message);
     }
 
     @Override
-    public MessageResource getMessageResource() {
-        return messageResource;
+    public MessageResourceHolder getMessageResourceHolder() {
+        return messageResourceHolder;
     }
 
-    public void setMessageResource(MessageResource messageResource) {
-        this.messageResource = messageResource;
-    }
-
-    @Override
-    public Object[] getArgs() {
-        return args;
-    }
-
-    public String getDetailedMessage() {
-        return detailedMessage;
-    }
-
-    @Override
     public String getMessage() {
+        String message;
+        MessageResource messageResource = messageResourceHolder.getMessageResource();
         if (messageResource != null) {
-            return messageResource.getMessage(args);
+            message = messageResource.getMessage(messageResourceHolder.getArgs());
+        } else {
+            message = messageResourceHolder.getMessage();
         }
-        return super.getMessage();
+        return (message == null) ? "" : message;
     }
 }
