@@ -23,10 +23,6 @@ public class WMRuntimeException extends RuntimeException implements WMCommonExce
 
     private MessageResourceHolder messageResourceHolder = new MessageResourceHolder();
 
-    public WMRuntimeException(WMRuntimeException e) {
-        super(e.getCause());
-    }
-
     public WMRuntimeException(String message) {
         messageResourceHolder.setMessage(message);
     }
