@@ -32,6 +32,10 @@ public class OAuth2Helper {
     private OAuth2Helper() {
     }
 
+    /**
+    * Build the authorizationUrl of the oauth2 provider using {@link OAuth2ProviderConfig}. Adds <CODE>redirectUrl</CODE>,
+    *  <CODE> state </CODE> and <CODE>response_type</CODE> query parameters to authorizationUrl.
+    * */
     public static String getAuthorizationUrl(OAuth2ProviderConfig oAuth2ProviderConfig, String redirectUrl, String state) {
         String scope = getScopeValue(oAuth2ProviderConfig);
         String encodedState = new String(Base64.getEncoder().encode(state.getBytes()));
@@ -46,6 +50,10 @@ public class OAuth2Helper {
         return sb.toString();
     }
 
+    /**
+    * Decodes jsonString {@param stateParameter} and deserializes the jsonString to Map.
+    * Deserialization os jsonString {@param stateParameter} to Map.
+    * */
     public static Map<String, String> getStateObject(String stateParameter) {
         String stateParam = new String(Base64.getDecoder().decode(stateParameter));
         try {
@@ -55,7 +63,9 @@ public class OAuth2Helper {
         }
     }
 
-
+    /**
+    * Creates a encoded json string representation of {@param stateObject} ( Serializtion of stateObject map to json string).
+    * */
     public static String getStateParameterValue(Map<String, String> stateObject) {
         String stateParameter = JSONUtils.toJSON(stateObject);
         return new String(Base64.getEncoder().encode(stateParameter.getBytes()));
