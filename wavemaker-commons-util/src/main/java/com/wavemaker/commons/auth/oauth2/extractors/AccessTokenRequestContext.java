@@ -3,6 +3,8 @@ package com.wavemaker.commons.auth.oauth2.extractors;
 import org.springframework.http.MediaType;
 
 /**
+ * Model to store contentType and accessToken response sent by the OAuth2 authorization server.
+ *
  * Created by srujant on 29/8/17.
  */
 public class AccessTokenRequestContext {
