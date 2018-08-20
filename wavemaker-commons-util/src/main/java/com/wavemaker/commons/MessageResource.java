@@ -148,17 +148,17 @@ public class MessageResource {
     }
 
     public String getMessage(Object... args) {
-        LocaleProvider localeProvider = MessageFactory.getLocaleProvider();
-        String locale = localeProvider.getLocale();
-        LocaleMessageProvider localeMessageProvider = MessageFactory.getLocaleMessageProvider();
-        return localeMessageProvider.getLocaleMessage(locale, this, args);
+        LocaleProvider localeProvider = MessageFactory.getInstance().getLocaleProvider();
+        String[] locales = localeProvider.getLocales();
+        LocaleMessageProvider localeMessageProvider = MessageFactory.getInstance().getLocaleMessageProvider();
+        return localeMessageProvider.getLocaleMessage(locales, this, args);
     }
 
     public String getMessageWithPlaceholders() {
-        LocaleProvider localeProvider = MessageFactory.getLocaleProvider();
-        String locale = localeProvider.getLocale();
-        LocaleMessageProvider localeMessageProvider = MessageFactory.getLocaleMessageProvider();
-        return localeMessageProvider.getLocaleMessage(locale, this);
+        LocaleProvider localeProvider = MessageFactory.getInstance().getLocaleProvider();
+        String[] locales = localeProvider.getLocales();
+        LocaleMessageProvider localeMessageProvider = MessageFactory.getInstance().getLocaleMessageProvider();
+        return localeMessageProvider.getLocaleMessage(locales, this);
     }
 
 }

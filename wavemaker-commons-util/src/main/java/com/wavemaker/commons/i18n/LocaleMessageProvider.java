@@ -7,7 +7,7 @@ import com.wavemaker.commons.MessageResource;
  */
 public interface LocaleMessageProvider {
 
-    String getLocaleMessage(String locale, MessageResource messageResource);
+    String getLocaleMessage(String[] locales, MessageResource messageResource);
 
-    String getLocaleMessage(String locale, MessageResource messageResource, Object[] args);
+    String getLocaleMessage(String[] locales, MessageResource messageResource, Object[] args);
 }

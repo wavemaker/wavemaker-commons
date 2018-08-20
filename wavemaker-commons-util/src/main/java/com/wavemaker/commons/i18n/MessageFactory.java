@@ -7,23 +7,35 @@ public class MessageFactory {
 
     private MessageFactory(){
     }
+    
+    private static MessageFactory INSTANCE = new MessageFactory();
 
-    private static LocaleProvider localeProvider = new DefaultLocaleProvider();
-    private static LocaleMessageProvider localeMessageProvider = new LocaleMessageProviderImpl();
+    private LocaleProvider localeProvider;
+    private LocaleMessageProvider localeMessageProvider;
 
-    public static LocaleProvider getLocaleProvider() {
+    public LocaleProvider getLocaleProvider() {
+        if (localeProvider == null) {
+            localeProvider = new DefaultLocaleProvider();
+        }
         return localeProvider;
     }
 
-    public static void setLocaleProvider(LocaleProvider localeProvider) {
-        MessageFactory.localeProvider = localeProvider;
+    public void setLocaleProvider(LocaleProvider localeProvider) {
+        this.localeProvider = localeProvider;
     }
 
-    public static LocaleMessageProvider getLocaleMessageProvider() {
+    public LocaleMessageProvider getLocaleMessageProvider() {
+        if (localeMessageProvider == null) {
+            localeMessageProvider = new LocaleMessageProviderImpl();
+        }
         return localeMessageProvider;
     }
 
-    public static void setLocaleMessageProvider(LocaleMessageProvider localeMessageProvider) {
-        MessageFactory.localeMessageProvider = localeMessageProvider;
+    public void setLocaleMessageProvider(LocaleMessageProvider localeMessageProvider) {
+        this.localeMessageProvider = localeMessageProvider;
+    }
+    
+    public static MessageFactory getInstance() {
+        return INSTANCE;
     }
 }
