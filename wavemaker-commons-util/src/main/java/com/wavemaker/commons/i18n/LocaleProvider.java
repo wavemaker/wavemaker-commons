@@ -5,5 +5,9 @@ package com.wavemaker.commons.i18n;
  */
 public interface LocaleProvider {
 
-    String getLocale();
+    /**
+     * Will return the list of locales with descending priroty for the current request
+     * @return
+     */
+    String[] getLocales();
 }
