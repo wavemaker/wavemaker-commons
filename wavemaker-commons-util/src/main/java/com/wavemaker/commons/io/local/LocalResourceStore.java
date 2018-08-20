@@ -240,7 +240,8 @@ abstract class LocalResourceStore implements ResourceStore {
 
         @Override
         public void create() {
-            if (!getFile().mkdirs()) {
+            boolean created = getFile().mkdirs();
+            if (!created && !exists()) {
                 throw new ResourceException(MessageResource.create("com.wavemaker.commons.unable.to.create.folder"), getFile());
             }
         }
