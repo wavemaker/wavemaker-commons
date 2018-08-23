@@ -12,7 +12,15 @@
     </parent>
 
     <artifactId>wavemaker-commons-util</artifactId>
+    <name>wavemaker-commons-util</name>
     <packaging>jar</packaging>
+
+    <distributionManagement>
+        <site>
+            <id>${project.artifactId}-site</id>
+            <url>./${project.artifactId}</url>
+        </site>
+    </distributionManagement>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
