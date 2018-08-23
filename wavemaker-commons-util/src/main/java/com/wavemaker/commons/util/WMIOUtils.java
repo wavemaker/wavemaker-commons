@@ -23,6 +23,7 @@ import java.util.HashSet;
 import java.util.List;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.ArrayUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -124,6 +125,10 @@ public abstract class WMIOUtils {
         }
     }
 
+    public static void write(OutputStream outputStream, String data) throws IOException {
+        IOUtils.write(data, outputStream, "UTF-8");
+    }
+
     public static boolean compare(InputStream i1, InputStream i2) throws IOException {
         int b1 = 0;
 
@@ -171,7 +176,7 @@ public abstract class WMIOUtils {
      * Note : This method never closes the parameterized streams;
      */
     public static int copy(InputStream is, OutputStream os) throws IOException {
-        return org.apache.commons.io.IOUtils.copy(is, os);
+        return IOUtils.copy(is, os);
     }
 
     /**
@@ -184,7 +189,7 @@ public abstract class WMIOUtils {
      * Note : This method never closes the parameterized streams;
      */
     public static int copy(Reader reader, Writer writer) throws IOException {
-        return org.apache.commons.io.IOUtils.copy(reader, writer);
+        return IOUtils.copy(reader, writer);
     }
 
     /**
@@ -461,7 +466,7 @@ public abstract class WMIOUtils {
 
     public static String toString(InputStream is) {
         try {
-            return org.apache.commons.io.IOUtils.toString(is, "UTF-8");
+            return IOUtils.toString(is, "UTF-8");
         } catch (IOException e) {
             throw new WMRuntimeException(MessageResource.create("com.wavemaker.commons.failed.to.get.string.from.input.stream"), e);
         } finally {
