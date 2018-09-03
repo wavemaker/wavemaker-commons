@@ -1,0 +1,9 @@
+"basePath": "${{rest.googleapis. basepath}} my-app-path",
+"basePath": "${rest%%%&&&***((io${}",
+"basePath": "${}",
+"basePath": "${{rest.googleapis
+.basepath}}",
+"basePath": "my-app-path my-app-path//my-app-scheme",
+"app-store-app": "google-drive"
+"app-store-app": "${{rest.google-app_store.doc}}"
+${
