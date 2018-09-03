@@ -30,10 +30,10 @@ import com.wavemaker.commons.json.JSONUtils;
 public class LocaleMessageProviderImpl implements LocaleMessageProvider {
 
     private static final String CLASSPATH_MESSAGE_RESOURCE_PATH = "classpath*:i18n/wm";
-    
+
     private LinkedHashSet<String> supportedLocales = new LinkedHashSet();
     private String defaultLocale = "en";
-    
+
     private Cache<String, Map<String, String>> messages = CacheBuilder.newBuilder().expireAfterAccess(15, TimeUnit.MINUTES).build();
     private ResourcePatternResolver resourcePatternResolver = new PathMatchingResourcePatternResolver();
     private List<String> locationPatterns;
@@ -51,23 +51,19 @@ public class LocaleMessageProviderImpl implements LocaleMessageProvider {
     }
 
     private synchronized void init() {
-        try {
-            List<Resource> resourceList = getResourceList("*.json");
-            for (Resource resource : resourceList) {
-                String locale = FilenameUtils.removeExtension(resource.getFilename());
-                supportedLocales.add(locale);
+        List<Resource> resourceList = getResourceList("*.json");
+        for (Resource resource : resourceList) {
+            String locale = FilenameUtils.removeExtension(resource.getFilename());
+            supportedLocales.add(locale);
+        }
+        if (!supportedLocales.contains(defaultLocale)) {
+            if (supportedLocales.isEmpty()) {
+                throw new WMError("No locales available in the project");
+            } else {
+                String previousDefaultLocale = defaultLocale;
+                defaultLocale = supportedLocales.iterator().next();
+                logger.warn("Default locale file for locale {} not found, using {} as the default locale", previousDefaultLocale, defaultLocale);
             }
-            if (!supportedLocales.contains(defaultLocale)) {
-                if (supportedLocales.isEmpty()) {
-                    throw new WMError("No locales available in the project");
-                } else {
-                    String previousDefaultLocale = defaultLocale;
-                    defaultLocale = supportedLocales.iterator().next();
-                    logger.warn("Default locale file for locale {} not found, using {} as the default locale", previousDefaultLocale, defaultLocale);
-                }
-            }
-        } catch (IOException e) {
-            throw new WMError("Failed to read locale files", e);
         }
     }
 
@@ -88,8 +84,8 @@ public class LocaleMessageProviderImpl implements LocaleMessageProvider {
         }
     }
 
-    public Map<String, String> getLocaleMessages(String... locales) {
-        for (String locale: locales) {
+    private Map<String, String> getLocaleMessages(String... locales) {
+        for (String locale : locales) {
             if (!supportedLocales.contains(locale)) {
                 continue;
             }
@@ -98,16 +94,7 @@ public class LocaleMessageProviderImpl implements LocaleMessageProvider {
                 synchronized (messages) {
                     existingMessages = messages.getIfPresent(locale);
                     if (existingMessages == null) {
-                        existingMessages = new HashMap<>();
-                        try {
-                            List<Resource> resourceList = getResourceList(locale + ".json");
-                            for (Resource resource : resourceList) {
-                                Map<String, String> localeMessages = JSONUtils.toObject(resource.getInputStream(), new TypeReference<Map<String, String>>() {});
-                                existingMessages.putAll(localeMessages);
-                            }
-                        } catch (IOException e) {
-                            throw new WMError("Failed to read locale resources for locale " + locale, e);
-                        }
+                        existingMessages = loadLocaleMessages(locale);
                         messages.put(locale, existingMessages);
                     }
                 }
@@ -117,11 +104,32 @@ public class LocaleMessageProviderImpl implements LocaleMessageProvider {
         return getLocaleMessages(defaultLocale);
     }
 
-    private List<Resource> getResourceList(String resoucePattern) throws IOException {
+    protected Map<String, String> loadLocaleMessages(String locale) {
+        Map<String, String> existingMessages = new HashMap<>();
+        try {
+            List<Resource> resourceList = getResourceList(locale + ".json");
+            for (Resource resource : resourceList) {
+                                Map<String, String> localeMessages = JSONUtils.toObject(resource.getInputStream(), new TypeReference<Map<String, String>>() {});
+                existingMessages.putAll(localeMessages);
+            }
+        } catch (IOException e) {
+            throw new WMError("Failed to read locale resources for locale " + locale, e);
+        }
+        return existingMessages;
+    }
+
+    protected Resource[] getResources(String locationPattern, String resourcePattern) {
+        try {
+            return resourcePatternResolver.getResources(locationPattern + "/" + resourcePattern);
+        } catch (IOException e) {
+            throw new WMError("Failed to read locale files", e);
+        }
+    }
+
+    private List<Resource> getResourceList(String resourcePattern) {
         List<Resource> resourceList = new ArrayList<>();
-        for (String locationPattern: locationPatterns) {
-            Resource[] resources = resourcePatternResolver.getResources(locationPattern + "/" + resoucePattern);
-            resourceList.addAll(Arrays.asList(resources));
+        for (String locationPattern : locationPatterns) {
+            resourceList.addAll(Arrays.asList(getResources(locationPattern, resourcePattern)));
         }
         return resourceList;
     }
