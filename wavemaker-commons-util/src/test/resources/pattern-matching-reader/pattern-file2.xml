@@ -1,0 +1,22 @@
+<bean id="dataSource"
+      class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+
+    <property name="driverClassName" value="${jdbc.driver}" />
+    <property name="url" value="${jdbc.url}" />
+    <property name="username" value="${jdbc.db-user_name}" />
+    <property name="password" value="${jdbc.db-password_1}" />
+
+    <property name="maps">
+        <map>
+            <entry key="Key 1" value="1" />
+            <entry key="Key 2" value-ref="PersonBean" />
+            <entry key="Key 3">
+                <bean class="${app.class}">
+                    <property name="name" value="${app.name}" />
+                    <property name="version" value="${app.version }" />
+                </bean>
+            </entry>
+        </map>
+    </property>
+</bean>
+
