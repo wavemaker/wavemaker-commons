@@ -151,14 +151,14 @@ public class MessageResource {
         LocaleProvider localeProvider = MessageFactory.getInstance().getLocaleProvider();
         String[] locales = localeProvider.getLocales();
         LocaleMessageProvider localeMessageProvider = MessageFactory.getInstance().getLocaleMessageProvider();
-        return localeMessageProvider.getLocaleMessage(locales, this, args);
+        return localeMessageProvider.getLocaleMessage(locales, this, this.key, args);
     }
 
     public String getMessageWithPlaceholders() {
         LocaleProvider localeProvider = MessageFactory.getInstance().getLocaleProvider();
         String[] locales = localeProvider.getLocales();
         LocaleMessageProvider localeMessageProvider = MessageFactory.getInstance().getLocaleMessageProvider();
-        return localeMessageProvider.getLocaleMessage(locales, this);
+        return localeMessageProvider.getLocaleMessage(locales, this, this.key);
     }
 
 }

@@ -68,20 +68,30 @@ public class LocaleMessageProviderImpl implements LocaleMessageProvider {
     }
 
     @Override
-    public String getLocaleMessage(String[] locales, MessageResource messageResource) {
-        Map<String, String> localeMessages = getLocaleMessages(locales);
-        return localeMessages.get(messageResource.getMessageKey());
+    public String getLocaleMessage(String[] locales, MessageResource messageResource, String defaultMessage) {
+        String localMessage = getLocaleMessage(locales, messageResource);
+        if(localMessage != null){
+            return localMessage;
+        } else {
+            logger.warn("message for {} not found and default message is {}", messageResource.getMessageKey(), defaultMessage);
+            return defaultMessage;
+        }
     }
 
     @Override
-    public String getLocaleMessage(String[] locales, MessageResource messageResource, Object[] args) {
+    public String getLocaleMessage(String[] locales, MessageResource messageResource, String defaultMessage, Object[] args) {
         String localeMessage = getLocaleMessage(locales, messageResource);
         if (localeMessage != null) {
             return MessageFormat.format(localeMessage, args);
         } else {
-            logger.warn("message for {} not found, its args are {}", messageResource.getMessageKey(), args);
-            return messageResource.getMessageKey();
+            logger.warn("message for {} not found, its args are {} and default message is {}", messageResource.getMessageKey(), args, defaultMessage);
+            return defaultMessage;
         }
+    }
+
+    private String getLocaleMessage(String[] locales, MessageResource messageResource) {
+        Map<String, String> localeMessages = getLocaleMessages(locales);
+        return localeMessages.get(messageResource.getMessageKey());
     }
 
     private Map<String, String> getLocaleMessages(String... locales) {

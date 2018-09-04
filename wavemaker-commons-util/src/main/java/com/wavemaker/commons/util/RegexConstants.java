@@ -21,7 +21,7 @@ package com.wavemaker.commons.util;
 public class RegexConstants {
     public static final String MULTILINE_FLAG = "(?s)";
     public static final String FIRST_OCCURENCE_OF_ANY_CHARSEQUENCE = ".*?";
-    public static final String ALPHA_NUMBERIC = "^\\w+$";
+    public static final String ALPHA_NUMBERIC = "^[a-zA-Z_][A-Za-z0-9_]*?$";
 
     private RegexConstants() {
     }
