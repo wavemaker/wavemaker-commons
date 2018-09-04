@@ -14,10 +14,6 @@ public class LocaleData {
     public LocaleData() {
     }
 
-    public LocaleData(Map<String, String> messages) {
-        this.messages = messages;
-    }
-
     public LocaleData(Map<String, String> messages, Map<String, String> formats) {
         this.messages = messages;
         this.formats = formats;
