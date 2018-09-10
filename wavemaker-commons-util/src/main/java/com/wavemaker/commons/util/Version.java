@@ -61,5 +61,21 @@ public class Version implements Comparable<Version> {
         }
         return this.compareTo((Version) that) == 0;
     }
+    
+    public static boolean lessThan(String v1, String v2) {
+        return new Version(v1).compareTo(new Version(v2)) < 0;
+    }
+
+    public static boolean lessThanOrEqualTo(String v1, String v2) {
+        return new Version(v1).compareTo(new Version(v2)) <= 0;
+    }
+
+    public static boolean greaterThan(String v1, String v2) {
+        return new Version(v1).compareTo(new Version(v2)) > 0;
+    }
+
+    public static boolean greaterThanOrEqualTo(String v1, String v2) {
+        return new Version(v1).compareTo(new Version(v2)) >= 0;
+    }
 
 }
