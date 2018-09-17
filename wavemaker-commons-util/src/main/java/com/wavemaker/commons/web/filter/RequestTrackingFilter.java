@@ -168,7 +168,7 @@ public class RequestTrackingFilter extends DelegatingFilterProxy {
                                 if (entry.length > 1) {
                                     description = entry[2];
                                 }
-                                addServerTimingMetrics(request.getSubRequestScope() + split[0], Long.valueOf(split[1]), description);
+                                addServerTimingMetrics(request.getSubRequestScope() + REQUEST_ID_SEPARATOR + split[0], Long.valueOf(split[1]), description);
                             }
                         }
                     }
