@@ -20,7 +20,6 @@ import org.slf4j.MDC;
 import org.springframework.http.HttpHeaders;
 import org.springframework.web.filter.DelegatingFilterProxy;
 
-import com.wavemaker.commons.WMRuntimeException;
 import com.wavemaker.commons.web.RequestTrackingResponseWrapper;
 
 /**
@@ -140,8 +139,6 @@ public class RequestTrackingFilter extends DelegatingFilterProxy {
                     request.setSubRequestScope(subRequestScope);
                     T returnValue = function.apply(subRequestScopeId);
                     return returnValue;
-                } catch (Exception e) {
-                    throw new WMRuntimeException(e);
                 } finally {
                     request.setSubRequestScope(previousSubRequestScope);
                     long processingTime = System.currentTimeMillis() - startTime;
