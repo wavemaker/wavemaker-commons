@@ -17,6 +17,7 @@ package com.wavemaker.commons.web.filter;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Objects;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -34,6 +35,7 @@ import org.springframework.web.filter.ShallowEtagHeaderFilter;
 public class EtagFilter extends ShallowEtagHeaderFilter {
 
     private static final Logger etagFilterLogger = LoggerFactory.getLogger(EtagFilter.class);
+    public static final String SKIP_ETAG = "skipEtag";
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
@@ -53,6 +55,10 @@ public class EtagFilter extends ShallowEtagHeaderFilter {
             }
             filterChain.doFilter(request, response);
         }
+    }
+
+    protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
+        return Objects.equals(request.getAttribute(SKIP_ETAG), true);
     }
 
     @Override
