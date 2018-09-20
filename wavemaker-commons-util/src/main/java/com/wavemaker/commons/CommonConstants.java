@@ -22,8 +22,6 @@ public abstract class CommonConstants {
 
     public static final String WM_SYSTEM_PROPERTY_PREFIX = "wm.";
 
-    public static final String FEED_SERVICE_CONTROLLER_CLAZZ = "com.wavemaker.runtime.feed.controller.FeedServiceController";
-
     public static final String UTF8 = "UTF-8";
 
     //hibernate sql type codes
