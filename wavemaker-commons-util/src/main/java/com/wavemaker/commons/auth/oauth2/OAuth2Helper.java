@@ -57,12 +57,8 @@ public class OAuth2Helper {
 
 
     public static String getStateParameterValue(Map<String, String> stateObject) {
-        try {
-            String stateParameter = JSONUtils.toJSON(stateObject);
-            return new String(Base64.getEncoder().encode(stateParameter.getBytes()));
-        } catch (IOException e) {
-            throw new WMRuntimeException(e);
-        }
+        String stateParameter = JSONUtils.toJSON(stateObject);
+        return new String(Base64.getEncoder().encode(stateParameter.getBytes()));
     }
 
 
