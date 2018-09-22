@@ -9,10 +9,10 @@ import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpServletResponseWrapper;
 
-import org.apache.commons.collections4.MultiValuedMap;
-import org.apache.commons.collections4.multimap.ArrayListValuedHashMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 
 import com.wavemaker.commons.web.filter.Request;
 import com.wavemaker.commons.web.filter.ServerTimingMetric;
@@ -27,18 +27,10 @@ public class RequestTrackingResponseWrapper extends HttpServletResponseWrapper {
 
     private Request request;
     private boolean serverTimingHeaderFlag = false;
-    private String requestTrackingIdPrefix;
 
-    public RequestTrackingResponseWrapper(HttpServletResponse response, Request request, String requestTrackingIdPrefix) {
+    public RequestTrackingResponseWrapper(HttpServletResponse response, Request request) {
         super(response);
         this.request = request;
-        this.requestTrackingIdPrefix = requestTrackingIdPrefix;
-    }
-
-    @Override
-    public void flushBuffer() throws IOException {
-        writeServerTimingResponseHeader();
-        super.flushBuffer();
     }
 
     @Override
@@ -53,24 +45,15 @@ public class RequestTrackingResponseWrapper extends HttpServletResponseWrapper {
         return super.getWriter();
     }
 
-    @Override
-    public void setContentType(String type) {
-        super.setContentType(type);
-        writeServerTimingResponseHeader();
-    }
-
-    @Override
-    public void setContentLength(int len) {
-        super.setContentLength(len);
-        writeServerTimingResponseHeader();
-    }
-
-
     public void writeServerTimingResponseHeader() {
         if (!serverTimingHeaderFlag) {
-            long endTime = System.currentTimeMillis();
-            request.getServerTimingMetricList().add(0, new ServerTimingMetric("Server", endTime - request.getStartTime(), null));
-            setServerTimingResponseHeader();
+            try {
+                long endTime = System.currentTimeMillis();
+                request.getServerTimingMetricList().add(0, new ServerTimingMetric("server", endTime - request.getStartTime(), null));
+                setServerTimingResponseHeader();
+            } catch (Exception e) {
+                logger.warn("Failed to write Server-Timing header", e);
+            }
             serverTimingHeaderFlag = true;
         }
     }
@@ -79,8 +62,8 @@ public class RequestTrackingResponseWrapper extends HttpServletResponseWrapper {
         StringBuilder sb = new StringBuilder();
         List<ServerTimingMetric> serverTimingMetrics = request.getServerTimingMetricList();
         
-        MultiValuedMap<String, ServerTimingMetric> multiValueMap = new ArrayListValuedHashMap<>();
-        serverTimingMetrics.forEach(x->multiValueMap.put(x.getSubRequestScope(), x));
+        MultiValueMap<String, ServerTimingMetric> multiValueMap = new LinkedMultiValueMap<>();
+        serverTimingMetrics.forEach(x->multiValueMap.add(x.getSubRequestScope(), x));
         for (String subRequestScope : multiValueMap.keySet()) {
             long totalProcessingTime = 0;
             Collection<ServerTimingMetric> values = multiValueMap.get(subRequestScope);
@@ -90,11 +73,11 @@ public class RequestTrackingResponseWrapper extends HttpServletResponseWrapper {
             sb.append(subRequestScope);
             sb.append("=").append(totalProcessingTime);
             if (values.size() !=1 ) {
-                sb.append("\"Total Occurences=").append(values.size()).append("\"");
+                sb.append(";\"").append(values.size()).append(" times\"");
             } else {
                 ServerTimingMetric serverTimingMetric = values.iterator().next();
                 if (serverTimingMetric.getDescription() != null) {
-                    sb.append(serverTimingMetric.getDescription());    
+                    sb.append(";").append(serverTimingMetric.getDescription());    
                 }
             }
             sb.append(", ");

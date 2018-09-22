@@ -56,7 +56,7 @@ public class RequestTrackingFilter extends DelegatingFilterProxy {
             requestTrackingMap.set(currentTrackingRequest);
             httpServletResponse.setHeader(requestTrackingHeaderName, requestTrackingId);
             RequestTrackingResponseWrapper requestTrackingResponseWrapper = new RequestTrackingResponseWrapper((HttpServletResponse) response,
-                    requestTrackingMap.get(), requestTrackingIdPrefix);
+                    requestTrackingMap.get());
             chain.doFilter(request, requestTrackingResponseWrapper);
             requestTrackingResponseWrapper.writeServerTimingResponseHeader();
         } finally {
@@ -151,25 +151,29 @@ public class RequestTrackingFilter extends DelegatingFilterProxy {
 
     public void addServerTimingMetricsForSubRequest(HttpHeaders httpHeaders) {
         if (serverTimingsEnabled) {
-            Request request = requestTrackingMap.get();
-            if (request != null) {
-                if (StringUtils.isNotBlank(request.getSubRequestScope())) {
-                    List<String> serverTimings = httpHeaders.get(SERVER_TIMING_HEADER);
-                    if (CollectionUtils.isNotEmpty(serverTimings)) {
-                        for (String serverTiming : serverTimings) {
-                            String[] serverTimingEntries = serverTiming.split(", ");
-                            for (String serverTimingEntry : serverTimingEntries) {
-                                String[] entry = serverTimingEntry.split(";");
-                                String[] split = entry[0].split("=");
-                                String description = null;
-                                if (entry.length > 1) {
-                                    description = entry[2];
+            try {
+                Request request = requestTrackingMap.get();
+                if (request != null) {
+                    if (StringUtils.isNotBlank(request.getSubRequestScope())) {
+                        List<String> serverTimings = httpHeaders.get(SERVER_TIMING_HEADER);
+                        if (CollectionUtils.isNotEmpty(serverTimings)) {
+                            for (String serverTiming : serverTimings) {
+                                String[] serverTimingEntries = serverTiming.split(", ");
+                                for (String serverTimingEntry : serverTimingEntries) {
+                                    String[] entry = serverTimingEntry.split(";");
+                                    String[] split = entry[0].split("=");
+                                    String description = null;
+                                    if (entry.length > 1) {
+                                        description = entry[1];
+                                    }
+                                    addServerTimingMetrics(request.getSubRequestScope() + REQUEST_ID_SEPARATOR + split[0], Long.valueOf(split[1]), description);
                                 }
-                                addServerTimingMetrics(request.getSubRequestScope() + REQUEST_ID_SEPARATOR + split[0], Long.valueOf(split[1]), description);
                             }
                         }
                     }
                 }
+            } catch (Exception e) {
+                logger.warn("Failed to add server timings for sub request", e);    
             }
         }
     }
