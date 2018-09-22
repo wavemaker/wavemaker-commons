@@ -63,8 +63,12 @@ public class JSONUtils {
         WMIOUtils.write(outputFile, formattedJson);
     }
 
-    public static String toJSON(Object object) throws IOException {
-        return toJSON(object, true);
+    public static String toJSON(Object object) {
+        try {
+            return toJSON(object, true);
+        } catch (IOException e) {
+            throw new WMRuntimeException(MessageResource.create("com.wavemaker.commons.objToJsonConversionFailed"), e);
+        }
     }
 
     public static String toJSON(Object object, boolean prettify) throws IOException {
