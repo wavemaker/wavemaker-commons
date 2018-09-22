@@ -67,5 +67,6 @@
   "com.wavemaker.unAuthorized" : "User not authenticated",
   "com.wavemaker.userAlreadyConfirmed" : "User ${0} is already confirmed.",
   "com.wavemaker.userAlreadyLoggedOut" : "User already logged out",
-  "com.wavemaker.usernameAlreadyExists" : "There is already an account registered with the given username: ${0}"
+  "com.wavemaker.usernameAlreadyExists" : "There is already an account registered with the given username: ${0}",
+  "com.wavemaker.commons.objToJsonConversionFailed" : "Failed to convert object to json "
 }
