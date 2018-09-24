@@ -63,6 +63,13 @@ public class ServerTimingMetric {
                 if ("dur".equals(key)) {
                     processingTime = Long.parseLong(value);
                 } else if ("desc".equals(key)) {
+                    if (value.startsWith("\"") && value.endsWith("\"")) {
+                        if (value.length() >=2 ) {
+                            value = value.substring(1, value.length() - 1);
+                        } else {
+                            throw new IllegalArgumentException(val);            
+                        }
+                    }
                     description = value;
                 }
             } else {
@@ -84,7 +91,7 @@ public class ServerTimingMetric {
             sb.append(";dur=").append(processingTime);
         }
         if (description != null) {
-            sb.append(";desc=").append(description);
+            sb.append(";desc=\"").append(name).append("(").append(description).append(")\"");
         }
         return sb.toString();
     }
