@@ -3,6 +3,7 @@ package com.wavemaker.commons.web.filter;
 import java.io.IOException;
 import java.util.List;
 import java.util.function.Function;
+import java.util.function.Supplier;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -127,7 +128,7 @@ public class RequestTrackingFilter extends DelegatingFilterProxy {
         this.requestTrackingHeaderName = requestTrackingHeaderName;
     }
 
-    public <T> T executeInSubRequestScope(String context, Function<String, T> function) {
+    public <T> T executeNewSubRequest(String context, Function<String, T> function) {
         String subRequestScopeId = generateNewSubRequestId(context);
         if (serverTimingsEnabled) {
             Request request = requestTrackingMap.get();
@@ -142,11 +143,31 @@ public class RequestTrackingFilter extends DelegatingFilterProxy {
                 } finally {
                     request.setSubRequestScope(previousSubRequestScope);
                     long processingTime = System.currentTimeMillis() - startTime;
-                    addServerTimingMetrics(subRequestScope+"client", processingTime, null);
+                    addServerTimingMetrics(new ServerTimingMetric(subRequestScope+"client", processingTime, null));
                 }
             }
         }
         return function.apply(subRequestScopeId);
+    }
+
+    public <T> T executeInSubRequestScope(String subRequestScope, Supplier<T> supplier) {
+        if (serverTimingsEnabled) {
+            Request request = requestTrackingMap.get();
+            if (request != null) {
+                long startTime = System.currentTimeMillis();
+                String previousSubRequestScope = request.getSubRequestScope();
+                try {
+                    request.setSubRequestScope(subRequestScope);
+                    T returnValue = supplier.get();
+                    return returnValue;
+                } finally {
+                    request.setSubRequestScope(previousSubRequestScope);
+                    long processingTime = System.currentTimeMillis() - startTime;
+                    addServerTimingMetrics(new ServerTimingMetric(subRequestScope+"client", processingTime, null));
+                }
+            }
+        }
+        return supplier.get();
     }
 
     public void addServerTimingMetricsForSubRequest(HttpHeaders httpHeaders) {
@@ -159,14 +180,10 @@ public class RequestTrackingFilter extends DelegatingFilterProxy {
                         if (CollectionUtils.isNotEmpty(serverTimings)) {
                             for (String serverTiming : serverTimings) {
                                 String[] serverTimingEntries = serverTiming.split(", ");
-                                for (String serverTimingEntry : serverTimingEntries) {
-                                    String[] entry = serverTimingEntry.split(";");
-                                    String[] split = entry[0].split("=");
-                                    String description = null;
-                                    if (entry.length > 1) {
-                                        description = entry[1];
-                                    }
-                                    addServerTimingMetrics(request.getSubRequestScope() + REQUEST_ID_SEPARATOR + split[0], Long.valueOf(split[1]), description);
+                                for (String s : serverTimingEntries) {
+                                    ServerTimingMetric serverTimingMetric = ServerTimingMetric.parse(s);
+                                    serverTimingMetric.setName(request.getSubRequestScope() + REQUEST_ID_SEPARATOR + serverTimingMetric.getName());
+                                    addServerTimingMetrics(serverTimingMetric);
                                 }
                             }
                         }
@@ -178,11 +195,11 @@ public class RequestTrackingFilter extends DelegatingFilterProxy {
         }
     }
 
-    public void addServerTimingMetrics(String subRequestScope, long processingTime, String description) {
+    public void addServerTimingMetrics(ServerTimingMetric serverTimingMetric) {
         if (serverTimingsEnabled) {
             Request request = requestTrackingMap.get();
             if (request != null) {
-                request.addServerTimingMetric(new ServerTimingMetric(subRequestScope, processingTime, description));
+                request.addServerTimingMetric(serverTimingMetric);
             }
         }
     }
