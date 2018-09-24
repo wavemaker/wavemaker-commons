@@ -26,10 +26,10 @@ public class ServerTimingMetricTest {
     @DataProvider(name = "testDataProvider")
     public Object[][] testDataProvider() {
         return new Object[][] {
-                new Object[] {"cache;desc=\"Cache Read\";dur=23", "cache", 23l, "Cache Read", null, "cache;dur=23;desc=\"cache(Cache Read)\""},
-                new Object[] {"cache;desc=Cache Read;dur=23","cache", 23l, "Cache Read", null, "cache;dur=23;desc=\"cache(Cache Read)\""},
+                new Object[] {"cache;desc=\"Cache Read\";dur=23", "cache", 23l, "Cache Read", null, "cache(Cache Read);dur=23"},
+                new Object[] {"cache;desc=Cache Read;dur=23","cache", 23l, "Cache Read", null, "cache(Cache Read);dur=23"},
                 new Object[] {"cache;dur=23","cache", 23l, null, null, "cache;dur=23"},
-                new Object[] {"cache;desc=Cache Read","cache", null, "Cache Read", null, "cache;desc=\"cache(Cache Read)\""},
+                new Object[] {"cache;desc=Cache Read","cache", null, "Cache Read", null, "cache(Cache Read)"},
                 new Object[] {"cache;desc=\"","cache", null, "Cache Read", IllegalArgumentException.class, null},
                 new Object[] {"cache","cache", null, null, null, "cache"},
                 new Object[] {" cache","cache", null, null, null, "cache"},
@@ -37,10 +37,9 @@ public class ServerTimingMetricTest {
                 new Object[] {" cache ","cache", null, null, null, "cache"},
                 new Object[] {null, null, null, null, IllegalArgumentException.class, null},
                 new Object[] {"====", null, null, null, IllegalArgumentException.class, null},
-                new Object[] {"   cache     ;   desc=     \"Cache Read\"    ;   dur  =    23    ", "cache", 23l, "Cache Read", null, "cache;dur=23;" +
-                        "desc=\"cache(Cache Read)\""},
-                new Object[] {"   cache     ;desc=     \"Cache Read\"    ;   dur  =    23  ; abcd = ndhcsj  ", "cache", 23l, "Cache Read", null, "cache;" +
-                        "dur=23;desc=\"cache(Cache Read)\""},
+                new Object[] {"   cache     ;   desc=     \"Cache Read\"    ;   dur  =    23    ", "cache", 23l, "Cache Read", null, "cache(Cache Read);dur=23"},
+                new Object[] {"   cache     ;desc=     \"Cache Read\"    ;   dur  =    23  ; abcd = ndhcsj  ", "cache", 23l, "Cache Read", null, "cache(Cache Read);" +
+                        "dur=23"},
         };
     }
 }
