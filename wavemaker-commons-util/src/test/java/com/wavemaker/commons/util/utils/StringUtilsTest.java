@@ -15,10 +15,14 @@
  */
 package com.wavemaker.commons.util.utils;
 
+import java.text.SimpleDateFormat;
+import java.util.Arrays;
+import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
@@ -136,4 +140,68 @@ public class StringUtilsTest{
         obj[5]= new Object[]{"select * from     table1", "select * from table1"};
         return obj;
     }
+
+    @Test
+    public void testClassNameToSrcFilePath() {
+        Assert.assertEquals(StringUtils.classNameToSrcFilePath("com.wavemaker.commons.io.util.utils.Car"),
+                "com/wavemaker/commons/io/util/utils/Car.java");
+    }
+
+    @Test
+    public void testHasUpperCase() {
+        Assert.assertTrue(StringUtils.hasUpperCase("Abc"));
+        Assert.assertFalse(StringUtils.hasUpperCase("abc"));
+    }
+
+    @Test
+    public void testIsJavaKeyWord() {
+        Assert.assertTrue(StringUtils.isJavaKeyword("Switch"));
+    }
+
+    @Test
+    public void testGetItemsStartingWIth() {
+        List<String> finalItems = StringUtils.getItemsStartingWith(Arrays.asList("sampleA","sampleB","sampleC"),"sample",true);
+        String[] expectedList = {"A","B","C"};
+        Assert.assertEquals(expectedList,finalItems.toArray());
+    }
+
+    @Test
+    public void testGetFormattedDate() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+        String expectedDate = dateFormat.format(new Date());
+        String actualDate = StringUtils.getFormattedDate();
+        Assert.assertEquals(actualDate,expectedDate);
+
+    }
+
+    @Test
+    public void testThrowableString() {
+        Assert.assertTrue(StringUtils.toString(new RuntimeException("sample Exception")).contains("java.lang.RuntimeException: sample Exception"));
+    }
+
+    @Test
+    public void testAppendPaths() {
+        Assert.assertEquals(StringUtils.appendPaths("/root/path/","child/path"),"/root/path/child/path");
+        Assert.assertEquals(StringUtils.appendPaths("","child/path"),"child/path");
+        Assert.assertEquals(StringUtils.appendPaths("/","child/path"),"/child/path");
+        Assert.assertEquals(StringUtils.appendPaths("/root/path/","/child/path"),"/root/path/child/path");
+    }
+
+    @Test
+    public void testRemoveIfEndWith() {
+        Assert.assertEquals(StringUtils.removeIfEndsWith("sampleTest","Test"),"sample");
+    }
+
+    @Test
+    public void testRemoveIfStartsWith() {
+        Assert.assertEquals(StringUtils.removeIfStartsWith("sampleTest","sample"),"Test");
+    }
+
+    @Test
+    public void testGetUniqueNames() {
+        Assert.assertEquals(StringUtils.getUniqueName("abc",Arrays.asList("abc","bcd","abc2")),"abc3");
+        Assert.assertEquals(StringUtils.getUniqueName("abc",Arrays.asList("bcd","cde")),"abc");
+        Assert.assertEquals(StringUtils.getUniqueName("abc","abc"),"abc2");
+    }
+
 }
