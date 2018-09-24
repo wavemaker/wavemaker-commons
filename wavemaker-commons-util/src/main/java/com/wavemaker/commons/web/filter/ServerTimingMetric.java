@@ -87,11 +87,11 @@ public class ServerTimingMetric {
     public String asString() {
         StringBuilder sb = new StringBuilder();
         sb.append(name);
+        if (description != null) {
+            sb.append("(").append(description).append(")");
+        }
         if (processingTime != null) {
             sb.append(";dur=").append(processingTime);
-        }
-        if (description != null) {
-            sb.append(";desc=\"").append(name).append("(").append(description).append(")\"");
         }
         return sb.toString();
     }
