@@ -88,7 +88,7 @@ public class RequestTrackingFilter extends DelegatingFilterProxy {
                 sb.append(context);
             }
             subRequestId = sb.toString();
-            LOGGER.info("Creating new sub request tracking id {} for request context {}", subRequestId, context);
+            LOGGER.debug("Creating new sub request tracking id {} for request context {}", subRequestId, context);
         }
         return subRequestId;
     }
