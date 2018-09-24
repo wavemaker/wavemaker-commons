@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
@@ -59,33 +60,25 @@ public class RequestTrackingResponseWrapper extends HttpServletResponseWrapper {
     }
 
     private void setServerTimingResponseHeader() {
-        StringBuilder sb = new StringBuilder();
         List<ServerTimingMetric> serverTimingMetrics = request.getServerTimingMetricList();
-        
         MultiValueMap<String, ServerTimingMetric> multiValueMap = new LinkedMultiValueMap<>();
-        serverTimingMetrics.forEach(x->multiValueMap.add(x.getSubRequestScope(), x));
-        for (String subRequestScope : multiValueMap.keySet()) {
-            long totalProcessingTime = 0;
+        serverTimingMetrics.forEach(x->multiValueMap.add(x.getName(), x));
+        String headerValue = multiValueMap.keySet().stream().map(subRequestScope -> {
             Collection<ServerTimingMetric> values = multiValueMap.get(subRequestScope);
-            for (ServerTimingMetric serverTimingMetric : values) {
-                totalProcessingTime+=serverTimingMetric.getProcessingTime();
-            }
-            sb.append(subRequestScope);
-            sb.append("=").append(totalProcessingTime);
-            if (values.size() !=1 ) {
-                sb.append(";\"").append(values.size()).append(" times\"");
-            } else {
-                ServerTimingMetric serverTimingMetric = values.iterator().next();
-                if (serverTimingMetric.getDescription() != null) {
-                    sb.append(";").append(serverTimingMetric.getDescription());    
+            ServerTimingMetric toBeSavedServerTimingMetric = null;
+            if (values.size() != 1) {
+                long totalProcessingTime = 0;
+                for (ServerTimingMetric serverTimingMetric : values) {
+                    totalProcessingTime += serverTimingMetric.getProcessingTime();
                 }
+                toBeSavedServerTimingMetric = new ServerTimingMetric(subRequestScope, totalProcessingTime, values.size() + " times");
+            } else {
+                toBeSavedServerTimingMetric = values.iterator().next();
             }
-            sb.append(", ");
-        }
-        sb.deleteCharAt(sb.length() - 2);
-        String serverTimings = sb.toString();
-        logger.debug("Setting header ServerTiming with value {}", serverTimings);
-        addHeader(SERVER_TIMING_HEADER, serverTimings);
+            return toBeSavedServerTimingMetric.asString();
+        }).collect(Collectors.joining(", "));
+        logger.debug("Setting header ServerTiming with value {}", headerValue);
+        addHeader(SERVER_TIMING_HEADER, headerValue);
     }
 
 }
