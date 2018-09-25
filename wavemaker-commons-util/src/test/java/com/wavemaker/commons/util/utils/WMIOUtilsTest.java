@@ -19,7 +19,11 @@ package com.wavemaker.commons.util.utils;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -348,6 +352,32 @@ public class WMIOUtilsTest {
         WMIOUtils.closeByLogging(byteArrayInputStream);
         assertTrue(isClosed[0]);
 
+    }
+
+    @Test
+    public void testTail() throws IOException {
+        File file = new File("target","testFileOne.txt");
+        WMIOUtils.write(file,"adding data to a file\ndata1\ndata2");
+        Assert.assertEquals(WMIOUtils.tail(file,2),"data1\ndata2\n");
+
+    }
+
+    @Test
+    public void testCompare() throws IOException {
+        File file = new File("target","testFileOne.txt");
+        File tempFile = new File("target","temporary.txt");
+        WMIOUtils.write(tempFile, "it is a temporary file");
+        Assert.assertTrue(WMIOUtils.compare(new FileInputStream(file),new FileInputStream(file)));
+        Assert.assertFalse(WMIOUtils.compare(new FileInputStream(file),new FileInputStream(tempFile)));
+    }
+
+    @Test
+    public void testCopy() throws IOException {
+        File sourceFile = new File("target", "source.txt");
+        File destFile = new File("target", "dest.txt");
+        WMIOUtils.write(sourceFile,"temporary file inputs fo copy test");
+        WMIOUtils.copy(sourceFile, destFile, "noExcludeInput","noExcludePattern");
+        Assert.assertTrue(WMIOUtils.compare(new FileInputStream(sourceFile),new FileInputStream(destFile)));
     }
 
     private ByteArrayInputStream getByteArrayInputStream(final String inputString, final boolean[] isClosed) {
