@@ -17,9 +17,13 @@ package com.wavemaker.commons.util.utils;
 
 import java.io.File;
 import java.io.FileReader;
+import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
 
 import org.testng.annotations.Test;
 
@@ -83,6 +87,40 @@ public class XMLWriterTest {
         }
     }
 
+
+    @Test
+    public void testXmlWriter() throws IOException, JAXBException {
+        File tempFile = new File("target", "customer-data.xml");
+        PrintWriter pw = new PrintWriter (tempFile);
+        XMLWriter xw= new XMLWriter(pw);
+        xw.setTextOnSameLineAsParentElement(true);
+        xw.addVersion();
+        //xw.addDoctype("Test","SYSTEM","file:///tmp/");
+        xw.addElement("customer");
+        xw.addNamespace("shortNs","longNs");
+        xw.setCurrentShortNS("shortNs");
+        xw.unsetCurrentShortNS();
+
+        Map<String,String> attributeMap = new HashMap<>();
+        attributeMap.put("id","100");
+        xw.addAttribute(attributeMap);
+        xw.addElement("name");
+        xw.addText("Amanda", false);
+        xw.closeElement();
+        xw.addElement("age");
+        xw.addText("20",false);
+        xw.addComment("customer details");
+        xw.closeElement();
+        xw.finish();
+
+        JAXBContext jaxbContext = JAXBContext.newInstance(Customer.class);
+        FileReader fileReader = new FileReader(tempFile);
+
+        Customer customer = JAXBUtils.unMarshall(jaxbContext, fileReader);
+        assertEquals("Amanda\n  ", customer.getName());
+        assertEquals(20, customer.getAge());
+
+    }
 
 
 }

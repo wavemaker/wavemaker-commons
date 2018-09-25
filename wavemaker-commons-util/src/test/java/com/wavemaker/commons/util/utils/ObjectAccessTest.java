@@ -15,9 +15,12 @@
  */
 package com.wavemaker.commons.util.utils;
 
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import com.wavemaker.commons.util.ObjectAccess;
@@ -130,4 +133,32 @@ public class ObjectAccessTest {
         assertTrue(actualString.contains("price"));
         assertTrue(actualString.contains("Car:{"));
     }
+
+    @Test
+    public void testGenericReturntypes() {
+        Class[] expectedClasses = {Car.class};
+        Assert.assertEquals(ObjectAccess.getInstance().getGenericReturnTypes(Task.class,"getTasks",0).toArray(),
+                expectedClasses);
+
+    }
+
+    @Test
+    public void testGetMethodReturnType() {
+        Assert.assertEquals(ObjectAccess.getInstance().getMethodReturnType(List.class,"size",0),
+                int.class);
+    }
+
+    @Test
+    public void testGetParameterTypes() {
+        Assert.assertEquals(ObjectAccess.getInstance().getMethodParamTypes(Task.class,"setTasks",1).toArray()[0],
+                List.class);
+    }
+
+    @Test
+    public void testHasAnnotation() {
+        Assert.assertTrue(ObjectAccess.getInstance().hasAnnotation(MyAnnotation.class, new Task(), "getTasks"));
+        Assert.assertFalse(ObjectAccess.getInstance().hasAnnotation(MyAnnotation.class, new Task(), "tasks"));
+    }
+
+
 }

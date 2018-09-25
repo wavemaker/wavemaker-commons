@@ -23,6 +23,15 @@ public class Car {
     String model;
     int price;
 
+    public Car() {
+    }
+
+    public Car(String brand, String model, int price) {
+        this.brand = brand;
+        this.model = model;
+        this.price = price;
+    }
+
     public int getPrice() {
         return price;
     }
