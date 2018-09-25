@@ -5,7 +5,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *   http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -17,11 +17,15 @@ package com.wavemaker.commons.util.utils;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
+import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import com.wavemaker.commons.WMRuntimeException;
 import com.wavemaker.commons.util.ObjectUtils;
 
 import static org.testng.Assert.assertEquals;
@@ -32,7 +36,7 @@ import static org.testng.Assert.assertTrue;
 /**
  * @author Simon Toens
  */
-public class ObjectUtilsTest{
+public class ObjectUtilsTest {
     @SuppressWarnings("unchecked")
     @Test
     public void toArrayTest() {
@@ -45,11 +49,12 @@ public class ObjectUtilsTest{
         assertTrue(s[1].equals("s2"));
         assertTrue(s[2].equals("s3"));
     }
+
     @Test
     public void addArraysTest() {
-        String[] s1 = { "s1", "s2", "s3" };
-        String[] s2 = { "s4", "s5", "s6" };
-        String[] s3 = { "s7", "s8", "s9" };
+        String[] s1 = {"s1", "s2", "s3"};
+        String[] s2 = {"s4", "s5", "s6"};
+        String[] s3 = {"s7", "s8", "s9"};
 
         String[] all = (String[]) ObjectUtils.addArrays(s1, s2, s3);
 
@@ -59,17 +64,19 @@ public class ObjectUtilsTest{
             assertTrue(all[i].equals("s" + (i + 1)));
         }
     }
+
     @Test
     public void getArrayTypeArrayTest() {
 
-        int[] is = new int[] { 1, 2, 3 };
-        Integer[] Is = new Integer[] { 1, 2, 3 };
-        String[] ss = new String[] { "1", "2", "3" };
+        int[] is = new int[]{1, 2, 3};
+        Integer[] Is = new Integer[]{1, 2, 3};
+        String[] ss = new String[]{"1", "2", "3"};
 
         assertEquals(int.class, ObjectUtils.getArrayType(is));
         assertEquals(Integer.class, ObjectUtils.getArrayType(Is));
         assertEquals(String.class, ObjectUtils.getArrayType(ss));
     }
+
     @Test
     public void getArrayTypeCollectionTest() {
 
@@ -94,13 +101,14 @@ public class ObjectUtilsTest{
         assertEquals(null, ObjectUtils.getArrayType(mm));
         assertEquals(null, ObjectUtils.getArrayType(os));
     }
+
     @Test
     public void getArrayTypeExceptionTest() {
 
         boolean gotException = false;
 
         try {
-            ObjectUtils.getArrayType("foo");
+            ObjectUtils.getArrayType(null);
         } catch (IllegalArgumentException e) {
             gotException = true;
         }
@@ -108,7 +116,7 @@ public class ObjectUtilsTest{
     }
 
     @Test
-    public void getIdTest(){
+    public void getIdTest() {
         Car car = new Car();
         String objectId = ObjectUtils.getId(car);
         assertNotNull(objectId);
@@ -126,30 +134,32 @@ public class ObjectUtilsTest{
         assertFalse(ObjectUtils.isNullOrEmpty(UUID.randomUUID().toString()));
 
     }
+
     @Test
     public void toStringForObjectTest() {
         Object[] array = new Object[3];
-        array[0]="1";
-        array[1]=true;
-        array[2]=1;
+        array[0] = "1";
+        array[1] = true;
+        array[2] = 1;
 
         String actualString = ObjectUtils.toString(array);
-        assertEquals(actualString,"1, true, 1");
+        assertEquals(actualString, "1, true, 1");
     }
+
     @Test
-    public void toStringWithOtherSeparatorTest(){
+    public void toStringWithOtherSeparatorTest() {
         Object[] array = new Object[3];
-        array[0]="1";
-        array[1]=true;
-        array[2]=1;
+        array[0] = "1";
+        array[1] = true;
+        array[2] = 1;
 
-        String sep ="; ";
-        String actualString = ObjectUtils.toString(array,sep);
-        assertEquals(actualString,"1; true; 1");
+        String sep = "; ";
+        String actualString = ObjectUtils.toString(array, sep);
+        assertEquals(actualString, "1; true; 1");
     }
 
     @Test
-    public void toStringForCollection(){
+    public void toStringForCollection() {
 
         Collection collection = new ArrayList<>();
         String sep = ", ";
@@ -157,8 +167,65 @@ public class ObjectUtilsTest{
         collection.add("one");
         collection.add(true);
 
-        String actualString = ObjectUtils.toString(collection,sep);
-        assertEquals(actualString,"1, one, true");
+        String actualString = ObjectUtils.toString(collection, sep);
+        assertEquals(actualString, "1, one, true");
     }
 
+    @Test
+    public void testGetKeysStartingWIthPrefix() {
+        Map<String, String> testMap = new HashMap<>();
+        testMap.put("sampleCase1", "case1");
+        testMap.put("sampleCase2", "case2");
+        testMap.put("Case3", "case3");
+        String[] expected = {"sampleCase1", "sampleCase2"};
+        Assert.assertEqualsNoOrder(ObjectUtils.getKeysStartingWith("sample", testMap).toArray(), expected);
+    }
+
+    @Test
+    public void testStrcmp() {
+        Assert.assertFalse(ObjectUtils.strCmp(new Car(), new Customer()));
+    }
+
+    @Test(expectedExceptions = IllegalArgumentException.class)
+    public void testDiffObjectException() {
+        ObjectUtils.diffObjects(new Car(), new Customer());
+    }
+
+    @Test
+    public void testDiffObjects() {
+        Car car1 = new Car();
+        Car car2 = new Car();
+        car1.setPrice(1000);
+        car2.setPrice(2000);
+        Assert.assertEquals(ObjectUtils.diffObjects(car1, car2), "getPrice: 1000 != 2000\n");
+    }
+
+    @Test
+    public void testMap() {
+        Car car1 = new Car("ab", "xv", 2000);
+        Car car2 = new Car("ac", "xl", 3000);
+        String[] funcNames = {"getPrice"};
+        List<Car> carsList = new ArrayList<>();
+        carsList.add(car1);
+        carsList.add(car2);
+        int[] expectedList = {2000, 3000};
+        Assert.assertEquals(ObjectUtils.map(funcNames, carsList).toArray(), expectedList);
+    }
+
+    @Test(expectedExceptions = WMRuntimeException.class)
+    public void testExceptionMap() {
+       String[] funcNames = {"noMethod"};
+       List<Car> carsList = new ArrayList<>();
+       carsList.add(new Car());
+       ObjectUtils.map(funcNames,carsList);
+    }
+
+    @Test(expectedExceptions = WMRuntimeException.class)
+    public void testException2() {
+        String[] funcNames = {"setPrice"};
+        List<Car> carsList = new ArrayList<>();
+        carsList.add(new Car("ab","xv",2000));
+        ObjectUtils.map(funcNames, carsList);
+
+    }
 }
