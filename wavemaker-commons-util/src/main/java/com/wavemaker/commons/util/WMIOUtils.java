@@ -356,6 +356,9 @@ public abstract class WMIOUtils {
 
     public static com.wavemaker.commons.io.File createTempFile(String prefix, String suffix) {
         try {
+            if (prefix.length() < 3) {
+                prefix = prefix + "000";
+            }
             File tempFile = File.createTempFile(prefix, suffix);
             return new LocalFolder(tempFile.getParent()).getFile(tempFile.getName());
         } catch (IOException e) {
