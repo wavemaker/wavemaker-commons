@@ -365,6 +365,7 @@ public class WMIOUtilsTest {
     @Test
     public void testCompare() throws IOException {
         File file = new File("target","testFileOne.txt");
+        WMIOUtils.write(file,"adding data to a file\ndata1\ndata2");
         File tempFile = new File("target","temporary.txt");
         WMIOUtils.write(tempFile, "it is a temporary file");
         Assert.assertTrue(WMIOUtils.compare(new FileInputStream(file),new FileInputStream(file)));
