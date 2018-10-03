@@ -1,0 +1,76 @@
+package com.wavemaker.commons.json.module;
+
+import org.junit.Before;
+import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.testng.Assert;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+/**
+ * @author <a href="mailto:dilip.gundu@wavemaker.com">Dilip Kumar</a>
+ * @since 3/10/18
+ */
+public class WMJacksonModuleTest {
+    private static final Logger LOGGER = LoggerFactory.getLogger(WMJacksonModuleTest.class);
+
+    private ObjectMapper objectMapper;
+
+    private A a;
+
+    @Before
+    public void init() {
+        objectMapper = new ObjectMapper();
+
+        C c = new C("c value");
+
+        B b = new B("b value", c);
+
+        a = new A("a value", b);
+
+        c.setA(a);
+    }
+
+    @Test(expected = JsonMappingException.class)
+    public void test1() throws JsonProcessingException {
+
+        final String valueAsString = objectMapper.writeValueAsString(a);
+
+        LOGGER.info(valueAsString);
+
+    }
+
+    @Test
+    public void test2() throws JsonProcessingException {
+
+        objectMapper.registerModule(new WMJacksonModule(false));
+
+        final String valueAsString = objectMapper.writeValueAsString(a);
+
+        Assert.assertEquals("{\"value\":\"a value\",\"b\":{\"value\":\"b value\",\"c\":{\"value\":\"c value\"," +
+                "\"a\":null}}}", valueAsString);
+
+    }
+
+    @Test
+    public void test3() throws JsonProcessingException {
+
+        objectMapper.registerModule(new WMJacksonModule(true));
+
+        try {
+            objectMapper.writeValueAsString(a);
+
+            Assert.fail("Should throw cyclic reference issue.");
+
+        } catch (JsonProcessingException e) {
+            Assert.assertEquals("Cyclic-reference leading to cycle, Object Reference Stack:A->B->C (through reference" +
+                    " chain: com.wavemaker.commons.json.module.A[\"b\"]->com.wavemaker.commons.json.module" +
+                    ".B[\"c\"]->com.wavemaker.commons.json.module.C[\"a\"])", e.getMessage());
+        }
+
+    }
+
+}
