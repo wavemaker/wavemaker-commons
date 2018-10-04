@@ -3,14 +3,20 @@ package com.wavemaker.commons.json.module;
 import java.io.IOException;
 import java.util.ArrayDeque;
 import java.util.Deque;
+import java.util.Iterator;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.jsonFormatVisitors.JsonFormatVisitorWrapper;
+import com.fasterxml.jackson.databind.jsontype.TypeSerializer;
+import com.fasterxml.jackson.databind.ser.PropertyWriter;
+import com.fasterxml.jackson.databind.util.NameTransformer;
 
 /**
  * @author <a href="mailto:dilip.gundu@wavemaker.com">Dilip Kumar</a>
@@ -52,6 +58,70 @@ public class CircularLoopHandlingSerializer<T> extends JsonSerializer<T> {
             notifyEndSerialization();
         }
     }
+
+    @Override
+    public JsonSerializer<T> unwrappingSerializer(final NameTransformer unwrapper) {
+        return delegate.unwrappingSerializer(unwrapper);
+    }
+
+    @Override
+    public JsonSerializer<T> replaceDelegatee(final JsonSerializer<?> delegatee) {
+        return delegate.replaceDelegatee(delegatee);
+    }
+
+    @Override
+    public JsonSerializer<?> withFilterId(final Object filterId) {
+        return delegate.withFilterId(filterId);
+    }
+
+    @Override
+    public void serializeWithType(
+            final T value, final JsonGenerator gen, final SerializerProvider serializers,
+            final TypeSerializer typeSer) throws IOException {
+        delegate.serializeWithType(value, gen, serializers, typeSer);
+    }
+
+    @Override
+    public Class<T> handledType() {
+        return delegate.handledType();
+    }
+
+    @Override
+    public boolean isEmpty(final T value) {
+        return delegate.isEmpty(value);
+    }
+
+    @Override
+    public boolean isEmpty(final SerializerProvider provider, final T value) {
+        return delegate.isEmpty(provider, value);
+    }
+
+    @Override
+    public boolean usesObjectId() {
+        return delegate.usesObjectId();
+    }
+
+    @Override
+    public boolean isUnwrappingSerializer() {
+        return delegate.isUnwrappingSerializer();
+    }
+
+    @Override
+    public JsonSerializer<?> getDelegatee() {
+        return delegate.getDelegatee();
+    }
+
+    @Override
+    public Iterator<PropertyWriter> properties() {
+        return delegate.properties();
+    }
+
+    @Override
+    public void acceptJsonFormatVisitor(
+            final JsonFormatVisitorWrapper visitor, final JavaType type) throws JsonMappingException {
+        delegate.acceptJsonFormatVisitor(visitor, type);
+    }
+    
 
     public void notifyStartSerialization(Object value) {
         getObjectRefStack().push(value);
