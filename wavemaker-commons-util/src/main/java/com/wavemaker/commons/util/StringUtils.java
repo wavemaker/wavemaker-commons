@@ -207,8 +207,28 @@ public abstract class StringUtils {
         return false;
     }
 
-    public static boolean isValidJavaIdentifier(String s) {
-        return toJavaIdentifier(s).equals(s);
+    public static void validatePackageName(String packageName) {
+        if (org.apache.commons.lang3.StringUtils.isBlank(packageName)) {
+            throw new WMRuntimeException(MessageResource.create("com.wavemaker.commons.invalid.packageName"));
+        }
+        for (String token : packageName.split("\\.")) {
+            validateJavaIdentifier(token, false);
+        }
+    }
+
+    public static void validateJavaIdentifier(String s, boolean allowHqlKeyWords) {
+        if (org.apache.commons.lang3.StringUtils.isBlank(s)) {
+            throw new WMRuntimeException(MessageResource.create("com.wavemaker.commons.invalid.identifier"));
+        }
+        if (!allowHqlKeyWords && HQL_KEYWORDS.contains(s.toLowerCase())) {
+            throw new WMRuntimeException(MessageResource.create("com.wavemaker.commons.identifier.hql"), s);
+        }
+        if (StringUtils.isInJavaLangPackage(org.apache.commons.lang3.StringUtils.capitalize(s))) {
+            throw new WMRuntimeException(MessageResource.create("com.wavemaker.commons.identifier.javaPackage"), s);
+        }
+        if (!Character.isJavaIdentifierStart(s.charAt(0))) {
+            throw new WMRuntimeException(MessageResource.create("com.wavemaker.commons.identifier.notJavaIdentifier"), s);
+        }
     }
 
     public static String toJavaIdentifier(String s) {
@@ -246,7 +266,7 @@ public abstract class StringUtils {
         StringBuilder rtn = new StringBuilder();
 
         if ((checkKeyword && (JAVA_KEYWORDS.contains(s.toLowerCase()) || HQL_KEYWORDS.contains(s.toLowerCase()))) ||
-                !Character.isJavaIdentifierStart(s.charAt(0))) {
+                !Character.isJavaIdentifierStart(s.charAt(0)) || StringUtils.isInJavaLangPackage(org.apache.commons.lang3.StringUtils.capitalize(s))) {
             rtn.append(prefixReplacementChar);
         }
 
@@ -629,5 +649,15 @@ public abstract class StringUtils {
         }
     }
 
+    public static boolean isInJavaLangPackage(String className) {
+        boolean systemClass = false;
+        try {
+            Class.forName("java.lang." + className, false, StringUtils.class.getClassLoader());
+            systemClass = true;
+        } catch (ClassNotFoundException e) {
+            // given class not a system class.
+        }
+        return systemClass;
+    }
 
 }
