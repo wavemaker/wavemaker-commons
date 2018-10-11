@@ -1,5 +1,7 @@
 package com.wavemaker.commons.json.module;
 
+import java.io.IOException;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.slf4j.Logger;
@@ -9,6 +11,7 @@ import org.testng.Assert;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.wavemaker.tools.apidocs.tools.core.model.Swagger;
 
 /**
  * @author <a href="mailto:dilip.gundu@wavemaker.com">Dilip Kumar</a>
@@ -70,6 +73,18 @@ public class WMJacksonModuleTest {
                     " chain: com.wavemaker.commons.json.module.A[\"b\"]->com.wavemaker.commons.json.module" +
                     ".B[\"c\"]->com.wavemaker.commons.json.module.C[\"a\"])", e.getMessage());
         }
+
+    }
+
+    @Test
+    public void test4() throws IOException {
+
+        final Swagger swagger = objectMapper
+                .readValue(this.getClass().getResourceAsStream("/hrdb_API.json"), Swagger.class);
+
+        objectMapper.registerModule(new WMJacksonModule(true));
+
+        objectMapper.writeValueAsString(swagger);
 
     }
 
