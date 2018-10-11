@@ -9,20 +9,26 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.databind.BeanProperty;
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.jsonFormatVisitors.JsonFormatVisitorWrapper;
 import com.fasterxml.jackson.databind.jsontype.TypeSerializer;
+import com.fasterxml.jackson.databind.ser.BeanSerializer;
+import com.fasterxml.jackson.databind.ser.ContextualSerializer;
 import com.fasterxml.jackson.databind.ser.PropertyWriter;
+import com.fasterxml.jackson.databind.ser.ResolvableSerializer;
+import com.fasterxml.jackson.databind.ser.std.BeanSerializerBase;
 import com.fasterxml.jackson.databind.util.NameTransformer;
 
 /**
  * @author <a href="mailto:dilip.gundu@wavemaker.com">Dilip Kumar</a>
  * @since 3/10/18
  */
-public class CircularLoopHandlingSerializer<T> extends JsonSerializer<T> {
+public class CircularLoopHandlingSerializer<T> extends JsonSerializer<T> implements ResolvableSerializer,
+        ContextualSerializer {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(CircularLoopHandlingSerializer.class);
     /**
@@ -30,11 +36,11 @@ public class CircularLoopHandlingSerializer<T> extends JsonSerializer<T> {
      */
     private static final ThreadLocal<Deque<Object>> objectReferenceStackTL = new ThreadLocal<>();
 
-    private final JsonSerializer<T> delegate;
+    private final BeanSerializer delegate;
     private final boolean failOnCircularReferences;
 
 
-    public CircularLoopHandlingSerializer(final JsonSerializer<T> delegate, final boolean failOnCircularReferences) {
+    public CircularLoopHandlingSerializer(final BeanSerializer delegate, final boolean failOnCircularReferences) {
         this.delegate = delegate;
         this.failOnCircularReferences = failOnCircularReferences;
     }
@@ -60,18 +66,30 @@ public class CircularLoopHandlingSerializer<T> extends JsonSerializer<T> {
     }
 
     @Override
+    public JsonSerializer<?> createContextual(
+            final SerializerProvider prov, final BeanProperty property) throws JsonMappingException {
+        final JsonSerializer<?> contextual = delegate.createContextual(prov, property);
+        return wrapIfNeeded(contextual);
+    }
+
+    @Override
+    public void resolve(final SerializerProvider provider) throws JsonMappingException {
+        delegate.resolve(provider);
+    }
+
+    @Override
     public JsonSerializer<T> unwrappingSerializer(final NameTransformer unwrapper) {
-        return delegate.unwrappingSerializer(unwrapper);
+        return (JsonSerializer<T>) wrapIfNeeded(delegate.unwrappingSerializer(unwrapper));
     }
 
     @Override
     public JsonSerializer<T> replaceDelegatee(final JsonSerializer<?> delegatee) {
-        return delegate.replaceDelegatee(delegatee);
+        return (JsonSerializer<T>) wrapIfNeeded(delegate.replaceDelegatee(delegatee));
     }
 
     @Override
     public JsonSerializer<?> withFilterId(final Object filterId) {
-        return delegate.withFilterId(filterId);
+        return wrapIfNeeded(delegate.withFilterId(filterId));
     }
 
     @Override
@@ -83,7 +101,7 @@ public class CircularLoopHandlingSerializer<T> extends JsonSerializer<T> {
 
     @Override
     public Class<T> handledType() {
-        return delegate.handledType();
+        return (Class<T>) delegate.handledType();
     }
 
     @Override
@@ -121,7 +139,7 @@ public class CircularLoopHandlingSerializer<T> extends JsonSerializer<T> {
             final JsonFormatVisitorWrapper visitor, final JavaType type) throws JsonMappingException {
         delegate.acceptJsonFormatVisitor(visitor, type);
     }
-    
+
 
     public void notifyStartSerialization(Object value) {
         getObjectRefStack().push(value);
@@ -179,4 +197,9 @@ public class CircularLoopHandlingSerializer<T> extends JsonSerializer<T> {
         return objectReferenceStackTL.get();
     }
 
+    private JsonSerializer wrapIfNeeded(JsonSerializer serializer) {
+        return serializer instanceof BeanSerializerBase ?
+                new CircularLoopHandlingSerializer<>((BeanSerializer) serializer, failOnCircularReferences)
+                : serializer;
+    }
 }

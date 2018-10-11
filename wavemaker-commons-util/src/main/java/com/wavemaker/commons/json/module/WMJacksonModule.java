@@ -31,7 +31,7 @@ public class WMJacksonModule extends Module {
     @Override
     public void setupModule(final SetupContext setupContext) {
 
-        BeanSerializerModifier serializerModifier = new WMBeanSerializerModifer(this);
+        BeanSerializerModifier serializerModifier = new WMBeanSerializerModifier(this);
 
         setupContext.addBeanSerializerModifier(serializerModifier);
     }
