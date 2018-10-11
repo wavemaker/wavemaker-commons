@@ -56,5 +56,6 @@ public class WMFileUtilsTest {
         String expectedData = WMFileUtils.readFileToString(testFileActual);
 
         assertEquals(actualData, expectedData);
+        testFileActual.deleteOnExit();
     }
 }

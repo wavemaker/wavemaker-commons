@@ -19,6 +19,8 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.Reader;
+import java.io.Writer;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -81,10 +83,11 @@ public class JSONUtils {
     }
 
     public static void toJSON(File outputFile, Object object, boolean prettify) throws IOException {
-        if (prettify)
+        if (prettify) {
             objectMapper.writerWithDefaultPrettyPrinter().writeValue(outputFile, object);
-        else
+        } else {
             objectMapper.writeValue(outputFile, object);
+        }
     }
 
     public static void toJSON(OutputStream outputStream, Object object) throws IOException {
@@ -93,18 +96,44 @@ public class JSONUtils {
 
     public static void toJSON(OutputStream outputStream, Object object, boolean prettify) throws IOException {
         try {
-            if (prettify)
+            if (prettify) {
                 objectMapper.writerWithDefaultPrettyPrinter().writeValue(outputStream, object);
-            else
+            } else {
                 objectMapper.writeValue(outputStream, object);
+            }
         } finally {
             WMIOUtils.closeSilently(outputStream);
+        }
+    }
+
+    public static void toJSON(Writer outputWriter, Object object) throws IOException {
+        toJSON(outputWriter, object, true);
+    }
+
+    public static void toJSON(Writer outputWriter, Object object, boolean prettify) throws IOException {
+        try {
+            if (prettify) {
+                objectMapper.writerWithDefaultPrettyPrinter().writeValue(outputWriter, object);
+            } else {
+                objectMapper.writeValue(outputWriter, object);
+            }
+        } finally {
+            WMIOUtils.closeSilently(outputWriter);
         }
     }
 
     public static <T> T toObject(String jsonString, Class<T> t) throws IOException {
         return objectMapper.readValue(jsonString, t);
     }
+
+    public static <T> T toObject(Reader jsonReader, Class<T> t) throws IOException {
+        try {
+            return objectMapper.readValue(jsonReader, t);
+        } finally {
+            WMIOUtils.closeSilently(jsonReader);
+        }
+    }
+
 
     public static <T> T toObject(InputStream jsonStream, Class<T> t) throws IOException {
         try {
