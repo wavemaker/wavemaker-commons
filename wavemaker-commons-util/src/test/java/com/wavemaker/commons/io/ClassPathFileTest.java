@@ -16,6 +16,7 @@
 package com.wavemaker.commons.io;
 
 import org.hamcrest.Matchers;
+import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -43,15 +44,15 @@ public class ClassPathFileTest {
 
     @Test
     public void shouldLoadFromPathUsingClass() throws Exception {
-        File file = new ClassPathFile(getClass(), "/com/wavemaker/runtime/core/io/a.txt");
+        File file = new ClassPathFile(getClass(), "/com/wavemaker/commons/io/a.txt");
         assertThat(file.getContent().asString(), Matchers.is("a"));
     }
 
     @Test
     public void shouldLoadUsingExactPath() throws Exception {
-        ClassPathResource resource = new ClassPathResource("/com/wavemaker/runtime/core/io/a.txt");
+        ClassPathResource resource = new ClassPathResource("/com/wavemaker/commons/io/a.txt");
         System.out.println(resource.getInputStream());
-        File file = new ClassPathFile("/com/wavemaker/runtime/core/io/a.txt");
+        File file = new ClassPathFile("/com/wavemaker/commons/io/a.txt");
         assertThat(file.getContent().asString(), Matchers.is("a"));
     }
 
@@ -66,5 +67,11 @@ public class ClassPathFileTest {
         File file = new ClassPathFile(getClass(), "missing.txt");
         this.thrown.expect(ResourceDoesNotExistException.class);
         file.getContent().asString();
+    }
+
+    @Test
+    public void testGetName() {
+        File file = new ClassPathFile(getClass(), "a.txt");
+        Assert.assertEquals(file.getName(), "a.txt");
     }
 }
