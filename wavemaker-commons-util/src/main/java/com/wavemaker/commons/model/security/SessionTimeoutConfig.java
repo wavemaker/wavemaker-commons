@@ -25,6 +25,9 @@ public class SessionTimeoutConfig {
     private LoginType type;
     private String pageName;
     private int timeoutValue;
+    private boolean concurrentSession ;
+    private boolean exceptionIfMaximumExceeded ;
+    private int maximumSessions ;
 
     public LoginType getType() {
         return type;
@@ -48,6 +51,30 @@ public class SessionTimeoutConfig {
 
     public void setTimeoutValue(final int timeoutValue) {
         this.timeoutValue = timeoutValue;
+    }
+
+    public boolean isConcurrentSession() {
+        return concurrentSession;
+    }
+
+    public void setConcurrentSession(boolean concurrentSession) {
+        this.concurrentSession = concurrentSession;
+    }
+
+    public boolean isExceptionIfMaximumExceeded() {
+        return exceptionIfMaximumExceeded;
+    }
+
+    public void setExceptionIfMaximumExceeded(boolean exceptionIfMaximumExceeded) {
+        this.exceptionIfMaximumExceeded = exceptionIfMaximumExceeded;
+    }
+
+    public int getMaximumSessions() {
+        return maximumSessions;
+    }
+
+    public void setMaximumSessions(int maximumSessions) {
+        this.maximumSessions = maximumSessions;
     }
 
     @Override
@@ -80,6 +107,9 @@ public class SessionTimeoutConfig {
                 "type=" + type +
                 ", pageName='" + pageName + '\'' +
                 ", timeoutValue=" + timeoutValue +
+                ", concurrentSession=" + concurrentSession +
+                ", exceptionIfMaximumExceeded=" + exceptionIfMaximumExceeded +
+                ", maximumSessions=" + maximumSessions +
                 '}';
     }
 }
