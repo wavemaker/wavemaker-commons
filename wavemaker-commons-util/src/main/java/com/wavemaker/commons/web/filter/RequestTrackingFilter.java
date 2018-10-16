@@ -203,4 +203,8 @@ public class RequestTrackingFilter extends DelegatingFilterProxy {
             }
         }
     }
+
+    public void setServerTimingsEnabled(boolean serverTimingsEnabled) {
+        this.serverTimingsEnabled = serverTimingsEnabled;
+    }
 }
