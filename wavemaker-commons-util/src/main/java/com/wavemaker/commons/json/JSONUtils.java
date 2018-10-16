@@ -21,6 +21,8 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.Reader;
 import java.io.Writer;
+import java.sql.Date;
+import java.text.SimpleDateFormat;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -29,6 +31,8 @@ import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.Module;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.module.SimpleModule;
+import com.fasterxml.jackson.databind.ser.std.SqlDateSerializer;
 import com.fasterxml.jackson.databind.type.TypeFactory;
 import com.wavemaker.commons.MessageResource;
 import com.wavemaker.commons.WMRuntimeException;
@@ -44,6 +48,11 @@ public class JSONUtils {
     static {
         objectMapper = new ObjectMapper();
         objectMapper.setTypeFactory(TypeFactory.defaultInstance().withClassLoader(JSONUtils.class.getClassLoader()));
+        final SimpleModule module = new SimpleModule();
+        module.addSerializer(Date.class,
+                new SqlDateSerializer().withFormat(false, new SimpleDateFormat("yyyy-MM-dd"))
+        );
+        objectMapper.registerModule(module);
     }
 
     private JSONUtils() {
