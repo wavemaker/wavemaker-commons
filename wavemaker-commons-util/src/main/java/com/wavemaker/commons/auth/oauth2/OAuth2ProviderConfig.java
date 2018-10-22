@@ -2,12 +2,17 @@ package com.wavemaker.commons.auth.oauth2;
 
 import java.util.List;
 
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.NotBlank;
+
 /**
- * da
  * Created by srujant on 18/7/17.
  */
 public class OAuth2ProviderConfig {
 
+    @NotNull
+    @NotBlank
     private String providerId;
     private String authorizationUrl;
     private String accessTokenUrl;
