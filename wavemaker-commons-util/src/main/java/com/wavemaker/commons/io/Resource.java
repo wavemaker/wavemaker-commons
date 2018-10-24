@@ -149,4 +149,20 @@ public interface Resource {
 
     <R extends Resource, O extends ResourceOperation<R>> O performOperation(O operation);
 
+    /**
+     * Gets the time this resource object was last modified. The time is measured in milliseconds since the epoch (00:00:00
+     * GMT, January 1, 1970).
+     *
+     * @return the time this resource object was last modified; or 0 if the resource object does not exist, if an I/O error
+     *         occurred, or if the operation is not supported
+     */
+    long getLastModified();
+
+    boolean isModifiedAfter(long n);
+
+    boolean isModifiedAfter(Resource resource);
+
+    boolean isModifiedBefore(long n);
+
+    boolean isModifiedBefore(Resource resource);
 }

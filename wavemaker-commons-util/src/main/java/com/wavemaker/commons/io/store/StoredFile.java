@@ -100,7 +100,7 @@ public abstract class StoredFile extends StoredResource implements File {
         Assert.notNull(folder, FOLDER_NULL_MESSAGE);
         ensureExists();
         File destination = folder.getFile(getName());
-        if (this.getLastModified() > destination.getLastModified() || !destination.exists()) {
+        if (!destination.exists() || this.isModifiedAfter(destination)) {
             destination.getContent().write(this);
             return destination;
         } else {

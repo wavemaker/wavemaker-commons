@@ -139,4 +139,31 @@ public abstract class StoredResource implements Resource {
     public String toString() {
         return toString(ResourceStringFormat.FULL);
     }
+
+    @Override
+    public boolean isModifiedAfter(long n) {
+        return this.getLastModified() >= n ;
+    }
+
+    @Override
+    public boolean isModifiedAfter(Resource resource) {
+        return this.getLastModified() >= resource.getLastModified();
+    }
+
+    @Override
+    public long getLastModified() {
+        return getStore().getFile(this.getPath()).getLastModified();
+    }
+
+    @Override
+    public boolean isModifiedBefore(long n) {
+        return this.getLastModified() <= n ;
+    }
+
+    @Override
+    public boolean isModifiedBefore(Resource resource) {
+        return this.getLastModified() <= resource.getLastModified();
+    }
+
+
 }

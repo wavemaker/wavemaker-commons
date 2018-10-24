@@ -88,6 +88,26 @@ public class ClassPathFile extends AbstractReadOnlyFile {
     }
 
     @Override
+    public boolean isModifiedAfter(long n) {
+        return this.getLastModified() >= n ;
+    }
+
+    @Override
+    public boolean isModifiedAfter(Resource resource) {
+        return this.getLastModified() >= resource.getLastModified();
+    }
+
+    @Override
+    public boolean isModifiedBefore(long n) {
+        return this.getLastModified() <= n;
+    }
+
+    @Override
+    public boolean isModifiedBefore(Resource resource) {
+        return this.getLastModified() <= resource.getLastModified();
+    }
+
+    @Override
     public File copyToIfNewer(Folder folder) {
         return null;
     }
