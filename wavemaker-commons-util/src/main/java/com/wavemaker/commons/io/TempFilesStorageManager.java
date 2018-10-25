@@ -37,7 +37,9 @@ public class TempFilesStorageManager {
 
 
     public TempFilesStorageManager() {
-        this.filesStorageDirectory = System.getProperty("wm.studio.temp.dir") + File.separator + AUTO_PURGE_DIR;
+        this.filesStorageDirectory =
+                System.getProperty("wm.studio.temp.dir",
+                        System.getProperty("java.io.tmpdir")) + File.separator + AUTO_PURGE_DIR;
     }
 
     private Set<String> getSafeToDeleteFileInfo() {
@@ -71,7 +73,8 @@ public class TempFilesStorageManager {
             WMIOUtils.copy(inputStream, outputStream);
         } catch (IOException e) {
             WMIOUtils.deleteDirectorySilently(uniqueDirectory);
-            throw new WMRuntimeException(MessageResource.create("com.wavemaker.commons.failed.to.copy.input.stream.to.file"), e, filename);
+            throw new WMRuntimeException(
+                    MessageResource.create("com.wavemaker.commons.failed.to.copy.input.stream.to.file"), e, filename);
         } finally {
             WMIOUtils.closeSilently(inputStream);
             WMIOUtils.closeSilently(outputStream);
@@ -93,7 +96,8 @@ public class TempFilesStorageManager {
             uniqueFile.createNewFile();
         } catch (IOException e) {
             WMIOUtils.deleteDirectorySilently(uniqueDirectory);
-            throw new WMRuntimeException(MessageResource.create("com.wavemaker.commons.failed.to.create.empty.file"), e, filename);
+            throw new WMRuntimeException(MessageResource.create("com.wavemaker.commons.failed.to.create.empty.file"), e,
+                    filename);
         }
         purgeOldFiles();
         return fileId;
@@ -119,12 +123,14 @@ public class TempFilesStorageManager {
         logger.info("Accessing file output stream for fileId {}", fileId);
         File uniqueFile = getUniqueFile(fileId);
         if (!uniqueFile.exists()) {
-            throw new ResourceNotFoundException(MessageResource.create("com.wavemaker.commons.no.files.found.with.fileid"), fileId);
+            throw new ResourceNotFoundException(
+                    MessageResource.create("com.wavemaker.commons.no.files.found.with.fileid"), fileId);
         }
         try {
             return new FileInputStream(uniqueFile);
         } catch (IOException e) {
-            throw new WMRuntimeException(MessageResource.create("com.wavemaker.commons.failed.to.get.output.stream"), e, fileId);
+            throw new WMRuntimeException(MessageResource.create("com.wavemaker.commons.failed.to.get.output.stream"), e,
+                    fileId);
         }
     }
 
@@ -132,12 +138,14 @@ public class TempFilesStorageManager {
         logger.info("Accessing file output stream for fileId {}", fileId);
         File uniqueFile = getUniqueFile(fileId);
         if (!uniqueFile.exists()) {
-            throw new ResourceNotFoundException(MessageResource.create("com.wavemaker.commons.no.files.found.with.fileid"), fileId);
+            throw new ResourceNotFoundException(
+                    MessageResource.create("com.wavemaker.commons.no.files.found.with.fileid"), fileId);
         }
         try {
             return new FileOutputStream(uniqueFile);
         } catch (IOException e) {
-            throw new WMRuntimeException(MessageResource.create("com.wavemaker.commons.failed.to.get.output.stream"), e, fileId);
+            throw new WMRuntimeException(MessageResource.create("com.wavemaker.commons.failed.to.get.output.stream"), e,
+                    fileId);
         }
     }
 
@@ -155,7 +163,8 @@ public class TempFilesStorageManager {
         if (files.length == 1) {
             return files[0];
         }
-        throw new IllegalStateException("Unique file not found in the temp directory with fileId " + fileId + ".Files count in the directory is " + files.length);
+        throw new IllegalStateException(
+                "Unique file not found in the temp directory with fileId " + fileId + ".Files count in the directory is " + files.length);
     }
 
     public File getUniqueDirectory(String fileId) {
