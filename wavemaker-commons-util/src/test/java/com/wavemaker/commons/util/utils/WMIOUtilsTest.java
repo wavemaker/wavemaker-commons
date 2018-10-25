@@ -20,15 +20,16 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.PrintWriter;
+import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
 import org.testng.Assert;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -61,6 +62,7 @@ public class WMIOUtilsTest {
         }
     }
 
+    @AfterClass
     public void tearDown() throws Exception {
 
         WMIOUtils.deleteRecursive(this.tempDir);
@@ -379,6 +381,38 @@ public class WMIOUtilsTest {
         WMIOUtils.write(sourceFile,"temporary file inputs fo copy test");
         WMIOUtils.copy(sourceFile, destFile, "noExcludeInput","noExcludePattern");
         Assert.assertTrue(WMIOUtils.compare(new FileInputStream(sourceFile),new FileInputStream(destFile)));
+    }
+
+    @Test
+    public void testUtf8CharWriteToFile() throws IOException {
+        File file = new File("target", "testUtf8Char.txt");
+        WMIOUtils.write(file, "కొన్ని రాండమ్ డాటాతో ఫైల్ను జనాదరణ పొందింది\nలైన్ 1\nలైన్ 2");
+        Assert.assertEquals(WMIOUtils.read(file), "కొన్ని రాండమ్ డాటాతో ఫైల్ను జనాదరణ పొందింది\nలైన్ 1\nలైన్ 2");
+        Assert.assertEquals(WMIOUtils.tail(file, 2), "లైన్ 1\nలైన్ 2\n");
+    }
+
+    @Test
+    public void testUtf8CharWriteToOutputStream() throws IOException {
+        File file = new File("target", "testUtf8Char.txt");
+        WMIOUtils.write(new FileOutputStream(file), "నమూనా డేటా");
+        Assert.assertEquals(WMIOUtils.read(file), "నమూనా డేటా");
+    }
+
+    @Test
+    public void testUtf8CharCopyStream() throws IOException {
+        final boolean[] isClosed = {false};
+        File file = new File("target", "testUtf8Char.txt");
+        WMIOUtils.copy(getByteArrayInputStream("నమూనా డేటా", isClosed), new FileOutputStream(file));
+        Assert.assertEquals(WMIOUtils.read(file), "నమూనా డేటా");
+    }
+
+    @Test
+    public void testUtf8CharCopy() throws IOException {
+        File file = new File("target", "testUtf8Char.txt");
+        FileWriter fileWriter = new FileWriter(file);
+        WMIOUtils.copy(new StringReader("నమూనా డేటా"), fileWriter);
+        fileWriter.close();
+        Assert.assertEquals(WMIOUtils.read(file), "నమూనా డేటా");
     }
 
     private ByteArrayInputStream getByteArrayInputStream(final String inputString, final boolean[] isClosed) {
