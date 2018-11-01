@@ -147,6 +147,15 @@ public class FilterOnTest {
 
     }
 
+    @Test
+    public void testCaseInSensitiveNames() {
+        ResourceFilter filter = FilterOn.names().matching("file.tmp");
+        assertThat(filter.match(this.context, fileWithName("FiLe.tmp")), is(true));
+        assertThat(filter.match(this.context, fileWithName("~file.bak")), is(false));
+        assertThat(filter.match(this.context, fileWithName("file.tmp")), is(true));
+        assertThat(filter.match(this.context, fileWithName("~file.dat")), is(false));
+    }
+
     private File fileWithName(String name) {
         return resourceWithName(File.class, name, null);
     }
