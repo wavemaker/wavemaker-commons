@@ -39,12 +39,12 @@ public abstract class FilterOn {
     private static final AntPathMatcher ANT_PATH_MATCHER = new AntPathMatcher();
 
     /**
-     * Start filtering based on {@link Resource} {@link Folder#getName() names}. NOTE: matching is case insensitive.
+     * Start filtering based on {@link Resource} {@link Folder#getName() names}. NOTE: matching is case sensitive.
      * 
      * @return the filter
      */
     public static AttributeFilter names() {
-        return getFor(new ResourceAttribute(false) {
+        return getFor(new ResourceAttribute(true) {
 
             @Override
             public String get(ResourceFilterContext context, Resource resource) {
@@ -59,7 +59,7 @@ public abstract class FilterOn {
      * @return the filter
      */
     public static AttributeFilter caseSensitiveNames() {
-        return getFor(new ResourceAttribute(true) {
+        return getFor(new ResourceAttribute(false) {
 
             @Override
             public String get(ResourceFilterContext context, Resource resource) {

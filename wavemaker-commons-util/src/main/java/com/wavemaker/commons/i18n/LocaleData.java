@@ -10,6 +10,7 @@ public class LocaleData {
 
     private Map<String, String> messages = Collections.emptyMap();
     private Map<String, String> formats = Collections.emptyMap();
+    private Map<String, String> files = Collections.emptyMap();
 
     public LocaleData() {
     }
@@ -17,6 +18,14 @@ public class LocaleData {
     public LocaleData(Map<String, String> messages, Map<String, String> formats) {
         this.messages = messages;
         this.formats = formats;
+    }
+
+    public Map<String, String> getFiles() {
+        return files;
+    }
+
+    public void setFiles(Map<String, String> files) {
+        this.files = files;
     }
 
     public Map<String, String> getMessages() {
