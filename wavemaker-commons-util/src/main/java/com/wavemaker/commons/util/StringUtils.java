@@ -223,10 +223,10 @@ public abstract class StringUtils {
         if (!allowHqlKeyWords && HQL_KEYWORDS.contains(s.toLowerCase())) {
             throw new WMRuntimeException(MessageResource.create("com.wavemaker.commons.identifier.hql"), s);
         }
-        if (StringUtils.isInJavaLangPackage(org.apache.commons.lang3.StringUtils.capitalize(s))) {
+        if (JAVA_KEYWORDS.contains(s) || StringUtils.isInJavaLangPackage(org.apache.commons.lang3.StringUtils.capitalize(s))) {
             throw new WMRuntimeException(MessageResource.create("com.wavemaker.commons.identifier.javaPackage"), s);
         }
-        if (!Character.isJavaIdentifierStart(s.charAt(0))) {
+        if (s.contains("$") || s.contains("-") || !Character.isJavaIdentifierStart(s.charAt(0))) {
             throw new WMRuntimeException(MessageResource.create("com.wavemaker.commons.identifier.notJavaIdentifier"), s);
         }
     }
