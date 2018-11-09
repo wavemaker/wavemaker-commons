@@ -23,21 +23,26 @@ public class PatternMatchingReplaceReader extends FilterReader {
     }
 
     @Override
-    public int read(char cbuf[]) throws IOException {
+    public int read(char[] cbuf, int off, int len) throws IOException {
         int count = 0;
         boolean eof = false;
-        while (count < cbuf.length) {
+        while (count < len) {
             int read = read();
             if (read == -1) {
                 eof = true;
                 break;
             }
-            cbuf[count++] = (char) read;
+            cbuf[off + count++] = (char) read;
         }
         if (count == 0 && eof) {
             return -1;
         }
         return count;
+    }
+
+    @Override
+    public int read(char cbuf[]) throws IOException {
+        return read(cbuf, 0, cbuf.length);
     }
 
     @Override
@@ -62,7 +67,7 @@ public class PatternMatchingReplaceReader extends FilterReader {
                             break;
                         }
                         if (tempSb.length() == prefix.length()) {
-                            prefixFound=true;
+                            prefixFound = true;
                             break;
                         }
                     }
@@ -89,7 +94,7 @@ public class PatternMatchingReplaceReader extends FilterReader {
                             sb.append(prefix).append(tempSb.toString());
                             break;
                         } else {
-                            count=0;
+                            count = 0;
                         }
                     }
                 }
