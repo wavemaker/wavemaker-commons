@@ -23,6 +23,7 @@ import java.util.HashSet;
 import java.util.List;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.ArrayUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -115,12 +116,14 @@ public abstract class WMIOUtils {
 
     public static void write(File f, String s) throws IOException {
         f.getParentFile().mkdirs();
-        BufferedWriter br = null;
+        write(new FileOutputStream(f), s);
+    }
+
+    public static void write(OutputStream outputStream, String data) throws IOException {
         try {
-            br = new BufferedWriter(new FileWriter(f));
-            br.write(s);
+            IOUtils.write(data, outputStream, "UTF-8");
         } finally {
-            closeSilently(br);
+            closeSilently(outputStream);
         }
     }
 
@@ -163,35 +166,33 @@ public abstract class WMIOUtils {
 
     /**
      * copies content of InputStream into OutputStream os.
+     *
      * @param is InputStream to read from.
      * @param os OutputStream to write to.
      * @return returns the number of bytes actually written
-     * @throws IOException
-     *
-     * Note : This method never closes the parameterized streams;
+     * @throws IOException Note : This method never closes the parameterized streams;
      */
     public static int copy(InputStream is, OutputStream os) throws IOException {
-        return org.apache.commons.io.IOUtils.copy(is, os);
+        return IOUtils.copy(is, os);
     }
 
     /**
      * Copies content of reader into Writer.
+     *
      * @param reader Reader to read from.
      * @param writer Writer to write to.
      * @return returns the number of characters actually written
-     * @throws IOException
-     *
-     * Note : This method never closes the parameterized streams;
+     * @throws IOException Note : This method never closes the parameterized streams;
      */
     public static int copy(Reader reader, Writer writer) throws IOException {
-        return org.apache.commons.io.IOUtils.copy(reader, writer);
+        return IOUtils.copy(reader, writer);
     }
 
     /**
      * Copy from: file to file, directory to directory, file to directory. Defaults to exclude nothing, so all files and
      * directories are copied.
      *
-     * @param source File object representing a file or directory to copy from.
+     * @param source      File object representing a file or directory to copy from.
      * @param destination File object representing the target; can only represent a file if the source is a file.
      * @throws IOException
      */
@@ -203,9 +204,9 @@ public abstract class WMIOUtils {
     /**
      * Copy from: file to file, directory to directory, file to directory.
      *
-     * @param source File object representing a file or directory to copy from.
+     * @param source      File object representing a file or directory to copy from.
      * @param destination File object representing the target; can only represent a file if the source is a file.
-     * @param excludes A list of exclusion filenames.
+     * @param excludes    A list of exclusion filenames.
      * @throws IOException
      */
     public static void copy(File source, File destination, List<String> excludes) throws IOException {
@@ -273,8 +274,8 @@ public abstract class WMIOUtils {
     /**
      * Copy from: file to file, directory to directory, file to directory.
      *
-     * @param source File object representing a file or directory to copy from.
-     * @param destination File object representing the target; can only represent a file if the source is a file.
+     * @param source           File object representing a file or directory to copy from.
+     * @param destination      File object representing the target; can only represent a file if the source is a file.
      * @param includedPatterns the ant-style path pattern to be included. Null means that all resources are included.
      * @param excludedPatterns the ant-style path pattern to be excluded. Null means that no resources are excluded.
      * @throws IOException
@@ -459,9 +460,20 @@ public abstract class WMIOUtils {
         deleteFileSilently(file, noLogging);
     }
 
+    public static String toString(Reader reader) {
+        try {
+            return IOUtils.toString(reader);
+        } catch (IOException e) {
+            throw new WMRuntimeException(MessageResource.create("com.wavemaker.commons.failed.to.get.string.from.input.stream"), e);
+        } finally {
+            closeSilently(reader);
+        }
+    }
+
+
     public static String toString(InputStream is) {
         try {
-            return org.apache.commons.io.IOUtils.toString(is, "UTF-8");
+            return IOUtils.toString(is, "UTF-8");
         } catch (IOException e) {
             throw new WMRuntimeException("Failed to get string from input stream", e);
         } finally {
@@ -492,8 +504,8 @@ public abstract class WMIOUtils {
     /**
      * Create intermediate directories so that the File represented by newFile can be created.
      *
-     * @param newDir The directory that will be created; this method will ensure that the intermediate directories
-     *        exist, and that this File is within the topLevel file.
+     * @param newDir   The directory that will be created; this method will ensure that the intermediate directories
+     *                 exist, and that this File is within the topLevel file.
      * @param topLevel This file should represent the top-level directory that files will not be created outside of.
      */
     public static void makeDirectories(File newDir, File topLevel) throws FileAccessException {
