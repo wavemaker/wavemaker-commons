@@ -32,7 +32,17 @@ public class TempFilesStorageManagerTest {
 
     @Test
     public void testGetFilePath() {
-        Assert.assertTrue(tempFilesStorageManager.getFilePath(fileId).contains("null/auto-purge/"));
+        Assert.assertTrue(tempFilesStorageManager.getFilePath(fileId).startsWith("/tmp/auto-purge/"));
+
+        System.setProperty("wm.studio.temp.dir", "/tmp/wm_temp");
+
+        TempFilesStorageManager tmpFSM = new TempFilesStorageManager();
+        final String newFileId = tmpFSM.registerNewFile("/sample.txt");
+
+        Assert.assertFalse(tmpFSM.getFilePath(newFileId).startsWith("/tmp/auto-purge/"));
+        Assert.assertTrue(tmpFSM.getFilePath(newFileId).startsWith("/tmp/wm_temp/auto-purge/"));
+
+        System.clearProperty("wm.studio.temp.dir");
     }
 
     @Test

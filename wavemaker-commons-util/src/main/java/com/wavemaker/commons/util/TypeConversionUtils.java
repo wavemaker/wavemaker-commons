@@ -34,16 +34,7 @@ import java.util.regex.Pattern;
 
 import com.wavemaker.commons.json.deserializer.WMDateDeSerializer;
 import com.wavemaker.commons.json.deserializer.WMLocalDateTimeDeSerializer;
-import com.wavemaker.commons.wrapper.BooleanWrapper;
-import com.wavemaker.commons.wrapper.ByteWrapper;
-import com.wavemaker.commons.wrapper.CharacterWrapper;
-import com.wavemaker.commons.wrapper.DateWrapper;
-import com.wavemaker.commons.wrapper.DoubleWrapper;
-import com.wavemaker.commons.wrapper.FloatWrapper;
-import com.wavemaker.commons.wrapper.IntegerWrapper;
-import com.wavemaker.commons.wrapper.LongWrapper;
-import com.wavemaker.commons.wrapper.ShortWrapper;
-import com.wavemaker.commons.wrapper.StringWrapper;
+import com.wavemaker.commons.wrapper.*;
 
 /**
  * @author Simon Toens
@@ -63,9 +54,9 @@ public abstract class TypeConversionUtils {
     private static final Map<String, Class<?>> PRIMITIVE_ARRAYS = new HashMap<>(11);
     private static final Map<String, Class<?>> WM_PRIMITIVE_WRAPPERS = new HashMap<>(8);
 
-    private static Set<String> PRIMITIVE_DATA_TYPES = new HashSet<>();
+    private static final Set<String> PRIMITIVE_DATA_TYPES = new HashSet<>();
 
-    private static Set<String> SERVLET_CLASSES = new HashSet<>();
+    private static final Set<String> SERVLET_CLASSES = new HashSet<>();
 
     static {
         PRIMITIVES.put(boolean.class.getName(), boolean.class);
