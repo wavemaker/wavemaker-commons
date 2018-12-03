@@ -5,7 +5,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *   http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -15,15 +15,18 @@
  */
 package com.wavemaker.commons.util;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.io.Reader;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
+import javax.xml.parsers.ParserConfigurationException;
 
+import org.w3c.dom.Document;
+import org.xml.sax.SAXException;
 
 
 /**
@@ -36,23 +39,15 @@ public class JAXBUtils {
     private JAXBUtils() {
     }
 
-    public static <T> T unMarshall(JAXBContext context, InputStream inputStream) throws JAXBException {
+    public static <T> XmlDocument<T> unMarshall(JAXBContext context, InputStream inputStream) throws JAXBException, IOException, SAXException, ParserConfigurationException {
         Unmarshaller unmarshaller = null;
         try {
+            Document document = XMLUtils.readDocument(inputStream);
             unmarshaller = context.createUnmarshaller();
-            return (T) unmarshaller.unmarshal(inputStream);
+            T t = (T) unmarshaller.unmarshal(document);
+            return new XmlDocument<T>(document, t);
         } finally {
             closeResources(inputStream, unmarshaller);
-        }
-    }
-
-    public static <T> T unMarshall(JAXBContext context, Reader reader) throws JAXBException {
-        Unmarshaller unmarshaller = null;
-        try {
-            unmarshaller = context.createUnmarshaller();
-            return (T) unmarshaller.unmarshal(reader);
-        } finally {
-            closeResources(reader, unmarshaller);
         }
     }
 

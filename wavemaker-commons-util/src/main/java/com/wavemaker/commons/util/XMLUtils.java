@@ -31,6 +31,7 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.stream.XMLStreamReader;
+import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Result;
 import javax.xml.transform.Source;
 import javax.xml.transform.Transformer;
@@ -168,10 +169,48 @@ public abstract class XMLUtils {
         }
     }
 
+    public static Document readDocument(InputStream inputStream) throws ParserConfigurationException, IOException, SAXException {
+        DocumentBuilder documentBuilder = getDocumentBuilder();
+        return documentBuilder.parse(inputStream);
+    }
+
+    public static Document readDocument(File file) throws ParserConfigurationException, IOException, SAXException {
+        InputStream inputStream = null;
+        try {
+            DocumentBuilder documentBuilder = getDocumentBuilder();
+            inputStream = file.getContent().asInputStream();
+            return documentBuilder.parse(inputStream);
+        } finally {
+            WMIOUtils.closeSilently(inputStream);
+        }
+    }
+
+    public static Document getNewDOMDocument() throws ParserConfigurationException {
+        return getDocumentBuilder().newDocument();
+    }
+
+    public static void writeDocument(Document outputDocument, boolean xmlStandalone, OutputStream outputStream) throws TransformerException {
+        try {
+            TransformerFactory tf = TransformerFactory.newInstance();
+            Transformer t = tf.newTransformer();
+            t.setOutputProperty(OutputKeys.INDENT, "yes");
+            t.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4");
+            if (xmlStandalone) {
+                t.setOutputProperty(OutputKeys.STANDALONE, "yes");
+            }
+            DOMSource source = new DOMSource(outputDocument);
+            StreamResult result = new StreamResult(outputStream);
+            t.transform(source, result);
+
+        } finally {
+            WMIOUtils.closeSilently(outputStream);
+        }
+    }
 
     private static DocumentBuilder getDocumentBuilder() {
         try {
             DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
+            documentBuilderFactory.setNamespaceAware(true);
             return documentBuilderFactory.newDocumentBuilder();
         } catch (ParserConfigurationException e) {
             throw new WMRuntimeException(MessageResource.create("com.wavemaker.commons.failed.to.fetch.documentbuilder"), e);

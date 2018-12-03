@@ -16,7 +16,7 @@
 package com.wavemaker.commons.util.utils;
 
 import java.io.File;
-import java.io.FileReader;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashMap;
@@ -24,11 +24,14 @@ import java.util.Map;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
+import javax.xml.parsers.ParserConfigurationException;
 
 import org.testng.annotations.Test;
+import org.xml.sax.SAXException;
 
 import com.wavemaker.commons.util.JAXBUtils;
 import com.wavemaker.commons.util.XMLWriter;
+import com.wavemaker.commons.util.XmlDocument;
 
 import static org.testng.Assert.assertEquals;
 
@@ -62,8 +65,8 @@ public class XMLWriterTest {
 //        FileReader fileReader = new FileReader(temp);
         JAXBContext jaxbContext = JAXBContext.newInstance(Customer.class);
 
-        FileReader fileReader = new FileReader(tempFile);
-        Customer customer = JAXBUtils.unMarshall(jaxbContext, fileReader);
+        XmlDocument<Customer> xmlDocument = JAXBUtils.unMarshall(jaxbContext, new FileInputStream(tempFile));
+        Customer customer = xmlDocument.getObject();
         assertEquals("Amanda\n  ", customer.getName());
         assertEquals(20, customer.getAge());
 
@@ -89,7 +92,7 @@ public class XMLWriterTest {
 
 
     @Test
-    public void testXmlWriter() throws IOException, JAXBException {
+    public void testXmlWriter() throws IOException, JAXBException, ParserConfigurationException, SAXException {
         File tempFile = new File("target", "customer-data.xml");
         PrintWriter pw = new PrintWriter (tempFile);
         XMLWriter xw= new XMLWriter(pw);
@@ -114,9 +117,10 @@ public class XMLWriterTest {
         xw.finish();
 
         JAXBContext jaxbContext = JAXBContext.newInstance(Customer.class);
-        FileReader fileReader = new FileReader(tempFile);
+        FileInputStream fileInputStream = new FileInputStream(tempFile);
 
-        Customer customer = JAXBUtils.unMarshall(jaxbContext, fileReader);
+        XmlDocument<Customer> xmlDocument = JAXBUtils.unMarshall(jaxbContext, fileInputStream);
+        Customer customer = xmlDocument.getObject();
         assertEquals("Amanda\n  ", customer.getName());
         assertEquals(20, customer.getAge());
 
