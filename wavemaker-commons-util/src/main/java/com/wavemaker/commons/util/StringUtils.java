@@ -266,7 +266,7 @@ public abstract class StringUtils {
         StringBuilder rtn = new StringBuilder();
 
         if ((checkKeyword && (JAVA_KEYWORDS.contains(s.toLowerCase()) || HQL_KEYWORDS.contains(s.toLowerCase()))) ||
-                !Character.isJavaIdentifierStart(s.charAt(0)) || StringUtils.isInJavaLangPackage(org.apache.commons.lang3.StringUtils.capitalize(s))) {
+                !Character.isJavaIdentifierStart(s.charAt(0))) {
             rtn.append(prefixReplacementChar);
         }
 
