@@ -22,13 +22,15 @@ public class RuntimeProxySettings {
 
     private boolean web;
     private boolean mobile;
+    private boolean withCredentials;
 
     public RuntimeProxySettings() {
     }
 
-    public RuntimeProxySettings(boolean web, boolean mobile) {
+    public RuntimeProxySettings(final boolean web, final boolean mobile, final boolean withCredentials) {
         this.web = web;
         this.mobile = mobile;
+        this.withCredentials = withCredentials;
     }
 
     public boolean isWeb() {
@@ -46,6 +48,16 @@ public class RuntimeProxySettings {
     public void setMobile(boolean mobile) {
         this.mobile = mobile;
     }
+
+    public boolean isWithCredentials() {
+        return withCredentials;
+    }
+
+    public RuntimeProxySettings setWithCredentials(final boolean withCredentials) {
+        this.withCredentials = withCredentials;
+        return this;
+    }
+
     @Override
     public boolean equals(final Object o) {
         if (this == o) return true;

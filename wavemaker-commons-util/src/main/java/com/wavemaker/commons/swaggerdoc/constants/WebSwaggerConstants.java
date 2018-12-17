@@ -22,6 +22,7 @@ public class WebSwaggerConstants {
 
     public static final String USE_PROXY_FOR_WEB = "USE_PROXY_FOR_WEB";
     public static final String USE_PROXY_FOR_MOBILE = "USE_PROXY_FOR_MOBILE";
+    public static final String USE_WITH_CREDENTIALS = "USE_WITH_CREDENTIALS";
 
     private WebSwaggerConstants() {
     }
