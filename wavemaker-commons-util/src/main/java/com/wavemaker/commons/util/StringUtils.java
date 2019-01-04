@@ -27,6 +27,7 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
+import java.util.regex.Pattern;
 
 import org.apache.commons.lang3.math.NumberUtils;
 
@@ -42,6 +43,7 @@ public abstract class StringUtils {
 
     private static final Collection<String> JAVA_KEYWORDS = new HashSet<>(50);
     private static final Collection<String> HQL_KEYWORDS = new HashSet<>(50);
+    private static final Pattern NON_JAVA_IDENTIFIER = Pattern.compile("\\W");
 
     static {
         JAVA_KEYWORDS.add("abstract");
@@ -226,7 +228,7 @@ public abstract class StringUtils {
         if (JAVA_KEYWORDS.contains(s) || StringUtils.isInJavaLangPackage(org.apache.commons.lang3.StringUtils.capitalize(s))) {
             throw new WMRuntimeException(MessageResource.create("com.wavemaker.commons.identifier.javaPackage"), s);
         }
-        if (s.contains("$") || s.contains("-") || !Character.isJavaIdentifierStart(s.charAt(0))) {
+        if (NON_JAVA_IDENTIFIER.matcher(s).find() || !Character.isJavaIdentifierStart(s.charAt(0))) {
             throw new WMRuntimeException(MessageResource.create("com.wavemaker.commons.identifier.notJavaIdentifier"), s);
         }
     }
