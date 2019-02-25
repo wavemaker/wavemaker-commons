@@ -110,9 +110,11 @@ public abstract class StoredFile extends StoredResource implements File {
 
     @Override
     public void createIfMissing() {
-        if (!exists()) {
-            createParentIfMissing();
-            getStore().create();
+        synchronized (this) {
+            if (!exists()) {
+                createParentIfMissing();
+                getStore().create();
+            }
         }
     }
 
