@@ -51,6 +51,7 @@
   "com.wavemaker.commons.unable.to,rename.file" : "Unable to rename file ''{0}'' to ''{1}''",
   "com.wavemaker.commons.unable.to.access.resource" : "Unable to access resource ${0} as ${1} due to existing resource",
   "com.wavemaker.commons.unable.to.create.file" : "Unable to create file ${0}",
+  "com.wavemaker.common.resource.exists": "Unable to create file. File already exists ${0}",
   "com.wavemaker.commons.unable.to.create.folder" : "Unable to create folder ${0}",
   "com.wavemaker.commons.unable.to.delete.file" : "Unable to delete ${0}",
   "com.wavemaker.commons.unsupported.object.type" : "obj of type ${0} not supported by this method",

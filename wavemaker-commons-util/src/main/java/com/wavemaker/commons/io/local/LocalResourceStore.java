@@ -5,7 +5,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *   http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -30,6 +30,7 @@ import org.springframework.util.Assert;
 import org.springframework.util.ObjectUtils;
 
 import com.wavemaker.commons.MessageResource;
+import com.wavemaker.commons.ResourceAlreadyExistException;
 import com.wavemaker.commons.io.File;
 import com.wavemaker.commons.io.Folder;
 import com.wavemaker.commons.io.JailedResourcePath;
@@ -43,7 +44,7 @@ import com.wavemaker.commons.io.store.ResourceStore;
 
 /**
  * {@link ResourceStore}s for {@link LocalFile} and {@link LocalFolder}.
- * 
+ *
  * @author Phillip Webb
  */
 abstract class LocalResourceStore implements ResourceStore {
@@ -84,7 +85,7 @@ abstract class LocalResourceStore implements ResourceStore {
 
     @Override
     public Resource getExisting(JailedResourcePath path) {
-        int count=0;
+        int count = 0;
         while (true) {
             count++;
             try {
@@ -119,7 +120,8 @@ abstract class LocalResourceStore implements ResourceStore {
         java.io.File dest = new java.io.File(getFile().getParent(), name);
         JailedResourcePath destPath = getPath().getParent().get(name);
         if (!getFile().renameTo(dest)) {
-            throw new ResourceException(MessageResource.create("com.wavemaker.commons.unable.to,rename.file"), getFile(), dest);
+            throw new ResourceException(MessageResource.create("com.wavemaker.commons.unable.to,rename.file"),
+                    getFile(), dest);
         }
         return getRenamedResource(destPath);
     }
@@ -133,8 +135,9 @@ abstract class LocalResourceStore implements ResourceStore {
 
     @Override
     public void delete() {
-        if (!this.file.delete()) {
-            throw new ResourceException(MessageResource.create("com.wavemaker.commons.unable.to.delete.file"), this.file);
+        if (!this.file.delete() && file.exists()) {
+            throw new ResourceException(MessageResource.create("com.wavemaker.commons.unable.to.delete.file"),
+                    this.file);
         }
     }
 
@@ -177,7 +180,13 @@ abstract class LocalResourceStore implements ResourceStore {
         public void create() {
             try {
                 if (!getFile().createNewFile()) {
-                    throw new ResourceException(MessageResource.create("com.wavemaker.commons.unable.to.create.file"), getFile());
+                    if (!getFile().exists()) {
+                        throw new ResourceException(
+                                MessageResource.create("com.wavemaker.commons.unable.to.create.file"), getFile());
+                    } else {
+                        throw new ResourceAlreadyExistException(
+                                MessageResource.create("com.wavemaker.common.resource.exists"), getFile().getPath());
+                    }
                 }
             } catch (IOException e) {
                 throw new ResourceException(e);
@@ -242,7 +251,8 @@ abstract class LocalResourceStore implements ResourceStore {
         public void create() {
             boolean created = getFile().mkdirs();
             if (!created && !exists()) {
-                throw new ResourceException(MessageResource.create("com.wavemaker.commons.unable.to.create.folder"), getFile());
+                throw new ResourceException(MessageResource.create("com.wavemaker.commons.unable.to.create.folder"),
+                        getFile());
             }
         }
 

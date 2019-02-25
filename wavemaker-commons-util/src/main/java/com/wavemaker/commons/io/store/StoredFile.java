@@ -5,7 +5,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *   http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -20,6 +20,7 @@ import java.io.OutputStream;
 
 import org.springframework.util.Assert;
 
+import com.wavemaker.commons.ResourceAlreadyExistException;
 import com.wavemaker.commons.io.AbstractFileContent;
 import com.wavemaker.commons.io.File;
 import com.wavemaker.commons.io.FileContent;
@@ -29,10 +30,10 @@ import com.wavemaker.commons.io.Folder;
  * A {@link File} that is backed by a {@link FileStore}. Allows developers to use the simpler {@link FileStore}
  * interface to provide a full {@link File} implementation. Subclasses must provide a suitable {@link FileStore}
  * implementation via the {@link #getStore()} method.
- * 
+ *
  * @see FileStore
  * @see StoredFolder
- * 
+ *
  * @author Phillip Webb
  */
 public abstract class StoredFile extends StoredResource implements File {
@@ -110,10 +111,12 @@ public abstract class StoredFile extends StoredResource implements File {
 
     @Override
     public void createIfMissing() {
-        synchronized (this) {
-            if (!exists()) {
-                createParentIfMissing();
+        if (!exists()) {
+            createParentIfMissing();
+            try {
                 getStore().create();
+            } catch (ResourceAlreadyExistException e) {
+                // ignore
             }
         }
     }
@@ -121,7 +124,7 @@ public abstract class StoredFile extends StoredResource implements File {
     /**
      * Called to write the contents of another file to this file. This method is can optionally be implemented by
      * subclasses to implement custom file copy strategies.
-     * 
+     *
      * @param file the file being written to this one
      * @return if the write operation has been handled. Return <tt>false</tt> for standard stream based writes.
      */
