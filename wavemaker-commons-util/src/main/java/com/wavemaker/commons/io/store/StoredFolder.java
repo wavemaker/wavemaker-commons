@@ -5,7 +5,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *   http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -37,10 +37,10 @@ import com.wavemaker.commons.io.exception.ResourceExistsException;
  * A {@link Folder} that is backed by a {@link FolderStore}. Allows developers to use the simpler {@link FolderStore}
  * interface to provide a full {@link Folder} implementation. Subclasses must provide a suitable {@link FolderStore}
  * implementation via the {@link #getStore()} method.
- * 
+ *
  * @see FolderStore
  * @see StoredFile
- * 
+ *
  * @author Phillip Webb
  */
 public abstract class StoredFolder extends StoredResource implements Folder {
@@ -144,6 +144,7 @@ public abstract class StoredFolder extends StoredResource implements Folder {
         for (Resource child : list()) {
             child.moveTo(destination);
         }
+        this.delete();
         return destination;
     }
 
@@ -203,7 +204,7 @@ public abstract class StoredFolder extends StoredResource implements Folder {
         public ChildResourceIterator(StoredFolder folder) {
             this.folder = folder;
             Iterable<String> list = folder.getStore().list();
-            this.childNames = list == null ? Collections.<String> emptyList().iterator() : list.iterator();
+            this.childNames = list == null ? Collections.<String>emptyList().iterator() : list.iterator();
         }
 
         @Override

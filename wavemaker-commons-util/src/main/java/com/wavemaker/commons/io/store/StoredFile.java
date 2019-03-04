@@ -15,9 +15,11 @@
  */
 package com.wavemaker.commons.io.store;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
+import org.apache.commons.io.FileUtils;
 import org.springframework.util.Assert;
 
 import com.wavemaker.commons.io.AbstractFileContent;
@@ -25,16 +27,18 @@ import com.wavemaker.commons.io.File;
 import com.wavemaker.commons.io.FileContent;
 import com.wavemaker.commons.io.Folder;
 import com.wavemaker.commons.io.exception.ResourceDoesNotExistException;
+import com.wavemaker.commons.io.exception.ResourceException;
 import com.wavemaker.commons.io.exception.ResourceExistsException;
+import com.wavemaker.commons.util.WMIOUtils;
 
 /**
  * A {@link File} that is backed by a {@link FileStore}. Allows developers to use the simpler {@link FileStore}
  * interface to provide a full {@link File} implementation. Subclasses must provide a suitable {@link FileStore}
  * implementation via the {@link #getStore()} method.
- * 
+ *
  * @see FileStore
  * @see StoredFolder
- * 
+ *
  * @author Phillip Webb
  */
 public abstract class StoredFile extends StoredResource implements File {
@@ -83,8 +87,11 @@ public abstract class StoredFile extends StoredResource implements File {
         Assert.notNull(folder, FOLDER_NULL_MESSAGE);
         ensureExists();
         File destination = folder.getFile(getName().toString());
-        destination.getContent().write(getContent().asInputStream());
-        getStore().delete();
+        try {
+            FileUtils.moveFile(WMIOUtils.getJavaIOFile(this), WMIOUtils.getJavaIOFile(destination));
+        } catch (IOException e) {
+            throw new ResourceException(e);
+        }
         return destination;
     }
 
@@ -121,7 +128,7 @@ public abstract class StoredFile extends StoredResource implements File {
     /**
      * Called to write the contents of another file to this file. This method is can optionally be implemented by
      * subclasses to implement custom file copy strategies.
-     * 
+     *
      * @param file the file being written to this one
      * @return if the write operation has been handled. Return <tt>false</tt> for standard stream based writes.
      */
