@@ -15,9 +15,11 @@
  */
 package com.wavemaker.commons.io.store;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
+import org.apache.commons.io.FileUtils;
 import org.springframework.util.Assert;
 
 import com.wavemaker.commons.ResourceAlreadyExistException;
@@ -25,6 +27,8 @@ import com.wavemaker.commons.io.AbstractFileContent;
 import com.wavemaker.commons.io.File;
 import com.wavemaker.commons.io.FileContent;
 import com.wavemaker.commons.io.Folder;
+import com.wavemaker.commons.io.exception.ResourceException;
+import com.wavemaker.commons.util.WMIOUtils;
 
 /**
  * A {@link File} that is backed by a {@link FileStore}. Allows developers to use the simpler {@link FileStore}
@@ -82,9 +86,13 @@ public abstract class StoredFile extends StoredResource implements File {
         Assert.notNull(folder, FOLDER_NULL_MESSAGE);
         ensureExists();
         File destination = folder.getFile(getName());
-        destination.getContent().write(getContent().asInputStream());
-        getStore().delete();
+        try {
+            FileUtils.moveFile(WMIOUtils.getJavaIOFile(this), WMIOUtils.getJavaIOFile(destination));
+        } catch (IOException e) {
+            throw new ResourceException(e);
+        }
         return destination;
+
     }
 
     @Override
