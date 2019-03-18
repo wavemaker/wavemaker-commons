@@ -14,6 +14,7 @@ import java.util.UUID;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.wavemaker.commons.MessageResource;
 import com.wavemaker.commons.ResourceNotFoundException;
@@ -54,6 +55,16 @@ public class TempFilesStorageManager {
             }
         }
         return safeToDeleteFileSet;
+    }
+
+    public String registerNewFile(MultipartFile multipartFile) {
+        InputStream inputStream;
+        try {
+            inputStream = multipartFile.getInputStream();
+        } catch (IOException e) {
+            throw new WMRuntimeException(e);
+        }
+        return registerNewFile(inputStream, multipartFile.getOriginalFilename());
     }
 
     public String registerNewFile(InputStream inputStream, String filename) {
@@ -120,12 +131,7 @@ public class TempFilesStorageManager {
     }
 
     public InputStream getFileInputStream(String fileId) {
-        logger.info("Accessing file output stream for fileId {}", fileId);
-        File uniqueFile = getUniqueFile(fileId);
-        if (!uniqueFile.exists()) {
-            throw new ResourceNotFoundException(
-                    MessageResource.create("com.wavemaker.commons.no.files.found.with.fileid"), fileId);
-        }
+        File uniqueFile = getFile(fileId);
         try {
             return new FileInputStream(uniqueFile);
         } catch (IOException e) {
@@ -134,13 +140,18 @@ public class TempFilesStorageManager {
         }
     }
 
-    public OutputStream getFileOutputStream(String fileId) {
+    public File getFile(String fileId) {
         logger.info("Accessing file output stream for fileId {}", fileId);
         File uniqueFile = getUniqueFile(fileId);
         if (!uniqueFile.exists()) {
             throw new ResourceNotFoundException(
                     MessageResource.create("com.wavemaker.commons.no.files.found.with.fileid"), fileId);
         }
+        return uniqueFile;
+    }
+
+    public OutputStream getFileOutputStream(String fileId) {
+        File uniqueFile = getFile(fileId);
         try {
             return new FileOutputStream(uniqueFile);
         } catch (IOException e) {
