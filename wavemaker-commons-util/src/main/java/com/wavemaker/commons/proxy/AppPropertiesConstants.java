@@ -33,6 +33,9 @@ public final class AppPropertiesConstants {
     public static final String APP_GZIP_COMPRESS_INCLUDE_TYPES = getAppPropertyKey("web.compression.mimetypes.includePatterns");
     public static final String APP_GZIP_COMPRESS_EXCLUDE_TYPES = getAppPropertyKey("web.compression.mimetypes.excludePatterns");
 
+    public static final String APP_BUILD_UI_MODE = getAppPropertyKey("build.ui.mode");
+    public static final String APP_BUILD_UI_NG_ARGS = getAppPropertyKey("build.ui.ng.args");
+
     private static String getAppPropertyKey(String key) {
         return new StringBuilder(APP_PREFIX).append(".").append(key).toString();
     }
