@@ -14,6 +14,7 @@ import java.util.UUID;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.wavemaker.commons.ResourceNotFoundException;
 import com.wavemaker.commons.WMRuntimeException;
@@ -27,8 +28,8 @@ public class TempFilesStorageManager {
 
     private static final Logger logger = LoggerFactory.getLogger(TempFilesStorageManager.class);
     private static final int CLEAN_INTERVAL = 5 * 60 * 1000;
-    private final String AUTO_PURGE_DIR = "auto-purge";
-    private final int AUTO_PURGE_TIME = 30 * 60 * 1000;
+    private static final String AUTO_PURGE_DIR = "auto-purge";
+    private static final int AUTO_PURGE_TIME = 30 * 60 * 1000;
     private Long previousCleanUpExecutedTime = System.currentTimeMillis();
     private volatile boolean purgeTaskInProgress = false;
 
@@ -51,6 +52,16 @@ public class TempFilesStorageManager {
             }
         }
         return safeToDeleteFileSet;
+    }
+
+    public String registerNewFile(MultipartFile multipartFile) {
+        InputStream inputStream;
+        try {
+            inputStream = multipartFile.getInputStream();
+        } catch (IOException e) {
+            throw new WMRuntimeException(e);
+        }
+        return registerNewFile(inputStream, multipartFile.getOriginalFilename());
     }
 
     public String registerNewFile(InputStream inputStream, String filename) {
@@ -115,11 +126,7 @@ public class TempFilesStorageManager {
     }
 
     public InputStream getFileInputStream(String fileId) {
-        logger.info("Accessing file output stream for fileId {}", fileId);
-        File uniqueFile = getUniqueFile(fileId);
-        if (!uniqueFile.exists()) {
-            throw new ResourceNotFoundException("No files found with fileId:" + fileId);
-        }
+        File uniqueFile = getFile(fileId);
         try {
             return new FileInputStream(uniqueFile);
         } catch (IOException e) {
@@ -127,12 +134,17 @@ public class TempFilesStorageManager {
         }
     }
 
-    public OutputStream getFileOutputStream(String fileId) {
+    public File getFile(String fileId) {
         logger.info("Accessing file output stream for fileId {}", fileId);
         File uniqueFile = getUniqueFile(fileId);
         if (!uniqueFile.exists()) {
             throw new ResourceNotFoundException("No files found with fileId:" + fileId);
         }
+        return uniqueFile;
+    }
+
+    public OutputStream getFileOutputStream(String fileId) {
+        File uniqueFile = getFile(fileId);
         try {
             return new FileOutputStream(uniqueFile);
         } catch (IOException e) {
