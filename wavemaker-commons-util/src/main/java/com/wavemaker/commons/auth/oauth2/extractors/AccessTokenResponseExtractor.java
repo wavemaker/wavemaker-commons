@@ -21,6 +21,11 @@ public class AccessTokenResponseExtractor {
         accessTokenExtractorsList.add(new AccessTokenInObjectExtractor());
     }
 
+    /**
+    * Extracts access_token from {@link com.wavemaker.commons.auth.oauth2.extractors.AccessTokenRequestContext #getResonseBody()} using <code>
+    * {@link AccessTokenExtractor}.
+    *
+    * */
     public String getAccessToken(AccessTokenRequestContext accessTokenRequestContext) {
         String accessToken = null;
         for (AccessTokenExtractor accessTokenExtractor : accessTokenExtractorsList) {
