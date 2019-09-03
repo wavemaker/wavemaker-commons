@@ -18,6 +18,7 @@ public class OpenIdProviderInfo {
     private List<String> scopes;
     private String redirectUrlTemplate;
     private String userNameAttributeName;
+    private String logoutUrl;
 
 
     public OpenIdProviderInfo() {
@@ -105,5 +106,13 @@ public class OpenIdProviderInfo {
 
     public void setUserNameAttributeName(String userNameAttributeName) {
         this.userNameAttributeName = userNameAttributeName;
+    }
+
+    public String getLogoutUrl() {
+        return logoutUrl;
+    }
+
+    public void setLogoutUrl(String logoutUrl) {
+        this.logoutUrl = logoutUrl;
     }
 }
