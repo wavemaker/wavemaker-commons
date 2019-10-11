@@ -35,10 +35,9 @@ import com.wavemaker.commons.util.WMIOUtils;
  * interface to provide a full {@link File} implementation. Subclasses must provide a suitable {@link FileStore}
  * implementation via the {@link #getStore()} method.
  *
+ * @author Phillip Webb
  * @see FileStore
  * @see StoredFolder
- *
- * @author Phillip Webb
  */
 public abstract class StoredFile extends StoredResource implements File {
 
@@ -86,6 +85,9 @@ public abstract class StoredFile extends StoredResource implements File {
         Assert.notNull(folder, FOLDER_NULL_MESSAGE);
         ensureExists();
         File destination = folder.getFile(getName());
+        if (destination.exists()) {
+            destination.delete();
+        }
         try {
             FileUtils.moveFile(WMIOUtils.getJavaIOFile(this), WMIOUtils.getJavaIOFile(destination));
         } catch (IOException e) {
@@ -134,6 +136,7 @@ public abstract class StoredFile extends StoredResource implements File {
      * subclasses to implement custom file copy strategies.
      *
      * @param file the file being written to this one
+     *
      * @return if the write operation has been handled. Return <tt>false</tt> for standard stream based writes.
      */
     protected boolean write(File file) {

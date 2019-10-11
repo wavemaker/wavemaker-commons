@@ -15,8 +15,13 @@
  */
 package com.wavemaker.commons.classloader;
 
+import java.io.IOException;
 import java.net.URL;
 import java.net.URLClassLoader;
+import java.util.Collections;
+import java.util.Enumeration;
+
+import sun.misc.CompoundEnumeration;
 
 public class WMUrlClassLoader extends URLClassLoader {
     private String loaderContext;
@@ -38,5 +43,33 @@ public class WMUrlClassLoader extends URLClassLoader {
     @Override
     public String toString() {
         return "WMUrlClassLoader{loaderContext='" + loaderContext + '\'' +"} ";
+    }
+
+    /**
+     * If we want to load a resource and it is available in both the parent classloader and the child classloader,
+     * then the default behaviour is, first it will check in the parent classloader if it not found then it will check in the child classloader.
+     * So if we want to load the this type resource, we will always get the resource from the parent classloader, child's resource will never get loaded.
+     *
+     * To solve this first we are checking in the child classloader, if it is not found then checking in the parent classloader.
+     * @param name The resource name
+     * @return  A <tt>URL</tt> object for reading the resource, or
+     *          <tt>null</tt> if the resource could not be found or the invoker
+     *          doesn't have adequate  privileges to get the resource.
+     */
+    @Override
+    public URL getResource(String name) {
+        URL url = findResource(name);
+        if (url == null) {
+            url = super.getResource(name);
+        }
+        return url;
+    }
+
+    @Override
+    public Enumeration<URL> getResources(String name) throws IOException {
+        Enumeration<URL>[] tmp = (Enumeration<URL>[]) new Enumeration<?>[2];
+        tmp[0] = findResources(name);
+        tmp[1] = getParent() != null ? getParent().getResources(name) : Collections.emptyEnumeration();
+        return new CompoundEnumeration(tmp);
     }
 }
