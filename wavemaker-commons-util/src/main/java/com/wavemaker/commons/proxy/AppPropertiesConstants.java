@@ -28,10 +28,10 @@ public final class AppPropertiesConstants {
     public static final String APP_PROXY_USERNAME = getAppPropertyKey("proxy.username");
     public static final String APP_PROXY_PASSWORD = getAppPropertyKey("proxy.password");
 
-    public static final String APP_GZIP_ENABLED = getAppPropertyKey("web.compression.enabled");
-    public static final String APP_GZIP_MIN_SIZE = getAppPropertyKey("web.compression.minsize");
-    public static final String APP_GZIP_COMPRESS_INCLUDE_TYPES = getAppPropertyKey("web.compression.mimetypes.includePatterns");
-    public static final String APP_GZIP_COMPRESS_EXCLUDE_TYPES = getAppPropertyKey("web.compression.mimetypes.excludePatterns");
+    public static final String APP_COMPRESSION_ENABLED = getAppPropertyKey("web.compression.enabled");
+    public static final String APP_COMPRESSION_MIN_SIZE = getAppPropertyKey("web.compression.minsize");
+    public static final String APP_COMPRESSION_INCLUDE_TYPES = getAppPropertyKey("web.compression.mimetypes.includePatterns");
+    public static final String APP_COMPRESSION_EXCLUDE_TYPES = getAppPropertyKey("web.compression.mimetypes.excludePatterns");
 
     public static final String APP_BUILD_UI_MODE = getAppPropertyKey("build.ui.mode");
     public static final String APP_BUILD_UI_NG_ARGS = getAppPropertyKey("build.ui.ng.args");
