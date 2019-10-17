@@ -47,12 +47,14 @@ public class OperationHandler {
         if(response!=null) {
             Response successResponse = response.get(SUCCESS_RESPONSE_CODE);
             Property property = successResponse.getSchema();
-            if (property instanceof RefProperty) {
-                RefProperty refProperty = (RefProperty) property;
-                Model model = models.get(refProperty.getSimpleRef());
-                return ((AbstractModel) model).getFullyQualifiedName();
-            } else {
-                return property.getType();
+            if (property != null) {
+                if (property instanceof RefProperty) {
+                    RefProperty refProperty = (RefProperty) property;
+                    Model model = models.get(refProperty.getSimpleRef());
+                    return ((AbstractModel) model).getFullyQualifiedName();
+                } else {
+                    return property.getType();
+                }
             }
         }
         return null;

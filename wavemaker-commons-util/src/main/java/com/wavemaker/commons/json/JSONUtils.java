@@ -26,6 +26,7 @@ import java.text.SimpleDateFormat;
 
 import org.apache.commons.lang3.StringUtils;
 
+import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -47,6 +48,7 @@ public class JSONUtils {
 
     static {
         objectMapper = new ObjectMapper();
+        objectMapper.enable(JsonParser.Feature.ALLOW_COMMENTS);
         objectMapper.setTypeFactory(TypeFactory.defaultInstance().withClassLoader(JSONUtils.class.getClassLoader()));
         final SimpleModule module = new SimpleModule();
         module.addSerializer(Date.class,
