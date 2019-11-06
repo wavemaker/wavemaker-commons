@@ -25,6 +25,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.function.Supplier;
 
 import com.wavemaker.commons.WMRuntimeException;
 
@@ -311,6 +312,14 @@ public abstract class ObjectUtils {
 
     public static boolean isBlankOrEquals(Object o1, Object o2) {
         return ((o1 == null || o1.equals("")) && (o2 == null || o2.equals(""))) || Objects.equals(o1, o2);
+    }
+
+    public static <T> T defaultIfNull(T object, T defaultValue) {
+        return defaultIfNull(object, () -> defaultValue);
+    }
+
+    public static <T> T defaultIfNull(T object, Supplier<T> supplier) {
+        return object != null ? object : supplier.get();
     }
 
     private ObjectUtils() {
