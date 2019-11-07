@@ -8,10 +8,8 @@ import java.util.logging.Logger;
 
 import javax.sql.DataSource;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
-import com.wavemaker.commons.web.filter.RequestTrackingFilter;
-import com.wavemaker.commons.web.filter.ServerTimingMetric;
+import com.wavemaker.commons.observability.track.RequestTracker;
+import com.wavemaker.commons.observability.track.ServerTimingMetric;
 
 /**
  * @author Uday Shankar
@@ -19,9 +17,6 @@ import com.wavemaker.commons.web.filter.ServerTimingMetric;
 public class DataSourceWrapper implements DataSource {
     
     private DataSource delegateDataSource;
-    
-    @Autowired
-    private RequestTrackingFilter requestTrackingFilter;
 
     public DataSourceWrapper(DataSource delegateDataSource) {
         this.delegateDataSource = delegateDataSource;
@@ -32,7 +27,7 @@ public class DataSourceWrapper implements DataSource {
         long startTime = System.currentTimeMillis();
         Connection connection = delegateDataSource.getConnection();
         long endTime = System.currentTimeMillis();
-        requestTrackingFilter.addServerTimingMetrics(new ServerTimingMetric("connAcquisition", endTime-startTime, null));
+        RequestTracker.getCurrentRequestTracker().addServerTimingMetrics(new ServerTimingMetric("connAcquisition", endTime-startTime, null));
         return connection;
     }
 
@@ -41,7 +36,7 @@ public class DataSourceWrapper implements DataSource {
         long startTime = System.currentTimeMillis();
         Connection connection = delegateDataSource.getConnection(username, password);
         long endTime = System.currentTimeMillis();
-        requestTrackingFilter.addServerTimingMetrics(new ServerTimingMetric("connAcquisition", endTime-startTime, null));
+        RequestTracker.getCurrentRequestTracker().addServerTimingMetrics(new ServerTimingMetric("connAcquisition", endTime-startTime, null));
         return connection;
     }
 
