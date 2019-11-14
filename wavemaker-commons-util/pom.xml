@@ -32,6 +32,10 @@
             <artifactId>wavemaker-tools-apidocs-core</artifactId>
         </dependency>
         <dependency>
+            <groupId>com.wavemaker</groupId>
+            <artifactId>wavemaker-observability</artifactId>
+        </dependency>
+        <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
         </dependency>
