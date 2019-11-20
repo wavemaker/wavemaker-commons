@@ -64,11 +64,6 @@
                 <version>${wavemaker-api-tools.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.wavemaker</groupId>
-                <artifactId>wavemaker-observability</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
                 <groupId>javax.servlet</groupId>
                 <artifactId>javax.servlet-api</artifactId>
                 <version>${servlet.version}</version>
