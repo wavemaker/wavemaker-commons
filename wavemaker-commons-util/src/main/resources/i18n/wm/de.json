@@ -70,7 +70,7 @@
   "com.wavemaker.invalidToken" : "Invalid Token: ${0}",
   "com.wavemaker.noUserWithEmail" : "No user exists with the email ${0}",
   "com.wavemaker.resourceDNEWithId" : "Resource ${0} does not exist with id ${1}",
-  "com.wavemaker.unAuthorized" : "User not authenticated",
+  "com.wavemaker.unAuthorized" : "nicht autorisiert",
   "com.wavemaker.userAlreadyConfirmed" : "User ${0} is already confirmed.",
   "com.wavemaker.userAlreadyLoggedOut" : "User already logged out",
   "com.wavemaker.usernameAlreadyExists" : "There is already an account registered with the given username: ${0}",
