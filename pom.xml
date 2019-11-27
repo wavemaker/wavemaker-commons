@@ -7,7 +7,7 @@
 
     <groupId>com.wavemaker.commons</groupId>
     <artifactId>wavemaker-commons</artifactId>
-    <version>10.2.3</version>
+    <version>10.2.4</version>
     <name>wavemaker-commons</name>
     <packaging>pom</packaging>
 
