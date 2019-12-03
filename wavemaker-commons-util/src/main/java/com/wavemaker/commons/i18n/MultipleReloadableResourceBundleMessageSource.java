@@ -58,8 +58,9 @@ public class MultipleReloadableResourceBundleMessageSource extends ReloadableRes
                     sourcePath = resource.getURI().toString().replace(PROPERTIES_SUFFIX, "");
                     holder = super.refreshProperties(sourcePath, propHolder);
                     properties.putAll(holder.getProperties());
-                    if (lastModified < resource.lastModified())
+                    if (lastModified < resource.lastModified()) {
                         lastModified = resource.lastModified();
+                    }
                 }
             }
         } catch (IOException ex) {

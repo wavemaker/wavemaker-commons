@@ -7,7 +7,7 @@ public class ErrorResponsesWrapper {
         return errors;
     }
 
-    public void setErrors(ErrorResponses errors ) {
+    public void setErrors(ErrorResponses errors) {
         this.errors = errors;
     }
 }

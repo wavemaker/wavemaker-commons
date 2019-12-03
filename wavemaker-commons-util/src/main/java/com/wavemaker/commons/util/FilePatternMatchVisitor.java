@@ -31,7 +31,7 @@ import static java.nio.file.FileVisitResult.CONTINUE;
 /**
  * Created by kishorer on 9/5/16.
  */
-public class FilePatternMatchVisitor extends SimpleFileVisitor<Path>{
+public class FilePatternMatchVisitor extends SimpleFileVisitor<Path> {
 
     private final PathMatcher matcher;
     private List<Path> matchedPaths = new ArrayList<>();

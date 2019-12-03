@@ -64,10 +64,10 @@ public class ServerTimingMetric {
                     processingTime = Long.parseLong(value);
                 } else if ("desc".equals(key)) {
                     if (value.startsWith("\"") && value.endsWith("\"")) {
-                        if (value.length() >=2 ) {
+                        if (value.length() >= 2) {
                             value = value.substring(1, value.length() - 1);
                         } else {
-                            throw new IllegalArgumentException(val);            
+                            throw new IllegalArgumentException(val);
                         }
                     }
                     description = value;

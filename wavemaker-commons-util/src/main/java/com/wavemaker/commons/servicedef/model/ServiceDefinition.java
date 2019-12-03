@@ -120,12 +120,18 @@ public class ServiceDefinition {
 
     @Override
     public boolean equals(final Object o) {
-        if (this == o) return true;
-        if (!(o instanceof ServiceDefinition)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof ServiceDefinition)) {
+            return false;
+        }
 
         final ServiceDefinition that = (ServiceDefinition) o;
 
-        if(id == null || that.getId() == null) return false;
+        if(id == null || that.getId() == null) {
+            return false;
+        }
 
         return id.equals(that.id);
     }
