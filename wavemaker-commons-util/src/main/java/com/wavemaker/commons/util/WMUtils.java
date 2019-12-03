@@ -83,7 +83,7 @@ public class WMUtils {
     }
 
     public static boolean areObjectsEqual(Object o1, Object o2) {
-        if(o1 == o2 ) {
+        if(o1 == o2) {
             return true;
         }
         if(o1 == null || o2 == null) {
@@ -92,18 +92,15 @@ public class WMUtils {
         return o1.equals(o2);
     }
 
-    public static StringWrapper wrapString(String response)
-    {
+    public static StringWrapper wrapString(String response) {
         return new StringWrapper(response);
     }
 
-    public static IntegerWrapper wrapInteger(Integer response)
-    {
+    public static IntegerWrapper wrapInteger(Integer response) {
         return new IntegerWrapper(response);
     }
 
-    public static BooleanWrapper wrapBoolean(Boolean response)
-    {
+    public static BooleanWrapper wrapBoolean(Boolean response) {
         return new BooleanWrapper(response);
     }
 

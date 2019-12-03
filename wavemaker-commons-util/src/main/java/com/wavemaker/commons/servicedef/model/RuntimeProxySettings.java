@@ -60,12 +60,18 @@ public class RuntimeProxySettings {
 
     @Override
     public boolean equals(final Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
 
         final RuntimeProxySettings that = (RuntimeProxySettings) o;
 
-        if (web != that.web) return false;
+        if (web != that.web) {
+            return false;
+        }
         return mobile == that.mobile;
 
     }

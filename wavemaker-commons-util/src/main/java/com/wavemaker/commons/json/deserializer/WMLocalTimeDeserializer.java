@@ -31,7 +31,7 @@ import com.wavemaker.commons.WMRuntimeException;
 /**
  * Created by saddhamp on 11/7/16.
  */
-public class WMLocalTimeDeserializer extends JsonDeserializer<LocalTime>{
+public class WMLocalTimeDeserializer extends JsonDeserializer<LocalTime> {
 
     private static final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
 

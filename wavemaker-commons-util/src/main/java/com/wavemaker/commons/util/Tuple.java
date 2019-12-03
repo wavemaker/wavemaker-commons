@@ -56,12 +56,18 @@ public class Tuple {
 
         @Override
         public boolean equals(Object o) {
-            if (this == o) return true;
-            if (o == null || getClass() != o.getClass()) return false;
+            if (this == o) {
+                return true;
+            }
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
 
             Two two = (Two) o;
 
-            if (v1 != null ? !v1.equals(two.v1) : two.v1 != null) return false;
+            if (v1 != null ? !v1.equals(two.v1) : two.v1 != null) {
+                return false;
+            }
             return v2 != null ? v2.equals(two.v2) : two.v2 == null;
         }
 
@@ -89,9 +95,15 @@ public class Tuple {
 
         @Override
         public boolean equals(Object o) {
-            if (this == o) return true;
-            if (o == null || getClass() != o.getClass()) return false;
-            if (!super.equals(o)) return false;
+            if (this == o) {
+                return true;
+            }
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
+            if (!super.equals(o)) {
+                return false;
+            }
 
             Three three = (Three) o;
 
@@ -122,9 +134,15 @@ public class Tuple {
 
         @Override
         public boolean equals(Object o) {
-            if (this == o) return true;
-            if (o == null || getClass() != o.getClass()) return false;
-            if (!super.equals(o)) return false;
+            if (this == o) {
+                return true;
+            }
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
+            if (!super.equals(o)) {
+                return false;
+            }
 
             Four four = (Four) o;
 
