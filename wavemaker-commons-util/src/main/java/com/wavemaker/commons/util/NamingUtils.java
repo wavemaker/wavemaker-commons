@@ -4,7 +4,7 @@ import java.beans.Introspector;
 
 import com.wavemaker.commons.util.reveng.ReverseEngineeringStrategyUtil;
 
-public class ServiceUtils {
+public class NamingUtils {
 
     private static final String TABLE_SUFFIX = "Entity";
 
