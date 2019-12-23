@@ -129,12 +129,18 @@ public class Parameter {
 
     @Override
     public boolean equals(final Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Parameter)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof Parameter)) {
+            return false;
+        }
 
         final Parameter parameter = (Parameter) o;
 
-        if (name != null ? !name.equals(parameter.name) : parameter.name != null) return false;
+        if (name != null ? !name.equals(parameter.name) : parameter.name != null) {
+            return false;
+        }
         return type != null ? type.equals(parameter.type) : parameter.type == null;
 
     }

@@ -61,7 +61,14 @@ public class Version implements Comparable<Version> {
         }
         return this.compareTo((Version) that) == 0;
     }
-    
+
+    @Override
+    public String toString() {
+        return "Version{" +
+                "version='" + version + '\'' +
+                '}';
+    }
+
     public static boolean lessThan(String v1, String v2) {
         return new Version(v1).compareTo(new Version(v2)) < 0;
     }

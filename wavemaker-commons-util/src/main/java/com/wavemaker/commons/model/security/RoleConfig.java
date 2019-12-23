@@ -33,8 +33,12 @@ public class RoleConfig {
 
     @Override
     public boolean equals(final Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         final RoleConfig that = (RoleConfig) o;
         return Objects.equals(landingPage, that.landingPage);
     }

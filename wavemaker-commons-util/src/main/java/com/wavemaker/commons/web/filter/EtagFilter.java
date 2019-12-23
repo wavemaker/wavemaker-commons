@@ -5,7 +5,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *   http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -34,21 +34,21 @@ import org.springframework.web.filter.ShallowEtagHeaderFilter;
  */
 public class EtagFilter extends ShallowEtagHeaderFilter {
 
-    private static final Logger etagFilterLogger = LoggerFactory.getLogger(EtagFilter.class);
     public static final String SKIP_ETAG = "skipEtag";
+    private static final Logger etagFilterLogger = LoggerFactory.getLogger(EtagFilter.class);
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         boolean clientSupportsEtag = doesClientSupportEtag(request);
 
-        if(HttpMethod.GET.name().equals(request.getMethod()) && clientSupportsEtag) {
+        if (HttpMethod.GET.name().equals(request.getMethod()) && clientSupportsEtag) {
             etagFilterLogger
                     .debug("Setting Etag header for request for url {}, user-agent {}", request.getRequestURL(), request.getHeader("User-Agent"));
             response.setHeader("Cache-Control", "max-age=0"); // HTTP 1.1
             super.doFilterInternal(request, response, filterChain);
         } else {
             if (!clientSupportsEtag) {
-                etagFilterLogger.debug("Client doesn't support Etag headers for request url {}, user-agent {}", request.getRequestURL(),request.getHeader("User-Agent"));
+                etagFilterLogger.debug("Client doesn't support Etag headers for request url {}, user-agent {}", request.getRequestURL(), request.getHeader("User-Agent"));
                 response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1
                 response.setHeader("Pragma", "no-cache"); // HTTP 1.0
                 response.setDateHeader("Expires", 0); // Proxies.    
