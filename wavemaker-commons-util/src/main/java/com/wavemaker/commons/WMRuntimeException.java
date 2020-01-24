@@ -15,6 +15,8 @@
  */
 package com.wavemaker.commons;
 
+import org.apache.commons.lang3.StringUtils;
+
 /**
  * @author Simon Toens
  */
@@ -76,13 +78,16 @@ public class WMRuntimeException extends RuntimeException implements WMCommonExce
     }
 
     public String getMessage() {
-        String message;
+        // todo un comment this
+      /*  String message;
         MessageResource messageResource = messageResourceHolder.getMessageResource();
         if (messageResource != null) {
             message = messageResource.getMessage(messageResourceHolder.getArgs());
         } else {
             message = messageResourceHolder.getMessage();
-        }
+        }*/
+        String message =
+                this.messageResourceHolder.getMessage() + ": " + StringUtils.join(this.messageResourceHolder.getArgs());
         return (message == null) ? "" : message;
     }
 }
