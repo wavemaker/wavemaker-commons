@@ -15,22 +15,26 @@
  */
 package com.wavemaker.commons.io;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
  * This operation can be used for bulk replace of tokens. The operation has a single write at the end.
- *
+ * <p>
  * Created by ArjunSahasranam on 12/10/15.
  */
 public class BulkReplaceOperation implements ResourceOperation<File> {
+    private static final Logger LOGGER = LoggerFactory.getLogger(BulkReplaceOperation.class);
 
     private final Map<String, String> map;
 
     public BulkReplaceOperation() {
-        map = new HashMap<>();
+        map = new LinkedHashMap<>();
     }
 
     public void add(String from, String to) {
@@ -47,6 +51,7 @@ public class BulkReplaceOperation implements ResourceOperation<File> {
         String content = originalContent;
         Set<Map.Entry<String, String>> entries = map.entrySet();
         for (Map.Entry<String, String> entry : entries){
+            LOGGER.debug("Key:{}, Value:{}", entry.getKey(), entry.getValue());
             content = content.replace(entry.getKey(), entry.getValue());
         }
         if (!Objects.equals(content, originalContent)) {
