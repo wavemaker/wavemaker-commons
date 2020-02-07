@@ -43,6 +43,6 @@ public final class AppPropertiesConstants {
     private AppPropertiesConstants() {
     }
 
-    public static final String DEFAULT_EXCLUDE_COMPRESSION_MIME_TYPES = "image/*";
+    public static final String DEFAULT_EXCLUDE_COMPRESSION_MIME_TYPES = "image/*,font/woff,application/font-woff2,font/woff2";
 
 }
