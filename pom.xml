@@ -64,11 +64,6 @@
                 <version>${wavemaker-api-tools.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.wavemaker</groupId>
-                <artifactId>wavemaker-observability</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
                 <groupId>javax.servlet</groupId>
                 <artifactId>javax.servlet-api</artifactId>
                 <version>${servlet.version}</version>
@@ -296,7 +291,7 @@
         <pluginRepository>
             <id>autoincrement-versions-maven-plugin</id>
             <name>autoincrement-versions-maven-plugin</name>
-            <url>http://autoincrement-versions-maven-plugin.googlecode.com/svn/repo</url>
+            <url>https://autoincrement-versions-maven-plugin.googlecode.com/svn/repo</url>
             <snapshots>
                 <enabled>true</enabled>
             </snapshots>

@@ -47,7 +47,7 @@ public class XMLWriterTest {
 
         File tempFile = File.createTempFile("Sampletemp", ".xml");
         tempFile.deleteOnExit();
-        PrintWriter pw = new PrintWriter (tempFile);
+        PrintWriter pw = new PrintWriter(tempFile);
         XMLWriter xw= new XMLWriter(pw);
         xw.setTextOnSameLineAsParentElement(true);
         xw.addVersion();
@@ -94,7 +94,7 @@ public class XMLWriterTest {
     @Test
     public void testXmlWriter() throws IOException, JAXBException, ParserConfigurationException, SAXException {
         File tempFile = new File("target", "customer-data.xml");
-        PrintWriter pw = new PrintWriter (tempFile);
+        PrintWriter pw = new PrintWriter(tempFile);
         XMLWriter xw= new XMLWriter(pw);
         xw.setTextOnSameLineAsParentElement(true);
         xw.addVersion();

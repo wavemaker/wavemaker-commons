@@ -32,10 +32,6 @@
             <artifactId>wavemaker-tools-apidocs-core</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.wavemaker</groupId>
-            <artifactId>wavemaker-observability</artifactId>
-        </dependency>
-        <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
         </dependency>
@@ -137,7 +133,7 @@
             <snapshots>
                 <enabled>false</enabled>
             </snapshots>
-            <url>http://s3.amazonaws.com/maven.wavemaker.com/release</url>
+            <url>https://s3.amazonaws.com/maven.wavemaker.com/release</url>
         </repository>
     </repositories>
 </project>

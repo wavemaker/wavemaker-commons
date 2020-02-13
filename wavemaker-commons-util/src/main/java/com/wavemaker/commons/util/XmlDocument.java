@@ -1,7 +1,5 @@
 package com.wavemaker.commons.util;
 
-import javax.xml.validation.Schema;
-
 import org.w3c.dom.Document;
 
 /**
