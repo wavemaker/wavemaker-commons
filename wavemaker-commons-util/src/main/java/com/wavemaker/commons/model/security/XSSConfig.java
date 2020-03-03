@@ -24,6 +24,15 @@ public class XSSConfig {
     private String policyFile;
     private XSSFilterStrategy xssFilterStrategy;
     private XSSPolicyType policyType;
+    private boolean dataBackwardCompatibility;
+
+    public boolean isDataBackwardCompatibility() {
+        return dataBackwardCompatibility;
+    }
+
+    public void setDataBackwardCompatibility(boolean dataBackwardCompatibility) {
+        this.dataBackwardCompatibility = dataBackwardCompatibility;
+    }
 
     public boolean isEnforceXssSecurity() {
         return enforceXssSecurity;
