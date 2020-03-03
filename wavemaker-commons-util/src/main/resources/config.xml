@@ -18,6 +18,5 @@ definition of configuration; this is shared between runtime and test-time.
 
     <bean id="wmEventPublisher" class="com.wavemaker.commons.event.WMEventPublisherImpl"/>
 
-    <bean class="com.wavemaker.commons.web.WMRestMethodArgsInterceptorConfiguration"/>
 
 </beans>
