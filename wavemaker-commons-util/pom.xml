@@ -133,7 +133,7 @@
             <snapshots>
                 <enabled>false</enabled>
             </snapshots>
-            <url>http://s3.amazonaws.com/maven.wavemaker.com/release</url>
+            <url>https://s3.amazonaws.com/maven.wavemaker.com/release</url>
         </repository>
     </repositories>
 </project>
