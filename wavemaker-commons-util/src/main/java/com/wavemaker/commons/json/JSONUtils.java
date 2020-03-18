@@ -172,6 +172,10 @@ public class JSONUtils {
         }
     }
 
+    public static <T> T convert(Object object, Class<T> targetClass) {
+        return objectMapper.convertValue(object, targetClass);
+    }
+
     public static void registerModule(Module module) {
         objectMapper.registerModule(module);
     }
