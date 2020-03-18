@@ -25,15 +25,13 @@ public class ServiceDefinition {
 
     private String id;
 
-    private String crudOperationId;
-
     private String service;
 
     private String controller;
 
-    private String operationType;
-
     private String type;
+
+    private CrudOperation crudOperation;
 
     private WMServiceOperationInfo wmServiceOperationInfo;
 
@@ -55,16 +53,16 @@ public class ServiceDefinition {
         return this;
     }
 
-    public String getCrudOperationId() {
-        return crudOperationId;
+    public CrudOperation getCrudOperation() {
+        return crudOperation;
     }
 
-    public void setCrudOperationId(String crudOperationId) {
-        this.crudOperationId = crudOperationId;
+    public void setCrudOperation(CrudOperation crudOperation) {
+        this.crudOperation = crudOperation;
     }
 
-    public ServiceDefinition addCrudOperationId(final String crudOperationId) {
-        this.crudOperationId = crudOperationId;
+    public ServiceDefinition addCrudOperation(final CrudOperation crudOperation) {
+        this.crudOperation = crudOperation;
         return this;
     }
 
@@ -104,19 +102,6 @@ public class ServiceDefinition {
 
     public ServiceDefinition addController(final String controller) {
         this.controller = controller;
-        return this;
-    }
-
-    public String getOperationType() {
-        return operationType;
-    }
-
-    public void setOperationType(final String operationType) {
-        this.operationType = operationType;
-    }
-
-    public ServiceDefinition addOperationType(final String operationType) {
-        this.operationType = operationType;
         return this;
     }
 
