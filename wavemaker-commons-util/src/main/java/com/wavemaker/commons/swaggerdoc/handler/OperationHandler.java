@@ -44,7 +44,7 @@ public class OperationHandler {
 
     public String getFullyQualifiedReturnType() {
         Map<String, Response> response = operation.getResponses();
-        if(response!=null) {
+        if (response != null) {
             Response successResponse = response.get(SUCCESS_RESPONSE_CODE);
             if (successResponse != null) {
                 Property property = successResponse.getSchema();
@@ -52,7 +52,7 @@ public class OperationHandler {
                     RefProperty refProperty = (RefProperty) property;
                     Model model = models.get(refProperty.getSimpleRef());
                     return ((AbstractModel) model).getFullyQualifiedName();
-                } else {
+                } else if (property != null) {
                     return property.getType();
                 }
             }
@@ -71,8 +71,7 @@ public class OperationHandler {
                 return Collections.emptyList();
             }
             List<String> argumentTypeList = new ArrayList<>();
-            for(Property argProperty : typeArgumentsProperties)
-            {
+            for (Property argProperty : typeArgumentsProperties) {
                 if (property instanceof RefProperty) {
                     RefProperty refArgProperty = (RefProperty) property;
                     Model argModel = models.get(refArgProperty.getSimpleRef());
