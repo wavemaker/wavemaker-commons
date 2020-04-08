@@ -2,6 +2,8 @@ package com.wavemaker.commons.auth.oauth2;
 
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
+
 /**
  * da
  * Created by srujant on 18/7/17.
@@ -43,7 +45,10 @@ public class OAuth2ProviderConfig {
     }
 
     public String getAuthorizationUrl() {
-        return authorizationUrl;
+        if (StringUtils.isNotBlank(authorizationUrl)) {
+            return authorizationUrl;
+        }
+        return "";
     }
 
     public void setAuthorizationUrl(String authorizationUrl) {

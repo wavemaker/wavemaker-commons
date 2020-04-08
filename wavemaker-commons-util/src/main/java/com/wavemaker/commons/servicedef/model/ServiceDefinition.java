@@ -25,6 +25,8 @@ public class ServiceDefinition {
 
     private String id;
 
+    private String crudOperationId;
+
     private String service;
 
     private String controller;
@@ -50,6 +52,19 @@ public class ServiceDefinition {
 
     public ServiceDefinition addId(final String id) {
         this.id = id;
+        return this;
+    }
+
+    public String getCrudOperationId() {
+        return crudOperationId;
+    }
+
+    public void setCrudOperationId(String crudOperationId) {
+        this.crudOperationId = crudOperationId;
+    }
+
+    public ServiceDefinition addCrudOperationId(final String crudOperationId) {
+        this.crudOperationId = crudOperationId;
         return this;
     }
 
