@@ -18,10 +18,7 @@ package com.wavemaker.commons.swaggerdoc.util;
 import java.sql.Time;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 import com.wavemaker.commons.MessageResource;
 import com.wavemaker.commons.SwaggerException;
@@ -34,9 +31,7 @@ import com.wavemaker.tools.apidocs.tools.core.model.Swagger;
 import com.wavemaker.tools.apidocs.tools.core.model.parameters.AbstractParameter;
 import com.wavemaker.tools.apidocs.tools.core.model.parameters.FormParameter;
 import com.wavemaker.tools.apidocs.tools.core.model.parameters.Parameter;
-import com.wavemaker.tools.apidocs.tools.core.model.properties.DateProperty;
-import com.wavemaker.tools.apidocs.tools.core.model.properties.Property;
-import com.wavemaker.tools.apidocs.tools.core.model.properties.PropertyBuilder;
+import com.wavemaker.tools.apidocs.tools.core.model.properties.*;
 
 /**
  * SwaggerDocUtils is used to provided required component/s from the swagger document.
@@ -134,7 +129,7 @@ public class SwaggerDocUtil {
     /**
      * Return method type of the operation in a path
      *
-     * @param path : searches in path object
+     * @param path         : searches in path object
      * @param operationUid : search operation based on this id.
      * @return method type
      */
@@ -176,7 +171,7 @@ public class SwaggerDocUtil {
     /**
      * Builds property based on given type and format.
      *
-     * @param type : type of the property
+     * @param type   : type of the property
      * @param format : format of the property
      * @return Property, may returns null if type and format is not based on swagger property.
      */
@@ -316,6 +311,32 @@ public class SwaggerDocUtil {
             propertyMap.putAll(model.getProperties());
         }
 
+        return propertyMap;
+    }
+
+    public static Map<String, Property> getProperties(Swagger swagger, Property property) {
+        Map<String, Property> propertyMap = new HashMap<>();
+        if (property instanceof ArrayProperty) {
+            Property items = ((ArrayProperty) property).getItems();
+            if (items instanceof ObjectProperty) {
+                propertyMap.putAll(getPropertiesFromObjectProperty(swagger, (ObjectProperty)items));
+            }
+        } else if (property instanceof ObjectProperty) {
+            propertyMap.putAll(getPropertiesFromObjectProperty(swagger, (ObjectProperty)property));
+        }
+        return propertyMap;
+    }
+
+    private static Map<String, Property> getPropertiesFromObjectProperty(Swagger swagger, ObjectProperty property) {
+        Map<String, Property> propertyMap = new HashMap<>();
+        List<Model> models = property.getAllOf();
+        for (Model model : models) {
+            propertyMap.putAll(getProperties(swagger, model));
+        }
+
+        if (property.getProperties() != null) {
+            propertyMap.putAll(property.getProperties());
+        }
         return propertyMap;
     }
 
