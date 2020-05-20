@@ -18,7 +18,7 @@ public class OAuth2ProviderConfig {
     private String sendAccessTokenAs;
     private String accessTokenParamName;
     private List<Scope> scopes;
-
+    private OAuth2Flow oauth2Flow;
 
     public String getProviderId() {
         return providerId;
@@ -85,5 +85,13 @@ public class OAuth2ProviderConfig {
 
     public void setAccessTokenParamName(String accessTokenParamName) {
         this.accessTokenParamName = accessTokenParamName;
+    }
+
+    public OAuth2Flow getOauth2Flow() {
+        return oauth2Flow;
+    }
+
+    public void setOauth2Flow(OAuth2Flow oauth2Flow) {
+        this.oauth2Flow = oauth2Flow;
     }
 }
