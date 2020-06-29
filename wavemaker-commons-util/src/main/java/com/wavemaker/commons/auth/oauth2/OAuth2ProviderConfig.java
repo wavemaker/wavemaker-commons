@@ -17,8 +17,17 @@ public class OAuth2ProviderConfig {
     private String clientSecret;
     private String sendAccessTokenAs;
     private String accessTokenParamName;
+    private OAuth2Pkce oAuth2Pkce;
     private List<Scope> scopes;
     private OAuth2Flow oauth2Flow;
+
+    public OAuth2Pkce getoAuth2Pkce() {
+        return oAuth2Pkce;
+    }
+
+    public void setoAuth2Pkce(OAuth2Pkce oAuth2Pkce) {
+        this.oAuth2Pkce = oAuth2Pkce;
+    }
 
     public String getProviderId() {
         return providerId;
