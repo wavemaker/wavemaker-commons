@@ -8,7 +8,7 @@
     <parent>
         <groupId>com.wavemaker.commons</groupId>
         <artifactId>wavemaker-commons</artifactId>
-        <version>10.5.2</version>
+        <version>10.5.3</version>
     </parent>
 
     <artifactId>wavemaker-commons-util</artifactId>
