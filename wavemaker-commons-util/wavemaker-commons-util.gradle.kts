@@ -48,6 +48,7 @@ java {
 }
 
 publishing {
+    configurePublicationToDist(this)
     publications {
         create<MavenPublication>("maven") {
             artifactId = project.extensions.extraProperties.get("basename") as String
