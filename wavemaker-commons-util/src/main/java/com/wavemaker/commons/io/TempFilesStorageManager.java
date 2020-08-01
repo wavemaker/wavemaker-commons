@@ -32,7 +32,7 @@ public class TempFilesStorageManager {
     private static final String AUTO_PURGE_DIR = "auto-purge";
     private static final int AUTO_PURGE_TIME = 30 * 60 * 1000;
     private Long previousCleanUpExecutedTime = System.currentTimeMillis();
-    private volatile boolean purgeTaskInProgress = false;
+    private volatile boolean purgeTaskInProgress;
 
     private String filesStorageDirectory;
 

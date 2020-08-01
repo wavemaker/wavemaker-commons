@@ -24,7 +24,7 @@ public abstract class WMEvent extends ApplicationEvent {
 
     private Object causedBy;
 
-    private boolean executeListenersAsyncIfNeeded = false;
+    private boolean executeListenersAsyncIfNeeded;
 
     public WMEvent(String source) {
         super(source);

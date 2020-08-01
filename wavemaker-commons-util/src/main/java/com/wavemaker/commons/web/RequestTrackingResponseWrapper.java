@@ -27,7 +27,7 @@ public class RequestTrackingResponseWrapper extends HttpServletResponseWrapper {
     private static final String SERVER_TIMING_HEADER = "Server-Timing";
 
     private Request request;
-    private boolean serverTimingHeaderFlag = false;
+    private boolean serverTimingHeaderFlag;
 
     public RequestTrackingResponseWrapper(HttpServletResponse response, Request request) {
         super(response);

@@ -65,7 +65,7 @@ public class DynamicZipInputStream extends InputStream {
     /**
      * File counter used for detecting empty archives.
      */
-    private long fileCount = 0;
+    private long fileCount;
 
     private BufferedOutputStream outputStream = new BufferedOutputStream();
 

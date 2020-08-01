@@ -36,25 +36,25 @@ public class XMLWriter {
 
     private static final int DEFAULT_MAX_ATTRS_ON_SAME_LINE = 2;
 
-    private int startIndent = 0;
+    private int startIndent;
 
     private static final String ENCODING = "utf-8";
 
-    private String currentShortNS = null;
+    private String currentShortNS;
 
-    private boolean wroteFirstElement = false;
+    private boolean wroteFirstElement;
 
-    private boolean hasElements = false;
+    private boolean hasElements;
 
-    private boolean incompleteOpenTag = false;
+    private boolean incompleteOpenTag;
 
-    private boolean hasAttributes = false;
+    private boolean hasAttributes;
 
     private final SortedMap<String, String> namespaces = new TreeMap<>();
 
     // decides if we write closing element on same line as opening element
     // or on new line. this applies for both </foo> and .../>
-    private boolean closeOnNewLine = false;
+    private boolean closeOnNewLine;
 
     private final Stack elementStack = new Stack();
 

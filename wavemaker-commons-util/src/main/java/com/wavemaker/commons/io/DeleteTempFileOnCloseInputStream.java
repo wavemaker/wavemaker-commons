@@ -29,6 +29,7 @@ import com.wavemaker.commons.io.local.LocalFile;
 /**
  * @author Uday Shankar
  */
+@SuppressWarnings("NoFinalizer")
 public class DeleteTempFileOnCloseInputStream extends FileInputStream {
 
     private File tempFile;

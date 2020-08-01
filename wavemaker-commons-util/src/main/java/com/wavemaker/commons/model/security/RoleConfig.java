@@ -21,7 +21,7 @@ import java.util.Objects;
  * Created by Arjun Sahasranam on 29/6/15.
  */
 public class RoleConfig {
-    private String landingPage = null;
+    private String landingPage;
 
     public String getLandingPage() {
         return landingPage;

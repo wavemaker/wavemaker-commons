@@ -19,7 +19,7 @@ import com.wavemaker.commons.util.PatternMatchingReplaceReader;
 public class PatternMatchingReplaceReaderTest {
 
 
-    private static Environment env = null;
+    private static Environment env;
 
     @BeforeClass
     public static void beforeClass() {

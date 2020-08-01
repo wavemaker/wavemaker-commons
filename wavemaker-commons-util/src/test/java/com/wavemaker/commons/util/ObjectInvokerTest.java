@@ -43,9 +43,9 @@ public class ObjectInvokerTest {
 
         static String SIMPLE_METHOD_RTN = "simpleMethodRtn";
 
-        static Arg1 RTN = null;
+        static Arg1 RTN;
 
-        static Object RTN_OBJ = null;
+        static Object RTN_OBJ;
 
         public String simpleMethod() {
             return SIMPLE_METHOD_RTN;
