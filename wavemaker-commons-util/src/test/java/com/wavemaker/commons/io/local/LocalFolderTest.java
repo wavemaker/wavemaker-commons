@@ -30,7 +30,6 @@ import com.wavemaker.commons.io.Folder;
 import com.wavemaker.commons.io.Resource;
 import com.wavemaker.commons.io.Resources;
 import com.wavemaker.commons.io.exception.ResourceException;
-import junit.framework.Assert;
 
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;

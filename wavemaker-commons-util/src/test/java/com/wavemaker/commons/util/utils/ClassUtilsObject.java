@@ -18,6 +18,7 @@ package com.wavemaker.commons.util.utils;
 /**
  * @author Matt Small
  */
+@SuppressWarnings("EqualsHashCode")
 public class ClassUtilsObject extends ClassUtilsObjectSuper {
 
     public void publicTest() {
