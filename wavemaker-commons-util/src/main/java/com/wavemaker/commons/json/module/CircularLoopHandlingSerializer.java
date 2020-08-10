@@ -151,7 +151,7 @@ public class CircularLoopHandlingSerializer<T> extends JsonSerializer<T> impleme
     public void notifyEndSerialization() {
         getObjectRefStack().pop();
         if (getObjectRefStack().isEmpty()) {
-            objectReferenceStackTL.set(null); // gc
+            objectReferenceStackTL.remove(); // gc
         }
     }
 

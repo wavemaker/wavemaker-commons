@@ -30,7 +30,7 @@ import java.util.TreeSet;
 public class SortedProperties extends Properties {
 
     @Override
-    public Enumeration keys() {
+    public synchronized Enumeration keys() {
         Enumeration keysEnum = super.keys();
         List<String> keyList = new ArrayList<>();
         while (keysEnum.hasMoreElements()) {

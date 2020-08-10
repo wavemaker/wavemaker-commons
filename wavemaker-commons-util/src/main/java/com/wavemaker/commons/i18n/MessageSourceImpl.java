@@ -1,5 +1,6 @@
 package com.wavemaker.commons.i18n;
 
+import java.util.Arrays;
 import java.util.Locale;
 
 import org.springframework.context.MessageSource;
@@ -27,7 +28,7 @@ public class MessageSourceImpl implements MessageSource {
 
     @Override
     public String getMessage(MessageSourceResolvable resolvable, Locale locale) throws NoSuchMessageException {
-        MessageResource messageResource = MessageResource.create(resolvable.getCodes().toString());
+        MessageResource messageResource = MessageResource.create(Arrays.toString(resolvable.getCodes()));
         return localeMessageProvider.getLocaleMessage(defaultLocaleProvider.getLocales(), messageResource, messageResource.getMessageKey(), resolvable
                 .getArguments());
     }
