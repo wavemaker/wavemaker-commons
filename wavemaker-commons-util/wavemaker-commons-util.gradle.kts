@@ -17,7 +17,7 @@ dependencies {
     implementation("org.springframework:spring-webmvc")
     implementation("com.fasterxml.jackson.core:jackson-core")
     implementation("com.fasterxml.jackson.core:jackson-databind")
-    implementation("com.google.code.gson:gson:2.8.5")
+    implementation("com.google.code.gson:gson")
     compileOnly("javax.servlet:javax.servlet-api")
     testImplementation("org.testng:testng")
     testImplementation("org.mockito:mockito-all")
