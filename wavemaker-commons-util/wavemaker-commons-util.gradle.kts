@@ -13,6 +13,9 @@ dependencies {
     implementation("commons-codec:commons-codec")
     implementation("org.apache.commons:commons-lang3")
     implementation("org.apache.commons:commons-configuration2")
+    implementation("org.apache.commons:commons-text") {
+        because("This is an optional dependency for commons-configuration2 which is needed for PropertiesConfiguration class usage by us")
+    }
     implementation("org.apache.commons:commons-collections4")
     implementation("org.springframework:spring-webmvc")
     implementation("com.fasterxml.jackson.core:jackson-core")
