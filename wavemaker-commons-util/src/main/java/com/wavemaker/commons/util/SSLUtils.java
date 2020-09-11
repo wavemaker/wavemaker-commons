@@ -49,7 +49,7 @@ public class SSLUtils {
             // Install the all-trusting trust manager
             SSLContext sc;
             try {
-                sc = SSLContext.getInstance("TLS");
+                sc = SSLContext.getInstance("TLSv1.2");
                 sc.init(null, trustAllCerts, new SecureRandom());
                 allTrustedSSLContext = sc;
             } catch (Exception e) {
