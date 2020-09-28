@@ -36,7 +36,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
 import com.wavemaker.commons.MessageResource;
-import com.wavemaker.commons.WMError;
+import com.wavemaker.commons.WMRuntimeException;
 import com.wavemaker.commons.json.JSONUtils;
 
 /**
@@ -73,7 +73,7 @@ public class LocaleMessageProviderImpl implements LocaleMessageProvider {
         }
         if (!supportedLocales.contains(defaultLocale)) {
             if (supportedLocales.isEmpty()) {
-                throw new WMError("No locales available in the project");
+                throw new WMRuntimeException("No locales available in the project");
             } else {
                 String previousDefaultLocale = defaultLocale;
                 defaultLocale = supportedLocales.iterator().next();
@@ -138,7 +138,7 @@ public class LocaleMessageProviderImpl implements LocaleMessageProvider {
                 existingMessages.putAll(localeMessages);
             }
         } catch (IOException e) {
-            throw new WMError("Failed to read locale resources for locale " + locale, e);
+            throw new WMRuntimeException("Failed to read locale resources for locale " + locale, e);
         }
         return existingMessages;
     }
@@ -147,7 +147,7 @@ public class LocaleMessageProviderImpl implements LocaleMessageProvider {
         try {
             return resourcePatternResolver.getResources(locationPattern + "/" + resourcePattern);
         } catch (IOException e) {
-            throw new WMError("Failed to read locale files", e);
+            throw new WMRuntimeException("Failed to read locale files", e);
         }
     }
 
