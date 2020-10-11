@@ -17,8 +17,7 @@ buildscript {
 }
 
 plugins {
-    `java-platform`
-    `maven-publish`
+    `java-platform-maven-publish`
 }
 
 group ="com.wavemaker.commons"
@@ -45,12 +44,6 @@ dependencies {
     }
 }
 
-publishing {
-    configurePublicationToDist(this)
-    publications {
-        create<MavenPublication>("maven") {
-            artifactId = project.extensions.extraProperties.get("basename") as String
-            from(components["javaPlatform"])
-        }
-    }
+javaPlatformMavenPublish {
+    scmUrl="git:https://github.com/wavemaker/wavemaker-commons.git"
 }
