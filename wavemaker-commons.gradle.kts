@@ -1,6 +1,5 @@
 buildscript {
     extra.apply {
-        set("wavemakerApiDocsToolsVersion", "2.24")
         set("commonsIoVersion", "2.7")
         set("commonsCodecVersion", "1.14")
         set("commonsCollections4Version", "4.4")
@@ -8,6 +7,7 @@ buildscript {
         set("commonsTextVersion", "1.9")
         set("commonsLang3Version", "3.11")
         set("slf4jVersion", "1.7.30")
+        set("guavaVersion", "29.0-jre")
         set("gsonVersion", "2.8.6")
         set("springVersion", "5.2.8.RELEASE")
         set("jacksonVersion", "2.11.2")
@@ -33,7 +33,6 @@ dependencies {
     api(enforcedPlatform("org.springframework:spring-framework-bom:${project.extra["springVersion"]}"))
     api(enforcedPlatform("com.fasterxml.jackson:jackson-bom:${project.extra["jacksonVersion"]}"))
     constraints {
-        api("com.wavemaker.tools.apidocs:wavemaker-tools-apidocs-core:${project.extra["wavemakerApiDocsToolsVersion"]}")
         api("org.slf4j:slf4j-api:${project.extra["slf4jVersion"]}")
         api("org.apache.commons:commons-collections4:${project.extra["commonsCollections4Version"]}")
         api("commons-codec:commons-codec:${project.extra["commonsCodecVersion"]}")
@@ -41,6 +40,7 @@ dependencies {
         api("org.apache.commons:commons-configuration2:${project.extra["commonsConfigurationVersion"]}")
         api("org.apache.commons:commons-text:${project.extra["commonsTextVersion"]}")
         api("org.apache.commons:commons-lang3:${project.extra["commonsLang3Version"]}")
+        api("com.google.guava:guava:${project.extra["guavaVersion"]}")
         api("com.google.code.gson:gson:${project.extra["gsonVersion"]}")
         api("junit:junit:${project.extra["junitVersion"]}")
         api("org.testng:testng:${project.extra["testngVersion"]}")

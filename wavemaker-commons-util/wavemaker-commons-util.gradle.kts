@@ -6,7 +6,7 @@ group ="com.wavemaker.commons"
 
 dependencies {
     implementation(platform(project(":wavemaker-commons")))
-    implementation("com.wavemaker.tools.apidocs:wavemaker-tools-apidocs-core")
+    implementation(project(":wavemaker-tools-apidocs-core"))
     implementation("org.slf4j:slf4j-api")
     implementation("commons-io:commons-io")
     implementation("commons-codec:commons-codec")
@@ -16,6 +16,7 @@ dependencies {
         because("This is an optional dependency for commons-configuration2 which is needed for PropertiesConfiguration class usage by us")
     }
     implementation("org.apache.commons:commons-collections4")
+    implementation("com.google.guava:guava")
     implementation("org.springframework:spring-webmvc")
     implementation("com.fasterxml.jackson.core:jackson-core")
     implementation("com.fasterxml.jackson.core:jackson-databind")
