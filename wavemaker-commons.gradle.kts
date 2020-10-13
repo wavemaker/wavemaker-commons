@@ -1,6 +1,6 @@
 buildscript {
     extra.apply {
-        set("commonsIoVersion", "2.7")
+        set("commonsIoVersion", "2.8.0")
         set("commonsCodecVersion", "1.14")
         set("commonsCollections4Version", "4.4")
         set("commonsConfigurationVersion", "2.7")
@@ -9,8 +9,8 @@ buildscript {
         set("slf4jVersion", "1.7.30")
         set("guavaVersion", "29.0-jre")
         set("gsonVersion", "2.8.6")
-        set("springVersion", "5.2.8.RELEASE")
-        set("jacksonVersion", "2.11.2")
+        set("springVersion", "5.2.9.RELEASE")
+        set("jacksonVersion", "2.11.3")
         set("mockitoVersion", "1.10.19")
         set("hamcrestVersion", "1.3")
         set("junitVersion", "4.13")
