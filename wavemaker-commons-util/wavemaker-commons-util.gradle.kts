@@ -1,23 +1,26 @@
 plugins {
-    `java-library`
-    `maven-publish`
+    `java-library-maven-publish`
 }
 
 group ="com.wavemaker.commons"
 
 dependencies {
     implementation(platform(project(":wavemaker-commons")))
-    implementation("com.wavemaker.tools.apidocs:wavemaker-tools-apidocs-core")
+    implementation(project(":wavemaker-tools-apidocs-core"))
     implementation("org.slf4j:slf4j-api")
     implementation("commons-io:commons-io")
     implementation("commons-codec:commons-codec")
     implementation("org.apache.commons:commons-lang3")
     implementation("org.apache.commons:commons-configuration2")
+    implementation("org.apache.commons:commons-text") {
+        because("This is an optional dependency for commons-configuration2 which is needed for PropertiesConfiguration class usage by us")
+    }
     implementation("org.apache.commons:commons-collections4")
+    implementation("com.google.guava:guava")
     implementation("org.springframework:spring-webmvc")
     implementation("com.fasterxml.jackson.core:jackson-core")
     implementation("com.fasterxml.jackson.core:jackson-databind")
-    implementation("com.google.code.gson:gson:2.8.5")
+    implementation("com.google.code.gson:gson")
     compileOnly("javax.servlet:javax.servlet-api")
     testImplementation("org.testng:testng")
     testImplementation("org.mockito:mockito-all")
@@ -43,25 +46,6 @@ tasks.test {
     exclude("**/*")
 }
 
-java {
-    withSourcesJar()
-}
-
-publishing {
-    configurePublicationToDist(this)
-    publications {
-        create<MavenPublication>("maven") {
-            artifactId = project.extensions.extraProperties.get("basename") as String
-            from(components["java"])
-            withoutBuildIdentifier()
-            pom {
-                withXml {
-                    updateGeneratedPom(asNode(), mapOf(
-                        "compile" to configurations.implementation.get().dependencies + configurations.api.get().dependencies,
-                        "provided" to configurations.compileOnly.get().dependencies
-                    ))
-                }
-            }
-        }
-    }
+javaLibraryMavenPublish {
+    scmUrl="git:https://github.com/wavemaker/wavemaker-commons.git"
 }
