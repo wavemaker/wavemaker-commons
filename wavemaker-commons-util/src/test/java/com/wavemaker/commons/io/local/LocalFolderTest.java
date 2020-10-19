@@ -19,6 +19,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -174,5 +175,6 @@ public class LocalFolderTest {
 
         File file1 = folder.getFile("njvkdf nhvd.txt");
         file1.createIfMissing();
+        Assert.assertTrue("Could not create a local file",file1.exists());
     }
 }

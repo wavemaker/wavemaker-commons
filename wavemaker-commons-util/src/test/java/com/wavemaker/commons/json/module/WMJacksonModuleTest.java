@@ -97,9 +97,12 @@ public class WMJacksonModuleTest {
         final Swagger swagger = objectMapper
                 .readValue(this.getClass().getResourceAsStream("/hrdb_API.json"), Swagger.class);
 
+        Assert.assertNotNull(swagger,"Could not get swagger object from json.");
+
         objectMapper.registerModule(new WMJacksonModule(true));
 
-        objectMapper.writeValueAsString(swagger);
+        final String string = objectMapper.writeValueAsString(swagger);
+        Assert.assertNotNull(string,"Could not convert swagger object to json.");
 
     }
 
