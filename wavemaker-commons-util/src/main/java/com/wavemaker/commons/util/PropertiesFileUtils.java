@@ -36,6 +36,8 @@ import com.wavemaker.commons.properties.SortedProperties;
  */
 public class PropertiesFileUtils {
 
+    private static final String FILE_NOT_FOUND = "com.wavemaker.commons.file.not.found";
+
     private PropertiesFileUtils() {
     }
 
@@ -43,7 +45,7 @@ public class PropertiesFileUtils {
         try {
             return loadFromXml(new BufferedInputStream(new FileInputStream(file)));
         } catch (FileNotFoundException e) {
-            throw new WMRuntimeException(MessageResource.create("com.wavemaker.commons.file.not.found"), e, file.getAbsolutePath());
+            throw new WMRuntimeException(MessageResource.create(FILE_NOT_FOUND), e, file.getAbsolutePath());
         }
     }
 
@@ -64,7 +66,7 @@ public class PropertiesFileUtils {
             InputStream is = new BufferedInputStream(new FileInputStream(file));
             return loadProperties(is);
         } catch (FileNotFoundException e) {
-            throw new WMRuntimeException(MessageResource.create("com.wavemaker.commons.file.not.found"), e, file.getAbsolutePath());
+            throw new WMRuntimeException(MessageResource.create(FILE_NOT_FOUND), e, file.getAbsolutePath());
         }
     }
 
@@ -95,7 +97,7 @@ public class PropertiesFileUtils {
         try {
             storeToXml(properties, new BufferedOutputStream(new FileOutputStream(file)), comment);
         } catch (FileNotFoundException e) {
-            throw new WMRuntimeException(MessageResource.create("com.wavemaker.commons.file.not.found"), e, file.getAbsolutePath());
+            throw new WMRuntimeException(MessageResource.create(FILE_NOT_FOUND), e, file.getAbsolutePath());
         }
     }
 
@@ -111,7 +113,7 @@ public class PropertiesFileUtils {
             OutputStream os = new BufferedOutputStream(new FileOutputStream(file));
             storeProperties(props, os, comments);
         } catch (FileNotFoundException e) {
-            throw new WMRuntimeException(MessageResource.create("com.wavemaker.commons.file.not.found"), e, file.getAbsolutePath());
+            throw new WMRuntimeException(MessageResource.create(FILE_NOT_FOUND), e, file.getAbsolutePath());
         }
     }
 
