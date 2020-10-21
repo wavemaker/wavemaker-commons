@@ -44,6 +44,7 @@ public class PropertiesWriter {
     private boolean sortProperties;
     private boolean sansDate;
     private boolean toXML;
+    private static final String OBJECT_CANNOT_BE_NULL = "com.wavemaker.commons.object.can.not.be.null";
 
     public PropertiesWriter(Properties properties) {
         this.properties = properties;
@@ -56,7 +57,7 @@ public class PropertiesWriter {
 
     private void init() {
         if (properties == null) {
-            throw new WMRuntimeException(MessageResource.create("com.wavemaker.commons.object.can.not.be.null"), "properties");
+            throw new WMRuntimeException(MessageResource.create(OBJECT_CANNOT_BE_NULL), "properties");
         }
     }
 
@@ -82,7 +83,7 @@ public class PropertiesWriter {
 
     public synchronized void write(File file) throws FileNotFoundException {
         if (file == null) {
-            throw new WMRuntimeException(MessageResource.create("com.wavemaker.commons.object.can.not.be.null"), "file");
+            throw new WMRuntimeException(MessageResource.create(OBJECT_CANNOT_BE_NULL), "file");
         }
         write(new BufferedOutputStream(new FileOutputStream(file)));
     }
@@ -93,7 +94,7 @@ public class PropertiesWriter {
 
     public synchronized void write(OutputStream stream) {
         if (stream == null) {
-            throw new WMRuntimeException(MessageResource.create("com.wavemaker.commons.object.can.not.be.null"), "Output Stream");
+            throw new WMRuntimeException(MessageResource.create(OBJECT_CANNOT_BE_NULL), "Output Stream");
         }
 
         sort();

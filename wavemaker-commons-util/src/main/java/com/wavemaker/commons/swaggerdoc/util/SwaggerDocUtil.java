@@ -50,6 +50,7 @@ public class SwaggerDocUtil {
     private static final String DATE_TIME_TYPE = "date-time";
     private static final String DOUBLE_TYPE = "double";
     private static final String NUMBER_TYPE = "number";
+    private static final String OPERATION_DOES_NOT_EXIST = "com.wavemaker.runtime.operation.doesnt.exist";
 
     enum OperationType {
         GET, POST, DELETE, PUT, PATCH, OPTIONS
@@ -86,7 +87,7 @@ public class SwaggerDocUtil {
                 }
             }
         }
-        throw new SwaggerException(MessageResource.create("com.wavemaker.runtime.operation.doesnt.exist"), operationUid);
+        throw new SwaggerException(MessageResource.create(OPERATION_DOES_NOT_EXIST), operationUid);
     }
 
     /**
@@ -104,7 +105,7 @@ public class SwaggerDocUtil {
                 }
             }
         }
-        throw new SwaggerException(MessageResource.create("com.wavemaker.runtime.operation.doesnt.exist"), operationUid);
+        throw new SwaggerException(MessageResource.create(OPERATION_DOES_NOT_EXIST), operationUid);
     }
 
     /**
@@ -123,7 +124,7 @@ public class SwaggerDocUtil {
                 return operation;
             }
         }
-        throw new SwaggerException(MessageResource.create("com.wavemaker.runtime.operation.doesnt.exist"), operationUid);
+        throw new SwaggerException(MessageResource.create(OPERATION_DOES_NOT_EXIST), operationUid);
     }
 
     /**
@@ -164,7 +165,7 @@ public class SwaggerDocUtil {
         if (operationType != null) {
             return operationType.name().toLowerCase();
         } else {
-            throw new SwaggerException(MessageResource.create("com.wavemaker.runtime.operation.doesnt.exist"), operationUid);
+            throw new SwaggerException(MessageResource.create(OPERATION_DOES_NOT_EXIST), operationUid);
         }
     }
 
