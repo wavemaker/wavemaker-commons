@@ -1,19 +1,19 @@
 buildscript {
     extra.apply {
         set("commonsIoVersion", "2.8.0")
-        set("commonsCodecVersion", "1.14")
+        set("commonsCodecVersion", "1.15")
         set("commonsCollections4Version", "4.4")
         set("commonsConfigurationVersion", "2.7")
         set("commonsTextVersion", "1.9")
         set("commonsLang3Version", "3.11")
         set("slf4jVersion", "1.7.30")
-        set("guavaVersion", "29.0-jre")
+        set("guavaVersion", "30.0-jre")
         set("gsonVersion", "2.8.6")
         set("springVersion", "5.2.9.RELEASE")
         set("jacksonVersion", "2.11.3")
         set("mockitoVersion", "1.10.19")
         set("hamcrestVersion", "1.3")
-        set("junitVersion", "4.13")
+        set("junitVersion", "4.13.1")
         set("testngVersion", "7.3.0")
         set("servletVersion", "3.1.0")
     }
