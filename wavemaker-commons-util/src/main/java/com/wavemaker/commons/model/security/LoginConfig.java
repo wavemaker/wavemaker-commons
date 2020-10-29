@@ -24,6 +24,7 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 public class LoginConfig {
     private LoginType type;
     private String pageName;
+    private int cookieMaxAge;
     private SessionTimeoutConfig sessionTimeout;
 
     public LoginType getType() {
@@ -50,6 +51,14 @@ public class LoginConfig {
         this.sessionTimeout = sessionTimeout;
     }
 
+    public int getCookieMaxAge() {
+        return cookieMaxAge;
+    }
+
+    public void setCookieMaxAge(int cookieMaxAge) {
+        this.cookieMaxAge = cookieMaxAge;
+    }
+
     @Override
     public boolean equals(final Object o) {
         if (this == o) {
@@ -65,6 +74,7 @@ public class LoginConfig {
         return new EqualsBuilder()
                 .append(type, that.type)
                 .append(pageName, that.pageName)
+                .append(cookieMaxAge, that.cookieMaxAge)
                 .append(sessionTimeout, that.sessionTimeout)
                 .isEquals();
     }
@@ -74,6 +84,7 @@ public class LoginConfig {
         return new HashCodeBuilder(17, 37)
                 .append(type)
                 .append(pageName)
+                .append(cookieMaxAge)
                 .append(sessionTimeout)
                 .toHashCode();
     }
@@ -83,6 +94,7 @@ public class LoginConfig {
         return "LoginConfig{" +
                 "type=" + type +
                 ", page='" + pageName + '\'' +
+                ", cookieMaxAge=" + cookieMaxAge +
                 ", sessionTimeout=" + sessionTimeout +
                 '}';
     }
