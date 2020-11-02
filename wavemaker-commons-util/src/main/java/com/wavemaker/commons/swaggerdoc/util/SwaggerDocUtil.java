@@ -22,6 +22,7 @@ import java.util.*;
 
 import com.wavemaker.commons.MessageResource;
 import com.wavemaker.commons.SwaggerException;
+import com.wavemaker.tools.apidocs.tools.core.model.ArrayModel;
 import com.wavemaker.tools.apidocs.tools.core.model.ComposedModel;
 import com.wavemaker.tools.apidocs.tools.core.model.Model;
 import com.wavemaker.tools.apidocs.tools.core.model.Operation;
@@ -306,6 +307,10 @@ public class SwaggerDocUtil {
             if (refModel != null) {
                 propertyMap.putAll(getProperties(swagger, refModel));
             }
+        } else if (model instanceof ArrayModel) {
+            ArrayProperty arrayProperty = new ArrayProperty();
+            arrayProperty.setItems(((ArrayModel) model).getItems());
+            propertyMap.putAll(getProperties(swagger, ((ArrayModel) model).getItems()));
         }
 
         if (model.getProperties() != null) {
@@ -324,6 +329,9 @@ public class SwaggerDocUtil {
             }
         } else if (property instanceof ObjectProperty) {
             propertyMap.putAll(getPropertiesFromObjectProperty(swagger, (ObjectProperty)property));
+        } else if (property instanceof RefProperty) {
+            final Model model = swagger.getDefinitions().get(((RefProperty) property).getSimpleRef());
+            propertyMap.putAll(getProperties(swagger, model));
         }
         return propertyMap;
     }
