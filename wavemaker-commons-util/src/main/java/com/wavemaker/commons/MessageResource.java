@@ -96,6 +96,9 @@ public class MessageResource {
     public static final MessageResource ENTITY_NOT_FOUND = new MessageResource("com.wavemaker.runtime.data$EntityNotFound");
 
     @ResourceConstraint(numArgs = 0, hasDetailMsg = false)
+    public static final MessageResource ENTITY_NOT_AUTHORIZED = new MessageResource("com.wavemaker.runtime.data$EntityNotAuthorized");
+
+    @ResourceConstraint(numArgs = 0, hasDetailMsg = false)
     public static final MessageResource RELATION_WITH_IDENTITY_COLUMN_NOT_POSSIBLE = new MessageResource("com.wavemaker.runtime.data$RelationWithIdentityColumnNotPossible");
 
     @ResourceConstraint(numArgs = 0, hasDetailMsg = false)
