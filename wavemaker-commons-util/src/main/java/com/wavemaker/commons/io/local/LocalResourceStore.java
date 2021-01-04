@@ -41,6 +41,7 @@ import com.wavemaker.commons.io.exception.ResourceTypeMismatchException;
 import com.wavemaker.commons.io.store.FileStore;
 import com.wavemaker.commons.io.store.FolderStore;
 import com.wavemaker.commons.io.store.ResourceStore;
+import com.wavemaker.commons.util.FileValidationUtils;
 
 /**
  * {@link ResourceStore}s for {@link LocalFile} and {@link LocalFolder}.
@@ -75,7 +76,7 @@ abstract class LocalResourceStore implements ResourceStore {
     }
 
     protected final java.io.File getFileForPath(JailedResourcePath path) {
-        return new java.io.File(getRoot(), path.getUnjailedPath().toString());
+        return new java.io.File(getRoot(), FileValidationUtils.validateFilePath(path.getUnjailedPath().toString()));
     }
 
     @Override

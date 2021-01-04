@@ -21,6 +21,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.util.Assert;
 import org.springframework.util.ClassUtils;
 
+import com.wavemaker.commons.util.FileValidationUtils;
+
 /**
  * Exposes a class-path resource as a read-only {@link File}.
  * 
@@ -114,6 +116,6 @@ public class ClassPathFile extends AbstractReadOnlyFile {
 
     @Override
     protected InputStream getInputStream() {
-        return this.classLoader.getResourceAsStream(this.path.toString().substring(1));
+        return this.classLoader.getResourceAsStream(FileValidationUtils.validateFilePath(this.path.toString().substring(1)));
     }
 }

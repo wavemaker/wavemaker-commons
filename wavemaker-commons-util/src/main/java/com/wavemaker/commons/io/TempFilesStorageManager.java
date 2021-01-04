@@ -34,6 +34,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.wavemaker.commons.MessageResource;
 import com.wavemaker.commons.ResourceNotFoundException;
 import com.wavemaker.commons.WMRuntimeException;
+import com.wavemaker.commons.util.FileValidationUtils;
 import com.wavemaker.commons.util.WMIOUtils;
 
 /**
@@ -117,7 +118,7 @@ public class TempFilesStorageManager {
         logger.info("Adding new temp file with fileId {} and filename {}", fileId, filename);
         File uniqueDirectory = getUniqueDirectory(fileId);
         uniqueDirectory.mkdirs();
-        File uniqueFile = new File(uniqueDirectory, filename);
+        File uniqueFile = new File(uniqueDirectory, FileValidationUtils.validateFilePath(filename));
         try {
             uniqueFile.createNewFile();
         } catch (IOException e) {
@@ -194,7 +195,7 @@ public class TempFilesStorageManager {
     }
 
     public File getUniqueDirectory(String fileId) {
-        return new File(filesStorageDirectory, fileId);
+        return new File(filesStorageDirectory, FileValidationUtils.validateFilePath(fileId));
     }
 
     private void purgeOldFiles() {
