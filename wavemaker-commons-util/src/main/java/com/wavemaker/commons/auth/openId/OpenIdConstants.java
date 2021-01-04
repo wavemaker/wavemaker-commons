@@ -44,5 +44,7 @@ public class OpenIdConstants {
 
     public static final String REGISTRATION_ID = "registration_id";
 
+    public static final String REDIRECT_PAGE = "redirectPage";
+
 
 }
