@@ -9,7 +9,7 @@ buildscript {
         set("slf4jVersion", "1.7.30")
         set("guavaVersion", "30.0-jre")
         set("gsonVersion", "2.8.6")
-        set("springVersion", "5.2.9.RELEASE")
+        set("springVersion", "5.3.3")
         set("jacksonVersion", "2.11.3")
         set("mockitoVersion", "1.10.19")
         set("hamcrestVersion", "1.3")
