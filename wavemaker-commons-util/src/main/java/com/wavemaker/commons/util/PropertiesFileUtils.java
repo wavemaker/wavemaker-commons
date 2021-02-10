@@ -1,17 +1,13 @@
 /**
  * Copyright (C) 2020 WaveMaker, Inc.
  * <p>
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the
+ * License at
  * <p>
  * http://www.apache.org/licenses/LICENSE-2.0
  * <p>
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+ * CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
  */
 package com.wavemaker.commons.util;
 
@@ -24,6 +20,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.net.URL;
 import java.util.Properties;
 
 import com.wavemaker.commons.MessageResource;
@@ -58,6 +55,20 @@ public class PropertiesFileUtils {
             throw new WMRuntimeException(MessageResource.create("com.wavemaker.commons.properties.inputStream.read.failure"), e);
         } finally {
             WMIOUtils.closeSilently(is);
+        }
+    }
+
+    public static Properties loadFromURL(URL url) {
+        InputStream inputStream = null;
+        try {
+            Properties properties = new Properties();
+            inputStream = url.openStream();
+            properties.loadFromXML(inputStream);
+            return properties;
+        } catch (IOException e) {
+            throw new WMRuntimeException(MessageResource.create("com.wavemaker.commons.properties.inputStream.read.failure"), e);
+        } finally {
+            WMIOUtils.closeSilently(inputStream);
         }
     }
 
@@ -102,7 +113,7 @@ public class PropertiesFileUtils {
     }
 
     /**
-     * @deprecated (this api is deprecated,use PropertiesWriter to store properties in file)
+     * @deprecated (this api is deprecated, use PropertiesWriter to store properties in file)
      * @param props
      * @param file
      * @param comments
@@ -118,7 +129,7 @@ public class PropertiesFileUtils {
     }
 
     /**
-     * @deprecated (this api is deprecated,use PropertiesWriter to store properties in file)
+     * @deprecated (this api is deprecated, use PropertiesWriter to store properties in file)
      * @param props
      * @param outputStream
      * @param comments
@@ -134,7 +145,7 @@ public class PropertiesFileUtils {
     }
 
     /**
-     * @deprecated (this api is @deprecated,use PropertiesWriter to store properties in file)
+     * @deprecated (this api is @ deprecated, use PropertiesWriter to store properties in file)
      * @param props
      * @param outputStream
      * @param comments

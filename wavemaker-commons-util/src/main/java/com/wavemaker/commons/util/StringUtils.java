@@ -1,17 +1,13 @@
 /**
  * Copyright (C) 2020 WaveMaker, Inc.
  * <p>
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the
+ * License at
  * <p>
  * http://www.apache.org/licenses/LICENSE-2.0
  * <p>
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+ * CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
  */
 package com.wavemaker.commons.util;
 
@@ -163,12 +159,8 @@ public abstract class StringUtils {
 
     /**
      * Converts the given snake case string to Java Field name.
-     *
-     * eg:
-     * User -> user
-     * User_id -> userId
-     * user_id -> userId
-     * USER_ID -> userId
+     * <p>
+     * eg: User -> user User_id -> userId user_id -> userId USER_ID -> userId
      *
      * @param inputString string to convert
      * @return java field identifier
@@ -314,8 +306,7 @@ public abstract class StringUtils {
     }
 
     /**
-     * Given a fully qualified class name a.b.c, returns a Tuple.Two instance with the package and the class name: (a.b,
-     * c).
+     * Given a fully qualified class name a.b.c, returns a Tuple.Two instance with the package and the class name: (a.b, c).
      */
     public static Tuple.Two<String, String> splitPackageAndClass(String s) {
         int i = s.lastIndexOf('.');
@@ -529,15 +520,13 @@ public abstract class StringUtils {
     }
 
     /**
-     * Return a String with all occurrences of the "from" String within "original" replaced with the "to" String. If
-     * the
-     * "original" string contains no occurrences of "from", "original" is itself returned, rather than a copy.
+     * Return a String with all occurrences of the "from" String within "original" replaced with the "to" String. If the "original" string contains no
+     * occurrences of "from", "original" is itself returned, rather than a copy.
      *
      * @param original the original String
-     * @param from the String to replace within "original"
-     * @param to the String to replace "from" with
-     * @returns a version of "original" with all occurrences of the "from" parameter being replaced with the "to"
-     * parameter.
+     * @param from     the String to replace within "original"
+     * @param to       the String to replace "from" with
+     * @returns a version of "original" with all occurrences of the "from" parameter being replaced with the "to" parameter.
      */
     public static String replacePlainStr(String original, String from, String to) {
         int from_length = from.length();
@@ -628,18 +617,15 @@ public abstract class StringUtils {
      * @return
      */
     public static String removeLineFeed(String inputString) {
-        BufferedReader bufferedReader = new BufferedReader(new StringReader(inputString));
         StringBuilder stringBuilder = new StringBuilder();
         String line = null;
-        try {
+        try (BufferedReader bufferedReader = new BufferedReader(new StringReader(inputString))) {
             while ((line = bufferedReader.readLine()) != null) {
                 stringBuilder.append(line.trim());
             }
             return stringBuilder.toString();
         } catch (IOException e) {
             throw new WMRuntimeException(MessageResource.create("com.wavemaker.commons.failed.to.read.line"), e);
-        } finally {
-            org.apache.commons.io.IOUtils.closeQuietly(bufferedReader);
         }
     }
 
