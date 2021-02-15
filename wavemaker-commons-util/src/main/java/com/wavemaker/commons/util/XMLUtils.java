@@ -1,17 +1,13 @@
 /**
  * Copyright (C) 2020 WaveMaker, Inc.
  * <p>
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the
+ * License at
  * <p>
  * http://www.apache.org/licenses/LICENSE-2.0
  * <p>
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+ * CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
  */
 package com.wavemaker.commons.util;
 
@@ -27,6 +23,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -140,7 +137,7 @@ public abstract class XMLUtils {
     public static List<Element> getFirstLevelElementsByTagName(Element element, String name) {
         NodeList allChilds = element.getElementsByTagName(name);
         List<Element> childElements = new ArrayList<>();
-        
+
         for (int i = 0; i < allChilds.getLength(); i++) {
             Node child = allChilds.item(i);
             if (Objects.equals(child.getParentNode(), element)) {
@@ -157,7 +154,11 @@ public abstract class XMLUtils {
 
     public static void updateDocument(Document document, OutputStream outputStream) {
         try {
-            TransformerFactory transformerFactory = TransformerFactory.newInstance();
+            TransformerFactory transformerFactory = TransformerFactory.
+                    newInstance("com.sun.org.apache.xalan.internal.xsltc.trax.TransformerFactoryImpl", XMLUtils.class.getClassLoader());
+            transformerFactory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
+            transformerFactory.setAttribute("http://javax.xml.XMLConstants/property/accessExternalDTD", "");
+            transformerFactory.setAttribute("http://javax.xml.XMLConstants/property/accessExternalStylesheet", "");
             Transformer transformer = transformerFactory.newTransformer();
             Source source = new DOMSource(document);
             Result dest = new StreamResult(outputStream);
@@ -191,7 +192,11 @@ public abstract class XMLUtils {
 
     public static void writeDocument(Document outputDocument, boolean xmlStandalone, OutputStream outputStream) throws TransformerException {
         try {
-            TransformerFactory tf = TransformerFactory.newInstance();
+            TransformerFactory tf = TransformerFactory
+                    .newInstance("com.sun.org.apache.xalan.internal.xsltc.trax.TransformerFactoryImpl", XMLUtils.class.getClassLoader());
+            tf.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
+            tf.setAttribute("http://javax.xml.XMLConstants/property/accessExternalDTD", "");
+            tf.setAttribute("http://javax.xml.XMLConstants/property/accessExternalStylesheet", "");
             Transformer t = tf.newTransformer();
             t.setOutputProperty(OutputKeys.INDENT, "yes");
             t.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4");
@@ -210,6 +215,15 @@ public abstract class XMLUtils {
     private static DocumentBuilder getDocumentBuilder() {
         try {
             DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
+
+//            documentBuilderFactory.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
+
+            documentBuilderFactory.setFeature("http://xml.org/sax/features/external-general-entities", false);
+            documentBuilderFactory.setFeature("http://xml.org/sax/features/external-parameter-entities", false);
+            documentBuilderFactory.setFeature("http://apache.org/xml/features/nonvalidating/load-external-dtd", false);
+            documentBuilderFactory.setXIncludeAware(false);
+            documentBuilderFactory.setExpandEntityReferences(false);
+
             documentBuilderFactory.setNamespaceAware(true);
             return documentBuilderFactory.newDocumentBuilder();
         } catch (ParserConfigurationException e) {
