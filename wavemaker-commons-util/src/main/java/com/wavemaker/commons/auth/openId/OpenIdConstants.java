@@ -36,6 +36,8 @@ public class OpenIdConstants {
 
     public static final String CODE = "code";
 
+    public static final String ID_TOKEN_VALUE = "idTokenValue";
+
     public static final String ERROR = "error";
 
     public static final String ERROR_DESCRIPTION = "error_description";

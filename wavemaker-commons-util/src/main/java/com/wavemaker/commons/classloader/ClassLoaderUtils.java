@@ -172,6 +172,9 @@ public class ClassLoaderUtils {
      * @return
      */
     public static Class findLoadedClass(ClassLoader cl, String className) throws InvocationTargetException, IllegalAccessException {
+        if (cl == null) {
+            return null;
+        }
         return (Class) findLoadedClassMethod.invoke(cl, className);
     }
 }
