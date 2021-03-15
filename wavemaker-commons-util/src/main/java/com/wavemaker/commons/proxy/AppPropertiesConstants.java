@@ -36,8 +36,6 @@ public final class AppPropertiesConstants {
     public static final String APP_BUILD_UI_MODE = getAppPropertyKey("build.ui.mode");
     public static final String APP_BUILD_UI_NG_ARGS = getAppPropertyKey("build.ui.ng.args");
 
-    public static final String APP_REQUEST_ALLOWED_HOSTS = getAppPropertyKey("request.allowedHosts");
-
     private static String getAppPropertyKey(String key) {
         return new StringBuilder(APP_PREFIX).append(".").append(key).toString();
     }
