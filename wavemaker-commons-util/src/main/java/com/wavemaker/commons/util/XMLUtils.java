@@ -17,7 +17,6 @@ package com.wavemaker.commons.util;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
@@ -31,14 +30,6 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.stream.XMLStreamReader;
-import javax.xml.transform.OutputKeys;
-import javax.xml.transform.Result;
-import javax.xml.transform.Source;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerException;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.dom.DOMSource;
-import javax.xml.transform.stream.StreamResult;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringEscapeUtils;
@@ -140,7 +131,7 @@ public abstract class XMLUtils {
     public static List<Element> getFirstLevelElementsByTagName(Element element, String name) {
         NodeList allChilds = element.getElementsByTagName(name);
         List<Element> childElements = new ArrayList<>();
-        
+
         for (int i = 0; i < allChilds.getLength(); i++) {
             Node child = allChilds.item(i);
             if (Objects.equals(child.getParentNode(), element)) {
@@ -150,24 +141,6 @@ public abstract class XMLUtils {
         return childElements;
     }
 
-    public static void updateDocument(Document document, File file) {
-        updateDocument(document, file.getContent().asOutputStream());
-    }
-
-
-    public static void updateDocument(Document document, OutputStream outputStream) {
-        try {
-            TransformerFactory transformerFactory = TransformerFactory.newInstance();
-            Transformer transformer = transformerFactory.newTransformer();
-            Source source = new DOMSource(document);
-            Result dest = new StreamResult(outputStream);
-            transformer.transform(source, dest);
-        } catch (TransformerException e) {
-            throw new WMRuntimeException(MessageResource.create("com.wavemaker.commons.failed.to.write.document"), e);
-        } finally {
-            WMIOUtils.closeSilently(outputStream);
-        }
-    }
 
     public static Document readDocument(InputStream inputStream) throws ParserConfigurationException, IOException, SAXException {
         DocumentBuilder documentBuilder = getDocumentBuilder();
@@ -189,27 +162,16 @@ public abstract class XMLUtils {
         return getDocumentBuilder().newDocument();
     }
 
-    public static void writeDocument(Document outputDocument, boolean xmlStandalone, OutputStream outputStream) throws TransformerException {
-        try {
-            TransformerFactory tf = TransformerFactory.newInstance();
-            Transformer t = tf.newTransformer();
-            t.setOutputProperty(OutputKeys.INDENT, "yes");
-            t.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4");
-            if (xmlStandalone) {
-                t.setOutputProperty(OutputKeys.STANDALONE, "yes");
-            }
-            DOMSource source = new DOMSource(outputDocument);
-            StreamResult result = new StreamResult(outputStream);
-            t.transform(source, result);
-
-        } finally {
-            WMIOUtils.closeSilently(outputStream);
-        }
-    }
-
     private static DocumentBuilder getDocumentBuilder() {
         try {
             DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
+
+            documentBuilderFactory.setFeature("http://xml.org/sax/features/external-general-entities", false);
+            documentBuilderFactory.setFeature("http://xml.org/sax/features/external-parameter-entities", false);
+            documentBuilderFactory.setFeature("http://apache.org/xml/features/nonvalidating/load-external-dtd", false);
+            documentBuilderFactory.setXIncludeAware(false);
+            documentBuilderFactory.setExpandEntityReferences(false);
+
             documentBuilderFactory.setNamespaceAware(true);
             return documentBuilderFactory.newDocumentBuilder();
         } catch (ParserConfigurationException e) {
