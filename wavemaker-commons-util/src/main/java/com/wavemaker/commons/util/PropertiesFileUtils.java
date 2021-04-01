@@ -24,6 +24,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.net.URL;
 import java.util.Properties;
 
 import com.wavemaker.commons.MessageResource;
@@ -58,6 +59,20 @@ public class PropertiesFileUtils {
             throw new WMRuntimeException(MessageResource.create("com.wavemaker.commons.properties.inputStream.read.failure"), e);
         } finally {
             WMIOUtils.closeSilently(is);
+        }
+    }
+
+    public static Properties loadFromXml(URL url) {
+        InputStream inputStream = null;
+        try {
+            Properties properties = new Properties();
+            inputStream = url.openStream();
+            properties.loadFromXML(inputStream);
+            return properties;
+        } catch (IOException e) {
+            throw new WMRuntimeException(MessageResource.create("com.wavemaker.commons.properties.inputStream.read.failure"), e);
+        } finally {
+            WMIOUtils.closeSilently(inputStream);
         }
     }
 

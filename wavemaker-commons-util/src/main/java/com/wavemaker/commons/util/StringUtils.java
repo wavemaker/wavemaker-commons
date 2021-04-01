@@ -628,18 +628,15 @@ public abstract class StringUtils {
      * @return
      */
     public static String removeLineFeed(String inputString) {
-        BufferedReader bufferedReader = new BufferedReader(new StringReader(inputString));
         StringBuilder stringBuilder = new StringBuilder();
         String line = null;
-        try {
+        try (BufferedReader bufferedReader = new BufferedReader(new StringReader(inputString))) {
             while ((line = bufferedReader.readLine()) != null) {
                 stringBuilder.append(line.trim());
             }
             return stringBuilder.toString();
         } catch (IOException e) {
             throw new WMRuntimeException(MessageResource.create("com.wavemaker.commons.failed.to.read.line"), e);
-        } finally {
-            org.apache.commons.io.IOUtils.closeQuietly(bufferedReader);
         }
     }
 
