@@ -26,6 +26,7 @@ public class LoginConfig {
     private String pageName;
     private int cookieMaxAge;
     private SessionTimeoutConfig sessionTimeout;
+    private SessionConcurrencyConfig sessionConcurrencyConfig;
 
     public LoginType getType() {
         return type;
@@ -57,6 +58,14 @@ public class LoginConfig {
 
     public void setCookieMaxAge(int cookieMaxAge) {
         this.cookieMaxAge = cookieMaxAge;
+    }
+
+    public SessionConcurrencyConfig getSessionConcurrencyConfig() {
+        return sessionConcurrencyConfig;
+    }
+
+    public void setSessionConcurrencyConfig(SessionConcurrencyConfig sessionConcurrencyConfig) {
+        this.sessionConcurrencyConfig = sessionConcurrencyConfig;
     }
 
     @Override
