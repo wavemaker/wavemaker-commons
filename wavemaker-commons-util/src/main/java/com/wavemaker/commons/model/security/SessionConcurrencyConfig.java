@@ -2,8 +2,7 @@ package com.wavemaker.commons.model.security;
 
 public class SessionConcurrencyConfig {
 
-    private int maxSessionsAllowed;
-    private boolean exceptionIfMaximumExceeded;
+    private int maxSessionsAllowed = -1;
 
     public int getMaxSessionsAllowed() {
         return maxSessionsAllowed;
@@ -13,11 +12,4 @@ public class SessionConcurrencyConfig {
         this.maxSessionsAllowed = maxSessionsAllowed;
     }
 
-    public boolean isExceptionIfMaximumExceeded() {
-        return exceptionIfMaximumExceeded;
-    }
-
-    public void setExceptionIfMaximumExceeded(boolean exceptionIfMaximumExceeded) {
-        this.exceptionIfMaximumExceeded = exceptionIfMaximumExceeded;
-    }
 }
