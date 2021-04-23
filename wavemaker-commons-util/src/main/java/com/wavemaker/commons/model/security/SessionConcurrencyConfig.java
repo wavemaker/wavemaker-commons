@@ -8,7 +8,7 @@ public class SessionConcurrencyConfig {
         return maxSessionsAllowed;
     }
 
-    public void setMaxSessionsAllowed(int maxSessionAllowed) {
+    public void setMaxSessionsAllowed(int maxSessionsAllowed) {
         this.maxSessionsAllowed = maxSessionsAllowed;
     }
 
