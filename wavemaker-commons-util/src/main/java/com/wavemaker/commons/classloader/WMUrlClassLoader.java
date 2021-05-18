@@ -20,8 +20,7 @@ import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.Collections;
 import java.util.Enumeration;
-
-import sun.misc.CompoundEnumeration;
+import java.util.NoSuchElementException;
 
 public class WMUrlClassLoader extends URLClassLoader {
     private String loaderContext;
@@ -71,5 +70,35 @@ public class WMUrlClassLoader extends URLClassLoader {
         tmp[0] = findResources(name);
         tmp[1] = getParent() != null ? getParent().getResources(name) : Collections.emptyEnumeration();
         return new CompoundEnumeration(tmp);
+    }
+
+    public static class CompoundEnumeration<E> implements Enumeration<E> {
+        private Enumeration<E>[] enums;
+        private int index;
+
+        public CompoundEnumeration(Enumeration<E>[] enums) {
+            this.enums = enums;
+        }
+
+        private boolean next() {
+            while (index < enums.length) {
+                if (enums[index] != null && enums[index].hasMoreElements()) {
+                    return true;
+                }
+                index++;
+            }
+            return false;
+        }
+
+        public boolean hasMoreElements() {
+            return next();
+        }
+
+        public E nextElement() {
+            if (!next()) {
+                throw new NoSuchElementException();
+            }
+            return enums[index].nextElement();
+        }
     }
 }
