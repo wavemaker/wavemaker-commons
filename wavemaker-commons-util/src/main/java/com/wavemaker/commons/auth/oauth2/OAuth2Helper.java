@@ -54,7 +54,10 @@ public class OAuth2Helper {
     public static String getAuthorizationUrl(OAuth2ProviderConfig oAuth2ProviderConfig, String redirectUrl, String state) {
         String scope = getScopeValue(oAuth2ProviderConfig);
         String encodedState = new String(Base64.getEncoder().encode(state.getBytes()));
-        StringBuilder sb = new StringBuilder(oAuth2ProviderConfig.getAuthorizationUrl()).append("?")
+        String authorizationUrl = oAuth2ProviderConfig.getAuthorizationUrl();
+        String queryParamDelimiter = authorizationUrl.contains("?") ? "&" : "?";
+        StringBuilder sb = new StringBuilder(authorizationUrl)
+                .append(queryParamDelimiter)
                 .append(OAuth2Constants.CLIENT_ID).append("=").append(oAuth2ProviderConfig.getClientId())
                 .append("&").append(OAuth2Constants.REDIRECT_URI).append("=").append(redirectUrl)
                 .append("&").append(OAuth2Constants.RESPONSE_TYPE).append("=code")
