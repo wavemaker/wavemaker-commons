@@ -28,6 +28,7 @@ import java.util.concurrent.TimeUnit;
 import org.apache.commons.io.FilenameUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.core.io.DefaultResourceLoader;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.core.io.support.ResourcePatternResolver;
@@ -50,13 +51,14 @@ public class LocaleMessageProviderImpl implements LocaleMessageProvider {
     private String defaultLocale = "en";
 
     private Cache<String, Map<String, String>> messages = CacheBuilder.newBuilder().expireAfterAccess(15, TimeUnit.MINUTES).build();
-    private ResourcePatternResolver resourcePatternResolver = new PathMatchingResourcePatternResolver();
+    private ResourcePatternResolver resourcePatternResolver;
     private List<String> locationPatterns;
 
     private static final Logger logger = LoggerFactory.getLogger(LocaleMessageProviderImpl.class);
 
     public LocaleMessageProviderImpl() {
-        this(Arrays.asList(CLASSPATH_MESSAGE_RESOURCE_PATH), new PathMatchingResourcePatternResolver());
+        this(Arrays.asList(CLASSPATH_MESSAGE_RESOURCE_PATH), new PathMatchingResourcePatternResolver(
+                new DefaultResourceLoader(LocaleMessageProviderImpl.class.getClassLoader())));
     }
 
     public LocaleMessageProviderImpl(List<String> locationPatterns, ResourcePatternResolver resourcePatternResolver) {
