@@ -5,32 +5,33 @@ plugins {
 group ="com.wavemaker.commons"
 
 dependencies {
-    implementation(platform(project(":wavemaker-commons")))
-    implementation(project(":wavemaker-tools-apidocs-core"))
-    implementation("org.slf4j:slf4j-api")
-    implementation("commons-io:commons-io")
-    implementation("commons-codec:commons-codec")
-    implementation("org.apache.commons:commons-lang3")
-    implementation("org.apache.commons:commons-configuration2")
-    implementation("org.apache.commons:commons-text") {
+    implementation(enforcedPlatform(libs.boms.springFramework.get()))
+    implementation(enforcedPlatform(libs.boms.jackson.get()))
+    implementation(projects.wavemakerToolsApidocsCore)
+    implementation(libs.slf4j.api)
+    implementation(libs.commons.io)
+    implementation(libs.commons.codec)
+    implementation(libs.commons.lang3)
+    implementation(libs.commons.configuration2)
+    implementation(libs.commons.text) {
         because("This is an optional dependency for commons-configuration2 which is needed for PropertiesConfiguration class usage by us")
     }
-    implementation("org.apache.commons:commons-collections4")
-    implementation("com.google.guava:guava")
-    implementation("org.springframework:spring-webmvc")
-    implementation("com.fasterxml.jackson.core:jackson-core")
-    implementation("com.fasterxml.jackson.core:jackson-databind")
-    implementation("com.google.code.gson:gson")
-    compileOnly("javax.servlet:javax.servlet-api")
-    testImplementation("org.testng:testng")
-    testImplementation("org.mockito:mockito-all")
-    testImplementation("org.hamcrest:hamcrest-all")
-    testImplementation("junit:junit")
-    testImplementation("javax.servlet:javax.servlet-api")
+    implementation(libs.commons.collections4)
+    implementation(libs.guava)
+    implementation(libs.spring.webmvc)
+    implementation(libs.jackson.core)
+    implementation(libs.jackson.databind)
+    implementation(libs.gson)
+    compileOnly(libs.javax.servlet.api)
+    testImplementation(libs.test.testng)
+    testImplementation(libs.test.mockito.all)
+    testImplementation(libs.test.hamcrest.all)
+    testImplementation(libs.test.junit4)
+    testImplementation(libs.javax.servlet.api)
 }
 
 configurations.register("testConfiguration") {
-    extendsFrom(configurations.testCompile.get())
+    extendsFrom(configurations.testImplementation.get())
 }
 tasks.register<Jar>(name = "testsJar") {
     from(project.sourceSets.test.get().output)
