@@ -22,19 +22,6 @@ dependencies {
     testImplementation("org.mockito:mockito-all")
 }
 
-configurations.register("testConfiguration") {
-    extendsFrom(configurations.testCompile.get())
-}
-tasks.register<Jar>(name = "testsJar") {
-    from(project.sourceSets.test.get().output)
-    description = "create a jar from the test source set"
-    archiveClassifier.set("test")
-}
-
-artifacts {
-    add("testConfiguration", tasks.getByName("testsJar"))
-}
-
 tasks.test {
     exclude("**/*")
 }
