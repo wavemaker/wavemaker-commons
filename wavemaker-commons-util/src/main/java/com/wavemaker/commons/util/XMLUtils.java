@@ -18,7 +18,7 @@ package com.wavemaker.commons.util;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -94,7 +94,7 @@ public abstract class XMLUtils {
 
 
     public static Document getDocument(String input) {
-        return getDocument(IOUtils.toInputStream(input, Charset.forName("UTF-8")));
+        return getDocument(IOUtils.toInputStream(input, StandardCharsets.UTF_8));
     }
 
     public static Document getDocument(InputStream inputStream) {

@@ -20,7 +20,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.io.StringWriter;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 
 import org.apache.commons.io.IOUtils;
 import org.junit.Assert;
@@ -49,7 +49,7 @@ public class PatternMatchingReplaceReaderTest {
         System.setProperty("rest.google-app_store.drive","google-drive");
 
         String resolvedString = getResolvedStringForFile(fileName, "${{", "}}");
-        String expectedOutput = IOUtils.resourceToString("pattern-matching-reader/expected-file1.txt", Charset.forName("UTF-8"), PatternMatchingReplaceReaderTest.class.getClassLoader());
+        String expectedOutput = IOUtils.resourceToString("pattern-matching-reader/expected-file1.txt", StandardCharsets.UTF_8, PatternMatchingReplaceReaderTest.class.getClassLoader());
         Assert.assertEquals(expectedOutput, resolvedString);
     }
 
@@ -65,7 +65,7 @@ public class PatternMatchingReplaceReaderTest {
         System.setProperty("app.version","19.23");
 
         String resolvedString=getResolvedStringForFile(fileName, "${", "}");
-        String expectedOutput = IOUtils.resourceToString("pattern-matching-reader/expected-file2.xml", Charset.forName("UTF-8"), PatternMatchingReplaceReaderTest.class.getClassLoader());
+        String expectedOutput = IOUtils.resourceToString("pattern-matching-reader/expected-file2.xml", StandardCharsets.UTF_8, PatternMatchingReplaceReaderTest.class.getClassLoader());
         Assert.assertEquals(expectedOutput, resolvedString);
     }
 

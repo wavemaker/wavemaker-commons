@@ -17,6 +17,7 @@ package com.wavemaker.commons.util;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -24,7 +25,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
 import org.springframework.util.Assert;
 
-import com.wavemaker.commons.CommonConstants;
 import com.wavemaker.commons.MessageResource;
 import com.wavemaker.commons.WMRuntimeException;
 import com.wavemaker.commons.wrapper.BooleanWrapper;
@@ -54,7 +54,7 @@ public class WMUtils {
 
     public static String decodeRequestURI(String requestURI) {
         try {
-            return URLDecoder.decode(requestURI, CommonConstants.UTF8);
+            return URLDecoder.decode(requestURI, StandardCharsets.UTF_8.name());
         } catch (UnsupportedEncodingException e) {
             throw new WMRuntimeException(MessageResource.create("com.wavemaker.commons.failed.to.decode.request.uri"), e);
         }

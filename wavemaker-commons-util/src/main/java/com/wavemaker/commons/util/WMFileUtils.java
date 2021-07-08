@@ -17,7 +17,7 @@ package com.wavemaker.commons.util;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -36,17 +36,15 @@ import com.wavemaker.commons.io.Resource;
  */
 public class WMFileUtils {
 
-    public static final Charset UTF_8_ENCODING = Charset.forName("UTF-8");
-
     private WMFileUtils() {
     }
 
     public static String readFileToString(File file) throws IOException {
-        return FileUtils.readFileToString(file, UTF_8_ENCODING);
+        return FileUtils.readFileToString(file, StandardCharsets.UTF_8);
     }
 
     public static void writeStringToFile(File file, String data) throws IOException {
-        FileUtils.writeStringToFile(file, data, UTF_8_ENCODING, false);
+        FileUtils.writeStringToFile(file, data, StandardCharsets.UTF_8, false);
     }
 
     public static Collection<String> findMatchedRelativePaths(String pattern, String basePath) {

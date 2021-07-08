@@ -16,7 +16,7 @@
 package com.wavemaker.commons.json.deserializer;
 
 import java.io.IOException;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationContext;
@@ -29,6 +29,6 @@ public class StringifiedByteArrayDeSerializer extends JsonDeserializer<byte[]> {
 
     @Override
     public byte[] deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
-        return p.getValueAsString().getBytes(Charset.forName("UTF-8"));
+        return p.getValueAsString().getBytes(StandardCharsets.UTF_8);
     }
 }

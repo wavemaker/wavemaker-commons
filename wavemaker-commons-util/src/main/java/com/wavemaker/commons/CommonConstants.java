@@ -22,8 +22,6 @@ public abstract class CommonConstants {
 
     public static final String WM_SYSTEM_PROPERTY_PREFIX = "wm.";
 
-    public static final String UTF8 = "UTF-8";
-
     //hibernate sql type codes
     public static final Integer DATE_TIME_WM_TYPE_CODE = -777;
     public static final Integer TIMESTAMP_WITH_TIMEZONE_SQL_CODE = -101;

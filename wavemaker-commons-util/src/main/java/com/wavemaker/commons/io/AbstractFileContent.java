@@ -21,13 +21,11 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.Reader;
-import java.io.UnsupportedEncodingException;
 import java.io.Writer;
+import java.nio.charset.StandardCharsets;
 
 import org.apache.commons.io.IOUtils;
 
-import com.wavemaker.commons.CommonConstants;
-import com.wavemaker.commons.WMRuntimeException;
 import com.wavemaker.commons.io.exception.ResourceException;
 import com.wavemaker.commons.util.WMIOUtils;
 
@@ -40,11 +38,7 @@ public abstract class AbstractFileContent implements FileContent {
 
     @Override
     public Reader asReader() {
-        try {
-            return new InputStreamReader(asInputStream(), CommonConstants.UTF8);
-        } catch (UnsupportedEncodingException ex) {
-            throw new WMRuntimeException(ex);
-        }
+        return new InputStreamReader(asInputStream(), StandardCharsets.UTF_8);
     }
 
     @Override
@@ -108,11 +102,7 @@ public abstract class AbstractFileContent implements FileContent {
 
     @Override
     public Writer asWriter(boolean append) {
-        try {
-            return new OutputStreamWriter(asOutputStream(append), CommonConstants.UTF8);
-        } catch (UnsupportedEncodingException e) {
-            throw new ResourceException(e);
-        }
+        return new OutputStreamWriter(asOutputStream(append), StandardCharsets.UTF_8);
     }
 
     @Override
