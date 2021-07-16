@@ -16,7 +16,6 @@
 package com.wavemaker.commons.comparator;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
@@ -149,12 +148,12 @@ public class UrlComparatorTest {
      */
     @Test(dataProvider = "listProvider")
     public void testCompare(List list1, List list2) throws Exception {
-        Collections.sort(list1, stringUrlComparator);
-        Collections.sort(list1, stringPatternComparator);
+        list1.sort(stringUrlComparator);
+        list1.sort(stringPatternComparator);
         assertEquals(this.list1, list1);
 
-        Collections.sort(list2, stringUrlComparator);
-        Collections.sort(list2, stringPatternComparator);
+        list2.sort(stringUrlComparator);
+        list2.sort(stringPatternComparator);
         assertEquals(this.list2, list2);
     }
 
