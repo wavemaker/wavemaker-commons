@@ -72,7 +72,7 @@ public class HttpRequestUtils {
     private static ErrorResponse getErrorResponse(MessageResource messageResource) {
         ErrorResponse errorResponse = new ErrorResponse();
         errorResponse.setMessageKey(messageResource.getMessageKey());
-        errorResponse.setMessage(messageResource.getMessageWithPlaceholders());
+        errorResponse.setMessage(messageResource.getMessage());
         return errorResponse;
     }
 
