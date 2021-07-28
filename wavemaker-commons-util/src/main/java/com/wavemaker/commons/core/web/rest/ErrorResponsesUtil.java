@@ -15,11 +15,13 @@
  */
 package com.wavemaker.commons.core.web.rest;
 
-import com.wavemaker.commons.json.JSONUtils;
+import java.io.IOException;
+import java.text.MessageFormat;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.IOException;
+import com.wavemaker.commons.json.JSONUtils;
 
 public class ErrorResponsesUtil {
 
@@ -31,7 +33,7 @@ public class ErrorResponsesUtil {
             ErrorResponsesWrapper errorResponsesWrapper = JSONUtils.toObject(responseBodyString, ErrorResponsesWrapper.class);
             //Always Reading only the first error
             ErrorResponse errorResponse = errorResponsesWrapper.getErrors().getError().get(0);
-            errorMessage = errorResponse.getMessage();
+            errorMessage = MessageFormat.format(errorResponse.getMessage(), errorResponse.getParameters().toArray());
         } catch (IOException e) {
             logger.debug("failed to parse the error response string {}", responseBodyString);
         }

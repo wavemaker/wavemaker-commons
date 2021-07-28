@@ -15,9 +15,13 @@
  */
 package com.wavemaker.commons.core.web.rest;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import javax.xml.bind.annotation.XmlRootElement;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 /**
  * @author <a href="mailto:jiteshmehta@pramati.com">Jitesh Mehta</a>
@@ -27,29 +31,60 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name = "error")
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ErrorResponse {
+    private String id;
     private String messageKey;
     private String message;
+    private List<String> parameters = new ArrayList<>();
+
     public ErrorResponse() {
     }   
 
-    public ErrorResponse(String messageKey, String message) {
-    	this.messageKey = messageKey;
+    public ErrorResponse(String id, String message) {
+    	this.id = id;
     	this.message = message;
     }
     
-    public String getMessageKey() {
-        return messageKey;
+    public ErrorResponse(String id, String messageKey, String message, String... values) {
+        this.id = id;
+        this.messageKey = messageKey;
+        this.message = message;
+        this.parameters = Arrays.asList(values);
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public List<String> getParameters() {
+        return parameters;
     }
 
     public String getMessage() {
         return message;
     }
 
-    public void setMessageKey(String messageKey) {
-        this.messageKey = messageKey;
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public void setParameters(List<String> parameters) {
+        this.parameters = parameters;
     }
 
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    public String getMessageKey() {
+        return messageKey;
+    }
+
+    public void setMessageKey(String messageKey) {
+        this.messageKey = messageKey;
+    }
+
+    public ErrorResponse addParameter(String parameter) {
+        parameters.add(parameter);
+        return this;
     }
 }

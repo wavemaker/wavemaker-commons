@@ -73,6 +73,7 @@ public class HttpRequestUtils {
         ErrorResponse errorResponse = new ErrorResponse();
         errorResponse.setMessageKey(messageResource.getMessageKey());
         errorResponse.setMessage(messageResource.getMessageWithPlaceholders());
+        errorResponse.setParameters(new ArrayList<>(0));
         return errorResponse;
     }
 
