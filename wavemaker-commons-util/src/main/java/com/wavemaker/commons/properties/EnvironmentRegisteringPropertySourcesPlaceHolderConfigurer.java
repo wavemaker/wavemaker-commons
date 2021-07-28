@@ -13,9 +13,12 @@ import com.google.common.collect.Maps;
 
 public class EnvironmentRegisteringPropertySourcesPlaceHolderConfigurer extends PropertySourcesPlaceholderConfigurer implements InitializingBean {
 
-    private static final String APPLICATION_PROPERTY_SOURCE_NAME = "applicationProperties";
+    private static final String DEFAULT_PROPERTY_SOURCE_NAME = "applicationProperties";
+
+    private String propertySourceName = DEFAULT_PROPERTY_SOURCE_NAME;
 
     private Environment environment;
+
     @Override
     public void setEnvironment(Environment environment) {
         super.setEnvironment(environment);
@@ -26,13 +29,17 @@ public class EnvironmentRegisteringPropertySourcesPlaceHolderConfigurer extends 
     public void afterPropertiesSet() throws Exception {
         if (environment instanceof ConfigurableEnvironment) {
             MutablePropertySources propertySources = ((ConfigurableEnvironment) environment).getPropertySources();
-            MapPropertySource applicationPropertiesPropertySource = (MapPropertySource) propertySources.get(APPLICATION_PROPERTY_SOURCE_NAME);
+            MapPropertySource applicationPropertiesPropertySource = (MapPropertySource) propertySources.get(propertySourceName);
             if (applicationPropertiesPropertySource == null) {
-                applicationPropertiesPropertySource = new MapPropertySource(APPLICATION_PROPERTY_SOURCE_NAME, new HashMap<>());
+                applicationPropertiesPropertySource = new MapPropertySource(propertySourceName, new HashMap<>());
                 propertySources.addLast(applicationPropertiesPropertySource);
             }
             applicationPropertiesPropertySource.getSource().putAll(Maps.fromProperties(mergeProperties()));
             setPropertySources(propertySources);
         }
+    }
+
+    public void setPropertySourceName(final String propertySourceName) {
+        this.propertySourceName = propertySourceName;
     }
 }
