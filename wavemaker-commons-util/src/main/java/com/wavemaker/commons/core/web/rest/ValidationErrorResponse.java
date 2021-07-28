@@ -25,8 +25,8 @@ public class ValidationErrorResponse extends ErrorResponse {
 
     private Map<String, String> paths;
 
-    public ValidationErrorResponse(final String id, final String message, final Map<String, String> paths) {
-        super(id, message);
+    public ValidationErrorResponse(final String messageKey, final String message, final Map<String, String> paths) {
+        super(messageKey, message);
         this.paths = paths;
     }
 

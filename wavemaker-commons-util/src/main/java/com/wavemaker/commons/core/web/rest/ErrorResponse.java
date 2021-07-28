@@ -16,7 +16,6 @@
 package com.wavemaker.commons.core.web.rest;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import javax.xml.bind.annotation.XmlRootElement;
@@ -39,20 +38,9 @@ public class ErrorResponse {
     public ErrorResponse() {
     }   
 
-    public ErrorResponse(String id, String message) {
-    	this.id = id;
+    public ErrorResponse(String messageKey, String message) {
+    	this.messageKey = messageKey;
     	this.message = message;
-    }
-    
-    public ErrorResponse(String id, String messageKey, String message, String... values) {
-        this.id = id;
-        this.messageKey = messageKey;
-        this.message = message;
-        this.parameters = Arrays.asList(values);
-    }
-
-    public String getId() {
-        return id;
     }
 
     public List<String> getParameters() {
@@ -61,10 +49,6 @@ public class ErrorResponse {
 
     public String getMessage() {
         return message;
-    }
-
-    public void setId(String id) {
-        this.id = id;
     }
 
     public void setParameters(List<String> parameters) {
