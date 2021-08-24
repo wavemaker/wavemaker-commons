@@ -15,15 +15,7 @@
  */
 package com.wavemaker.commons.util;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
+import java.io.*;
 import java.net.URL;
 import java.util.Properties;
 
@@ -74,6 +66,10 @@ public class PropertiesFileUtils {
         } finally {
             WMIOUtils.closeSilently(inputStream);
         }
+    }
+
+    public static Properties loadProperties(com.wavemaker.commons.io.File file) {
+        return loadProperties(file.getContent().asInputStream());
     }
 
     public static Properties loadProperties(File file) {
