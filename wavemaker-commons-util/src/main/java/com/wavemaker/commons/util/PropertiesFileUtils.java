@@ -15,12 +15,14 @@
  */
 package com.wavemaker.commons.util;
 
-import java.io.*;
-import java.net.URL;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.Properties;
 
 import com.wavemaker.commons.MessageResource;
 import com.wavemaker.commons.WMRuntimeException;
+import com.wavemaker.commons.io.File;
 import com.wavemaker.commons.properties.PropertiesWriter;
 import com.wavemaker.commons.properties.SortedProperties;
 
@@ -29,36 +31,14 @@ import com.wavemaker.commons.properties.SortedProperties;
  */
 public class PropertiesFileUtils {
 
-    private static final String FILE_NOT_FOUND = "com.wavemaker.commons.file.not.found";
-
     private PropertiesFileUtils() {
     }
 
     public static Properties loadFromXml(File file) {
-        try {
-            return loadFromXml(new BufferedInputStream(new FileInputStream(file)));
-        } catch (FileNotFoundException e) {
-            throw new WMRuntimeException(MessageResource.create(FILE_NOT_FOUND), e, file.getAbsolutePath());
-        }
-    }
-
-    public static Properties loadFromXml(InputStream is) {
-        try {
-            Properties properties = new Properties();
-            properties.loadFromXML(is);
-            return properties;
-        } catch (IOException e) {
-            throw new WMRuntimeException(MessageResource.create("com.wavemaker.commons.properties.inputStream.read.failure"), e);
-        } finally {
-            WMIOUtils.closeSilently(is);
-        }
-    }
-
-    public static Properties loadFromXml(URL url) {
         InputStream inputStream = null;
         try {
+            inputStream = file.getContent().asInputStream();
             Properties properties = new Properties();
-            inputStream = url.openStream();
             properties.loadFromXML(inputStream);
             return properties;
         } catch (IOException e) {
@@ -68,96 +48,29 @@ public class PropertiesFileUtils {
         }
     }
 
-    public static Properties loadProperties(com.wavemaker.commons.io.File file) {
-        return loadProperties(file.getContent().asInputStream());
-    }
-
     public static Properties loadProperties(File file) {
-        try {
-            InputStream is = new BufferedInputStream(new FileInputStream(file));
-            return loadProperties(is);
-        } catch (FileNotFoundException e) {
-            throw new WMRuntimeException(MessageResource.create(FILE_NOT_FOUND), e, file.getAbsolutePath());
-        }
-    }
-
-    public static Properties loadProperties(InputStream stream) {
         Properties properties = new Properties();
+        InputStream inputStream = null;
         try {
-            properties.load(stream);
+            inputStream = file.getContent().asInputStream();
+            properties.load(inputStream);
         } catch (IOException e) {
             throw new WMRuntimeException(MessageResource.create("com.wavemaker.commons.failed.to.load.properties"), e);
         } finally {
-            WMIOUtils.closeByLogging(stream);
+            WMIOUtils.closeByLogging(inputStream);
         }
         return properties;
     }
 
-    public static void storeToXml(Properties properties, OutputStream os, String comment) {
+    public static void storeToXml(Properties properties, File file, String comment) {
+        OutputStream outputStream = null;
         try {
+            outputStream = file.getContent().asOutputStream();
             PropertiesWriter propertiesWriter = new PropertiesWriter(properties);
             propertiesWriter.setComments(comment).setToXML(true);
-            propertiesWriter.write(os);
+            propertiesWriter.write(outputStream);
         } finally {
-            WMIOUtils.closeSilently(os);
-        }
-    }
-
-
-    public static void storeToXml(Properties properties, File file, String comment) {
-        try {
-            storeToXml(properties, new BufferedOutputStream(new FileOutputStream(file)), comment);
-        } catch (FileNotFoundException e) {
-            throw new WMRuntimeException(MessageResource.create(FILE_NOT_FOUND), e, file.getAbsolutePath());
-        }
-    }
-
-    /**
-     * @deprecated (this api is deprecated,use PropertiesWriter to store properties in file)
-     * @param props
-     * @param file
-     * @param comments
-     */
-    @Deprecated
-    public static void storeProperties(Properties props, File file, String comments) {
-        try {
-            OutputStream os = new BufferedOutputStream(new FileOutputStream(file));
-            storeProperties(props, os, comments);
-        } catch (FileNotFoundException e) {
-            throw new WMRuntimeException(MessageResource.create(FILE_NOT_FOUND), e, file.getAbsolutePath());
-        }
-    }
-
-    /**
-     * @deprecated (this api is deprecated,use PropertiesWriter to store properties in file)
-     * @param props
-     * @param outputStream
-     * @param comments
-     * @param sortProperties
-     */
-    @Deprecated
-    public static void storeProperties(
-            Properties props, OutputStream outputStream, String comments, boolean sortProperties) {
-        if (sortProperties) {
-            props = sortProperties(props);
-        }
-        storeProperties(props, outputStream, comments);
-    }
-
-    /**
-     * @deprecated (this api is @deprecated,use PropertiesWriter to store properties in file)
-     * @param props
-     * @param outputStream
-     * @param comments
-     */
-    @Deprecated
-    public static void storeProperties(Properties props, OutputStream outputStream, String comments) {
-        try {
-            props.store(outputStream, comments);
-        } catch (IOException e) {
-            throw new WMRuntimeException(MessageResource.create("com.wavemaker.commons.failed.to.store.properties"), e);
-        } finally {
-            WMIOUtils.closeByLogging(outputStream);
+            WMIOUtils.closeSilently(outputStream);
         }
     }
 
