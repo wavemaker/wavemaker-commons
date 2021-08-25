@@ -23,7 +23,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.text.StrSubstitutor;
+import org.apache.commons.text.StringSubstitutor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -113,9 +113,7 @@ public class OAuth2Helper {
         input.put(OAuth2Constants.CUSTOM_URL_SCHEME, customUrlScheme);
         input.put(OAuth2Constants.REQUEST_SOURCE_TYPE, requestSourceType);
         input.put("accessToken", accessToken);
-
-        StrSubstitutor strSubstitutor = new StrSubstitutor(input);
-        return strSubstitutor.replace(new ClassPathFile(OAUTH_CALLBACK_URL_RESPONSE).getContent().asString());
+        return StringSubstitutor.replace(new ClassPathFile(OAUTH_CALLBACK_URL_RESPONSE).getContent().asString(), input);
     }
 
     private static String getScopeValue(OAuth2ProviderConfig oAuth2ProviderConfig) {
