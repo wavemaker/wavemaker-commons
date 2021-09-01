@@ -172,6 +172,14 @@ public class JSONUtils {
         }
     }
 
+    public static <T> T toObject(Reader reader, TypeReference<T> typeReference) throws IOException {
+        try {
+            return objectMapper.readValue(reader, typeReference);
+        } finally {
+            WMIOUtils.closeSilently(reader);
+        }
+    }
+
     public static <T> T convert(Object object, Class<T> targetClass) {
         return objectMapper.convertValue(object, targetClass);
     }
