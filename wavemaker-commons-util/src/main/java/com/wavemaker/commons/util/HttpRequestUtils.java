@@ -115,4 +115,12 @@ public class HttpRequestUtils {
         * */
         return (userAgent != null && (userAgent.contains("MSIE") || (userAgent.contains("rv") && userAgent.contains("Trident"))));
     }
+
+    public static String getApplicationBaseUrl(HttpServletRequest httpServletRequest) {
+        return new StringBuilder(getBaseUrl(httpServletRequest)).append(httpServletRequest.getContextPath()).toString();
+    }
+
+    public static boolean isAjaxRequest(HttpServletRequest request) {
+        return "XMLHttpRequest".equals(request.getHeader("X-Requested-With"));
+    }
 }
