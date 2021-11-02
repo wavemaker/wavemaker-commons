@@ -22,6 +22,7 @@ dependencies {
     implementation(libs.jackson.core)
     implementation(libs.jackson.databind)
     implementation(libs.gson)
+    implementation(libs.javax.jaxb.api)
     compileOnly(libs.javax.servlet.api)
     testImplementation(libs.test.testng)
     testImplementation(libs.test.mockito.all)
