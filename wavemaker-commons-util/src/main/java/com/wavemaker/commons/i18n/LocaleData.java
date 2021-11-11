@@ -42,6 +42,13 @@ public class LocaleData {
         this.prefabMessages = prefabMessages;
     }
 
+    public LocaleData(Map<String, String> messages, Map<String, String> formats, Map<String, String> files, Map<String, Map<String, String>> prefabMessages) {
+        this.messages = messages;
+        this.formats = formats;
+        this.files = files;
+        this.prefabMessages = prefabMessages;
+    }
+
     public Map<String, String> getFiles() {
         return files;
     }
