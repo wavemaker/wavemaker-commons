@@ -26,6 +26,7 @@ public class LocaleData {
     private Map<String, String> messages = Collections.emptyMap();
     private Map<String, String> formats = Collections.emptyMap();
     private Map<String, String> files = Collections.emptyMap();
+    private Map<String, Map<String, String>> prefabMessages = Collections.emptyMap();
 
     public LocaleData() {
     }
@@ -33,6 +34,12 @@ public class LocaleData {
     public LocaleData(Map<String, String> messages, Map<String, String> formats) {
         this.messages = messages;
         this.formats = formats;
+    }
+
+    public LocaleData(Map<String, String> messages, Map<String, String> formats, Map<String, Map<String, String>> prefabMessages) {
+        this.messages = messages;
+        this.formats = formats;
+        this.prefabMessages = prefabMessages;
     }
 
     public Map<String, String> getFiles() {
@@ -57,5 +64,13 @@ public class LocaleData {
 
     public void setFormats(Map<String, String> formats) {
         this.formats = formats;
+    }
+
+    public Map<String, Map<String, String>> getPrefabMessages() {
+        return prefabMessages;
+    }
+
+    public void setPrefabMessages(Map<String, Map<String, String>> prefabMessages) {
+        this.prefabMessages = prefabMessages;
     }
 }
