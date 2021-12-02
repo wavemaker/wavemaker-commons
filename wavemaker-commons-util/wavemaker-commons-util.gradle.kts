@@ -6,7 +6,7 @@ group ="com.wavemaker.commons"
 
 dependencies {
     implementation(enforcedPlatform(libs.boms.springFramework.get()))
-    implementation(enforcedPlatform(libs.boms.jackson.get()))
+    api(enforcedPlatform(libs.boms.jackson.get()))
     implementation(projects.wavemakerToolsApidocsCore)
     implementation(libs.slf4j.api)
     implementation(libs.commons.io)
@@ -19,7 +19,7 @@ dependencies {
     implementation(libs.commons.collections4)
     implementation(libs.guava)
     implementation(libs.spring.webmvc)
-    implementation(libs.jackson.core)
+    api(libs.jackson.core)
     implementation(libs.jackson.databind)
     implementation(libs.gson)
     implementation(libs.javax.jaxb.api)
