@@ -20,7 +20,7 @@ dependencies {
     implementation(libs.guava)
     implementation(libs.spring.webmvc)
     api(libs.jackson.core)
-    implementation(libs.jackson.databind)
+    api(libs.jackson.databind)
     implementation(libs.gson)
     implementation(libs.javax.jaxb.api)
     compileOnly(libs.javax.servlet.api)
