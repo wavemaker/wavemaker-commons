@@ -39,17 +39,6 @@ import com.wavemaker.commons.util.TypeConversionUtils;
  */
 public class ClassLoaderUtils {
 
-    private static final Method findLoadedClassMethod;
-
-    static {
-        try {
-            findLoadedClassMethod = ClassLoader.class.getDeclaredMethod("findLoadedClass", new Class[] { String.class });
-            findLoadedClassMethod.setAccessible(true);
-        } catch (NoSuchMethodException e) {
-            throw new WMRuntimeException(MessageResource.create("com.wavemaker.commons.failed.to.initialize.class"), e);
-        }
-    }
-
     private ClassLoaderUtils() {
     }
 
@@ -175,6 +164,19 @@ public class ClassLoaderUtils {
         if (cl == null) {
             return null;
         }
-        return (Class) findLoadedClassMethod.invoke(cl, className);
+        return (Class) ClassLoaderHelper.findLoadedClassMethod.invoke(cl, className);
+    }
+
+    private static class ClassLoaderHelper {
+        private static final Method findLoadedClassMethod;
+
+        static {
+            try {
+                findLoadedClassMethod = ClassLoader.class.getDeclaredMethod("findLoadedClass", new Class[] { String.class });
+                findLoadedClassMethod.setAccessible(true);
+            } catch (NoSuchMethodException e) {
+                throw new WMRuntimeException(MessageResource.create("com.wavemaker.commons.failed.to.initialize.class"), e);
+            }
+        }
     }
 }
