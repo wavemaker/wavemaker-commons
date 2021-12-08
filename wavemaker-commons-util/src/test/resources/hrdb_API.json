@@ -3559,7 +3559,7 @@
           "type": "string"
         }
       },
-      "x-WM-FULLY_QUALIFIED_NAME": "com.wavemaker.runtime.file.model.Downloadable",
+      "x-WM-FULLY_QUALIFIED_NAME": "com.wavemaker.runtime.commons.file.model.Downloadable",
       "x-WM-TAGS": [
         "DepartmentController",
         "VacationController",
