@@ -20,11 +20,6 @@ import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.http.MediaType;
-import org.springframework.util.Assert;
-
 import com.wavemaker.commons.MessageResource;
 import com.wavemaker.commons.WMRuntimeException;
 import com.wavemaker.commons.wrapper.BooleanWrapper;
@@ -36,13 +31,9 @@ import com.wavemaker.commons.wrapper.StringWrapper;
  */
 public class WMUtils {
 
-    private static Boolean isSharedLibSetup;
-
     public static final String SUCCESS = "success";
 
     public static final StringWrapper SUCCESS_RESPONSE = new StringWrapper(SUCCESS);
-
-    private static final Logger logger = LoggerFactory.getLogger(WMUtils.class);
 
     private WMUtils() {
     }
@@ -60,14 +51,6 @@ public class WMUtils {
         }
     }
 
-    public static boolean isXmlMediaType(MediaType mediaType) {
-        return MediaType.APPLICATION_XML.equals(mediaType) || MediaType.TEXT_XML.equals(mediaType) || MediaType.APPLICATION_ATOM_XML.equals(mediaType);
-    }
-
-    public static boolean isJsonMediaType(MediaType mediaType) {
-        return MediaType.APPLICATION_JSON.equals(mediaType);
-    }
-
     public static String[] getStringList(Object obj) {
         if (obj instanceof String) {
             return new String[]{(String) obj};
@@ -82,16 +65,6 @@ public class WMUtils {
         throw new WMRuntimeException(MessageResource.create("com.wavemaker.commons.unsupported.object.type"), obj.getClass());
     }
 
-    public static boolean areObjectsEqual(Object o1, Object o2) {
-        if(o1 == o2) {
-            return true;
-        }
-        if(o1 == null || o2 == null) {
-            return false;
-        }
-        return o1.equals(o2);
-    }
-
     public static StringWrapper wrapString(String response) {
         return new StringWrapper(response);
     }
@@ -102,19 +75,5 @@ public class WMUtils {
 
     public static BooleanWrapper wrapBoolean(Boolean response) {
         return new BooleanWrapper(response);
-    }
-
-    public static boolean isSharedLibSetup() {
-        if (isSharedLibSetup == null) {
-            Class<Assert> klass = Assert.class;
-            if (klass.getClassLoader() == WMUtils.class.getClassLoader()) {
-                isSharedLibSetup = false;
-                logger.info("Using classes from the webapp class loader {}", WMUtils.class.getClassLoader());
-            } else {
-                isSharedLibSetup = true;
-                logger.info("Using classes from the jars of the shared library");
-            }
-        }
-        return isSharedLibSetup;
     }
 }
