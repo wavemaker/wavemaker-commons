@@ -27,9 +27,12 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.regex.Pattern;
 
 import org.apache.commons.lang3.math.NumberUtils;
+import org.apache.commons.lang3.tuple.ImmutablePair;
+import org.apache.commons.lang3.tuple.Pair;
 
 import com.wavemaker.commons.MessageResource;
 import com.wavemaker.commons.WMRuntimeException;
@@ -152,6 +155,10 @@ public abstract class StringUtils {
     private StringUtils() {
     }
 
+    public static boolean isBlankOrEquals(String o1, String o2) {
+        return ((o1 == null || o1.equals("")) && (o2 == null || o2.equals(""))) || Objects.equals(o1, o2);
+    }
+
     public static String toString(Throwable th) {
         StringWriter sw = new StringWriter();
         PrintWriter pw = new PrintWriter(sw);
@@ -248,7 +255,7 @@ public abstract class StringUtils {
     public static String toJavaIdentifier(
             String s, CharSequence prefixReplacementChar, char replacementChar, boolean checkKeyword) {
 
-        if (ObjectUtils.isNullOrEmpty(s)) {
+        if (org.apache.commons.lang3.StringUtils.isBlank(s)) {
             throw new IllegalArgumentException("input cannot be null or empty");
         }
 
@@ -317,25 +324,17 @@ public abstract class StringUtils {
      * Given a fully qualified class name a.b.c, returns a Tuple.Two instance with the package and the class name: (a.b,
      * c).
      */
-    public static Tuple.Two<String, String> splitPackageAndClass(String s) {
+    public static Pair<String, String> splitPackageAndClass(String s) {
         int i = s.lastIndexOf('.');
         if (i == -1) {
-            return Tuple.tuple("", s);
+            return ImmutablePair.of("", s);
         }
 
         if (i == 0 && s.length() == 1) {
             throw new IllegalArgumentException("Cannot handle \".\"");
         }
 
-        return Tuple.tuple(s.substring(0, i), s.substring(i + 1));
-    }
-
-    public static Tuple.Two<String, String> splitPackageAndClass(Class<?> c) {
-        return splitPackageAndClass(c.getName());
-    }
-
-    public static String doubleQuote(String s) {
-        return "\"" + s + "\"";
+        return ImmutablePair.of(s.substring(0, i), s.substring(i + 1));
     }
 
     /**
