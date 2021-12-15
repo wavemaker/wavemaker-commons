@@ -31,12 +31,6 @@ import static org.testng.Assert.assertEquals;
  */
 
 public class WMUtilsTest {
-    @Test(dataProvider = "objectCreator")
-    public void areObjectsEqualTest(Object o1, Object o2, boolean expectedResult) {
-        boolean actual = WMUtils.areObjectsEqual(o1, o2);
-        assertEquals(actual, expectedResult);
-    }
-
     @Test(dataProvider = "fileProvider")
     public void getFileExtensionsFromFileNameTest(String fileName, String extension) {
         assertEquals(WMUtils.getFileExtensionFromFileName(fileName), extension);
@@ -75,43 +69,5 @@ public class WMUtilsTest {
         objects[2][0] = "https%3A%2F%2Fwww.google.co.in%2Fwebhp%3Fsourceid%3Dchrome-instant%26ion%3D1%26espv%3D2%26ie%3DUTF-8%26client%3Dubuntu%23q%3Dwavemaker";
         objects[2][1] = "https://www.google.co.in/webhp?sourceid=chrome-instant&ion=1&espv=2&ie=UTF-8&client=ubuntu#q=wavemaker";
         return objects;
-    }
-
-    @DataProvider
-    public Object[][] objectCreator() {
-
-        Object[][] obj = new Object[4][3];
-        Car car = new Car();
-
-
-        Person person = new Person();
-        obj[0][0] = person;
-        obj[0][1] = car;
-        obj[0][2] = false;
-
-        Car lamborghiniCar = new Car();
-        lamborghiniCar.setBrand("Lamborghini");
-        lamborghiniCar.setModel("Veneno");
-
-        Car lamborghiniCar1 = new Car();
-        lamborghiniCar1.setBrand("Lamborghini");
-        lamborghiniCar1.setModel("Veneno");
-
-        obj[1][0] = lamborghiniCar;
-        obj[1][1] = lamborghiniCar1;
-        obj[1][2] = true;
-
-        Car marutiCar = new Car();
-        marutiCar.setModel("1000cc");
-        marutiCar.setBrand("maruti");
-
-        obj[2][0] = lamborghiniCar;
-        obj[2][1] = marutiCar;
-        obj[2][2] = false;
-
-        obj[3][0] = lamborghiniCar;
-        obj[3][1] = lamborghiniCar;
-        obj[3][2] = true;
-        return obj;
     }
 }

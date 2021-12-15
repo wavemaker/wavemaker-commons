@@ -17,7 +17,6 @@ package com.wavemaker.commons.util.utils;
 
 import org.testng.annotations.Test;
 
-import com.wavemaker.commons.util.SpringUtils;
 import com.wavemaker.commons.util.SystemUtils;
 
 import static org.testng.Assert.assertEquals;
@@ -28,9 +27,6 @@ import static org.testng.Assert.assertTrue;
  */
 public class SystemUtilsTest{
 
-    public void setUp() throws Exception {
-        SpringUtils.initSpringConfig();
-    }
     @Test
     public void cipherTest() {
         String s = "Rock Band";

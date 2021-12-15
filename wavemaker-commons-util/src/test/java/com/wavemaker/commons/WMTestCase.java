@@ -20,9 +20,9 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import com.wavemaker.commons.util.SpringUtils;
 import com.wavemaker.commons.util.WMFileUtils;
 import com.wavemaker.commons.util.WMIOUtils;
+
 import junit.framework.TestCase;
 
 /**
@@ -69,14 +69,6 @@ public abstract class WMTestCase extends TestCase {
         } catch (IOException ex) {
             throw new WMRuntimeException(ex);
         }
-    }
-
-    /**
-     * By default, initialize Spring (so we can get our error messages).
-     */
-    @Override
-    public void setUp() throws Exception {
-        SpringUtils.initSpringConfig();
     }
 
     /**

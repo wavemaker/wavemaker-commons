@@ -17,6 +17,8 @@ package com.wavemaker.commons.util;
 
 import java.beans.Introspector;
 
+import org.apache.commons.lang3.tuple.Pair;
+
 import com.wavemaker.commons.util.reveng.ReverseEngineeringStrategyUtil;
 
 public class NamingUtils {
@@ -43,15 +45,15 @@ public class NamingUtils {
     public static String toJavaClassName(final String name) {
         String rtn = ReverseEngineeringStrategyUtil.toUpperCamelCase(name);
 
-        Tuple.Two<String, String> t = StringUtils.splitPackageAndClass(rtn);
+        Pair<String, String> packageAndClassPair = StringUtils.splitPackageAndClass(rtn);
 
-        String className = t.v2;
+        String className = packageAndClassPair.getRight();
 
         if (StringUtils.isInJavaLangPackage(className)) {
             className += TABLE_SUFFIX;
         }
 
-        return StringUtils.fq(t.v1, StringUtils.toJavaIdentifier(className, "_", '_', false));
+        return StringUtils.fq(packageAndClassPair.getLeft(), StringUtils.toJavaIdentifier(className, "_", '_', false));
     }
 
     private static String columnToPropertyName(String identifier) {

@@ -15,61 +15,17 @@
  */
 package com.wavemaker.commons.util.utils;
 
-import java.io.File;
-import java.io.InputStream;
-
-import org.apache.commons.io.FileUtils;
-import org.springframework.core.io.ClassPathResource;
 import org.testng.annotations.Test;
 
 import com.wavemaker.commons.classloader.ClassLoaderUtils;
 
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertNotNull;
-import static org.testng.Assert.assertTrue;
 
 /**
  * @author Matt Small
  */
 public class ClassLoaderUtilsTest {
-    @Test
-    public void tempClassLoader_getClassTest() throws Exception {
-
-        File sourceJar = new ClassPathResource("com/wavemaker/commons/foojar.jar").getFile();
-        File jar = File.createTempFile("tempClassLoader_getClassTest", ".jar");
-        jar.deleteOnExit();
-        FileUtils.copyFile(sourceJar, jar);
-
-        try {
-            ClassLoader cl = ClassLoaderUtils.getTempClassLoaderForFile(jar);
-            Class<?> klass = ClassLoaderUtils.loadClass("foo.bar.baz.JarType", cl);
-            assertNotNull(klass);
-        } finally {
-            jar.delete();
-        }
-    }
-
-    @Test
-    public void tempClassLoader_getResourceTest() throws Exception {
-
-        File sourceJar = new ClassPathResource("com/wavemaker/commons/foojar.jar").getFile();
-        File jar = File.createTempFile("tempClassLoader_getClassTest", ".jar");
-        jar.deleteOnExit();
-        FileUtils.copyFile(sourceJar, jar);
-
-        try {
-            ClassLoader cl = ClassLoaderUtils.getTempClassLoaderForFile(jar);
-            InputStream is = ClassLoaderUtils.getResourceAsStream("foo/bar/baz/JarType.java", cl);
-            assertNotNull(is);
-            assertTrue(is.available() > 0);
-            is.close();
-        } finally {
-            jar.delete();
-        }
-    }
-
-
-
     @Test
     public void getClassLoaderTest() throws ClassNotFoundException {
         ClassLoader loader = ClassLoaderUtils.getClassLoader();

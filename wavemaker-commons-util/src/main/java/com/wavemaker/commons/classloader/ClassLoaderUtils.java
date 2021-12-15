@@ -15,22 +15,12 @@
  */
 package com.wavemaker.commons.classloader;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.net.URL;
-import java.security.AccessController;
-import java.security.PrivilegedAction;
-import java.util.Arrays;
-import java.util.List;
-
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.core.io.Resource;
 
 import com.wavemaker.commons.MessageResource;
 import com.wavemaker.commons.WMRuntimeException;
-import com.wavemaker.commons.util.ConversionUtils;
 import com.wavemaker.commons.util.TypeConversionUtils;
 
 /**
@@ -38,17 +28,6 @@ import com.wavemaker.commons.util.TypeConversionUtils;
  * @author Jeremy Grelle
  */
 public class ClassLoaderUtils {
-
-    private static final Method findLoadedClassMethod;
-
-    static {
-        try {
-            findLoadedClassMethod = ClassLoader.class.getDeclaredMethod("findLoadedClass", new Class[] { String.class });
-            findLoadedClassMethod.setAccessible(true);
-        } catch (NoSuchMethodException e) {
-            throw new WMRuntimeException(MessageResource.create("com.wavemaker.commons.failed.to.initialize.class"), e);
-        }
-    }
 
     private ClassLoaderUtils() {
     }
@@ -102,67 +81,8 @@ public class ClassLoaderUtils {
         return Thread.currentThread().getContextClassLoader();
     }
 
-    /**
-     * Returns path to resource, loaded from classpath.
-     * 
-     * @param path The relative path to the resource.
-     * @return Path on disk to the resource, or null if not found.
-     */
-    public static String getResource(String path) {
-        URL url = ClassLoaderUtils.getClassLoader().getResource(path);
-        if (url == null) {
-            return null;
-        }
-        return url.toString();
-    }
-
     public static InputStream getResourceAsStream(String path) {
         return getClassLoader().getResourceAsStream(path);
-    }
-
-    public static InputStream getResourceAsStream(String path, ClassLoader cl) {
-        return cl.getResourceAsStream(path);
-    }
-
-    /**
-     * Get a temporary classloader. By default, this will use the parent classloader as a base.
-     * 
-     * @param files
-     * @return
-     */
-    public static ClassLoader getTempClassLoaderForResources(Resource... files) {
-
-        final List<Resource> filesList = Arrays.asList(files);
-
-        return AccessController.doPrivileged((PrivilegedAction<ThrowawayFileClassLoader>) () -> new ThrowawayFileClassLoader(filesList, getClassLoader().getParent()));
-    }
-
-    /**
-     * @deprecated - use {@link #getTempClassLoaderForResources(Resource...)}
-     */
-    @Deprecated
-    public static ClassLoader getTempClassLoaderForFile(java.io.File... files) {
-        return getTempClassLoaderForResources(ConversionUtils.convertToResourceList(Arrays.asList(files)).toArray(new Resource[files.length]));
-    }
-
-    /**
-     * Returns the File object associated with the given classpath-based path.
-     * 
-     * Note that this method won't work as expected if the file exists in a jar. This method will throw an IOException
-     * in that case.
-     * 
-     * @param path The path to search for.
-     * @return The File object associated with the given path.
-     * @throws IOException
-     */
-    public static Resource getClasspathFile(String path) throws IOException {
-        Resource ret = new ClassPathResource(path);
-        if (!ret.exists()) {
-            // must have come from a jar or some other obscure location
-            // that we didn't expect
-            throw new IOException("Cannot access " + ret.toString());
-        }
-        return ret;
     }
 
     /**
@@ -175,6 +95,19 @@ public class ClassLoaderUtils {
         if (cl == null) {
             return null;
         }
-        return (Class) findLoadedClassMethod.invoke(cl, className);
+        return (Class) ClassLoaderHelper.findLoadedClassMethod.invoke(cl, className);
+    }
+
+    private static class ClassLoaderHelper {
+        private static final Method findLoadedClassMethod;
+
+        static {
+            try {
+                findLoadedClassMethod = ClassLoader.class.getDeclaredMethod("findLoadedClass", new Class[] { String.class });
+                findLoadedClassMethod.setAccessible(true);
+            } catch (NoSuchMethodException e) {
+                throw new WMRuntimeException(MessageResource.create("com.wavemaker.commons.failed.to.initialize.class"), e);
+            }
+        }
     }
 }

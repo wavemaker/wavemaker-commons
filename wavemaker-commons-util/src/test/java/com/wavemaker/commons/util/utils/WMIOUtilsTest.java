@@ -16,14 +16,7 @@
 package com.wavemaker.commons.util.utils;
 
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.StringReader;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -35,7 +28,6 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import com.wavemaker.commons.util.FileAccessException;
-import com.wavemaker.commons.util.SpringUtils;
 import com.wavemaker.commons.util.WMFileUtils;
 import com.wavemaker.commons.util.WMIOUtils;
 import com.wavemaker.commons.util.WMTestUtils;
@@ -52,14 +44,7 @@ public class WMIOUtilsTest {
 
     @BeforeClass
     public void setUp() throws Exception {
-
-        try {
-            this.tempDir = WMIOUtils.createTempDirectory();
-            SpringUtils.initSpringConfig();
-        } catch (RuntimeException e) {
-            WMIOUtils.deleteRecursive(this.tempDir);
-            throw e;
-        }
+        this.tempDir = WMIOUtils.createTempDirectory();
     }
 
     @AfterClass
