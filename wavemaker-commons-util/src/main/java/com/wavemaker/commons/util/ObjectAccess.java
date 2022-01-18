@@ -20,15 +20,9 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+
+import org.apache.commons.lang3.StringUtils;
 
 import com.wavemaker.commons.MessageResource;
 import com.wavemaker.commons.MethodNotFoundRuntimeException;
@@ -56,10 +50,6 @@ public class ObjectAccess {
     private static ObjectAccess instance = new ObjectAccess();
 
     private ObjectAccess() {
-    }
-
-    public Object newInstance(String className) {
-        return newInstance(forName(className));
     }
 
     public Object newInstance(Class<?> clazz) {
@@ -245,10 +235,10 @@ public class ObjectAccess {
         for (String s : methodNames) {
 
             if (s.startsWith("get")) {
-                String prop = s.substring(3, s.length());
+                String prop = s.substring(3);
                 if (methodNames.contains("set" + prop)) {
                     // also need check method params/rtn types for consistency
-                    String propName = StringUtils.lowerCaseFirstLetter(prop);
+                    String propName = StringUtils.uncapitalize(prop);
                     Class<?> type = getPropertyType(clazz, propName);
                     if (type != null) {
                         rtn.put(propName, type);

@@ -35,13 +35,6 @@ import static org.testng.Assert.assertTrue;
 public class ObjectAccessTest {
 
     @Test
-    public void newInstanceForClassName() {
-        String className = Car.class.getName();
-        Object testObject = ObjectAccess.getInstance().newInstance(className);
-        assertTrue(testObject instanceof Car);
-    }
-
-    @Test
     public void newInstanceForClass() {
         Class<?> clazz = Car.class;
         Object testObject = ObjectAccess.getInstance().newInstance(clazz);

@@ -181,11 +181,6 @@ public class ObjectInvokerTest {
         assertTrue(properties.get("foo") == String.class);
     }
     @Test
-    public void newInstanceTest() {
-        ObjectInvokerTest t = (ObjectInvokerTest) this.oi.newInstance(ObjectInvokerTest.class.getName());
-        assertTrue(t != null);
-    }
-    @Test
     public void setPropertyTest() {
         B b = new B();
         this.oi.setProperty(b, "foo", "test");

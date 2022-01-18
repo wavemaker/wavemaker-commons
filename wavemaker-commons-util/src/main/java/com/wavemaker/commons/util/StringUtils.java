@@ -42,8 +42,6 @@ import com.wavemaker.commons.WMRuntimeException;
  */
 public abstract class StringUtils {
 
-    public static final String JAVA_SRC_EXT = ".java";
-
     private static final Collection<String> JAVA_KEYWORDS = new HashSet<>(50);
     private static final Collection<String> HQL_KEYWORDS = new HashSet<>(50);
     private static final Pattern NON_JAVA_IDENTIFIER = Pattern.compile("\\W");
@@ -437,10 +435,6 @@ public abstract class StringUtils {
         return packageName.replace(".", "/");
     }
 
-    public static String classNameToSrcFilePath(String className) {
-        return className.replace(".", "/") + JAVA_SRC_EXT;
-    }
-
     public static String getPackage(String className) {
         return fromLastOccurrence(className, ".", -1);
     }
@@ -458,32 +452,6 @@ public abstract class StringUtils {
         return prefix + className;
     }
 
-    public static String upperCaseFirstLetter(String s) {
-        return s.substring(0, 1).toUpperCase() + s.substring(1);
-    }
-
-    public static String lowerCaseFirstLetter(String s) {
-        return s.substring(0, 1).toLowerCase() + s.substring(1);
-    }
-
-    public static String removeIfEndsWith(String s, String end) {
-        if (s.endsWith(end)) {
-            return s.substring(0, s.length() - end.length());
-        }
-        return s;
-    }
-
-    public static String removeIfStartsWith(String s, String start) {
-        if (s.startsWith(start)) {
-            return s.substring(start.length());
-        }
-        return s;
-    }
-
-    public static String fromFirstOccurrence(String s, String substring) {
-        return fromFirstOccurrence(s, substring, 1);
-    }
-
     public static String fromFirstOccurrence(String s, String substring, int direction) {
         int i = s.indexOf(substring);
         if (i == -1) {
@@ -491,10 +459,6 @@ public abstract class StringUtils {
         }
 
         return StringUtils.substring(s, i, substring, direction);
-    }
-
-    public static String fromLastOccurrence(String s, String substring) {
-        return fromLastOccurrence(s, substring, 1);
     }
 
     public static String fromLastOccurrence(String s, String substring, int direction) {
@@ -509,10 +473,6 @@ public abstract class StringUtils {
     public static boolean isNumber(String s) {
 
         return NumberUtils.isNumber(s);
-    }
-
-    public static boolean isNumber(char c) {
-        return Character.isDigit(c);
     }
 
     public static String unquote(String s) {
@@ -575,42 +535,6 @@ public abstract class StringUtils {
             }
             return buffer.toString();
         }
-    }
-
-    public static String removeSpaces(String str) {
-        str = str.trim();
-        char last = str.charAt(0);
-        StringBuilder argBuf = new StringBuilder();
-
-        for (int cIdx = 0; cIdx < str.length(); cIdx++) {
-            char ch = str.charAt(cIdx);
-            if (ch != ' ' || last != ' ') {
-                argBuf.append(ch);
-                last = ch;
-            }
-        }
-
-        return argBuf.toString();
-
-    }
-
-    public static String appendPaths(String rootPath, String childPath) {
-        String path;
-        if (rootPath.length() == 0 || !rootPath.substring(rootPath.length() - 1).equals("/")) {
-            if (childPath != null && childPath.length() > 0 && childPath.substring(0, 1).equals("/")) {
-                path = rootPath + childPath;
-            } else {
-                path = rootPath.length() == 0 ? childPath : rootPath + "/" + childPath;
-            }
-        } else {
-            if (childPath != null && childPath.length() > 0 && childPath.substring(0, 1).equals("/")) {
-                path = rootPath + childPath.substring(1);
-            } else {
-                path = rootPath + childPath;
-            }
-        }
-
-        return path;
     }
 
     public static String getStringFromBytes(byte[] bytes) {

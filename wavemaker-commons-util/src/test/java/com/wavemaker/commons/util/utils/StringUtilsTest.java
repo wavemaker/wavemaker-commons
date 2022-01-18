@@ -23,11 +23,9 @@ import java.util.List;
 import java.util.Map;
 
 import org.testng.Assert;
-import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import com.wavemaker.commons.util.StringUtils;
-import com.wavemaker.commons.util.WMTestUtils;
 
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
@@ -36,7 +34,6 @@ import static org.testng.Assert.assertTrue;
  * @author Simon Toens
  */
 public class StringUtilsTest{
-    WMTestUtils wmt=new WMTestUtils() { };
     @Test
     public void toJavaIdentifier1Test() {
         String s = StringUtils.toJavaIdentifier("1234", '_');
@@ -124,29 +121,6 @@ public class StringUtilsTest{
 
     }
 
-    @Test(dataProvider = "remoteSpacesDataProvider")
-    public void removeSpacesTest(String inputString, String expectedOutput) {
-        assertEquals(expectedOutput, StringUtils.removeSpaces(inputString));
-    }
-
-    @DataProvider(name = "remoteSpacesDataProvider")
-    private Object[][] getRemoteSpacesDataProvider() {
-        Object[][] obj = new Object[6][];
-        obj[0]= new Object[]{"abcd efgh", "abcd efgh"};
-        obj[1]= new Object[]{"abcd   efgh", "abcd efgh"};
-        obj[2]= new Object[]{"   efgh", "efgh"};
-        obj[3]= new Object[]{"   efgh       ", "efgh"};
-        obj[4]= new Object[]{"efgh       ", "efgh"};
-        obj[5]= new Object[]{"select * from     table1", "select * from table1"};
-        return obj;
-    }
-
-    @Test
-    public void testClassNameToSrcFilePath() {
-        Assert.assertEquals(StringUtils.classNameToSrcFilePath("com.wavemaker.commons.io.util.utils.Car"),
-                "com/wavemaker/commons/io/util/utils/Car.java");
-    }
-
     @Test
     public void testHasUpperCase() {
         Assert.assertTrue(StringUtils.hasUpperCase("Abc"));
@@ -177,24 +151,6 @@ public class StringUtilsTest{
     @Test
     public void testThrowableString() {
         Assert.assertTrue(StringUtils.toString(new RuntimeException("sample Exception")).contains("java.lang.RuntimeException: sample Exception"));
-    }
-
-    @Test
-    public void testAppendPaths() {
-        Assert.assertEquals(StringUtils.appendPaths("/root/path/","child/path"),"/root/path/child/path");
-        Assert.assertEquals(StringUtils.appendPaths("","child/path"),"child/path");
-        Assert.assertEquals(StringUtils.appendPaths("/","child/path"),"/child/path");
-        Assert.assertEquals(StringUtils.appendPaths("/root/path/","/child/path"),"/root/path/child/path");
-    }
-
-    @Test
-    public void testRemoveIfEndWith() {
-        Assert.assertEquals(StringUtils.removeIfEndsWith("sampleTest","Test"),"sample");
-    }
-
-    @Test
-    public void testRemoveIfStartsWith() {
-        Assert.assertEquals(StringUtils.removeIfStartsWith("sampleTest","sample"),"Test");
     }
 
     @Test

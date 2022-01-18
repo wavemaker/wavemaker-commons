@@ -15,19 +15,14 @@
  */
 package com.wavemaker.commons.util.utils;
 
-import java.beans.PropertyDescriptor;
-import java.lang.reflect.Field;
 import java.lang.reflect.Method;
-import java.util.List;
 
-import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import com.wavemaker.commons.util.ClassUtils;
 
 import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;
 
 /**
@@ -36,65 +31,6 @@ import static org.testng.Assert.assertTrue;
 public class ClassUtilsTest {
 
     private int testField = 10;
-
-    public ClassUtilsTest() {
-    }
-
-    public ClassUtilsTest(int testField) {
-        this.testField = testField;
-    }
-
-    @Test
-    public void getPublicMethodsTest() {
-
-        boolean hadPrivateMethod = false;
-        boolean hadPublicMethod_testPublic = false;
-        boolean hadToString = false;
-        boolean hadHashCode = false;
-
-        List<Method> methods = ClassUtils.getPublicMethods(ClassUtilsObject.class);
-
-        for (Method meth : methods) {
-            if (meth.getName().equals("publicTest")) {
-                hadPublicMethod_testPublic = true;
-            } else if (meth.getName().equals("privateTest")) {
-                hadPrivateMethod = true;
-            } else if (meth.getName().equals("toString")) {
-                hadToString = true;
-            } else if (meth.getName().equals("hashCode")) {
-                hadHashCode = true;
-            }
-        }
-
-        assertTrue(hadPublicMethod_testPublic);
-        assertFalse(hadPrivateMethod);
-        assertFalse(hadToString);
-        assertTrue(hadHashCode);
-    }
-
-    @Test
-    public void getPublicFieldsTest() {
-
-        List<Field> fields = ClassUtils.getPublicFields(ClassUtilsObject.class);
-
-        boolean hadPublicField = false;
-        boolean hadPrivateField = false;
-        boolean hadFieldInherited = false;
-
-        for (Field field : fields) {
-            if (field.getName().equals("fieldPublic")) {
-                hadPublicField = true;
-            } else if (field.getName().equals("fieldPrivate")) {
-                hadPrivateField = true;
-            } else if (field.getName().equals("fieldInherited")) {
-                hadFieldInherited = true;
-            }
-        }
-
-        assertTrue(hadPublicField);
-        assertFalse(hadPrivateField);
-        assertTrue(hadFieldInherited);
-    }
 
     @Test
     public void newInstanceTest() {
@@ -151,20 +87,5 @@ public class ClassUtilsTest {
             obj[4][1] = "setUserName";
         }
         return obj;
-    }
-
-    @Test
-    public void getPropertyDescriptorsTest() throws Exception {
-        //List<PropertyDescriptor> propertyDescriptorListExpected = new ArrayList<>();
-        List<PropertyDescriptor> propertyDescriptorListActual;
-        Class clazz = Car.class;
-
-        propertyDescriptorListActual = ClassUtils.getPropertyDescriptors(clazz);
-
-        assertEquals(propertyDescriptorListActual.size(), 3);
-        Assert.assertEquals(propertyDescriptorListActual.get(0).getName(), "brand");
-        Assert.assertEquals(propertyDescriptorListActual.get(1).getName(), "model");
-
-
     }
 }

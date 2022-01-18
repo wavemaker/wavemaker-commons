@@ -29,14 +29,6 @@ import static org.testng.Assert.assertTrue;
 public class ObjectAccessTest {
 
     @Test
-    public void newInstanceForClassNameTest() {
-        ObjectAccess objectAccess = ObjectAccess.getInstance();
-        String className = com.wavemaker.commons.util.utils.Car.class.getName();
-        Object expectedObject = objectAccess.newInstance(className);
-        assertTrue(expectedObject instanceof Car);
-    }
-
-    @Test
     public void newInstanceForClassObjectTest() {
         ObjectAccess objectAccess = ObjectAccess.getInstance();
         Class clazz = Car.class;
