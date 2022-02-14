@@ -350,6 +350,10 @@ public abstract class WMIOUtils {
         }
     }
 
+    public static void copyFile(com.wavemaker.commons.io.File srcFile, com.wavemaker.commons.io.File targetFile) throws IOException {
+        FileUtils.copyFile(getJavaIOFile(srcFile), getJavaIOFile(targetFile));
+    }
+
     public static com.wavemaker.commons.io.File createTempFile(String prefix, String suffix) {
         try {
             if (prefix.length() < 3) {
