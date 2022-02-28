@@ -5,30 +5,30 @@ plugins {
 group ="com.wavemaker.commons"
 
 dependencies {
-    implementation(enforcedPlatform(libs.boms.springFramework.get()))
-    api(enforcedPlatform(libs.boms.jackson.get()))
+    implementation(enforcedPlatform(appDependencies.boms.springFramework.get()))
+    api(enforcedPlatform(appDependencies.boms.jackson.get()))
     implementation(projects.wavemakerToolsApidocsCore)
-    implementation(libs.slf4j.api)
-    implementation(libs.commons.io)
-    implementation(libs.commons.codec)
-    implementation(libs.commons.lang3)
-    implementation(libs.commons.configuration2)
-    implementation(libs.commons.text) {
+    implementation(appDependencies.slf4j.api)
+    implementation(appDependencies.commons.io)
+    implementation(appDependencies.commons.codec)
+    implementation(appDependencies.commons.lang3)
+    implementation(appDependencies.commons.configuration2)
+    implementation(appDependencies.commons.text) {
         because("This is an optional dependency for commons-configuration2 which is needed for PropertiesConfiguration class usage by us")
     }
-    implementation(libs.commons.collections4)
-    implementation(libs.guava)
-    implementation(libs.spring.webmvc)
-    api(libs.jackson.core)
-    api(libs.jackson.databind)
-    implementation(libs.gson)
-    implementation(libs.javax.jaxb.api)
-    compileOnly(libs.javax.servlet.api)
-    testImplementation(libs.test.testng)
-    testImplementation(libs.test.mockito.all)
-    testImplementation(libs.test.hamcrest.all)
-    testImplementation(libs.test.junit4)
-    testImplementation(libs.javax.servlet.api)
+    implementation(appDependencies.commons.collections4)
+    implementation(appDependencies.guava)
+    implementation(appDependencies.spring.webmvc)
+    api(appDependencies.jackson.core)
+    api(appDependencies.jackson.databind)
+    implementation(appDependencies.gson)
+    implementation(appDependencies.javax.jaxb.api)
+    compileOnly(appDependencies.javax.servlet.api)
+    testImplementation(appDependencies.test.testng)
+    testImplementation(appDependencies.test.mockito.all)
+    testImplementation(appDependencies.test.hamcrest.all)
+    testImplementation(appDependencies.test.junit4)
+    testImplementation(appDependencies.javax.servlet.api)
 }
 
 configurations.register("testConfiguration") {
