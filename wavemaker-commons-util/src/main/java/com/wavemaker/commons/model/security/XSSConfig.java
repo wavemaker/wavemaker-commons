@@ -25,6 +25,7 @@ public class XSSConfig {
     private XSSFilterStrategy xssFilterStrategy;
     private XSSPolicyType policyType;
     private boolean dataBackwardCompatibility;
+    private XSSSanitizationLayer xssSanitizationLayer;
 
     public boolean isDataBackwardCompatibility() {
         return dataBackwardCompatibility;
@@ -40,6 +41,14 @@ public class XSSConfig {
 
     public void setEnforceXssSecurity(final boolean enforceXssSecurity) {
         this.enforceXssSecurity = enforceXssSecurity;
+    }
+
+    public XSSSanitizationLayer getXssSanitizationLayer() {
+        return xssSanitizationLayer;
+    }
+
+    public void setXssSanitizationLayer(XSSSanitizationLayer xssSanitizationLayer) {
+        this.xssSanitizationLayer = xssSanitizationLayer;
     }
 
     public String getPolicyFile() {
@@ -73,6 +82,8 @@ public class XSSConfig {
                 ", policyFile='" + policyFile + '\'' +
                 ", xssFilterStrategy=" + xssFilterStrategy +
                 ", policyType=" + policyType +
+                ", dataBackwardCompatibility=" + dataBackwardCompatibility +
+                ", xssSanitizationLayer=" + xssSanitizationLayer +
                 '}';
     }
 }
