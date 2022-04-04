@@ -5,30 +5,30 @@ plugins {
 group ="com.wavemaker.commons"
 
 dependencies {
-    implementation(enforcedPlatform(appDependencies.boms.springFramework.get()))
-    api(enforcedPlatform(appDependencies.boms.jackson.get()))
+    implementation(enforcedPlatform(appDependenciesLibs.boms.springFramework.get()))
+    api(enforcedPlatform(appDependenciesLibs.boms.jackson.get()))
     implementation(projects.wavemakerToolsApidocsCore)
-    implementation(appDependencies.slf4j.api)
-    implementation(appDependencies.commons.io)
-    implementation(appDependencies.commons.codec)
-    implementation(appDependencies.commons.lang3)
-    implementation(appDependencies.commons.configuration2)
-    implementation(appDependencies.commons.text) {
+    implementation(appDependenciesLibs.slf4j.api)
+    implementation(appDependenciesLibs.commons.io)
+    implementation(appDependenciesLibs.commons.codec)
+    implementation(appDependenciesLibs.commons.lang3)
+    implementation(appDependenciesLibs.commons.configuration2)
+    implementation(appDependenciesLibs.commons.text) {
         because("This is an optional dependency for commons-configuration2 which is needed for PropertiesConfiguration class usage by us")
     }
-    implementation(appDependencies.commons.collections4)
-    implementation(appDependencies.guava)
-    implementation(appDependencies.spring.webmvc)
-    api(appDependencies.jackson.core)
-    api(appDependencies.jackson.databind)
-    implementation(appDependencies.gson)
-    implementation(appDependencies.javax.jaxb.api)
-    compileOnly(appDependencies.javax.servlet.api)
-    testImplementation(appDependencies.test.testng)
-    testImplementation(appDependencies.test.mockito.all)
-    testImplementation(appDependencies.test.hamcrest.all)
-    testImplementation(appDependencies.test.junit4)
-    testImplementation(appDependencies.javax.servlet.api)
+    implementation(appDependenciesLibs.commons.collections4)
+    implementation(appDependenciesLibs.guava)
+    implementation(appDependenciesLibs.spring.webmvc)
+    api(appDependenciesLibs.jackson.core)
+    api(appDependenciesLibs.jackson.databind)
+    implementation(appDependenciesLibs.gson)
+    implementation(appDependenciesLibs.javax.jaxb.api)
+    compileOnly(appDependenciesLibs.javax.servlet.api)
+    testImplementation(appDependenciesLibs.test.testng)
+    testImplementation(appDependenciesLibs.test.mockito.all)
+    testImplementation(appDependenciesLibs.test.hamcrest.all)
+    testImplementation(appDependenciesLibs.test.junit4)
+    testImplementation(appDependenciesLibs.javax.servlet.api)
 }
 
 configurations.register("testConfiguration") {
