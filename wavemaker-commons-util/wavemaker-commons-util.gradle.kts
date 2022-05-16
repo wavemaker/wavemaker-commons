@@ -45,7 +45,7 @@ artifacts {
 }
 
 tasks.test {
-    exclude("**/*")
+    //exclude("**/*")
 }
 
 javaLibraryMavenPublish {

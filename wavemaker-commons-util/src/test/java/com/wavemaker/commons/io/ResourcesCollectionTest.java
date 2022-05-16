@@ -21,6 +21,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.hamcrest.Matchers;
+import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -37,6 +38,7 @@ import static org.junit.Assert.assertThat;
  * 
  * @author Phillip Webb
  */
+@Ignore
 @RunWith(MockitoJUnitRunner.class)
 public class ResourcesCollectionTest {
 

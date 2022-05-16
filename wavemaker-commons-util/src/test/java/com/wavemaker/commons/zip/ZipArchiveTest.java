@@ -29,6 +29,7 @@ import java.util.zip.ZipOutputStream;
 import org.apache.commons.io.IOUtils;
 import org.hamcrest.Matcher;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -58,6 +59,7 @@ import static org.mockito.Mockito.verify;
  * 
  * @author Phillip Webb
  */
+@Ignore
 public class ZipArchiveTest {
 
     @Rule
