@@ -31,7 +31,6 @@ import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.jsonFormatVisitors.JsonFormatVisitorWrapper;
 import com.fasterxml.jackson.databind.jsontype.TypeSerializer;
-import com.fasterxml.jackson.databind.ser.BeanSerializer;
 import com.fasterxml.jackson.databind.ser.ContextualSerializer;
 import com.fasterxml.jackson.databind.ser.PropertyWriter;
 import com.fasterxml.jackson.databind.ser.ResolvableSerializer;
@@ -51,11 +50,11 @@ public class CircularLoopHandlingSerializer<T> extends JsonSerializer<T> impleme
      */
     private static final ThreadLocal<Deque<Object>> objectReferenceStackTL = new ThreadLocal<>();
 
-    private final BeanSerializer delegate;
+    private final BeanSerializerBase delegate;
     private final boolean failOnCircularReferences;
 
 
-    public CircularLoopHandlingSerializer(final BeanSerializer delegate, final boolean failOnCircularReferences) {
+    public CircularLoopHandlingSerializer(final BeanSerializerBase delegate, final boolean failOnCircularReferences) {
         this.delegate = delegate;
         this.failOnCircularReferences = failOnCircularReferences;
     }
@@ -214,7 +213,7 @@ public class CircularLoopHandlingSerializer<T> extends JsonSerializer<T> impleme
 
     private JsonSerializer wrapIfNeeded(JsonSerializer serializer) {
         return serializer instanceof BeanSerializerBase ?
-                new CircularLoopHandlingSerializer<>((BeanSerializer) serializer, failOnCircularReferences)
+                new CircularLoopHandlingSerializer<>((BeanSerializerBase) serializer, failOnCircularReferences)
                 : serializer;
     }
 }
