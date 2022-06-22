@@ -618,7 +618,7 @@ public abstract class WMIOUtils {
             try {
                 e.close();
             } catch (Exception exc) {
-                logger.warn("Failed to close the stream", exc);
+                logger.warn("Failed to close the autoCloseable", exc);
             }
         }
     }
