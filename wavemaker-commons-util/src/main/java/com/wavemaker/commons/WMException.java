@@ -38,6 +38,12 @@ public abstract class WMException extends Exception implements WMCommonException
         messageResourceHolder.setArgs(args);
     }
 
+    public WMException(MessageResource resource, Throwable cause, Object... args) {
+        this(cause);
+        messageResourceHolder.setMessageResource(resource);
+        messageResourceHolder.setArgs(args);
+    }
+
     @Override
     public MessageResourceHolder getMessageResourceHolder() {
         return messageResourceHolder;
