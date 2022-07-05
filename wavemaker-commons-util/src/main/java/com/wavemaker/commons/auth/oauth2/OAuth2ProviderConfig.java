@@ -36,6 +36,8 @@ public class OAuth2ProviderConfig {
     private List<Scope> scopes;
     private OAuth2Flow oauth2Flow;
 
+    private String responseType;
+
     public OAuth2Pkce getoAuth2Pkce() {
         return oAuth2Pkce;
     }
@@ -117,5 +119,13 @@ public class OAuth2ProviderConfig {
 
     public void setOauth2Flow(OAuth2Flow oauth2Flow) {
         this.oauth2Flow = oauth2Flow;
+    }
+
+    public String getResponseType() {
+        return responseType;
+    }
+
+    public void setResponseType(String responseType) {
+        this.responseType = responseType;
     }
 }
