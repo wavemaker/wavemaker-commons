@@ -36,6 +36,8 @@ public final class AppPropertiesConstants {
     public static final String APP_BUILD_UI_MODE = getAppPropertyKey("build.ui.mode");
     public static final String APP_BUILD_UI_NG_CONFIG = getAppPropertyKey("build.ui.ng.config");
 
+    public static final String APP_PREFABS_LAZY_INIT = getAppPropertyKey("prefabs.lazyInit");
+
     private static String getAppPropertyKey(String key) {
         return new StringBuilder(APP_PREFIX).append(".").append(key).toString();
     }
