@@ -36,6 +36,15 @@ public final class AppPropertiesConstants {
     public static final String APP_BUILD_UI_MODE = getAppPropertyKey("build.ui.mode");
     public static final String APP_BUILD_UI_NG_CONFIG = getAppPropertyKey("build.ui.ng.config");
 
+    public static final String APP_MTLS_ENABLED = getAppPropertyKey("mtls.enabled");
+    public static final String APP_MTLS_KEYSTORE_FILE = getAppPropertyKey("mtls.keyStoreFile");
+    public static final String APP_MTLS_KEYSTORE_FILETYPE = getAppPropertyKey("mtls.keyStoreFileType");
+    public static final String APP_MTLS_KEYSTORE_PASSWORD = getAppPropertyKey("mtls.keyStorePassword");
+    public static final String APP_TRUSTSTORE_CONFIG = getAppPropertyKey("trustStoreConfig");
+    public static final String APP_TRUSTSTORE_FILE = getAppPropertyKey("trustStoreFile");
+    public static final String APP_TRUSTSTORE_FILETYPE = getAppPropertyKey("trustStoreFileType");
+    public static final String APP_TRUSTSTORE_PASSWORD = getAppPropertyKey("trustStorePassword");
+
     private static String getAppPropertyKey(String key) {
         return new StringBuilder(APP_PREFIX).append(".").append(key).toString();
     }
