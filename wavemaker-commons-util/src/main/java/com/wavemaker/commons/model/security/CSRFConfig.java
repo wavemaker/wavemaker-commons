@@ -22,6 +22,7 @@ public class CSRFConfig {
 
     private boolean enforceCsrfSecurity;
     private String headerName;
+    private String cookieName;
 
     public boolean isEnforceCsrfSecurity() {
         return enforceCsrfSecurity;
@@ -37,5 +38,13 @@ public class CSRFConfig {
 
     public void setHeaderName(final String headerName) {
         this.headerName = headerName;
+    }
+
+    public String getCookieName() {
+        return cookieName;
+    }
+
+    public void setCookieName(String cookieName) {
+        this.cookieName = cookieName;
     }
 }
