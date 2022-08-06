@@ -18,6 +18,9 @@ package com.wavemaker.commons.util.concurrent;
 import java.util.concurrent.Semaphore;
 import java.util.concurrent.TimeUnit;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.wavemaker.commons.SemaphoreAcquisitionTimeoutException;
 import com.wavemaker.commons.ThreadInterruptedException;
 
@@ -31,70 +34,29 @@ public class WMSemaphore {
     
     private Semaphore semaphore;
 
-    public WMSemaphore(int permits) {
-        this.semaphore = new Semaphore(permits);
+    private static final Logger logger = LoggerFactory.getLogger(WMSemaphore.class);
+    private String name;
+    private int totalPermits;
+
+    public WMSemaphore(String name, int permits) {
+        this(name, permits, true);
     }
 
-    public WMSemaphore(int permits, boolean fair) {
-        this.semaphore = new Semaphore(permits, fair);
-    }
-
-    public void acquire() {
-        try {
-            semaphore.acquire();
-        } catch (InterruptedException e) { //NOSONAR
-            handleInterruptedException(e);
-        }
-    }
-
-    public void acquire(int permits) {
-        try {
-            semaphore.acquire(permits);
-        } catch (InterruptedException e) { //NOSONAR
-            handleInterruptedException(e);
-        }
-    }
-
-    public boolean tryAcquire() {
-        return semaphore.tryAcquire();
-    }
-
-    public boolean tryAcquire(int permits) {
-        return semaphore.tryAcquire(permits);
-    }
-
-    public boolean tryAcquire(int timeout, TimeUnit unit) {
-        try {
-            return semaphore.tryAcquire(timeout, unit);
-        } catch (InterruptedException e) { //NOSONAR
-            handleInterruptedException(e);
-        }
-        return false;
-    }
-
-    public boolean tryAcquire(int permits, int timeout, TimeUnit unit) {
-        try {
-            return semaphore.tryAcquire(permits, timeout, unit);
-        } catch (InterruptedException e) { //NOSONAR
-            handleInterruptedException(e);
-        }
-        return false;
+    public WMSemaphore(String name, int totalPermits, boolean fair) {
+        this.semaphore = new Semaphore(totalPermits, fair);
+        this.name = name;
+        this.totalPermits = totalPermits;
     }
 
     public void acquire(int timeout, TimeUnit unit) {
-        try {
-            boolean acquired = semaphore.tryAcquire(timeout, unit);
-            if (!acquired) {
-                throw new SemaphoreAcquisitionTimeoutException();
-            }
-        } catch (InterruptedException e) { //NOSONAR
-            handleInterruptedException(e);
-        }
+        acquire(1, timeout, unit);
     }
 
     public void acquire(int permits, int timeout, TimeUnit unit) {
         try {
+            logger.info("Trying to acquire {} permit(s) in semaphore {}", permits, this);
             boolean acquired = semaphore.tryAcquire(permits, timeout, unit);
+            logger.info("Acquisition status is {} while acquiring {} permit(s) in semaphore {}", acquired, permits, this);
             if (!acquired) {
                 throw new SemaphoreAcquisitionTimeoutException();
             }
@@ -104,15 +66,26 @@ public class WMSemaphore {
     }
 
     public void release() {
-        semaphore.release();
+        release(1);
     }
 
     public void release(int permits) {
         semaphore.release(permits);
+        logger.info("Released {} permit(s) in semaphore {}", permits, this);
     }
 
     private void handleInterruptedException(InterruptedException e) {
+        logger.info("Received interrupted exception in thread {} in semaphore {}", Thread.currentThread().getName(), this);
         Thread.currentThread().interrupt();
         throw new ThreadInterruptedException(e);
+    }
+
+    @Override
+    public String toString() {
+        return "WMSemaphore{" +
+                " availablePermits=" + semaphore.availablePermits() +
+                ", totalPermits=" + totalPermits +
+                ", name='" + name + '\'' +
+                '}';
     }
 }
