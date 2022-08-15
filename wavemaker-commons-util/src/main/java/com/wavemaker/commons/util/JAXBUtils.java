@@ -45,7 +45,7 @@ public class JAXBUtils {
             Document document = XMLUtils.readDocument(inputStream);
             unmarshaller = context.createUnmarshaller();
             T t = (T) unmarshaller.unmarshal(document);
-            return new XmlDocument<T>(document, t);
+            return new XmlDocument<>(document, t);
         } finally {
             closeResources(inputStream, unmarshaller);
         }

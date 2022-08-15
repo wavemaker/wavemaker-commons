@@ -26,6 +26,7 @@ public class ExactURLPattern
         super(pattern);
     }
 
+    @Override
     public boolean matches(String requestURI)
     {
         if (requestURI == null || "".equals(requestURI)) {

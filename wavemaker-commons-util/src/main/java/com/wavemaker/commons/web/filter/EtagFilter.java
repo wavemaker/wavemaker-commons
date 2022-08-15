@@ -57,6 +57,7 @@ public class EtagFilter extends ShallowEtagHeaderFilter {
         }
     }
 
+    @Override
     protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
         return Objects.equals(request.getAttribute(SKIP_ETAG), true);
     }

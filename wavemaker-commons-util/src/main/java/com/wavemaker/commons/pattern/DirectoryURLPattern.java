@@ -32,6 +32,7 @@ public class DirectoryURLPattern
         directoryPatternwithSlash = pattern.substring(0, pattern.length() - 1);
     }
 
+    @Override
     public boolean matches(String requestURI)
     {
         if (requestURI == null || "".equals(requestURI)) {

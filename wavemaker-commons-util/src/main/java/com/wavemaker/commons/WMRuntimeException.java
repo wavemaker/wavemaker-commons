@@ -75,6 +75,7 @@ public class WMRuntimeException extends RuntimeException implements WMCommonExce
         return messageResourceHolder;
     }
 
+    @Override
     public String getMessage() {
         String message;
         MessageResource messageResource = messageResourceHolder.getMessageResource();
