@@ -79,7 +79,7 @@ public class ObjectInvokerTest {
 
     }
 
-    class B extends A {
+    static class B extends A {
 
         private String foo;
 
@@ -97,7 +97,7 @@ public class ObjectInvokerTest {
 
     }
 
-    class AnnotationClass {
+    static class AnnotationClass {
 
         public void annotatedMethod() {
         }
