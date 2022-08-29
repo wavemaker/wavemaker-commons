@@ -13,6 +13,7 @@ dependencies {
     implementation(appDependenciesLibs.commons.codec)
     implementation(appDependenciesLibs.commons.lang3)
     implementation(appDependenciesLibs.commons.configuration2)
+    implementation(appDependenciesLibs.javax.validationApi)
     implementation(appDependenciesLibs.commons.text) {
         because("This is an optional dependency for commons-configuration2 which is needed for PropertiesConfiguration class usage by us")
     }

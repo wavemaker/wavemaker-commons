@@ -242,7 +242,7 @@ public abstract class StoredFolder extends StoredResource implements Folder {
         }
     }
 
-    private class RecursiveChildResourceIterator implements Iterator<Resource> {
+    private static class RecursiveChildResourceIterator implements Iterator<Resource> {
 
         private final Iterator<Resource> iterator;
 

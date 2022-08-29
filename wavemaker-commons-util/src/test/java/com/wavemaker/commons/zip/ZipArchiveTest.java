@@ -264,8 +264,8 @@ public class ZipArchiveTest {
         ZipArchive.unpack(zipStream, this.folder);
         verify(this.folder.getFolder("a").getStore()).create();
         verify(this.folder.getFolder("c").getStore()).create();
-        assertThat(new String(outputStreamB.toByteArray()), is("ab"));
-        assertThat(new String(outputStreamD.toByteArray()), is("cd"));
+        assertThat(outputStreamB.toString(), is("ab"));
+        assertThat(outputStreamD.toString(), is("cd"));
     }
 
     @Test

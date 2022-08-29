@@ -18,6 +18,10 @@ package com.wavemaker.commons.auth.openId;
 
 import java.util.List;
 
+import javax.validation.constraints.NotBlank;
+
+import com.wavemaker.commons.auth.openId.validator.ValidateScopes;
+
 /**
  * Created by srujant on 31/7/18.
  */
@@ -30,7 +34,8 @@ public class OpenIdProviderInfo {
     private String tokenUrl;
     private String jwkSetUrl;
     private String userInfoUrl;
-    private List<String> scopes;
+    @ValidateScopes
+    private List<@NotBlank String> scopes;
     private String redirectUrlTemplate;
     private String userNameAttributeName;
     private String logoutUrl;

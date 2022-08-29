@@ -90,10 +90,12 @@ public class WMUrlClassLoader extends URLClassLoader {
             return false;
         }
 
+        @Override
         public boolean hasMoreElements() {
             return next();
         }
 
+        @Override
         public E nextElement() {
             if (!next()) {
                 throw new NoSuchElementException();

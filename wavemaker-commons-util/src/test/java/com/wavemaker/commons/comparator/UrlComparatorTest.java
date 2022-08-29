@@ -34,7 +34,7 @@ import static org.testng.Assert.assertEquals;
  */
 public class UrlComparatorTest {
 
-    final Comparator<String> stringPatternComparator = new UrlStringComparator<String>() {
+    final Comparator<String> stringPatternComparator = new UrlStringComparator<>() {
 
         @Override
         public String getUrlPattern(final String s) {
@@ -42,7 +42,7 @@ public class UrlComparatorTest {
         }
 
     };
-    private UrlComparator<String> stringUrlComparator = new UrlComparator<String>() {
+    private UrlComparator<String> stringUrlComparator = new UrlComparator<>() {
         @Override
         public String getUrlPattern(final String s) {
             return s;

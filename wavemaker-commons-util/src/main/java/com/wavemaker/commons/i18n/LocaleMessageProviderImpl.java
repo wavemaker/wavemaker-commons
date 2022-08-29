@@ -136,7 +136,8 @@ public class LocaleMessageProviderImpl implements LocaleMessageProvider {
         try {
             List<Resource> resourceList = getResourceList(locale + ".json");
             for (Resource resource : resourceList) {
-                                Map<String, String> localeMessages = JSONUtils.toObject(resource.getInputStream(), new TypeReference<Map<String, String>>() {});
+                                Map<String, String> localeMessages = JSONUtils.toObject(resource.getInputStream(), new TypeReference<>() {
+                                });
                 existingMessages.putAll(localeMessages);
             }
         } catch (IOException e) {

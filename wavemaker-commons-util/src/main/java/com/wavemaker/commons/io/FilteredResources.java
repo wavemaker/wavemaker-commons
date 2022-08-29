@@ -53,7 +53,7 @@ public class FilteredResources<T extends Resource> extends AbstractResources<T> 
 
     @Override
     public Iterator<T> iterator() {
-        return new FilteredIterator<T>(this.resources.iterator()) {
+        return new FilteredIterator<>(this.resources.iterator()) {
 
             @Override
             protected boolean isElementFiltered(T element) {

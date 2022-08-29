@@ -29,6 +29,7 @@ public class ExtensionURLPattern
         extenstionPattern = pattern.substring(1);
     }
 
+    @Override
     public boolean matches(String requestURI)
     {
         if (requestURI == null || "".equals(requestURI)) {
