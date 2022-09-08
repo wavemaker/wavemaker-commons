@@ -19,8 +19,6 @@ import java.io.OutputStream;
 import java.io.Reader;
 import java.io.Writer;
 
-import com.wavemaker.commons.io.exception.ResourceException;
-
 /**
  * Provides access to {@link File} content in a variety of ways.
  *
