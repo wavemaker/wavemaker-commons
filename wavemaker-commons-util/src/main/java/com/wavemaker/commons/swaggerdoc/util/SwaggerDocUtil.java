@@ -1,24 +1,27 @@
-/**
- * Copyright (C) 2020 WaveMaker, Inc.
- * <p>
+/*******************************************************************************
+ * Copyright (C) 2022-2023 WaveMaker, Inc.
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * <p>
  * http://www.apache.org/licenses/LICENSE-2.0
- * <p>
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- */
+ ******************************************************************************/
 package com.wavemaker.commons.swaggerdoc.util;
 
 import java.sql.Time;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
-import java.util.*;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 
 import com.wavemaker.commons.MessageResource;
 import com.wavemaker.commons.SwaggerException;
@@ -32,7 +35,12 @@ import com.wavemaker.tools.apidocs.tools.core.model.Swagger;
 import com.wavemaker.tools.apidocs.tools.core.model.parameters.AbstractParameter;
 import com.wavemaker.tools.apidocs.tools.core.model.parameters.FormParameter;
 import com.wavemaker.tools.apidocs.tools.core.model.parameters.Parameter;
-import com.wavemaker.tools.apidocs.tools.core.model.properties.*;
+import com.wavemaker.tools.apidocs.tools.core.model.properties.ArrayProperty;
+import com.wavemaker.tools.apidocs.tools.core.model.properties.DateProperty;
+import com.wavemaker.tools.apidocs.tools.core.model.properties.ObjectProperty;
+import com.wavemaker.tools.apidocs.tools.core.model.properties.Property;
+import com.wavemaker.tools.apidocs.tools.core.model.properties.PropertyBuilder;
+import com.wavemaker.tools.apidocs.tools.core.model.properties.RefProperty;
 
 /**
  * SwaggerDocUtils is used to provided required component/s from the swagger document.
