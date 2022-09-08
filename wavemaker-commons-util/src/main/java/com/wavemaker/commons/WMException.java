@@ -43,11 +43,16 @@ public abstract class WMException extends Exception implements WMCommonException
         messageResourceHolder.setArgs(args);
     }
 
+    public WMException(String msg) {
+        super(msg);
+    }
+
     @Override
     public MessageResourceHolder getMessageResourceHolder() {
         return messageResourceHolder;
     }
 
+    @Override
     public String getMessage() {
         String message;
         MessageResource messageResource = messageResourceHolder.getMessageResource();
