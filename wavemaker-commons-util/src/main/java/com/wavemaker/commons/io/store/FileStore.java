@@ -21,30 +21,29 @@ import com.wavemaker.commons.io.File;
 
 /**
  * Store for a single {@link File}.
- * 
- * @see StoredFile
- * 
+ *
  * @author Phillip Webb
+ * @see StoredFile
  */
 public interface FileStore extends ResourceStore {
 
     /**
      * Access the file content as an input stream.
-     * 
+     *
      * @return an input stream to read content
      */
     InputStream getInputStream();
 
     /**
      * Access the file content as an output stream.
-     * 
+     *
      * @return an output stream to write content
      */
     OutputStream getOutputStream();
 
     /**
      * @param append if <code>true</code>, open the file OutputStream in append mode, otherwise as new file
-     * Access the file content as an output stream.
+     *               Access the file content as an output stream.
      *
      * @return an output stream to write content
      */
@@ -52,14 +51,14 @@ public interface FileStore extends ResourceStore {
 
     /**
      * Return the size of the file.
-     * 
+     *
      * @return the file size
      */
     long getSize();
 
     /**
      * Return the date/time that the file was last modified.
-     * 
+     *
      * @return the last modified timestamp
      */
     long getLastModified();

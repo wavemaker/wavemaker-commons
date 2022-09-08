@@ -23,7 +23,6 @@ import org.testng.annotations.Test;
 
 import static org.testng.Assert.assertEquals;
 
-
 /**
  * UrlComparator Tester.
  *
@@ -141,7 +140,6 @@ public class UrlComparatorTest {
 
     }
 
-
     /**
      * Method: compare(final T o1, final T o2)
      */
@@ -255,6 +253,5 @@ public class UrlComparatorTest {
         object[0][1] = list2;
         return object;
     }
-
 
 }

@@ -20,7 +20,7 @@ import com.wavemaker.commons.io.exception.ResourceDoesNotExistException;
 
 /**
  * An {@link Iterable} collections of {@link Resource}s that also support various {@link ResourceOperations operations}.
- * 
+ *
  * @author Phillip Webb
  */
 public interface Resources<T extends Resource> extends Iterable<T> {
@@ -29,37 +29,39 @@ public interface Resources<T extends Resource> extends Iterable<T> {
      * Returns the source of the resources. Items in this collection will be {@link #moveTo(Folder) moved} or
      * {@link #copyTo(Folder) copied} relative to the source. For example, if this object contains the files
      * '/a/b/c.txt' and '/d/e/f.txt' and the source is '/d' copy to '/x/ will result in '/x/b/c.txt' and 'x/e/f.txt'.
-     * 
+     *
      * @return the source for the resources
      */
     Folder getSource();
 
     /**
      * Return a new {@link Resources} instance containing only {@link File}s from this collection.
-     * 
+     *
      * @return the files
      */
     Resources<File> files();
 
     /**
      * Return a new {@link Resources} instance containing only {@link Folders}s from this collection.
-     * 
+     *
      * @return the folders
      */
     Resources<Folder> folders();
 
     /**
      * Return a new {@link Resources} instance containing items that match any of the specified filters.
-     * 
+     *
      * @param filters the include filters
+     *
      * @return filtered {@link Resources}
      */
     Resources<T> include(ResourceFilter... filters);
 
     /**
      * Return a new {@link Resources} instance removing items that match any of the specified filters.
-     * 
+     *
      * @param filters the exclude filters
+     *
      * @return filtered {@link Resources}
      */
     Resources<T> exclude(ResourceFilter... filters);
@@ -72,9 +74,11 @@ public interface Resources<T extends Resource> extends Iterable<T> {
     /**
      * Move this resource to the specified folder. Any duplicate {@link File}s will be replaced (existing {@link Folder}
      * resources will be merged). If the resource does not exist no operation is performed.
-     * 
+     *
      * @param folder the folder to move the resource to
+     *
      * @return a resource collection containing the new destination resources
+     *
      * @throws ResourceDoesNotExistException if this resource no longer exists
      */
     Resources<T> moveTo(Folder folder);
@@ -82,17 +86,20 @@ public interface Resources<T extends Resource> extends Iterable<T> {
     /**
      * Recursively copy this resource to the specified folder. Any duplicate {@link File}s will be replaced (existing
      * {@link Folder} resources will be merged). If the resource does not exist no operation is performed.
-     * 
+     *
      * @param folder the folder to copy the resource to
+     *
      * @return a resource collection containing the new destination resources
+     *
      * @throws ResourceDoesNotExistException if this resource no longer exists
      */
     Resources<T> copyTo(Folder folder);
 
     /**
      * Perform the given operation with each {@link Resource} in this collection.
-     * 
+     *
      * @param operation the operation to perform
+     *
      * @return the operation that was performed
      */
     <O extends ResourceOperation<T>> O performOperation(O operation);
@@ -100,7 +107,7 @@ public interface Resources<T extends Resource> extends Iterable<T> {
     /**
      * Fetch all {@link Resource}s from this collection and return the result as a {@link List}. This will trigger
      * {@link #iterator() iteration} over each element.
-     * 
+     *
      * @return a {@link List} of all {@link Resource}s in this collection.
      */
     List<T> fetchAll();

@@ -18,10 +18,9 @@ import com.wavemaker.commons.io.exception.ResourceTypeMismatchException;
 
 /**
  * A folder {@link Resource} that may be stored on a physical disk or using some other mechanism.
- * 
- * @see File
- * 
+ *
  * @author Phillip Webb
+ * @see File
  */
 public interface Folder extends Resource, Iterable<Resource> {
 
@@ -31,9 +30,11 @@ public interface Folder extends Resource, Iterable<Resource> {
     /**
      * Convenience methods to move the contents of the folder. Equivalent to {@link #list()}.
      * {@link Resources#moveTo(Folder) moveTo(folder)}.
-     * 
+     *
      * @param folder the folder to move the resource to
+     *
      * @return a resource collection containing the new destination resources
+     *
      * @see Resources#moveTo(Folder)
      */
     Resources<Resource> moveContentsTo(Folder folder);
@@ -44,9 +45,11 @@ public interface Folder extends Resource, Iterable<Resource> {
     /**
      * Convenience methods to move the contents of the folder. Equivalent to {@link #list()}.
      * {@link Resources#copyTo(Folder) copyTo(folder)}.
-     * 
+     *
      * @param folder the folder to copy the resource to
+     *
      * @return a resource collection containing the new destination resources
+     *
      * @see Resources#copyTo(Folder)
      */
     Resources<Resource> copyContentsTo(Folder folder);
@@ -59,9 +62,11 @@ public interface Folder extends Resource, Iterable<Resource> {
      * <tt>name</tt> includes '/' characters then the file will be returned from nested folders. Paths are relative
      * unless they begin with '/', in which case they are taken from the topmost {@link #getParent() parent}. Use '..'
      * to refer to a parent folder.
-     * 
+     *
      * @param name the name of the resource
+     *
      * @return a {@link File} or {@link Folder} resource
+     *
      * @throws com.wavemaker.commons.io.exception.ResourceDoesNotExistException if the resource does not exist
      * @see #hasExisting(String)
      */
@@ -70,9 +75,11 @@ public interface Folder extends Resource, Iterable<Resource> {
     /**
      * Returns <tt>true</tt> if this folder already contains a resource with the specified name. This method supports
      * the same naming rules as {@link #getExisting(String)}.
-     * 
+     *
      * @param name the name of the resource
+     *
      * @return <tt>true</tt> if the resource is contained in the folder
+     *
      * @see #getExisting(String)
      */
     boolean hasExisting(String name);
@@ -80,9 +87,11 @@ public interface Folder extends Resource, Iterable<Resource> {
     /**
      * Get a child folder of the current folder. This method supports the same naming rules as
      * {@link #getExisting(String)}.
-     * 
+     *
      * @param name the name of the folder to get
+     *
      * @return the {@link Folder}
+     *
      * @throws com.wavemaker.commons.io.exception.ResourceTypeMismatchException if the an existing resource exits that is not a folder
      */
     Folder getFolder(String name);
@@ -90,9 +99,11 @@ public interface Folder extends Resource, Iterable<Resource> {
     /**
      * Get a child file of the current folder. This method supports the same naming rules as
      * {@link #getExisting(String)}.
-     * 
+     *
      * @param name the name of the file to get
+     *
      * @return the {@link File}
+     *
      * @throws ResourceTypeMismatchException if the an existing resource exits that is not a file
      */
     File getFile(String name);
@@ -101,17 +112,19 @@ public interface Folder extends Resource, Iterable<Resource> {
      * Get a child file or folder of the current folder. Depending on the <tt>resourceType</tt> {@link #getFile(String)}
      * , {@link #getFolder(String)} or {@link #getExisting(String)} will be called. This method supports the same naming
      * rules as {@link #getExisting(String)}.
-     * 
-     * @param name the name of the resource to get
+     *
+     * @param name         the name of the resource to get
      * @param resourceType the resource type
+     *
      * @return the resource.
+     *
      * @throws ResourceTypeMismatchException if the an existing resource exits that is of the wrong type
      */
     <T extends Resource> T get(String name, Class<T> resourceType);
 
     /**
      * List all immediate child resources of this folder. If this resource does not exist empty resources are returned.
-     * 
+     *
      * @return a list of all immediate child resources
      */
     Resources<Resource> list();
@@ -119,7 +132,7 @@ public interface Folder extends Resource, Iterable<Resource> {
     /**
      * Recursively find all immediate and nested children of this folder. If this resource does not exist empty
      * resources are returned.
-     * 
+     *
      * @return a list of all nested children
      */
     Resources<Resource> find();
@@ -127,7 +140,7 @@ public interface Folder extends Resource, Iterable<Resource> {
     /**
      * Return a new folder that is jailed at the current location. A jailed folder acts as a root folder at the current
      * location.
-     * 
+     *
      * @return a new jailed folder
      */
     Folder jail();

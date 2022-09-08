@@ -45,7 +45,6 @@ public class WMServiceOperationInfo {
         return new WMServiceOperationInfo();
     }
 
-
     public String getHttpMethod() {
         return httpMethod;
     }
@@ -195,16 +194,16 @@ public class WMServiceOperationInfo {
     @Override
     public String toString() {
         return "WMServiceOperationInfo{" +
-                "name='" + name + '\'' +
-                ", methodType='" + methodType + '\'' +
-                ", relativePath='" + relativePath + '\'' +
-                ", directPath='" + directPath + '\'' +
-                ", proxySettings=" + proxySettings +
-                ", httpMethod='" + httpMethod + '\'' +
-                ", parameters=" + parameters +
-                ", produces=" + produces +
-                ", consumes=" + consumes +
-                ", securityDefinitions='" + securityDefinitions + '\'' +
-                '}';
+            "name='" + name + '\'' +
+            ", methodType='" + methodType + '\'' +
+            ", relativePath='" + relativePath + '\'' +
+            ", directPath='" + directPath + '\'' +
+            ", proxySettings=" + proxySettings +
+            ", httpMethod='" + httpMethod + '\'' +
+            ", parameters=" + parameters +
+            ", produces=" + produces +
+            ", consumes=" + consumes +
+            ", securityDefinitions='" + securityDefinitions + '\'' +
+            '}';
     }
 }

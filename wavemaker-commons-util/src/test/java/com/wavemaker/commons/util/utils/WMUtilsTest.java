@@ -44,14 +44,14 @@ public class WMUtilsTest {
     public Object[][] fileProvider() throws IOException {
         Object[][] objects = new Object[3][2];
 
-            objects[0][0] = File.createTempFile("deleteIfYouSee", ".txt").getName();
-            objects[0][1] = "txt";
+        objects[0][0] = File.createTempFile("deleteIfYouSee", ".txt").getName();
+        objects[0][1] = "txt";
 
-            objects[1][0] = File.createTempFile("delete.If.You.;See", ".txt").getName();
-            objects[1][1] = "txt";
+        objects[1][0] = File.createTempFile("delete.If.You.;See", ".txt").getName();
+        objects[1][1] = "txt";
 
-            objects[2][0] = File.createTempFile("deleteIfYouSee", ".xml").getName();
-            objects[2][1] = "xml";
+        objects[2][0] = File.createTempFile("deleteIfYouSee", ".xml").getName();
+        objects[2][1] = "xml";
 
         return objects;
     }

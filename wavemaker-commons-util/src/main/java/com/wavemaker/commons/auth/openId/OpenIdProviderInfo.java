@@ -14,7 +14,6 @@
  ******************************************************************************/
 package com.wavemaker.commons.auth.openId;
 
-
 import java.util.List;
 
 import javax.validation.constraints.NotBlank;
@@ -38,7 +37,6 @@ public class OpenIdProviderInfo {
     private String redirectUrlTemplate;
     private String userNameAttributeName;
     private String logoutUrl;
-
 
     public OpenIdProviderInfo() {
     }

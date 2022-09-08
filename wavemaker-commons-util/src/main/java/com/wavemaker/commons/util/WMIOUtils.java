@@ -67,8 +67,8 @@ public abstract class WMIOUtils {
      * Read an entire File into a String.
      *
      * @param f The file to read from.
+     *
      * @return The contents of f as a String.
-     * @throws IOException
      */
     public static String read(File f) throws IOException {
         StringBuilder fileSB = new StringBuilder();
@@ -159,7 +159,7 @@ public abstract class WMIOUtils {
     }
 
     public static void copyContent(
-            com.wavemaker.commons.io.File sourceFile, com.wavemaker.commons.io.File destinationFile) {
+        com.wavemaker.commons.io.File sourceFile, com.wavemaker.commons.io.File destinationFile) {
         InputStream inputStream = null;
         OutputStream outputStream = null;
         try {
@@ -179,7 +179,9 @@ public abstract class WMIOUtils {
      *
      * @param is InputStream to read from.
      * @param os OutputStream to write to.
+     *
      * @return returns the number of bytes actually written
+     *
      * @throws IOException Note : This method never closes the parameterized streams;
      */
     public static int copy(InputStream is, OutputStream os) throws IOException {
@@ -191,7 +193,9 @@ public abstract class WMIOUtils {
      *
      * @param reader Reader to read from.
      * @param writer Writer to write to.
+     *
      * @return returns the number of characters actually written
+     *
      * @throws IOException Note : This method never closes the parameterized streams;
      */
     public static int copy(Reader reader, Writer writer) throws IOException {
@@ -204,7 +208,6 @@ public abstract class WMIOUtils {
      *
      * @param source      File object representing a file or directory to copy from.
      * @param destination File object representing the target; can only represent a file if the source is a file.
-     * @throws IOException
      */
     public static void copy(File source, File destination) throws IOException {
 
@@ -217,7 +220,6 @@ public abstract class WMIOUtils {
      * @param source      File object representing a file or directory to copy from.
      * @param destination File object representing the target; can only represent a file if the source is a file.
      * @param excludes    A list of exclusion filenames.
-     * @throws IOException
      */
     public static void copy(File source, File destination, List<String> excludes) throws IOException {
 
@@ -233,8 +235,8 @@ public abstract class WMIOUtils {
             }
             if (!destination.isDirectory()) {
                 throw new IOException(
-                        "Can't copy directory (" + source.getAbsolutePath() + ") to non-directory: " + destination
-                                .getAbsolutePath());
+                    "Can't copy directory (" + source.getAbsolutePath() + ") to non-directory: " + destination
+                        .getAbsolutePath());
             }
 
             File[] files = source.listFiles(new WMFileNameFilter());
@@ -261,12 +263,12 @@ public abstract class WMIOUtils {
 
         } else {
             throw new IOException(
-                    "Don't know how to copy " + source.getAbsolutePath() + "; it's neither a directory nor a file");
+                "Don't know how to copy " + source.getAbsolutePath() + "; it's neither a directory nor a file");
         }
     }
 
     public static void copy(
-            File source, File destination, String includedPattern, String excludedPattern) throws IOException {
+        File source, File destination, String includedPattern, String excludedPattern) throws IOException {
         List<String> includedPatterns = null;
         List<String> excludedPatterns = null;
         if (includedPattern != null) {
@@ -288,11 +290,10 @@ public abstract class WMIOUtils {
      * @param destination      File object representing the target; can only represent a file if the source is a file.
      * @param includedPatterns the ant-style path pattern to be included. Null means that all resources are included.
      * @param excludedPatterns the ant-style path pattern to be excluded. Null means that no resources are excluded.
-     * @throws IOException
      */
     public static void copy(
-            File source, File destination, List<String> includedPatterns,
-            List<String> excludedPatterns) throws IOException {
+        File source, File destination, List<String> includedPatterns,
+        List<String> excludedPatterns) throws IOException {
 
         if (!source.exists()) {
             throw new IOException("Can't copy from non-existent file: " + source.getAbsolutePath());
@@ -328,8 +329,8 @@ public abstract class WMIOUtils {
             }
             if (!destination.isDirectory()) {
                 throw new IOException(
-                        "Can't copy directory (" + source.getAbsolutePath() + ") to non-directory: " + destination
-                                .getAbsolutePath());
+                    "Can't copy directory (" + source.getAbsolutePath() + ") to non-directory: " + destination
+                        .getAbsolutePath());
             }
 
             File[] files = source.listFiles(new WMFileNameFilter());
@@ -356,7 +357,7 @@ public abstract class WMIOUtils {
             }
         } else {
             throw new IOException(
-                    "Don't know how to copy " + source.getAbsolutePath() + "; it's neither a directory nor a file");
+                "Don't know how to copy " + source.getAbsolutePath() + "; it's neither a directory nor a file");
         }
     }
 
@@ -380,6 +381,7 @@ public abstract class WMIOUtils {
      * Create a temporary directory, which will be deleted when the VM exits.
      *
      * @return The newly create temp directory
+     *
      * @throws IOException in case of IOExceptions.
      */
     public static File createTempDirectory() throws IOException {
@@ -402,8 +404,8 @@ public abstract class WMIOUtils {
      * Create a temporary directory, which will be deleted when the VM exits.
      *
      * @param prefix String used for directory name
+     *
      * @return The newly create temp directory
-     * @throws IOException
      */
     public static File createTempDirectory(String prefix) throws IOException {
         return Files.createTempDirectory(prefix).toFile();
@@ -422,9 +424,6 @@ public abstract class WMIOUtils {
 
     /**
      * Delete a directory or file; if a directory, delete its children recursively.
-     *
-     * @param dir
-     * @throws IOException
      */
     public static void deleteRecursive(File dir) throws IOException {
         FileUtils.forceDelete(dir);
@@ -487,7 +486,6 @@ public abstract class WMIOUtils {
         }
     }
 
-
     public static String toString(InputStream is) {
         try {
             return IOUtils.toString(is, "UTF-8");
@@ -516,7 +514,6 @@ public abstract class WMIOUtils {
             file.delete();
         }
     }
-
 
     /**
      * Create intermediate directories so that the File represented by newFile can be created.
@@ -601,7 +598,6 @@ public abstract class WMIOUtils {
      * modification time.
      *
      * @param f The File.
-     * @throws IOException
      */
     public static void touch(File f) throws IOException {
 

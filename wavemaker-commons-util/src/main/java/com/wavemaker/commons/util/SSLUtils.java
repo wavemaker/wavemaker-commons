@@ -53,7 +53,7 @@ public class SSLUtils {
                 allTrustedSSLContext = sc;
             } catch (Exception e) {
                 logger.warn("Failed in initialize ssl context", e);
-                throw new WMRuntimeException(MessageResource.create("com.wavemaker.commons.ssl.context.init.failed"),e);
+                throw new WMRuntimeException(MessageResource.create("com.wavemaker.commons.ssl.context.init.failed"), e);
             }
         }
         return allTrustedSSLContext;

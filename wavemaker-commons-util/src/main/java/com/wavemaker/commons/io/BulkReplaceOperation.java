@@ -45,7 +45,7 @@ public class BulkReplaceOperation implements ResourceOperation<File> {
         String originalContent = resource.getContent().asString();
         String content = originalContent;
         Set<Map.Entry<String, String>> entries = map.entrySet();
-        for (Map.Entry<String, String> entry : entries){
+        for (Map.Entry<String, String> entry : entries) {
             content = content.replace(entry.getKey(), entry.getValue());
         }
         if (!Objects.equals(content, originalContent)) {

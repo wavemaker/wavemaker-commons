@@ -72,23 +72,24 @@ public class MultipleReloadableResourceBundleMessageSource extends ReloadableRes
     }
 
     private Resource[] getMergedResources(Resource[] resources1, Resource[] resources2) {
-        if (resources1 == null && resources2 == null){
+        if (resources1 == null && resources2 == null) {
             return new Resource[0];
-        } if (resources1 == null){
+        }
+        if (resources1 == null) {
             return resources2;
-        } else if (resources2 == null){
-            return  resources1;
+        } else if (resources2 == null) {
+            return resources1;
         }
 
-        Resource [] resources = new Resource[resources1.length+resources2.length];
+        Resource[] resources = new Resource[resources1.length + resources2.length];
 
         int index = 0;
         int i;
-        for (i=0; i<resources1.length; i++, index++){
+        for (i = 0; i < resources1.length; i++, index++) {
             resources[index] = resources1[i];
         }
 
-        for (i=0; i<resources2.length; i++, index++){
+        for (i = 0; i < resources2.length; i++, index++) {
             resources[index] = resources2[i];
         }
 

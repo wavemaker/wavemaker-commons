@@ -39,7 +39,7 @@ public class WMUtils {
 
     public static String getFileExtensionFromFileName(String fileName) {
         int indexOfDot = fileName.lastIndexOf('.');
-        return (indexOfDot == -1) ? "":fileName.substring(indexOfDot + 1);
+        return (indexOfDot == -1) ? "" : fileName.substring(indexOfDot + 1);
     }
 
     public static String decodeRequestURI(String requestURI) {
@@ -55,7 +55,7 @@ public class WMUtils {
             return new String[]{(String) obj};
         }
         if (obj instanceof String[]) {
-            return  (String[]) obj;
+            return (String[]) obj;
         }
         if (obj instanceof List) {
             List o = (List) obj;

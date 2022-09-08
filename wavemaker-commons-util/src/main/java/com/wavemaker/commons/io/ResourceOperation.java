@@ -16,16 +16,16 @@ package com.wavemaker.commons.io;
 
 /**
  * An operation that can be performed on a {@link Resource}s.
- * 
+ *
+ * @author Phillip Webb
  * @see Folder#performOperationRecursively(ResourceOperation)
  * @see ResourceOperations
- * @author Phillip Webb
  */
 public interface ResourceOperation<T extends Resource> {
 
     /**
      * Perform the given operation on the resource.
-     * 
+     *
      * @param resource the resource
      */
     void perform(T resource);

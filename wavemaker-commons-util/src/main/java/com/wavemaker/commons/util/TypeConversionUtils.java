@@ -197,8 +197,6 @@ public abstract class TypeConversionUtils {
 
     /**
      * Method to check Multi-Dimensional Array for import.
-     * @param className
-     * @return
      */
     public static String checkAndReturnForMultiDimensionalArrays(String className) {
         // Matches the pattern like [[Ljava,lang.String
@@ -213,9 +211,8 @@ public abstract class TypeConversionUtils {
 
     public static boolean checkPrimitiveAndPrimitiveArrays(String className) {
         return TypeConversionUtils.primitiveArraysForName(className) == null &&
-                TypeConversionUtils.primitiveForName(className) == null;
+            TypeConversionUtils.primitiveForName(className) == null;
     }
-
 
     public static Class<?> primitiveWrapperClassByName(String className) {
         for (Class klass : PRIMITIVE_WRAPPERS) {
@@ -243,9 +240,6 @@ public abstract class TypeConversionUtils {
     /**
      * Returns true iff the Class clazz represents a primitive (boolean, int) or a primitive wrapper (Integer),
      * including Big{Integer,Decimal} and Atomic{Integer,Long}. Also, Strings and Dates are included.
-     *
-     * @param clazz
-     * @return
      */
     public static boolean isPrimitiveOrWrapper(Class<?> clazz) {
 
@@ -271,9 +265,6 @@ public abstract class TypeConversionUtils {
 
     /**
      * Return true iff the parameter is an Array or a Collection.
-     *
-     * @param clazz
-     * @return
      */
     public static boolean isArray(Class<?> clazz) {
 
@@ -282,9 +273,6 @@ public abstract class TypeConversionUtils {
 
     /**
      * Return true iff the parameter is a Map.
-     *
-     * @param clazz
-     * @return
      */
     public static boolean isMap(Class<?> clazz) {
 

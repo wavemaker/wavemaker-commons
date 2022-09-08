@@ -18,22 +18,18 @@ package com.wavemaker.commons.pattern;
  * Created by sunilp on 7/10/15.
  */
 public class DirectoryURLPattern
-        extends URLPattern
-{
+    extends URLPattern {
     private String directoryPatternwithSlash;
     private String directoryPattern;
 
-
-    DirectoryURLPattern(String pattern)
-    {
+    DirectoryURLPattern(String pattern) {
         super(pattern);
         directoryPattern = pattern.substring(0, pattern.length() - 2);
         directoryPatternwithSlash = pattern.substring(0, pattern.length() - 1);
     }
 
     @Override
-    public boolean matches(String requestURI)
-    {
+    public boolean matches(String requestURI) {
         if (requestURI == null || "".equals(requestURI)) {
             return false;
         }
@@ -49,8 +45,7 @@ public class DirectoryURLPattern
         return false;
     }
 
-    public String toString()
-    {
+    public String toString() {
         return "Directory-Pattern: [" + directoryPatternwithSlash + "*]";
     }
 }

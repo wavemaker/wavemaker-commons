@@ -24,7 +24,7 @@ import static org.testng.Assert.assertTrue;
 /**
  * @author Matt Small
  */
-public class SystemUtilsTest{
+public class SystemUtilsTest {
 
     @Test
     public void cipherTest() {

@@ -37,12 +37,10 @@ public abstract class URLPattern {
     public String getPatternString() {
         return patternString;
     }
+
     /**
      * This method, takes a request URI, and checks whether this uri matches this pattern or not. if matches will return
      * true. else returns false.
-     *
-     * @param requestURI
-     * @return
      */
     public abstract boolean matches(String requestURI);
 }

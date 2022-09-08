@@ -32,10 +32,10 @@ import static org.mockito.Mockito.when;
 @RunWith(MockitoJUnitRunner.class)
 public class CoreFilterUtilTest {
 
-    private  List<URLPattern> excludedUrl;
+    private List<URLPattern> excludedUrl;
 
     @Before
-    public  void initializeExcludedUri() {
+    public void initializeExcludedUri() {
         excludedUrl = CoreFilterUtil.extractExcludedUrlsList("/sample/test/url");
     }
 
@@ -44,7 +44,7 @@ public class CoreFilterUtilTest {
         final HttpServletRequest request = mock(HttpServletRequest.class);
         when(request.getRequestURI()).thenReturn("foo/sample/test/url");
         when(request.getContextPath()).thenReturn("foo");
-        Assert.assertTrue(CoreFilterUtil.isExcluded(request,excludedUrl));
+        Assert.assertTrue(CoreFilterUtil.isExcluded(request, excludedUrl));
     }
 
     @Test
@@ -52,6 +52,6 @@ public class CoreFilterUtilTest {
         final HttpServletRequest request = mock(HttpServletRequest.class);
         when(request.getRequestURI()).thenReturn("foo/sample/util/package/url");
         when(request.getContextPath()).thenReturn("foo");
-        Assert.assertFalse(CoreFilterUtil.isExcluded(request,excludedUrl));
+        Assert.assertFalse(CoreFilterUtil.isExcluded(request, excludedUrl));
     }
 }

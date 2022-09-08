@@ -21,7 +21,7 @@ import org.mockito.Mockito;
 
 /**
  * Tests for {@link NoCloseInputStream}.
- * 
+ *
  * @author Phillip Webb
  */
 public class NoCloseInputStreamTest {

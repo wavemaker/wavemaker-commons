@@ -29,10 +29,9 @@ import com.wavemaker.commons.io.exception.ResourceDoesNotExistException;
 /**
  * Base for {@link StoredFile} and {@link StoredFolder}.
  *
+ * @author Phillip Webb
  * @see StoredFile
  * @see StoredFolder
- *
- * @author Phillip Webb
  */
 public abstract class StoredResource implements Resource {
 
@@ -141,7 +140,7 @@ public abstract class StoredResource implements Resource {
 
     @Override
     public boolean isModifiedAfter(long n) {
-        return this.getLastModified() >= n ;
+        return this.getLastModified() >= n;
     }
 
     @Override
@@ -156,13 +155,12 @@ public abstract class StoredResource implements Resource {
 
     @Override
     public boolean isModifiedBefore(long n) {
-        return this.getLastModified() <= n ;
+        return this.getLastModified() <= n;
     }
 
     @Override
     public boolean isModifiedBefore(Resource resource) {
         return this.getLastModified() <= resource.getLastModified();
     }
-
 
 }

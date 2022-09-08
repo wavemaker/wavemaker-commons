@@ -18,15 +18,15 @@ import com.wavemaker.commons.io.Folder;
 
 /**
  * Store for a {@link Folder}.
- * 
- * @see StoredFolder
+ *
  * @author Phillip Webb
+ * @see StoredFolder
  */
 public interface FolderStore extends ResourceStore {
 
     /**
      * List the contents of the folder.
-     * 
+     *
      * @return the folder contents
      */
     Iterable<String> list();

@@ -46,7 +46,7 @@ import static org.mockito.Mockito.verify;
 
 /**
  * Tests for {@link com.wavemaker.commons.io.store.StoredFolder}.
- * 
+ *
  * @author Phillip Webb
  */
 @Ignore
@@ -154,7 +154,7 @@ public class StoredFolderTest {
     public void shouldGetExistingFile() throws Exception {
         this.folder.getFile("a");
         Resource child = this.folder.getExisting("a");
-        assertThat((File)child, is(File.class));
+        assertThat((File) child, is(File.class));
         assertThat(child.getName(), is("a"));
         assertThat(child.toString(), is("/a"));
     }
@@ -163,7 +163,7 @@ public class StoredFolderTest {
     public void shouldGetExistingFolder() throws Exception {
         this.folder.getFolder("a");
         Resource child = this.folder.getExisting("a");
-        assertThat((Folder)child, is(Folder.class));
+        assertThat((Folder) child, is(Folder.class));
         assertThat(child.getName(), is("a"));
         assertThat(child.toString(), is("/a/"));
     }
@@ -223,8 +223,8 @@ public class StoredFolderTest {
         Resource resourceA = iterator.next();
         Resource resourceB = iterator.next();
         assertThat(iterator.hasNext(), is(false));
-        assertThat((Folder)resourceA, is(Folder.class));
-        assertThat((File)resourceB, is(File.class));
+        assertThat((Folder) resourceA, is(Folder.class));
+        assertThat((File) resourceB, is(File.class));
         assertThat(resourceA.toString(), is("/a/"));
         assertThat(resourceB.toString(), is("/b"));
     }
@@ -285,8 +285,8 @@ public class StoredFolderTest {
         Resource resourceA = iterator.next();
         Resource resourceB = iterator.next();
         assertThat(iterator.hasNext(), is(false));
-        assertThat((Folder)resourceA, is(Folder.class));
-        assertThat((File)resourceB, is(File.class));
+        assertThat((Folder) resourceA, is(Folder.class));
+        assertThat((File) resourceB, is(File.class));
         assertThat(resourceA.toString(), is("/a/"));
         assertThat(resourceB.toString(), is("/b"));
     }

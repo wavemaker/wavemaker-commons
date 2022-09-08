@@ -114,16 +114,15 @@ public class Parameter {
         return this;
     }
 
-
     @Override
     public String toString() {
         return "Parameter{" +
-                "name='" + name + '\'' +
-                ", parameterType='" + parameterType + '\'' +
-                ", type='" + type + '\'' +
-                ", required=" + required +
-                ", readOnly=" + readOnly +
-                '}';
+            "name='" + name + '\'' +
+            ", parameterType='" + parameterType + '\'' +
+            ", type='" + type + '\'' +
+            ", required=" + required +
+            ", readOnly=" + readOnly +
+            '}';
     }
 
     @Override

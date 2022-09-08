@@ -42,7 +42,7 @@ public class MockStoredFolder extends StoredFolder {
     }
 
     public MockStoredFolder(JailedResourcePath path, Map<JailedResourcePath, MockStoredFolder> childFolders,
-        Map<JailedResourcePath, MockStoredFile> childFiles) {
+                            Map<JailedResourcePath, MockStoredFile> childFiles) {
         this.childFolders = childFolders;
         this.childFiles = childFiles;
         this.store = mock(FolderStore.class);

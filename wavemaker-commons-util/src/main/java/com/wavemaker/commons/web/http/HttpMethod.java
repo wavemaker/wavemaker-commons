@@ -37,5 +37,4 @@ public enum HttpMethod {
         return requestBodySupported;
     }
 
-
 }

@@ -41,8 +41,8 @@ public class RememberMeConfig {
     @Override
     public String toString() {
         return "RememberMeConfig{" +
-                "enabled=" + enabled +
-                ", tokenValiditySeconds=" + tokenValiditySeconds +
-                '}';
+            "enabled=" + enabled +
+            ", tokenValiditySeconds=" + tokenValiditySeconds +
+            '}';
     }
 }

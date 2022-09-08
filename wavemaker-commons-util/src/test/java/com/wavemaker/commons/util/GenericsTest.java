@@ -44,7 +44,8 @@ public class GenericsTest {
         Method getBoolShortMapMethod = GenericSample.class.getMethod("getBoolShortMap");
         assertEquals(Map.class, getBoolShortMapMethod.getReturnType());
         type = (ParameterizedType) getBoolShortMapMethod.getGenericReturnType();
-        assertEquals(Boolean.class, type.getActualTypeArguments()[0]);assertEquals(Short.class, type.getActualTypeArguments()[1]);
+        assertEquals(Boolean.class, type.getActualTypeArguments()[0]);
+        assertEquals(Short.class, type.getActualTypeArguments()[1]);
 
         Method setStringIntMapMethod = GenericSample.class.getMethod("setStringIntMap", Map.class);
         assertEquals(Map.class, setStringIntMapMethod.getParameterTypes()[0]);

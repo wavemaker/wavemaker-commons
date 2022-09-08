@@ -85,9 +85,9 @@ public class RuntimeProxySettings {
     @Override
     public String toString() {
         return "RuntimeProxySettings{" +
-                "web=" + web +
-                ", mobile=" + mobile +
-                '}';
+            "web=" + web +
+            ", mobile=" + mobile +
+            '}';
     }
 
 }

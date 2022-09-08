@@ -24,7 +24,7 @@ import org.apache.commons.lang3.StringEscapeUtils;
 
 /**
  * API for writing XML.
- * 
+ *
  * @author Simon Toens
  */
 public class XMLWriter {
@@ -95,9 +95,6 @@ public class XMLWriter {
 
     /**
      * Writes DOCTYPE, publicID, privateID. Can only be called before adding any elements.
-     * 
-     * @param publicID
-     * @param privateID
      */
     public void addDoctype(String doctypeName, String publicID, String systemID) {
         if (this.hasElements) {
@@ -334,7 +331,7 @@ public class XMLWriter {
      * Convenience method for passing parent and child text element. The result is<br>
      * &ltelementName&gttextChild&lt/elementName&gt<br>
      * if setTextOnSameLineAsParentElement is set to true on this instance of XMLWriter.<br>
-     * 
+     *
      * Otherwise the result is:<br>
      * &ltelementName&gt<br>
      * textChild<br>

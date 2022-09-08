@@ -27,14 +27,14 @@ import com.wavemaker.commons.json.JSONUtils;
 
 /**
  * Extract's access token from access_token.token path.
- * 
+ *
  * Used in extracting access token for yammer
  * Created by srujant on 29/8/17.
  */
 public class AccessTokenInObjectExtractor implements AccessTokenExtractor {
 
     private static final Logger logger = LoggerFactory.getLogger(AccessTokenInObjectExtractor.class);
-    
+
     @Override
     public String getAccessToken(AccessTokenRequestContext accessTokenRequestContext) {
         String accessToken = null;

@@ -42,7 +42,7 @@ public class EtagFilter extends ShallowEtagHeaderFilter {
 
         if (HttpMethod.GET.name().equals(request.getMethod()) && clientSupportsEtag) {
             etagFilterLogger
-                    .debug("Setting Etag header for request for url {}, user-agent {}", request.getRequestURL(), request.getHeader("User-Agent"));
+                .debug("Setting Etag header for request for url {}, user-agent {}", request.getRequestURL(), request.getHeader("User-Agent"));
             response.setHeader("Cache-Control", "max-age=0"); // HTTP 1.1
             super.doFilterInternal(request, response, filterChain);
         } else {

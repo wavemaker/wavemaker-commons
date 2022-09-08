@@ -14,7 +14,6 @@
  ******************************************************************************/
 package com.wavemaker.commons.io;
 
-
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.BDDMockito;

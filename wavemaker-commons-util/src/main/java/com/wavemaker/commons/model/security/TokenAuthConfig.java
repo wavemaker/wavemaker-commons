@@ -49,9 +49,9 @@ public class TokenAuthConfig {
     @Override
     public String toString() {
         return "TokenAuthConfig{" +
-                "enabled=" + enabled +
-                ", parameter='" + parameter + '\'' +
-                ", tokenValiditySeconds=" + tokenValiditySeconds +
-                '}';
+            "enabled=" + enabled +
+            ", parameter='" + parameter + '\'' +
+            ", tokenValiditySeconds=" + tokenValiditySeconds +
+            '}';
     }
 }

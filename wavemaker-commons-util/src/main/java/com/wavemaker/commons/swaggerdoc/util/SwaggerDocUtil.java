@@ -68,8 +68,9 @@ public class SwaggerDocUtil {
     /**
      * Return Path from the Swagger object based on endPoint
      *
-     * @param swagger : Searches in Swagger Object
+     * @param swagger  : Searches in Swagger Object
      * @param endPoint : search based on endPoint
+     *
      * @return Path
      */
     public static Path getPathByEndPoint(Swagger swagger, String endPoint) {
@@ -84,8 +85,9 @@ public class SwaggerDocUtil {
     /**
      * Return Operation from the Path object based on first occurrence in paths
      *
-     * @param swagger : searches in Swagger Object
+     * @param swagger      : searches in Swagger Object
      * @param operationUid : search based on operationUid
+     *
      * @return path
      */
     public static Path getPathByOperationUid(Swagger swagger, String operationUid) {
@@ -102,8 +104,9 @@ public class SwaggerDocUtil {
     /**
      * Return Operation from the Swagger object based on first occurrence in paths
      *
-     * @param swagger : searches in Swagger Object
+     * @param swagger      : searches in Swagger Object
      * @param operationUid : search based on operationUid
+     *
      * @return Operation
      */
     public static Operation getOperationByUid(Swagger swagger, String operationUid) {
@@ -120,14 +123,15 @@ public class SwaggerDocUtil {
     /**
      * Return Operation from the Swagger object based on operationUid in provided endPoint.
      *
-     * @param swagger : Searches in Swagger Object
-     * @param endPoint :   search operation in this endPoint
+     * @param swagger      : Searches in Swagger Object
+     * @param endPoint     :   search operation in this endPoint
      * @param operationUid : search based on operationUid
+     *
      * @return Operation
      */
     public static Operation getOperation(Swagger swagger, String endPoint, String operationUid) {
         Path path = Objects
-                .requireNonNull(swagger.getPaths().get(endPoint), "Endpoint does not exist with id " + endPoint);
+            .requireNonNull(swagger.getPaths().get(endPoint), "Endpoint does not exist with id " + endPoint);
         for (Operation operation : path.getOperations()) {
             if (operationUid.equals(operation.getOperationId())) {
                 return operation;
@@ -141,6 +145,7 @@ public class SwaggerDocUtil {
      *
      * @param path         : searches in path object
      * @param operationUid : search operation based on this id.
+     *
      * @return method type
      */
     public static String getOperationType(Path path, String operationUid) {
@@ -183,6 +188,7 @@ public class SwaggerDocUtil {
      *
      * @param type   : type of the property
      * @param format : format of the property
+     *
      * @return Property, may returns null if type and format is not based on swagger property.
      */
     public static Property buildProperty(String type, String format) {
@@ -235,7 +241,6 @@ public class SwaggerDocUtil {
     /**
      * Constructs fully qualified name for the give property based on property type and format.
      *
-     * @param property
      * @return fully qualified name for given property,Returns null if type and format is not based on swagger property.
      */
     public static String getWrapperPropertyFQType(Property property) {
@@ -280,7 +285,7 @@ public class SwaggerDocUtil {
             } else if (FILE.equals(formParameter.getType())) {
                 fullyQualifiedType = formParameter.getType();
             } else if (STRING.equals(formParameter.getType()) && ((AbstractParameter) parameter)
-                    .getFullyQualifiedType() != null) {
+                .getFullyQualifiedType() != null) {
                 fullyQualifiedType = ((AbstractParameter) parameter).getFullyQualifiedType();
             }
         } else {
@@ -333,10 +338,10 @@ public class SwaggerDocUtil {
         if (property instanceof ArrayProperty) {
             Property items = ((ArrayProperty) property).getItems();
             if (items instanceof ObjectProperty) {
-                propertyMap.putAll(getPropertiesFromObjectProperty(swagger, (ObjectProperty)items));
+                propertyMap.putAll(getPropertiesFromObjectProperty(swagger, (ObjectProperty) items));
             }
         } else if (property instanceof ObjectProperty) {
-            propertyMap.putAll(getPropertiesFromObjectProperty(swagger, (ObjectProperty)property));
+            propertyMap.putAll(getPropertiesFromObjectProperty(swagger, (ObjectProperty) property));
         } else if (property instanceof RefProperty) {
             final Model model = swagger.getDefinitions().get(((RefProperty) property).getSimpleRef());
             propertyMap.putAll(getProperties(swagger, model));
@@ -356,6 +361,5 @@ public class SwaggerDocUtil {
         }
         return propertyMap;
     }
-
 
 }

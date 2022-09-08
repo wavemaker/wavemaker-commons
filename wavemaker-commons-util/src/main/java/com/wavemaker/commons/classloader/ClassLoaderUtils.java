@@ -86,9 +86,9 @@ public class ClassLoaderUtils {
 
     /**
      * returns the loaded class in the given class loader,returns null if class is not yet loaded
-     * @param cl classLoader to check for
+     *
+     * @param cl        classLoader to check for
      * @param className to check
-     * @return
      */
     public static Class findLoadedClass(ClassLoader cl, String className) throws InvocationTargetException, IllegalAccessException {
         if (cl == null) {
@@ -102,7 +102,7 @@ public class ClassLoaderUtils {
 
         static {
             try {
-                findLoadedClassMethod = ClassLoader.class.getDeclaredMethod("findLoadedClass", new Class[] { String.class });
+                findLoadedClassMethod = ClassLoader.class.getDeclaredMethod("findLoadedClass", new Class[]{String.class});
                 findLoadedClassMethod.setAccessible(true);
             } catch (NoSuchMethodException e) {
                 throw new WMRuntimeException(MessageResource.create("com.wavemaker.commons.failed.to.initialize.class"), e);

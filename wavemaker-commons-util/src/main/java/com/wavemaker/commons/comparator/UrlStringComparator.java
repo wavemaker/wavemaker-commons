@@ -50,11 +50,6 @@ public abstract class UrlStringComparator<T> implements Comparator<T> {
 
     /**
      * compares url tokens delimited by "/" till compareTo finds difference between tokens.
-     *
-     * @param s1Tokens
-     * @param s2Tokens
-     * @param count
-     * @return
      */
     int compareTokens(StringTokenizer s1Tokens, StringTokenizer s2Tokens, int count) {
         for (int i = 0; i <= count; i++) {

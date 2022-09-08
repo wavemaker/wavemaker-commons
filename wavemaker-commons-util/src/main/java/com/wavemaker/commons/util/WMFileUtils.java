@@ -65,7 +65,7 @@ public class WMFileUtils {
         return resource != null && resource.exists();
     }
 
-   public static void renameFile(Resource resource, String newFileName) {
+    public static void renameFile(Resource resource, String newFileName) {
         Path path = WMIOUtils.getJavaIOFile(resource).toPath();
         try {
             Files.move(path, path.resolveSibling(newFileName));

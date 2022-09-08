@@ -50,9 +50,9 @@ public class FrameOptions {
     @Override
     public String toString() {
         return "FrameOptions{" +
-                "mode=" + mode +
-                ", allowFromUrl='" + allowFromUrl + '\'' +
-                '}';
+            "mode=" + mode +
+            ", allowFromUrl='" + allowFromUrl + '\'' +
+            '}';
     }
 
     public enum Mode {

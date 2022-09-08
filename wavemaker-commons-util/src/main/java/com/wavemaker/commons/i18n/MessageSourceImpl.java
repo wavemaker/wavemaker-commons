@@ -44,6 +44,6 @@ public class MessageSourceImpl implements MessageSource {
     public String getMessage(MessageSourceResolvable resolvable, Locale locale) throws NoSuchMessageException {
         MessageResource messageResource = MessageResource.create(Arrays.toString(resolvable.getCodes()));
         return localeMessageProvider.getLocaleMessage(defaultLocaleProvider.getLocales(), messageResource, messageResource.getMessageKey(), resolvable
-                .getArguments());
+            .getArguments());
     }
 }

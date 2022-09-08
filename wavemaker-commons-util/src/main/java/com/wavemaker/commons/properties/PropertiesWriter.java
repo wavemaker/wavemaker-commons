@@ -107,7 +107,6 @@ public class PropertiesWriter {
         }
     }
 
-
     protected Properties sort() {
         if (sortProperties) {
             Properties sortedProperties = new SortedProperties();
@@ -140,8 +139,6 @@ public class PropertiesWriter {
     /**
      * This api use apache commons property configuration to persist properties into file
      * and this api will avoid writing current date as comment into property file.
-     *
-     * @param os
      */
     protected void storeSansDate(OutputStream os) {
         PropertiesConfiguration configuration = new PropertiesConfiguration();

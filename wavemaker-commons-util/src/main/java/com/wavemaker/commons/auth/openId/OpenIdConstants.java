@@ -49,5 +49,4 @@ public class OpenIdConstants {
 
     public static final String REDIRECT_PAGE = "redirectPage";
 
-
 }

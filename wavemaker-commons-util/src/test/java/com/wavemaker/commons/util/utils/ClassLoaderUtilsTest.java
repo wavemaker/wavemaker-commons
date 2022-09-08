@@ -33,5 +33,4 @@ public class ClassLoaderUtilsTest {
         assertEquals(aClass, Car.class);
     }
 
-
 }

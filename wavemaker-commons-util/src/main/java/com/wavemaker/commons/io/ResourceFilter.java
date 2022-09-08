@@ -16,12 +16,11 @@ package com.wavemaker.commons.io;
 
 /**
  * A filter used to restrict {@link Resource}s.
- * 
+ *
+ * @author Phillip Webb
  * @see FilterOn
  * @see Resources#include(ResourceIncludeFilter)
  * @see Resources#exclude(ResourceIncludeFilter)
- * 
- * @author Phillip Webb
  */
 public interface ResourceFilter {
 

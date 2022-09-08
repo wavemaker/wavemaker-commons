@@ -28,7 +28,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
  */
 @XmlRootElement(name = "errors")
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class ErrorResponses  {
+public class ErrorResponses {
 
     private List<ErrorResponse> error;
 

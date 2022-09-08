@@ -21,7 +21,6 @@ import org.springframework.http.MediaType;
  */
 public abstract class MediaTypeBasedAccessTokenExtractor implements AccessTokenExtractor {
 
-
     protected abstract boolean canRead(MediaType mediaType);
 
     protected abstract String obtainAccessToken(AccessTokenRequestContext accessTokenRequestContext);

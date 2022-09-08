@@ -44,7 +44,7 @@ public abstract class AbstractFileContent implements FileContent {
     public String asString() {
         Reader reader = null;
         try {
-             reader = asReader();
+            reader = asReader();
             return IOUtils.toString(reader);
         } catch (IOException e) {
             throw new ResourceException(e);

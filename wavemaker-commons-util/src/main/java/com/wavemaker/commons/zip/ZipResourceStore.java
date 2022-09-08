@@ -50,7 +50,7 @@ import com.wavemaker.commons.util.WMIOUtils;
 
 /**
  * {@link ResourceStore}s for {@link ZipFile} and {@link ZipArchive}.
- * 
+ *
  * @author Phillip Webb
  */
 abstract class ZipResourceStore implements ResourceStore {
@@ -148,7 +148,7 @@ abstract class ZipResourceStore implements ResourceStore {
 
     /**
      * create a new {@link ReadOnlyResourceException} that should be thrown on any write operations.
-     * 
+     *
      * @return the ReadOnlyResourceException exception to throw
      */
     protected final ReadOnlyResourceException createReadOnlyException() {
@@ -236,10 +236,10 @@ abstract class ZipResourceStore implements ResourceStore {
 
         /**
          * Get {@link ZipFileDetailsEntry} for the specified key. This method will never return null.
-         * 
+         *
          * @param path the path to find
+         *
          * @return the {@link ZipFileDetailsEntry}
-         * @throws IOException
          */
         private ZipFileDetailsEntry getEntry(JailedResourcePath path) {
             return getEntry(path, true);
@@ -247,11 +247,11 @@ abstract class ZipResourceStore implements ResourceStore {
 
         /**
          * Get {@link ZipFileDetailsEntry} for the specified key if it exists.
-         * 
-         * @param path the path to find
+         *
+         * @param path     the path to find
          * @param required if the entry must exist
+         *
          * @return the {@link ZipFileDetailsEntry}
-         * @throws IOException
          */
         private ZipFileDetailsEntry getEntry(JailedResourcePath path, boolean required) {
             if (isUnderlyingZipFileChanged()) {
@@ -271,12 +271,12 @@ abstract class ZipResourceStore implements ResourceStore {
 
         /**
          * Determine if the underlying zip file has changed.
-         * 
+         *
          * @return if the underlying file has changed.
          */
         private boolean isUnderlyingZipFileChanged() {
             return !this.loadedAtLeastOnce || this.size != this.file
-                    .getSize() || this.lastModified != this.file.getLastModified();
+                .getSize() || this.lastModified != this.file.getLastModified();
         }
 
         private void reloadZipFile() throws IOException {
@@ -293,8 +293,6 @@ abstract class ZipResourceStore implements ResourceStore {
 
         /**
          * Add entries from the zip file.
-         * 
-         * @throws IOException
          */
         private void addZipEntries() throws IOException {
             ZipInputStream zipInputStream = openZipInputStream();

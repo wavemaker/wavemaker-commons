@@ -25,7 +25,6 @@ public class RawStringWrapper {
 
     private final String value;
 
-
     public RawStringWrapper(final String value) {
         this.value = value;
     }

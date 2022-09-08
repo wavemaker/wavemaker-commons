@@ -31,7 +31,6 @@ public class WMJacksonModule extends Module {
         this.failOnCircularReferences = failOnCircularReferences;
     }
 
-
     @Override
     public String getModuleName() {
         return "wm_module";

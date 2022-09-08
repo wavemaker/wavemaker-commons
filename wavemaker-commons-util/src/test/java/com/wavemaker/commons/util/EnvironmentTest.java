@@ -18,7 +18,7 @@ import org.testng.annotations.Test;
 
 /**
  * Used to debug CC failures. Prints out some information about the environment of this test run.
- * 
+ *
  * @author Matt Small
  */
 public class EnvironmentTest {

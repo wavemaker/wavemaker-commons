@@ -41,7 +41,7 @@ public class TempFilesStorageManagerTest {
 
     @Test
     public void testGetFileName() {
-        Assert.assertEquals(tempFilesStorageManager.getFileName(fileId),"sample.txt");
+        Assert.assertEquals(tempFilesStorageManager.getFileName(fileId), "sample.txt");
     }
 
     @Test

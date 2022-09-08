@@ -19,7 +19,7 @@ import com.wavemaker.commons.WMRuntimeException;
 
 /**
  * {@link RuntimeException} used to wrap {@link Resource} {@link Exception}s.
- * 
+ *
  * @author Phillip Webb
  */
 public class ResourceException extends WMRuntimeException {

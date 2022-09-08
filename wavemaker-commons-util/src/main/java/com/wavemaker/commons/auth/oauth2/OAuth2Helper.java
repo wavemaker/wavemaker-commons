@@ -47,20 +47,20 @@ public class OAuth2Helper {
     }
 
     /**
-    * Build the authorizationUrl of the oauth2 provider using {@link OAuth2ProviderConfig}. Adds <CODE>redirectUrl</CODE>,
-    *  <CODE> state </CODE> and <CODE>response_type</CODE> query parameters to authorizationUrl.
-    * */
+     * Build the authorizationUrl of the oauth2 provider using {@link OAuth2ProviderConfig}. Adds <CODE>redirectUrl</CODE>,
+     * <CODE> state </CODE> and <CODE>response_type</CODE> query parameters to authorizationUrl.
+     */
     public static String getAuthorizationUrl(OAuth2ProviderConfig oAuth2ProviderConfig, String redirectUrl, String state) {
         String scope = getScopeValue(oAuth2ProviderConfig);
         String encodedState = new String(Base64.getEncoder().encode(state.getBytes()));
         String authorizationUrl = oAuth2ProviderConfig.getAuthorizationUrl();
         String queryParamDelimiter = authorizationUrl.contains("?") ? "&" : "?";
         StringBuilder sb = new StringBuilder(authorizationUrl)
-                .append(queryParamDelimiter)
-                .append(OAuth2Constants.CLIENT_ID).append("=").append(oAuth2ProviderConfig.getClientId())
-                .append("&").append(OAuth2Constants.REDIRECT_URI).append("=").append(redirectUrl)
-                .append("&").append(OAuth2Constants.RESPONSE_TYPE).append("=code")
-                .append("&").append(OAuth2Constants.STATE).append("=").append(encodedState);
+            .append(queryParamDelimiter)
+            .append(OAuth2Constants.CLIENT_ID).append("=").append(oAuth2ProviderConfig.getClientId())
+            .append("&").append(OAuth2Constants.REDIRECT_URI).append("=").append(redirectUrl)
+            .append("&").append(OAuth2Constants.RESPONSE_TYPE).append("=code")
+            .append("&").append(OAuth2Constants.STATE).append("=").append(encodedState);
         if (StringUtils.isNotBlank(scope)) {
             sb.append("&").append(OAuth2Constants.SCOPE).append("=").append(scope);
         }
@@ -68,9 +68,9 @@ public class OAuth2Helper {
     }
 
     /**
-    * Decodes jsonString {@param stateParameter} and deserializes the jsonString to Map.
-    * Deserialization os jsonString {@param stateParameter} to Map.
-    * */
+     * Decodes jsonString {@param stateParameter} and deserializes the jsonString to Map.
+     * Deserialization os jsonString {@param stateParameter} to Map.
+     */
     public static Map<String, String> getStateObject(String stateParameter) {
         String stateParam = new String(Base64.getDecoder().decode(stateParameter));
         try {
@@ -81,20 +81,19 @@ public class OAuth2Helper {
     }
 
     /**
-    * Creates a encoded json string representation of {@param stateObject} ( Serializtion of stateObject map to json string).
-    * */
+     * Creates a encoded json string representation of {@param stateObject} ( Serializtion of stateObject map to json string).
+     */
     public static String getStateParameterValue(Map<String, String> stateObject) {
         String stateParameter = JSONUtils.toJSON(stateObject);
         return new String(Base64.getEncoder().encode(stateParameter.getBytes()));
     }
 
-
     public static String getAccessTokenApiRequestBody(OAuth2ProviderConfig oAuth2ProviderConfig, String code, String redirectUri) {
         return new StringBuilder(OAuth2Constants.CLIENT_ID).append("=").append(oAuth2ProviderConfig.getClientId())
-                .append("&").append(OAuth2Constants.CLIENT_SECRET).append("=").append(oAuth2ProviderConfig.getClientSecret())
-                .append("&").append(OAuth2Constants.CODE).append("=").append(code)
-                .append("&").append(OAuth2Constants.REDIRECT_URI).append("=").append(redirectUri)
-                .append("&").append(OAuth2Constants.GRANT_TYPE).append("=authorization_code").toString();
+            .append("&").append(OAuth2Constants.CLIENT_SECRET).append("=").append(oAuth2ProviderConfig.getClientSecret())
+            .append("&").append(OAuth2Constants.CODE).append("=").append(code)
+            .append("&").append(OAuth2Constants.REDIRECT_URI).append("=").append(redirectUri)
+            .append("&").append(OAuth2Constants.GRANT_TYPE).append("=authorization_code").toString();
     }
 
     public static String extractAccessToken(AccessTokenRequestContext accessTokenRequestContext) {

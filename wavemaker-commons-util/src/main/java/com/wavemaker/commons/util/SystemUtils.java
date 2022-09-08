@@ -19,7 +19,7 @@ package com.wavemaker.commons.util;
  */
 public abstract class SystemUtils {
 
-    private static final byte[] KEY = { 12, 7, 28, 127, 97, 69, 77, 122, 11 };
+    private static final byte[] KEY = {12, 7, 28, 127, 97, 69, 77, 122, 11};
 
     private static final String ENCRYPTED_PREFIX = "wm_-+";
 
@@ -128,7 +128,7 @@ public abstract class SystemUtils {
 
     /**
      * Get the native line separator.
-     * 
+     *
      * @return The property line.separator as a String.
      */
     public static String getLineBreak() {

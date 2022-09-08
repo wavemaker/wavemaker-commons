@@ -24,7 +24,7 @@ import com.wavemaker.commons.util.FileValidationUtils;
 
 /**
  * Exposes a class-path resource as a read-only {@link File}.
- * 
+ *
  * @author Phillip Webb
  */
 public class ClassPathFile extends AbstractReadOnlyFile {
@@ -35,7 +35,7 @@ public class ClassPathFile extends AbstractReadOnlyFile {
 
     /**
      * Create a new {@link ClassPathFile} instance.
-     * 
+     *
      * @param path the path of the resource
      */
     public ClassPathFile(String path) {
@@ -44,9 +44,9 @@ public class ClassPathFile extends AbstractReadOnlyFile {
 
     /**
      * Create a new {@link ClassPathFile} instance.
-     * 
+     *
      * @param classLoader a {@link ClassLoader} or <tt>null</tt> to use the default
-     * @param path the path of the resource
+     * @param path        the path of the resource
      */
     public ClassPathFile(ClassLoader classLoader, String path) {
         this.path = new ResourcePath().get(path);
@@ -55,9 +55,9 @@ public class ClassPathFile extends AbstractReadOnlyFile {
 
     /**
      * Create a new {@link ClassPathFile} instance.
-     * 
+     *
      * @param sourceClass the source class used to load the resource
-     * @param path the path of the resource (relative to the sourceClass)
+     * @param path        the path of the resource (relative to the sourceClass)
      */
     public ClassPathFile(Class<?> sourceClass, String path) {
         Assert.notNull(sourceClass, "SourceClass must not be null");
@@ -90,7 +90,7 @@ public class ClassPathFile extends AbstractReadOnlyFile {
 
     @Override
     public boolean isModifiedAfter(long n) {
-        return this.getLastModified() >= n ;
+        return this.getLastModified() >= n;
     }
 
     @Override

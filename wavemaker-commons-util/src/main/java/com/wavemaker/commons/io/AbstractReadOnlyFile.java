@@ -28,7 +28,7 @@ import com.wavemaker.commons.util.WMIOUtils;
 /**
  * Abstract base class for read-only {@link File} implementations that are not contained in any {@link #getParent()
  * parent} {@link Folder}.
- * 
+ *
  * @author Phillip Webb
  */
 public abstract class AbstractReadOnlyFile implements File {
@@ -44,7 +44,6 @@ public abstract class AbstractReadOnlyFile implements File {
         public OutputStream asOutputStream(boolean append) {
             throw newReadOnlyResourceException();
         }
-
 
         @Override
         public InputStream asInputStream() {
@@ -153,14 +152,14 @@ public abstract class AbstractReadOnlyFile implements File {
 
     /**
      * Return the input stream for the contents of the File or <tt>null</tt> if the file does not exist.
-     * 
+     *
      * @return the {@link InputStream} or <tt>null</tt>
      */
     protected abstract InputStream getInputStream();
 
     /**
      * Return the {@link ReadOnlyResourceException} that should be thrown on error.
-     * 
+     *
      * @return the exception
      */
     protected ReadOnlyResourceException newReadOnlyResourceException() {

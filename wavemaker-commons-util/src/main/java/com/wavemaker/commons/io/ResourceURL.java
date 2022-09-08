@@ -32,7 +32,7 @@ import com.wavemaker.commons.io.exception.ResourceTypeMismatchException;
  * Factory class that can be used to construct a {@link URL} for a given {@link Resource}. The {@link URL}s returned
  * from this class can be used to access file content using the {@link URL#openStream()} method, however, the URL cannot
  * be serialized. URLs can be used with a {@link URLClassLoader}.
- * 
+ *
  * @author Phillip Webb
  */
 public abstract class ResourceURL {
@@ -44,10 +44,10 @@ public abstract class ResourceURL {
 
     /**
      * Get a URL for the given {@link Resource}.
-     * 
+     *
      * @param resource the resource
+     *
      * @return a URL for the resource
-     * @throws MalformedURLException
      */
     public static URL get(Resource resource) throws MalformedURLException {
         return get(resource, false);
@@ -55,11 +55,11 @@ public abstract class ResourceURL {
 
     /**
      * Get a URL for the given {@link Resource}.
-     * 
-     * @param resource the resource
+     *
+     * @param resource   the resource
      * @param nonLocking if the URL should protect against file locking
+     *
      * @return a URL for the resource
-     * @throws MalformedURLException
      */
     public static URL get(Resource resource, boolean nonLocking) throws MalformedURLException {
         String spec = getSpec(resource);
@@ -69,10 +69,8 @@ public abstract class ResourceURL {
 
     /**
      * Get a {@link List} of {@link URL}s for the given {@link Resource}s.
-     * 
-     * @param resources
+     *
      * @return a list of URLs for the resource
-     * @throws MalformedURLException
      */
     public static List<URL> getForResources(Iterable<? extends Resource> resources) throws MalformedURLException {
         return getForResources(resources, false);
@@ -80,11 +78,10 @@ public abstract class ResourceURL {
 
     /**
      * Get a {@link List} of {@link URL}s for the given {@link Resource}s.
-     * 
-     * @param resources
+     *
      * @param nonLocking if the URL should protect against file locking
+     *
      * @return a list of URLs for the resource
-     * @throws MalformedURLException
      */
     public static List<URL> getForResources(Iterable<? extends Resource> resources, boolean nonLocking) throws MalformedURLException {
         List<URL> urls = new ArrayList<>();

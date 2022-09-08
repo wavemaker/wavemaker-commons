@@ -36,10 +36,9 @@ import com.wavemaker.commons.io.exception.ResourceDoesNotExistException;
  * interface to provide a full {@link Folder} implementation. Subclasses must provide a suitable {@link FolderStore}
  * implementation via the {@link #getStore()} method.
  *
+ * @author Phillip Webb
  * @see FolderStore
  * @see StoredFile
- *
- * @author Phillip Webb
  */
 public abstract class StoredFolder extends StoredResource implements Folder {
 

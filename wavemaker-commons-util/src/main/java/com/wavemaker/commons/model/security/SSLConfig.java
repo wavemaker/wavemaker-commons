@@ -51,8 +51,8 @@ public class SSLConfig {
     @Override
     public String toString() {
         return "SSLConfig{" +
-                "sslPort='" + sslPort + '\'' +
-                ", useSSL=" + useSSL +
-                '}';
+            "sslPort='" + sslPort + '\'' +
+            ", useSSL=" + useSSL +
+            '}';
     }
 }

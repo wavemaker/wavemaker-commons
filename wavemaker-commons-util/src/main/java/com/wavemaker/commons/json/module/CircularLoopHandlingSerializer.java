@@ -41,7 +41,7 @@ import com.fasterxml.jackson.databind.util.NameTransformer;
  * @since 3/10/18
  */
 public class CircularLoopHandlingSerializer<T> extends JsonSerializer<T> implements ResolvableSerializer,
-        ContextualSerializer {
+    ContextualSerializer {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(CircularLoopHandlingSerializer.class);
     /**
@@ -52,16 +52,14 @@ public class CircularLoopHandlingSerializer<T> extends JsonSerializer<T> impleme
     private final BeanSerializerBase delegate;
     private final boolean failOnCircularReferences;
 
-
     public CircularLoopHandlingSerializer(final BeanSerializerBase delegate, final boolean failOnCircularReferences) {
         this.delegate = delegate;
         this.failOnCircularReferences = failOnCircularReferences;
     }
 
-
     @Override
     public void serialize(
-            final T value, final JsonGenerator gen, final SerializerProvider serializers) throws IOException {
+        final T value, final JsonGenerator gen, final SerializerProvider serializers) throws IOException {
         LOGGER.debug("Serialization started for :{}", value.getClass());
 
         if (hasCyclicReference(value) && !delegate.usesObjectId()) {
@@ -80,7 +78,7 @@ public class CircularLoopHandlingSerializer<T> extends JsonSerializer<T> impleme
 
     @Override
     public JsonSerializer<?> createContextual(
-            final SerializerProvider prov, final BeanProperty property) throws JsonMappingException {
+        final SerializerProvider prov, final BeanProperty property) throws JsonMappingException {
         final JsonSerializer<?> contextual = delegate.createContextual(prov, property);
         return wrapIfNeeded(contextual);
     }
@@ -107,8 +105,8 @@ public class CircularLoopHandlingSerializer<T> extends JsonSerializer<T> impleme
 
     @Override
     public void serializeWithType(
-            final T value, final JsonGenerator gen, final SerializerProvider serializers,
-            final TypeSerializer typeSer) throws IOException {
+        final T value, final JsonGenerator gen, final SerializerProvider serializers,
+        final TypeSerializer typeSer) throws IOException {
         delegate.serializeWithType(value, gen, serializers, typeSer);
     }
 
@@ -149,10 +147,9 @@ public class CircularLoopHandlingSerializer<T> extends JsonSerializer<T> impleme
 
     @Override
     public void acceptJsonFormatVisitor(
-            final JsonFormatVisitorWrapper visitor, final JavaType type) throws JsonMappingException {
+        final JsonFormatVisitorWrapper visitor, final JavaType type) throws JsonMappingException {
         delegate.acceptJsonFormatVisitor(visitor, type);
     }
-
 
     public void notifyStartSerialization(Object value) {
         getObjectRefStack().push(value);
@@ -168,24 +165,24 @@ public class CircularLoopHandlingSerializer<T> extends JsonSerializer<T> impleme
         }
     }
 
-
     /**
      * Check for the cycle in object serialization stack. It ignores Self references as they are handled separately.
      *
      * @param value to be check for cycle.
+     *
      * @return true when value in serialization reference stack and not as top value else false
      */
     public boolean hasCyclicReference(Object value) {
         // ignores self references,
         return (!getObjectRefStack().isEmpty() && !getObjectRefStack().getFirst().equals(value)) &&
-                getObjectRefStack().contains(value);
+            getObjectRefStack().contains(value);
     }
 
     public void handleCyclicReference(final JsonGenerator jgen, SerializerProvider provider) throws IOException {
         String refStack = printableRefStack();
         if (failOnCircularReferences) {
             throw new JsonMappingException(jgen,
-                    "Cyclic-reference leading to cycle, Object Reference Stack:" + refStack);
+                "Cyclic-reference leading to cycle, Object Reference Stack:" + refStack);
         }
         // else serializing as NULL.
         provider.defaultSerializeValue(null, jgen);
@@ -212,7 +209,7 @@ public class CircularLoopHandlingSerializer<T> extends JsonSerializer<T> impleme
 
     private JsonSerializer wrapIfNeeded(JsonSerializer serializer) {
         return serializer instanceof BeanSerializerBase ?
-                new CircularLoopHandlingSerializer<>((BeanSerializerBase) serializer, failOnCircularReferences)
-                : serializer;
+            new CircularLoopHandlingSerializer<>((BeanSerializerBase) serializer, failOnCircularReferences)
+            : serializer;
     }
 }

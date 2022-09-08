@@ -175,6 +175,7 @@ public abstract class StringUtils {
      * USER_ID -> userId
      *
      * @param inputString string to convert
+     *
      * @return java field identifier
      */
     public static String toFieldName(String inputString) {
@@ -201,7 +202,6 @@ public abstract class StringUtils {
         }
         return result.toString();
     }
-
 
     public static boolean hasUpperCase(String s) {
         for (int i = 0; i < s.length(); i++) {
@@ -250,7 +250,7 @@ public abstract class StringUtils {
     }
 
     public static String toJavaIdentifier(
-            String s, CharSequence prefixReplacementChar, char replacementChar, boolean checkKeyword) {
+        String s, CharSequence prefixReplacementChar, char replacementChar, boolean checkKeyword) {
 
         if (org.apache.commons.lang3.StringUtils.isBlank(s)) {
             throw new IllegalArgumentException("input cannot be null or empty");
@@ -272,7 +272,7 @@ public abstract class StringUtils {
         StringBuilder rtn = new StringBuilder();
 
         if ((checkKeyword && (JAVA_KEYWORDS.contains(s.toLowerCase()) || HQL_KEYWORDS.contains(s.toLowerCase()))) ||
-                !Character.isJavaIdentifierStart(s.charAt(0))) {
+            !Character.isJavaIdentifierStart(s.charAt(0))) {
             rtn.append(prefixReplacementChar);
         }
 
@@ -480,7 +480,7 @@ public abstract class StringUtils {
             return null;
         }
         if (s.startsWith("'") && s.endsWith("'") || s.startsWith("\"") && s.endsWith("\"") || s.startsWith("`") && s
-                .endsWith("`")) {
+            .endsWith("`")) {
             s = s.substring(1, s.length() - 1);
         }
         return s;
@@ -492,10 +492,8 @@ public abstract class StringUtils {
      * "original" string contains no occurrences of "from", "original" is itself returned, rather than a copy.
      *
      * @param original the original String
-     * @param from the String to replace within "original"
-     * @param to the String to replace "from" with
-     * @returns a version of "original" with all occurrences of the "from" parameter being replaced with the "to"
-     * parameter.
+     * @param from     the String to replace within "original"
+     * @param to       the String to replace "from" with
      */
     public static String replacePlainStr(String original, String from, String to) {
         int from_length = from.length();
@@ -545,9 +543,6 @@ public abstract class StringUtils {
 
     /**
      * Removes LF/CR and white spaces
-     *
-     * @param inputString
-     * @return
      */
     public static String removeLineFeed(String inputString) {
         StringBuilder stringBuilder = new StringBuilder();

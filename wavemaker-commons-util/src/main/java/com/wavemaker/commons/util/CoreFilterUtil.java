@@ -22,7 +22,6 @@ import javax.servlet.http.HttpServletRequest;
 
 import com.wavemaker.commons.pattern.URLPattern;
 
-
 /**
  * Created by sunilp on 7/10/15.
  */
@@ -39,12 +38,11 @@ public class CoreFilterUtil {
                 excludedUrlsList.add(URLPattern.constructPattern(tokenizer.nextToken().trim()));
             }
         }
-        return  excludedUrlsList;
+        return excludedUrlsList;
     }
 
-    public static boolean isExcluded(HttpServletRequest request, List<URLPattern> excludedUrls)
-    {
-        if(excludedUrls != null && !excludedUrls.isEmpty()) {
+    public static boolean isExcluded(HttpServletRequest request, List<URLPattern> excludedUrls) {
+        if (excludedUrls != null && !excludedUrls.isEmpty()) {
             String requestUri = request.getRequestURI();
             String requestPath = requestUri.substring(request.getContextPath().length());
             for (URLPattern urlPattern : excludedUrls) {

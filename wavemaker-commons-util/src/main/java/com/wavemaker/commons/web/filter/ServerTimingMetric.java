@@ -58,11 +58,11 @@ public class ServerTimingMetric {
         if (val == null) {
             throw new IllegalArgumentException(val);
         }
-        String s=val.trim();
+        String s = val.trim();
         String[] strings = s.split(";");
         String name = null;
-        Long processingTime=null;
-        String description=null;
+        Long processingTime = null;
+        String description = null;
         for (String str : strings) {
             str = str.trim();
             String[] split = str.split("=");
@@ -71,9 +71,9 @@ public class ServerTimingMetric {
                     throw new IllegalArgumentException(val);
                 }
                 name = split[0].trim();
-            } else if (split.length == 2){
+            } else if (split.length == 2) {
                 String key = split[0].trim();
-                String value=split[1].trim();
+                String value = split[1].trim();
                 if ("dur".equals(key)) {
                     processingTime = Long.parseLong(value);
                 } else if ("desc".equals(key)) {
@@ -120,8 +120,8 @@ public class ServerTimingMetric {
         }
         ServerTimingMetric that = (ServerTimingMetric) o;
         return Objects.equals(name, that.name) &&
-                Objects.equals(processingTime, that.processingTime) &&
-                Objects.equals(description, that.description);
+            Objects.equals(processingTime, that.processingTime) &&
+            Objects.equals(description, that.description);
     }
 
     @Override

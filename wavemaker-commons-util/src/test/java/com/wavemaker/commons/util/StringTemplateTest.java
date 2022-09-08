@@ -31,7 +31,7 @@ public class StringTemplateTest {
     public void testSubstitute() throws Exception {
 
         StringTemplate t1 = new StringTemplate(
-                "${this} is a ${test} of the ${foo} bar=${bar} ${emergency.broadcasting.system}");
+            "${this} is a ${test} of the ${foo} bar=${bar} ${emergency.broadcasting.system}");
         Map<String, String> m = new HashMap<>();
         m.put("this", "*This*");
         m.put("test", "*TEST*");
@@ -46,8 +46,8 @@ public class StringTemplateTest {
     public void testSubstituteWithOptional() throws Exception {
 
         StringTemplate t1 = new StringTemplate(
-                "${this[this is optional]} is a ${test[again ${test} and ${this}]} of the ${foo} bar=${bar} " +
-                        "${emergency.broadcasting.system[this wont be print]}");
+            "${this[this is optional]} is a ${test[again ${test} and ${this}]} of the ${foo} bar=${bar} " +
+                "${emergency.broadcasting.system[this wont be print]}");
         Map<String, String> m = new HashMap<>();
         m.put("this", "*This*");
         m.put("test", "*TEST*");
@@ -61,7 +61,7 @@ public class StringTemplateTest {
     public void testSubstituteWithSetNull() throws Exception {
 
         StringTemplate t1 = new StringTemplate(
-                "${this} is a ${test} of the ${foo} bar=${bar} ${emergency.broadcasting.system}", true);
+            "${this} is a ${test} of the ${foo} bar=${bar} ${emergency.broadcasting.system}", true);
         Map<String, String> m = new HashMap<>();
         m.put("this", "*This*");
         m.put("test", "*TEST*");
@@ -76,8 +76,8 @@ public class StringTemplateTest {
     public void testSubstituteWithOptionalAndSetEmpty() throws Exception {
 
         StringTemplate t1 = new StringTemplate(
-                "${this[this is optional]} is a ${test[again ${test} and ${this}]} of the ${foo} bar=${bar} " +
-                        "${emergency.broadcasting.system[this should not print]}", true);
+            "${this[this is optional]} is a ${test[again ${test} and ${this}]} of the ${foo} bar=${bar} " +
+                "${emergency.broadcasting.system[this should not print]}", true);
         Map<String, String> m = new HashMap<>();
         m.put("this", "*This*");
         m.put("test", "*TEST*");

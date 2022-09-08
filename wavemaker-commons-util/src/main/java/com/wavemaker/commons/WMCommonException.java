@@ -14,7 +14,8 @@
  ******************************************************************************/
 package com.wavemaker.commons;
 
-/**N
+/**
+ * N
  * Created by prakashb on 27/7/18.
  */
 public interface WMCommonException {

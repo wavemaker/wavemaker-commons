@@ -14,7 +14,6 @@
  ******************************************************************************/
 package com.wavemaker.commons.model.security;
 
-
 /**
  * Created by srujant on 5/7/17.
  */

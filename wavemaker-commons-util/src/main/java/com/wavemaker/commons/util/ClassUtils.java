@@ -20,7 +20,7 @@ import com.wavemaker.commons.WMRuntimeException;
 
 /**
  * Utility methods that work with Class instances (see ObjectUtils, as well).
- * 
+ *
  * @author Matt Small
  */
 public class ClassUtils {

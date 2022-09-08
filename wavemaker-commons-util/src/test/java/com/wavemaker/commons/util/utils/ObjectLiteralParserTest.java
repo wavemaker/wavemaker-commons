@@ -27,7 +27,7 @@ import static org.testng.Assert.assertTrue;
 /**
  * @author Simon Toens
  */
-public class ObjectLiteralParserTest  {
+public class ObjectLiteralParserTest {
 
     public static class City {
 
@@ -99,30 +99,35 @@ public class ObjectLiteralParserTest  {
             this.number = number;
         }
     }
+
     @Test
     public void simple0Test() {
         ObjectLiteralParser p = new ObjectLiteralParser("{}", A.class.getName());
         A a = (A) p.parse();
         assertTrue(a != null);
     }
+
     @Test
     public void simple1Test() {
         ObjectLiteralParser p = new ObjectLiteralParser("{foo:test}", A.class.getName());
         A a = (A) p.parse();
         assertTrue(a.foo.equals("test"));
     }
+
     @Test
     public void spaceInValueTest() {
         ObjectLiteralParser p = new ObjectLiteralParser("{foo:t e s t}", A.class.getName());
         A a = (A) p.parse();
         assertTrue(a.foo.equals("t e s t"));
     }
+
     @Test
     public void space2InValueTest() {
         ObjectLiteralParser p = new ObjectLiteralParser("{foo:' t e s t '}", A.class.getName());
         A a = (A) p.parse();
         assertTrue(a.foo.equals(" t e s t "));
     }
+
     @Test
     public void simple2Test() {
         ObjectLiteralParser p = new ObjectLiteralParser("{foo:test, blah:test2}", A.class.getName());
@@ -130,6 +135,7 @@ public class ObjectLiteralParserTest  {
         assertTrue(a.foo.equals("test"));
         assertTrue(a.blah.equals("test2"));
     }
+
     @Test
     public void simple3Test() {
         ObjectLiteralParser p = new ObjectLiteralParser("{foo:'test', blah:\"test2\"}", A.class.getName());
@@ -137,6 +143,7 @@ public class ObjectLiteralParserTest  {
         assertTrue(a.foo.equals("test"));
         assertTrue(a.blah.equals("test2"));
     }
+
     @Test
     public void simple4Test() {
         ObjectLiteralParser p = new ObjectLiteralParser("{  foo: 'test' , blah : \"test2\"  }", A.class.getName());
@@ -144,12 +151,14 @@ public class ObjectLiteralParserTest  {
         assertTrue(a.foo.equals("test"));
         assertTrue(a.blah.equals("test2"));
     }
+
     @Test
     public void nested1Test() {
         ObjectLiteralParser p = new ObjectLiteralParser("{self:{foo:test}}", A.class.getName());
         A a = (A) p.parse();
         assertTrue(a.self.foo.equals("test"));
     }
+
     @Test
     public void nested2Test() {
         ObjectLiteralParser p = new ObjectLiteralParser("{foo:foo1, self:{foo:test}}", A.class.getName());
@@ -157,6 +166,7 @@ public class ObjectLiteralParserTest  {
         assertTrue(a.foo.equals("foo1"));
         assertTrue(a.self.foo.equals("test"));
     }
+
     @Test
     public void nested3Test() {
         ObjectLiteralParser p = new ObjectLiteralParser("{foo:foo1, self:{foo:test},blah:blah2}", A.class.getName());
@@ -165,6 +175,7 @@ public class ObjectLiteralParserTest  {
         assertTrue(a.blah.equals("blah2"));
         assertTrue(a.self.foo.equals("test"));
     }
+
     @Test
     public void nested4Test() {
         ObjectLiteralParser p = new ObjectLiteralParser("{foo:foo1, self:{foo:test}," + "blah:blah2,foo:foo2}", A.class.getName());
@@ -173,6 +184,7 @@ public class ObjectLiteralParserTest  {
         assertTrue(a.blah.equals("blah2"));
         assertTrue(a.self.foo.equals("test"));
     }
+
     @Test
     public void test2Nested1() {
         ObjectLiteralParser p = new ObjectLiteralParser("{foo:foo1, self:{foo:test1}," + "b:{address:a1,number:123,name:n1}," + "blah:blah1}",
@@ -185,24 +197,28 @@ public class ObjectLiteralParserTest  {
         assertTrue(a.b.address.equals("a1"));
         assertTrue(a.b.number == 123);
     }
+
     @Test
     public void quotedAttr1Test() {
         ObjectLiteralParser p = new ObjectLiteralParser("{'foo':test}", A.class.getName());
         A a = (A) p.parse();
         assertTrue(a.foo.equals("test"));
     }
+
     @Test
     public void quotedAttr2Test() {
         ObjectLiteralParser p = new ObjectLiteralParser("{\"foo\":test}", A.class.getName());
         A a = (A) p.parse();
         assertTrue(a.foo.equals("test"));
     }
+
     @Test
     public void cityTest() {
         ObjectLiteralParser p = new ObjectLiteralParser("\"{cityId:2,country:{}}\"", City.class);
         City c = (City) p.parse();
         assertTrue(c.getCityId().equals(Short.valueOf("2")));
     }
+
     @Test
     public void simpleListTest() {
         ObjectLiteralParser p = new ObjectLiteralParser("[a,b,c]", String.class);

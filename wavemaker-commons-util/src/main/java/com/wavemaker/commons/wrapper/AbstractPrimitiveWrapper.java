@@ -14,7 +14,6 @@
  ******************************************************************************/
 package com.wavemaker.commons.wrapper;
 
-
 /**
  * @author Uday Shankar
  */

@@ -20,7 +20,7 @@ import java.io.InputStream;
 
 /**
  * {@link InputStream} that does not perform any operation when {@link #close()} is called.
- * 
+ *
  * @author Phillip Webb
  */
 public class NoCloseInputStream extends FilterInputStream {
@@ -32,12 +32,11 @@ public class NoCloseInputStream extends FilterInputStream {
     /**
      * Intentionally ignoring the implementation to avoid closing the enclosing stream
      * in such cases like iterating through zip entries... etc
-     * @throws IOException
      */
     @Override
     public void close() throws IOException {
     }
-    
+
     public void doClose() throws IOException {
         super.close();
     }

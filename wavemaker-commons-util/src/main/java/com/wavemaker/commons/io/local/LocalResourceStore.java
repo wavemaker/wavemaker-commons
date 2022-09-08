@@ -121,7 +121,7 @@ abstract class LocalResourceStore implements ResourceStore {
         JailedResourcePath destPath = getPath().getParent().get(name);
         if (!getFile().renameTo(dest)) {
             throw new ResourceException(MessageResource.create("com.wavemaker.commons.unable.to,rename.file"),
-                    getFile(), dest);
+                getFile(), dest);
         }
         return getRenamedResource(destPath);
     }
@@ -137,7 +137,7 @@ abstract class LocalResourceStore implements ResourceStore {
     public void delete() {
         if (!this.file.delete() && file.exists()) {
             throw new ResourceException(MessageResource.create("com.wavemaker.commons.unable.to.delete.file"),
-                    this.file);
+                this.file);
         }
     }
 
@@ -182,10 +182,10 @@ abstract class LocalResourceStore implements ResourceStore {
                 if (!getFile().createNewFile()) {
                     if (!getFile().exists()) {
                         throw new ResourceException(
-                                MessageResource.create("com.wavemaker.commons.unable.to.create.file"), getFile());
+                            MessageResource.create("com.wavemaker.commons.unable.to.create.file"), getFile());
                     } else {
                         throw new ResourceAlreadyExistException(
-                                MessageResource.create("com.wavemaker.common.resource.exists"), getFile().getPath());
+                            MessageResource.create("com.wavemaker.common.resource.exists"), getFile().getPath());
                     }
                 }
             } catch (IOException e) {
@@ -252,7 +252,7 @@ abstract class LocalResourceStore implements ResourceStore {
             boolean created = getFile().mkdirs();
             if (!created && !exists()) {
                 throw new ResourceException(MessageResource.create("com.wavemaker.commons.unable.to.create.folder"),
-                        getFile());
+                    getFile());
             }
         }
 

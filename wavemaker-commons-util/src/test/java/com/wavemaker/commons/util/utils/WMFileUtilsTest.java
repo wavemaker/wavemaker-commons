@@ -33,19 +33,19 @@ public class WMFileUtilsTest {
     public void readFileToStringTest() throws IOException {
 
         File testFileActual = File.createTempFile("testFile", ".tmp");
-        String actualData= UUID.randomUUID().toString();
+        String actualData = UUID.randomUUID().toString();
 
-        PrintWriter printWriter = new PrintWriter(testFileActual,"UTF-8");
+        PrintWriter printWriter = new PrintWriter(testFileActual, "UTF-8");
         printWriter.print(actualData);
         printWriter.close();
 
         String testFileExpectedData = WMFileUtils.readFileToString(testFileActual);
-        assertEquals(actualData,testFileExpectedData);
+        assertEquals(actualData, testFileExpectedData);
         testFileActual.deleteOnExit();
     }
 
     @Test
-    public void writeStringToFile() throws IOException{
+    public void writeStringToFile() throws IOException {
 
         File testFileActual = File.createTempFile("testFile", ".tmp");
         String actualData = UUID.randomUUID().toString();

@@ -24,10 +24,9 @@ import org.springframework.util.Assert;
  * Builder class that can be used to easily construct {@link ResourceFilter}s. Filters can be built for {@link File}s,
  * {@link Folder}s or {@link Resource}s with matching performed on {@link Resource#getName() names} or
  * {@link Resource#toString() paths}. Builders can be chained together to form compound (AND) matches.
- * 
- * @see ResourceFilter
- * 
+ *
  * @author Phillip Webb
+ * @see ResourceFilter
  */
 public abstract class FilterOn {
 
@@ -39,7 +38,7 @@ public abstract class FilterOn {
 
     /**
      * Start filtering based on {@link Resource} {@link Folder#getName() names}. NOTE: matching is case sensitive.
-     * 
+     *
      * @return the filter
      */
     public static AttributeFilter names() {
@@ -54,7 +53,7 @@ public abstract class FilterOn {
 
     /**
      * Start filtering based on {@link Resource} {@link Folder#getName() names}. NOTE: matching is case insensitive.
-     * 
+     *
      * @return the filter
      */
     public static AttributeFilter caseSensitiveNames() {
@@ -70,7 +69,7 @@ public abstract class FilterOn {
     /**
      * Start filtering based on {@link Resource} {@link Folder#toString() paths}. NOTE: matching is case insensitive and
      * paths are considered relative to {@link ResourceFilterContext#getSource()}.
-     * 
+     *
      * @return the filter
      */
     public static AttributeFilter paths() {
@@ -79,8 +78,9 @@ public abstract class FilterOn {
 
     /**
      * Start filtering based on {@link Resource} {@link Folder#toString() paths}. NOTE: matching is case insensitive.
-     * 
+     *
      * @param pathStyle the path match style
+     *
      * @return the filter
      */
     public static AttributeFilter paths(final PathStyle pathStyle) {
@@ -96,7 +96,7 @@ public abstract class FilterOn {
     /**
      * Start filtering based on {@link Resource} {@link Folder#toString() paths}. NOTE: matching is case sensitive and
      * paths are considered relative to {@link ResourceFilterContext#getSource()}.
-     * 
+     *
      * @return the filter
      */
     public static AttributeFilter caseSensitivePaths() {
@@ -105,7 +105,7 @@ public abstract class FilterOn {
 
     /**
      * Start filtering based on {@link Resource} {@link Folder#toString() paths}. NOTE: matching is case sensitive.
-     * 
+     *
      * @return the filter
      */
     public static AttributeFilter caseSensitivePaths(final PathStyle pathStyle) {
@@ -120,9 +120,10 @@ public abstract class FilterOn {
 
     /**
      * Start filtering based on the specified resource type and attribute.
-     * 
+     *
      * @param resourceType the resource type
-     * @param attribute the attribute
+     * @param attribute    the attribute
+     *
      * @return the filter
      */
     public static AttributeFilter getFor(ResourceAttribute attribute) {
@@ -132,7 +133,7 @@ public abstract class FilterOn {
 
     /**
      * Filter all hidden resources (ie resource names starting '.')
-     * 
+     *
      * @return the filter
      */
     public static ResourceFilter hidden() {
@@ -141,7 +142,7 @@ public abstract class FilterOn {
 
     /**
      * Filter all non-hidden resources (ie resource names not starting '.');
-     * 
+     *
      * @return the filter
      */
     public static ResourceFilter nonHidden() {
@@ -151,8 +152,9 @@ public abstract class FilterOn {
     /**
      * Returns an resource filter based on ant patterns. Paths are considered relative from the
      * {@link ResourceFilterContext#getSource()}.
-     * 
+     *
      * @param pattern the ant pattern
+     *
      * @return a ant pattern based resource filter
      */
     public static ResourceFilter antPattern(String... pattern) {
@@ -161,8 +163,9 @@ public abstract class FilterOn {
 
     /**
      * Returns an resource filter based on ant patterns.
-     * 
+     *
      * @param pattern the ant pattern
+     *
      * @return a ant pattern based resource filter
      */
     public static ResourceFilter antPattern(final PathStyle pathStyle, String... pattern) {
@@ -230,8 +233,9 @@ public abstract class FilterOn {
 
         /**
          * Filter attributes starting with the specified string.
-         * 
+         *
          * @param prefix the prefix to filter against. If multiple values are specified any may match
+         *
          * @return the filter
          */
         public AttributeFilter starting(CharSequence... prefix) {
@@ -240,8 +244,9 @@ public abstract class FilterOn {
 
         /**
          * Filter attributes not starting with the specified string.
-         * 
+         *
          * @param prefix the prefix to filter against. If multiple values are specified all must match
+         *
          * @return the filter
          */
         public AttributeFilter notStarting(CharSequence... prefix) {
@@ -250,8 +255,9 @@ public abstract class FilterOn {
 
         /**
          * Filter attributes ending with the specified string.
-         * 
+         *
          * @param postfix the postfix to filter against. If multiple values are specified any may match
+         *
          * @return the filter
          */
 
@@ -261,8 +267,9 @@ public abstract class FilterOn {
 
         /**
          * Filter attributes not ending with the specified string.
-         * 
+         *
          * @param postfix the postfix to filter against. If multiple values are specified all must match
+         *
          * @return the filter
          */
         public AttributeFilter notEnding(CharSequence... postfix) {
@@ -271,8 +278,9 @@ public abstract class FilterOn {
 
         /**
          * Filter attributes containing with the specified string.
-         * 
+         *
          * @param content the contents to filter against. If multiple values are specified any may match
+         *
          * @return the filter
          */
         public AttributeFilter containing(CharSequence... content) {
@@ -281,8 +289,9 @@ public abstract class FilterOn {
 
         /**
          * Filter attributes not containing with the specified string.
-         * 
+         *
          * @param content the contents to filter against. If multiple values are specified all must match
+         *
          * @return the filter
          */
         public AttributeFilter notContaining(CharSequence... content) {
@@ -291,8 +300,9 @@ public abstract class FilterOn {
 
         /**
          * Filter attributes matching the specified string
-         * 
+         *
          * @param value the values to match
+         *
          * @return the filter
          */
         public AttributeFilter matching(CharSequence... value) {
@@ -301,8 +311,9 @@ public abstract class FilterOn {
 
         /**
          * Filter attributes not matching the specified string
-         * 
+         *
          * @param value the value to match
+         *
          * @return the filter
          */
         public AttributeFilter notMatching(CharSequence... value) {

@@ -24,13 +24,12 @@ import com.wavemaker.commons.SemaphoreAcquisitionTimeoutException;
 import com.wavemaker.commons.ThreadInterruptedException;
 
 /**
- * 
  * A class which wraps the {@link Semaphore} fuctionality with extra timeout and thread interruption handling
- * 
+ *
  * @author Uday Shankar
  */
 public class WMSemaphore {
-    
+
     private Semaphore semaphore;
 
     private static final Logger logger = LoggerFactory.getLogger(WMSemaphore.class);
@@ -82,9 +81,9 @@ public class WMSemaphore {
     @Override
     public String toString() {
         return "WMSemaphore{" +
-                " availablePermits=" + semaphore.availablePermits() +
-                ", totalPermits=" + totalPermits +
-                ", name='" + name + '\'' +
-                '}';
+            " availablePermits=" + semaphore.availablePermits() +
+            ", totalPermits=" + totalPermits +
+            ", name='" + name + '\'' +
+            '}';
     }
 }

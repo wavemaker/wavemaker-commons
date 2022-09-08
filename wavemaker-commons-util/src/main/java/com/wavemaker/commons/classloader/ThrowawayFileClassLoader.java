@@ -32,7 +32,7 @@ import com.wavemaker.commons.WMRuntimeException;
  * A ClassLoader that takes a File (as the root to search in), and searches for classes within that root. This does
  * everything to avoid ever loading classes into any other classloader. It takes a parent classloader as an option, but
  * only delegates to it if the class cannot be found in the local paths.
- * 
+ *
  * @author Matt Small
  * @author Jeremy Grelle
  */

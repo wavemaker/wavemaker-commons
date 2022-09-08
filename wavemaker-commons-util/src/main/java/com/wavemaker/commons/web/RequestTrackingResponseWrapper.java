@@ -76,7 +76,7 @@ public class RequestTrackingResponseWrapper extends HttpServletResponseWrapper {
     private void setServerTimingResponseHeader() {
         List<ServerTimingMetric> serverTimingMetrics = request.getServerTimingMetricList();
         MultiValueMap<String, ServerTimingMetric> multiValueMap = new LinkedMultiValueMap<>();
-        serverTimingMetrics.forEach(x->multiValueMap.add(x.getName(), x));
+        serverTimingMetrics.forEach(x -> multiValueMap.add(x.getName(), x));
         String headerValue = multiValueMap.keySet().stream().map(subRequestScope -> {
             Collection<ServerTimingMetric> values = multiValueMap.get(subRequestScope);
             ServerTimingMetric toBeSavedServerTimingMetric = null;

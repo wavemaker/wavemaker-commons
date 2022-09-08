@@ -49,7 +49,7 @@ public class JSONUtils {
         objectMapper.setTypeFactory(TypeFactory.defaultInstance().withClassLoader(JSONUtils.class.getClassLoader()));
         final SimpleModule module = new SimpleModule();
         module.addSerializer(Date.class,
-                new SqlDateSerializer().withFormat(false, new SimpleDateFormat("yyyy-MM-dd"))
+            new SqlDateSerializer().withFormat(false, new SimpleDateFormat("yyyy-MM-dd"))
         );
         objectMapper.registerModule(module);
     }
@@ -83,7 +83,7 @@ public class JSONUtils {
 
     public static String toJSON(Object object, boolean prettify) throws IOException {
         return prettify ? objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(object) : objectMapper
-                .writeValueAsString(object);
+            .writeValueAsString(object);
     }
 
     public static void toJSON(File outputFile, Object object) throws IOException {
@@ -141,7 +141,6 @@ public class JSONUtils {
             WMIOUtils.closeSilently(jsonReader);
         }
     }
-
 
     public static <T> T toObject(InputStream jsonStream, Class<T> t) throws IOException {
         try {

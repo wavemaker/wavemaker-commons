@@ -17,7 +17,7 @@ package com.wavemaker.commons;
 /**
  * @author Sunil Kumar
  */
-public class XMLException extends WMRuntimeException{
+public class XMLException extends WMRuntimeException {
 
     public XMLException(MessageResource resource, Throwable e) {
         super(resource, e);

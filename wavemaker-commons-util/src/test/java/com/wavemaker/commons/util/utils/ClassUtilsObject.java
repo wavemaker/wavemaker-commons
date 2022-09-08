@@ -28,6 +28,7 @@ public class ClassUtilsObject extends ClassUtilsObjectSuper {
     public int hashCode() {
         return super.hashCode();
     }
+
     private void privateTest() {
         this.fieldPrivate = 1;
     }

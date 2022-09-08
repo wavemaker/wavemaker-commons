@@ -38,7 +38,7 @@ import static org.junit.Assert.assertThat;
 
 /**
  * Tests for {@link com.wavemaker.commons.io.local.LocalFolder}.
- * 
+ *
  * @author Phillip Webb
  */
 public class LocalFolderTest {
@@ -164,7 +164,7 @@ public class LocalFolderTest {
         }
         assertThat(folder.exists(), is(false));
     }
-    
+
     @Test
     public void testNewLocalFolder() {
         Folder folder = new LocalFolder(this.temp.getRoot() + java.io.File.separator + "test");
@@ -174,6 +174,6 @@ public class LocalFolderTest {
 
         File file1 = folder.getFile("njvkdf nhvd.txt");
         file1.createIfMissing();
-        Assert.assertTrue("Could not create a local file",file1.exists());
+        Assert.assertTrue("Could not create a local file", file1.exists());
     }
 }

@@ -34,7 +34,7 @@ import static org.testng.Assert.assertTrue;
  */
 public class CastUtilsTest {
     @Test
-    public void castListTest(){
+    public void castListTest() {
         List<String> stringList = new ArrayList<>();
         stringList.add("a");
         stringList.add("b");
@@ -49,7 +49,7 @@ public class CastUtilsTest {
     }
 
     @Test
-    public void castSet(){
+    public void castSet() {
         Set<String> stringSet = new HashSet<>();
         stringSet.add("a");
         stringSet.add("b");
@@ -57,14 +57,14 @@ public class CastUtilsTest {
 
         Set unknownTypesSet = stringSet;
         Set<String> castedSet = CastUtils.cast(unknownTypesSet);
-        for(String i: castedSet){
+        for (String i : castedSet) {
             assertTrue(i instanceof String);
         }
         assertEquals(castedSet, unknownTypesSet);
     }
 
     @Test(expectedExceptions = {ClassCastException.class})
-    public void castListClassCastExceptionTest(){
+    public void castListClassCastExceptionTest() {
         List<String> stringList = new ArrayList<>();
         stringList.add("a");
         stringList.add("b");
@@ -77,7 +77,7 @@ public class CastUtilsTest {
     }
 
     @Test(expectedExceptions = {ClassCastException.class})
-    public void castSetClassCastExceptionTest(){
+    public void castSetClassCastExceptionTest() {
         Set<String> stringSet = new HashSet<>();
         stringSet.add("a");
         stringSet.add("b");
@@ -90,14 +90,14 @@ public class CastUtilsTest {
     }
 
     @Test
-    public void iteratorTest(){
+    public void iteratorTest() {
         List<String> stringList = new ArrayList<>();
         stringList.add("a");
         stringList.add("b");
         stringList.add("c");
 
         Iterator iterator = stringList.iterator();
-        Iterator unknownTypeIterator =iterator;
+        Iterator unknownTypeIterator = iterator;
         Iterator<String> castedIterator = CastUtils.cast(unknownTypeIterator);
         assertNotNull(castedIterator);
         assertEquals("a", castedIterator.next());

@@ -189,7 +189,7 @@ public class ObjectAccess {
     }
 
     public <T extends Annotation> boolean hasAnnotation(
-            Class<T> annotation, Object o, String methodName, Class<?>... paramTypes) {
+        Class<T> annotation, Object o, String methodName, Class<?>... paramTypes) {
         Method m = getMethod(getClassForObject(o), methodName, paramTypes);
         if (m == null) {
             return false;
@@ -198,7 +198,7 @@ public class ObjectAccess {
     }
 
     public <T extends Annotation> boolean hasAnnotation(
-            Class<T> annotation, Object o, String methodName, int numParams) {
+        Class<T> annotation, Object o, String methodName, int numParams) {
         Method m = getMethod(getClassForObject(o), methodName, numParams);
         if (m == null) {
             return false;
@@ -351,7 +351,7 @@ public class ObjectAccess {
 
         for (int i = 0; i < methodParams.length; i++) {
             if (!methodParams[i].isAssignableFrom(paramTypes[i]) && !TypeConversionUtils
-                    .primitivesMatch(methodParams[i], paramTypes[i])) {
+                .primitivesMatch(methodParams[i], paramTypes[i])) {
                 return false;
             }
         }

@@ -32,7 +32,7 @@ import static org.junit.Assert.assertThat;
 
 /**
  * Tests for {@link AbstractFileContent}.
- * 
+ *
  * @author Phillip Webb
  */
 public class AbstFileContentTest {

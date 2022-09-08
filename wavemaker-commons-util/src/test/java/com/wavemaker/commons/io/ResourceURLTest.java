@@ -35,7 +35,7 @@ import static org.junit.Assert.assertThat;
 
 /**
  * Tests for {@link ResourceURL}.
- * 
+ *
  * @author Phillip Webb
  */
 @Ignore
@@ -134,7 +134,7 @@ public class ResourceURLTest {
     @Test
     public void shouldWorkViaClassLoader() throws Exception {
         Folder jail = this.root.getFolder("jail").jail();
-        URLClassLoader classLoader = new URLClassLoader(new URL[] { ResourceURL.get(jail) });
+        URLClassLoader classLoader = new URLClassLoader(new URL[]{ResourceURL.get(jail)});
         assertThat(IOUtils.toString(classLoader.getResourceAsStream("/a/b/c.txt")), Matchers.is(Matchers.equalTo("c")));
         assertThat(classLoader.getResource("/x/y/z.txt").toString(), Matchers.is(Matchers.equalTo("rfs:/x/y/z.txt")));
     }

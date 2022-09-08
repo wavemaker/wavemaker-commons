@@ -23,10 +23,9 @@ import com.wavemaker.commons.io.store.StoredFolder;
 
 /**
  * A {@link Folder} implementation backed by standard {@link File java.io.File}s.
- * 
- * @see LocalFile
- * 
+ *
  * @author Phillip Webb
+ * @see LocalFile
  */
 public class LocalFolder extends StoredFolder {
 
@@ -34,7 +33,7 @@ public class LocalFolder extends StoredFolder {
 
     /**
      * Package level constructor used when accessing nested folders.
-     * 
+     *
      * @param store the store
      */
     LocalFolder(LocalResourceStore.LocalFolderStore store) {
@@ -43,7 +42,7 @@ public class LocalFolder extends StoredFolder {
 
     /**
      * Create a new {@link LocalFolder} for the specified folder.
-     * 
+     *
      * @param folder the underlying folder, eg '/home/username'
      */
     public LocalFolder(String folder) {
@@ -52,7 +51,7 @@ public class LocalFolder extends StoredFolder {
 
     /**
      * Create a new {@link LocalFolder} for the specified folder.
-     * 
+     *
      * @param folder the underlying folder
      */
     public LocalFolder(java.io.File folder) {
@@ -66,7 +65,7 @@ public class LocalFolder extends StoredFolder {
 
     /**
      * Returns access to the underlying local {@link File}.
-     * 
+     *
      * @return the underlying {@link File}
      */
     public File getLocalFile() {

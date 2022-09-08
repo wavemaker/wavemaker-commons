@@ -39,7 +39,7 @@ import static org.mockito.Mockito.verify;
 
 /**
  * Tests for {@link com.wavemaker.commons.io.store.StoredFile}.
- * 
+ *
  * @author Phillip Webb
  */
 @Ignore
@@ -102,7 +102,7 @@ public class StoredFileTest {
 
     @Test
     public void shouldGetContentAsAbstractContent() throws Exception {
-        assertThat((AbstractFileContent)this.file.getContent(), is(AbstractFileContent.class));
+        assertThat((AbstractFileContent) this.file.getContent(), is(AbstractFileContent.class));
     }
 
     @Test

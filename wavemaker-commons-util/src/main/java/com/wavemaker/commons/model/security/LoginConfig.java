@@ -80,30 +80,30 @@ public class LoginConfig {
         final LoginConfig that = (LoginConfig) o;
 
         return new EqualsBuilder()
-                .append(type, that.type)
-                .append(pageName, that.pageName)
-                .append(cookieMaxAge, that.cookieMaxAge)
-                .append(sessionTimeout, that.sessionTimeout)
-                .isEquals();
+            .append(type, that.type)
+            .append(pageName, that.pageName)
+            .append(cookieMaxAge, that.cookieMaxAge)
+            .append(sessionTimeout, that.sessionTimeout)
+            .isEquals();
     }
 
     @Override
     public int hashCode() {
         return new HashCodeBuilder(17, 37)
-                .append(type)
-                .append(pageName)
-                .append(cookieMaxAge)
-                .append(sessionTimeout)
-                .toHashCode();
+            .append(type)
+            .append(pageName)
+            .append(cookieMaxAge)
+            .append(sessionTimeout)
+            .toHashCode();
     }
 
     @Override
     public String toString() {
         return "LoginConfig{" +
-                "type=" + type +
-                ", page='" + pageName + '\'' +
-                ", cookieMaxAge=" + cookieMaxAge +
-                ", sessionTimeout=" + sessionTimeout +
-                '}';
+            "type=" + type +
+            ", page='" + pageName + '\'' +
+            ", cookieMaxAge=" + cookieMaxAge +
+            ", sessionTimeout=" + sessionTimeout +
+            '}';
     }
 }

@@ -57,7 +57,7 @@ public class ZipArchive extends StoredFolder {
     /**
      * Unzip the specified zip file into a folder.
      *
-     * @param file the file to unzip (this must reference a zip file)
+     * @param file        the file to unzip (this must reference a zip file)
      * @param destination the destination folder
      */
     public static void unpack(File file, Folder destination) {
@@ -132,7 +132,7 @@ public class ZipArchive extends StoredFolder {
      * Create a {@link InputStream} containing a zip representation of the given resources.
      *
      * @param resources resources to compress
-     * @param prefix an optional entry prefix. This allows a entries to be nested within a folder if required
+     * @param prefix    an optional entry prefix. This allows a entries to be nested within a folder if required
      */
     public static InputStream compress(Resources<?> resources, String prefix) {
         return new ZipResourcesStream(resources, prefix);

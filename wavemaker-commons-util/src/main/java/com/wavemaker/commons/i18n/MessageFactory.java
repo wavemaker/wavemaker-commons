@@ -19,9 +19,9 @@ package com.wavemaker.commons.i18n;
  */
 public class MessageFactory {
 
-    private MessageFactory(){
+    private MessageFactory() {
     }
-    
+
     private static MessageFactory INSTANCE = new MessageFactory();
 
     private LocaleProvider localeProvider;
@@ -48,7 +48,7 @@ public class MessageFactory {
     public void setLocaleMessageProvider(LocaleMessageProvider localeMessageProvider) {
         this.localeMessageProvider = localeMessageProvider;
     }
-    
+
     public static MessageFactory getInstance() {
         return INSTANCE;
     }

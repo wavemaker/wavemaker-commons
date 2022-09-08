@@ -88,7 +88,7 @@ public class MessageResource {
     public String getMessageKey() {
         return this.key;
     }
-    
+
     public static MessageResource create(String messageKey) {
         return new MessageResource(messageKey);
     }

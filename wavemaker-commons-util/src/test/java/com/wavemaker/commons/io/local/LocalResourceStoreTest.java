@@ -47,7 +47,7 @@ import static org.junit.Assert.assertThat;
 
 /**
  * Tests for {@link com.wavemaker.commons.io.local.LocalResourceStore} and subclasses.
- * 
+ *
  * @author Phillip Webb
  */
 @Ignore
@@ -116,14 +116,14 @@ public class LocalResourceStoreTest {
     @Test
     public void shouldGetExistingFile() throws Exception {
         Resource actual = this.store.getExisting(new JailedResourcePath().get("g.txt"));
-        assertThat((File)actual, is(File.class));
+        assertThat((File) actual, is(File.class));
         assertThat(actual.toString(), is("/g.txt"));
     }
 
     @Test
     public void shouldGetExistingFolder() throws Exception {
         Resource actual = this.store.getExisting(new JailedResourcePath().get("a"));
-        assertThat((Folder)actual, is(Folder.class));
+        assertThat((Folder) actual, is(Folder.class));
         assertThat(actual.toString(), is("/a/"));
     }
 

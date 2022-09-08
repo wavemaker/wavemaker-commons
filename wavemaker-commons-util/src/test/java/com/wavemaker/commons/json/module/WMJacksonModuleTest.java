@@ -68,7 +68,7 @@ public class WMJacksonModuleTest {
         final String valueAsString = objectMapper.writeValueAsString(a);
 
         Assert.assertEquals("{\"value\":\"a value\",\"b\":{\"value\":\"b value\",\"c\":{\"value\":\"c value\"," +
-                "\"a\":null}}}", valueAsString);
+            "\"a\":null}}}", valueAsString);
 
     }
 
@@ -84,8 +84,8 @@ public class WMJacksonModuleTest {
 
         } catch (JsonProcessingException e) {
             Assert.assertEquals("Cyclic-reference leading to cycle, Object Reference Stack:A->B->C (through reference" +
-                    " chain: com.wavemaker.commons.json.module.A[\"b\"]->com.wavemaker.commons.json.module" +
-                    ".B[\"c\"]->com.wavemaker.commons.json.module.C[\"a\"])", e.getMessage());
+                " chain: com.wavemaker.commons.json.module.A[\"b\"]->com.wavemaker.commons.json.module" +
+                ".B[\"c\"]->com.wavemaker.commons.json.module.C[\"a\"])", e.getMessage());
         }
 
     }
@@ -94,14 +94,14 @@ public class WMJacksonModuleTest {
     public void test4() throws IOException {
 
         final Swagger swagger = objectMapper
-                .readValue(this.getClass().getResourceAsStream("/hrdb_API.json"), Swagger.class);
+            .readValue(this.getClass().getResourceAsStream("/hrdb_API.json"), Swagger.class);
 
-        Assert.assertNotNull(swagger,"Could not get swagger object from json.");
+        Assert.assertNotNull(swagger, "Could not get swagger object from json.");
 
         objectMapper.registerModule(new WMJacksonModule(true));
 
         final String string = objectMapper.writeValueAsString(swagger);
-        Assert.assertNotNull(string,"Could not convert swagger object to json.");
+        Assert.assertNotNull(string, "Could not convert swagger object to json.");
 
     }
 

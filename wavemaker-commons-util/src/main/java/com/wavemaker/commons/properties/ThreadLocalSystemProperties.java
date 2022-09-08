@@ -121,7 +121,7 @@ public class ThreadLocalSystemProperties extends Properties {
             }
         } else {
             throw new IllegalStateException(
-                    "Request for recording ThreadLocal for current thread without enabling the ThreadLocalSystemProperties");
+                "Request for recording ThreadLocal for current thread without enabling the ThreadLocalSystemProperties");
         }
     }
 
@@ -136,7 +136,7 @@ public class ThreadLocalSystemProperties extends Properties {
             logger.info("Disabled usage of Thread Local properties for current thread");
         } else {
             throw new IllegalStateException(
-                    "Request for stopping ThreadLocal for current thread without enabling the ThreadLocalSystemProperties");
+                "Request for stopping ThreadLocal for current thread without enabling the ThreadLocalSystemProperties");
         }
     }
 

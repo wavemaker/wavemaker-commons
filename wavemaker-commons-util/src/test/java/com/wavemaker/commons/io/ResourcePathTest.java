@@ -24,7 +24,7 @@ import static org.junit.Assert.assertThat;
 
 /**
  * Tests for {@link ResourcePath}.
- * 
+ *
  * @author Phillip Webb
  */
 @Ignore

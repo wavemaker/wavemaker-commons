@@ -21,7 +21,7 @@ import org.springframework.util.ObjectUtils;
 
 /**
  * A file or folder path.
- * 
+ *
  * @author Phillip Webb
  */
 public final class ResourcePath implements Serializable {
@@ -39,9 +39,10 @@ public final class ResourcePath implements Serializable {
 
     /**
      * Private constructor used to create a nested path.
-     * 
+     *
      * @param parent the parent
-     * @param name the name of the path element
+     * @param name   the name of the path element
+     *
      * @see #get(String)
      */
     private ResourcePath(ResourcePath parent, String name) {
@@ -52,7 +53,7 @@ public final class ResourcePath implements Serializable {
 
     /**
      * Returns the name of the path element.
-     * 
+     *
      * @return the name
      */
     public String getName() {
@@ -61,7 +62,7 @@ public final class ResourcePath implements Serializable {
 
     /**
      * Returns the full path value.
-     * 
+     *
      * @return the path value
      */
     @Override
@@ -89,8 +90,9 @@ public final class ResourcePath implements Serializable {
 
     /**
      * Get a new path relative to this one.
-     * 
+     *
      * @param path the path to obtain.
+     *
      * @return a new path
      */
     public ResourcePath get(String path) {
@@ -109,8 +111,9 @@ public final class ResourcePath implements Serializable {
 
     /**
      * Internal factory method used to create a new path item.
-     * 
+     *
      * @param name the name of the path
+     *
      * @return the new Path element
      */
     private ResourcePath newPath(String name) {
@@ -118,7 +121,7 @@ public final class ResourcePath implements Serializable {
             return this;
         }
         if ("..".equals(name)) {
-            Assert.state(this.parent != null,"[Assertion failed] - Parent cannot be null");
+            Assert.state(this.parent != null, "[Assertion failed] - Parent cannot be null");
             return this.parent;
         }
         return new ResourcePath(this, name);
@@ -126,7 +129,7 @@ public final class ResourcePath implements Serializable {
 
     /**
      * Returns the parent of the path or <tt>null</tt> if this is a root path.
-     * 
+     *
      * @return the parent or <tt>null</tt>
      */
     public ResourcePath getParent() {
@@ -135,7 +138,7 @@ public final class ResourcePath implements Serializable {
 
     /**
      * Returns <tt>true</tt> if this path is a root path.
-     * 
+     *
      * @return if this is a root path
      */
     public boolean isRootPath() {
@@ -147,8 +150,9 @@ public final class ResourcePath implements Serializable {
 
     /**
      * Append the given path to this path
-     * 
+     *
      * @param path the path to append
+     *
      * @return a new path
      */
     public ResourcePath append(ResourcePath path) {

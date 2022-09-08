@@ -26,7 +26,7 @@ import com.wavemaker.commons.WMRuntimeException;
 
 /**
  * Helper class for transitioning from using {@link File} to {@link Resource}
- * 
+ *
  * @author Jeremy Grelle
  */
 public abstract class ConversionUtils {

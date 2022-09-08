@@ -23,11 +23,10 @@ import java.util.NoSuchElementException;
 
 public class WMUrlClassLoader extends URLClassLoader {
     private String loaderContext;
-    
+
     static {
         ClassLoader.registerAsParallelCapable();
     }
-
 
     public WMUrlClassLoader(URL[] urls, String loaderContext, ClassLoader parent) {
         super(urls, parent);
@@ -40,7 +39,7 @@ public class WMUrlClassLoader extends URLClassLoader {
 
     @Override
     public String toString() {
-        return "WMUrlClassLoader{loaderContext='" + loaderContext + '\'' +"} ";
+        return "WMUrlClassLoader{loaderContext='" + loaderContext + '\'' + "} ";
     }
 
     /**
@@ -49,10 +48,12 @@ public class WMUrlClassLoader extends URLClassLoader {
      * So if we want to load the this type resource, we will always get the resource from the parent classloader, child's resource will never get loaded.
      *
      * To solve this first we are checking in the child classloader, if it is not found then checking in the parent classloader.
+     *
      * @param name The resource name
-     * @return  A <tt>URL</tt> object for reading the resource, or
-     *          <tt>null</tt> if the resource could not be found or the invoker
-     *          doesn't have adequate  privileges to get the resource.
+     *
+     * @return A <tt>URL</tt> object for reading the resource, or
+     * <tt>null</tt> if the resource could not be found or the invoker
+     * doesn't have adequate  privileges to get the resource.
      */
     @Override
     public URL getResource(String name) {

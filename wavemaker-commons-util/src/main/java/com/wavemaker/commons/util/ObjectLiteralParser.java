@@ -23,13 +23,13 @@ import com.wavemaker.commons.classloader.ClassLoaderUtils;
 
 /**
  * Parses an object literal (javascript syntax) into an object graph.
- * 
+ *
  * {a:a,b:{c:c},d:d}
- * 
+ *
  * To do: Lists [a,b,c] are not supported. The literal "null" is not supported...
- * 
+ *
  * ...and replace whole thing with antlr generated parser.
- * 
+ *
  * @author Simon Toens
  */
 public class ObjectLiteralParser {

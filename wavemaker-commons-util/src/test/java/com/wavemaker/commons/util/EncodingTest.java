@@ -20,10 +20,10 @@ import static org.testng.Assert.assertEquals;
 
 /**
  * Some sanity tests.
- * 
+ *
  * @author Simon Toens
  */
-public class EncodingTest{
+public class EncodingTest {
 
     @Test
     public void test1() throws Exception {
@@ -34,6 +34,7 @@ public class EncodingTest{
         assertEquals("c3b6", Long.toHexString(SystemUtils.getUnsignedValue(str.getBytes("UTF8"))));
         assertEquals("f6", Long.toHexString(SystemUtils.getUnsignedValue(str.getBytes("LATIN1"))));
     }
+
     @Test
     public void test2() throws Exception {
         String str = "\u00C9";
@@ -41,6 +42,7 @@ public class EncodingTest{
         // UTF8 is c389
         assertEquals("c389", Long.toHexString(SystemUtils.getUnsignedValue(str.getBytes("UTF8"))));
     }
+
     @Test
     public void test3() throws Exception {
         String str = "\u00E9";
@@ -48,6 +50,7 @@ public class EncodingTest{
         // UTF8 is c3a9
         assertEquals("c3a9", Long.toHexString(SystemUtils.getUnsignedValue(str.getBytes("UTF8"))));
     }
+
     @Test
     public void getValueTest() {
         assertEquals(1, SystemUtils.getUnsignedValue(new byte[]{1}));

@@ -16,7 +16,7 @@ package com.wavemaker.commons.io;
 
 /**
  * Formats that can be used to display a {@link Resource} name. See {@link Resource#toString(ResourceStringFormat)}.
- * 
+ *
  * @author Phillip Webb
  */
 public enum ResourceStringFormat {

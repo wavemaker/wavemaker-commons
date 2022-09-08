@@ -143,7 +143,7 @@ public class ServiceDefinition {
 
         final ServiceDefinition that = (ServiceDefinition) o;
 
-        if(id == null || that.getId() == null) {
+        if (id == null || that.getId() == null) {
             return false;
         }
 

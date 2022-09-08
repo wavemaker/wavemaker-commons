@@ -25,7 +25,6 @@ import com.wavemaker.commons.json.JSONUtils;
  */
 public class JsonFormatAccessTokenExtractor extends MediaTypeBasedAccessTokenExtractor {
 
-
     @Override
     public boolean canRead(MediaType mediaType) {
         return MediaType.APPLICATION_JSON.equals(mediaType) || MediaType.APPLICATION_JSON_UTF8.equals(mediaType);

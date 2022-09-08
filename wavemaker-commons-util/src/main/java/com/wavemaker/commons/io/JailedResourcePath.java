@@ -21,7 +21,7 @@ import static com.wavemaker.commons.io.ResourceStringFormat.UNJAILED;
 
 /**
  * A {@link ResourcePath} that is jailed to a specific location.
- * 
+ *
  * @author Phillip Webb
  */
 public final class JailedResourcePath {
@@ -32,9 +32,9 @@ public final class JailedResourcePath {
 
     /**
      * Create a new {@link JailedResourcePath} instance.
-     * 
+     *
      * @param jailPath the jail path
-     * @param path the path
+     * @param path     the path
      */
     public JailedResourcePath(ResourcePath jailPath, ResourcePath path) {
         Assert.notNull(jailPath, "JailPath must not be null");
@@ -53,7 +53,7 @@ public final class JailedResourcePath {
 
     /**
      * Returns the jail path.
-     * 
+     *
      * @return the jail
      */
     public ResourcePath getJailPath() {
@@ -62,7 +62,7 @@ public final class JailedResourcePath {
 
     /**
      * Returns the path.
-     * 
+     *
      * @return the path
      */
     public ResourcePath getPath() {
@@ -71,7 +71,7 @@ public final class JailedResourcePath {
 
     /**
      * Returns the parent {@link JailedResourcePath} of this instance or <tt>null</tt> if there is no parent.
-     * 
+     *
      * @return the parent.
      */
     public JailedResourcePath getParent() {
@@ -84,8 +84,9 @@ public final class JailedResourcePath {
 
     /**
      * Get a new path relative to this one.
-     * 
+     *
      * @param path the path
+     *
      * @return a new {@link JailedResourcePath}
      */
     public JailedResourcePath get(String path) {
@@ -94,7 +95,7 @@ public final class JailedResourcePath {
 
     /**
      * Returns the complete unjailed path
-     * 
+     *
      * @return the unjailed path
      */
     public ResourcePath getUnjailedPath() {
@@ -103,7 +104,7 @@ public final class JailedResourcePath {
 
     /**
      * Unjail the specified resource path
-     * 
+     *
      * @return the unjailed version
      */
     public JailedResourcePath unjail() {

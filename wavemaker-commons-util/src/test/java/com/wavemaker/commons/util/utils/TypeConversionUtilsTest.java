@@ -35,7 +35,7 @@ import static org.testng.Assert.assertTrue;
 /**
  * @author Simon Toens
  */
-public class TypeConversionUtilsTest{
+public class TypeConversionUtilsTest {
 
     @Test
     public void isPrimitiveTest() {
@@ -48,6 +48,7 @@ public class TypeConversionUtilsTest{
         assertTrue(TypeConversionUtils.isPrimitiveOrWrapper(AtomicLong.class));
         assertTrue(TypeConversionUtils.isPrimitiveOrWrapper("a".getClass()));
     }
+
     @Test
     public void isArrayTest() {
 
@@ -56,6 +57,7 @@ public class TypeConversionUtilsTest{
         assertTrue(TypeConversionUtils.isArray(ArrayList.class));
         assertFalse(TypeConversionUtils.isArray(HashMap.class));
     }
+
     @Test
     public void isMapTest() {
 
@@ -64,6 +66,7 @@ public class TypeConversionUtilsTest{
         assertFalse(TypeConversionUtils.isMap(ArrayList.class));
         assertTrue(TypeConversionUtils.isMap(HashMap.class));
     }
+
     @Test
     public void fromStringTest() {
 
@@ -111,6 +114,7 @@ public class TypeConversionUtilsTest{
         String ss = (String) TypeConversionUtils.fromString(String.class, "s");
         assertTrue(ss.equals("s"));
     }
+
     @Test
     public void primitivesMatchTest() {
 
@@ -137,11 +141,10 @@ public class TypeConversionUtilsTest{
         assertTrue(TypeConversionUtils.primitivesMatch(char.class, Character.class));
         assertTrue(TypeConversionUtils.primitivesMatch(Character.class, char.class));
 
-
     }
 
     @Test
-    public void isServletClassTest(){
+    public void isServletClassTest() {
         assertTrue(TypeConversionUtils.isServletClass("HttpServletRequest"));
         assertTrue(TypeConversionUtils.isServletClass("HttpServletResponse"));
         assertTrue(TypeConversionUtils.isServletClass("MultipartHttpServletRequest"));
@@ -149,27 +152,27 @@ public class TypeConversionUtilsTest{
     }
 
     @Test(dataProvider = "primitiveDataTypes")
-    public void primitiveForNameTest(String className){
-        Class clazz= TypeConversionUtils.primitiveForName(className);
+    public void primitiveForNameTest(String className) {
+        Class clazz = TypeConversionUtils.primitiveForName(className);
         assertNotNull(clazz);
     }
 
-    @DataProvider(name="primitiveDataTypes")
-    public Object[][] primitiveDataTypes(){
+    @DataProvider(name = "primitiveDataTypes")
+    public Object[][] primitiveDataTypes() {
         Object[][] obj = new Object[7][1];
-        obj[0][0]="boolean";
-        obj[1][0]="short";
-        obj[2][0]="int";
-        obj[3][0]="char";
-        obj[4][0]="float";
-        obj[5][0]="double";
-        obj[6][0]="byte";
+        obj[0][0] = "boolean";
+        obj[1][0] = "short";
+        obj[2][0] = "int";
+        obj[3][0] = "char";
+        obj[4][0] = "float";
+        obj[5][0] = "double";
+        obj[6][0] = "byte";
         return obj;
     }
 
     @Test
-    public void primitiveForNameInvalidTypesTest(){
-        Class clazz= TypeConversionUtils.primitiveForName(UUID.randomUUID().toString());
+    public void primitiveForNameInvalidTypesTest() {
+        Class clazz = TypeConversionUtils.primitiveForName(UUID.randomUUID().toString());
         assertNull(clazz);
     }
 

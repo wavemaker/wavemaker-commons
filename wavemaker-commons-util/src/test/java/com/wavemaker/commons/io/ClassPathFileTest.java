@@ -27,7 +27,7 @@ import static org.junit.Assert.assertThat;
 
 /**
  * Tests for {@link ClassPathFile}.
- * 
+ *
  * @author Phillip Webb
  */
 public class ClassPathFileTest {

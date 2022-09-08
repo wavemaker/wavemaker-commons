@@ -32,22 +32,25 @@ import static org.testng.Assert.assertTrue;
 /**
  * @author Simon Toens
  */
-public class StringUtilsTest{
+public class StringUtilsTest {
     @Test
     public void toJavaIdentifier1Test() {
         String s = StringUtils.toJavaIdentifier("1234", '_');
         assertEquals("_1234", s);
     }
+
     @Test
     public void toJavaIdentifier2Test() {
         String s = StringUtils.toJavaIdentifier("import", '_');
         assertEquals("_import", s);
     }
+
     @Test
     public void toJavaIdentifier3Test() {
         String s = StringUtils.toJavaIdentifier("my&name", '_');
         assertEquals("my_name", s);
     }
+
     @Test
     public void split1Test() {
         List<String> l = StringUtils.split("a,b,c");
@@ -56,6 +59,7 @@ public class StringUtilsTest{
         assertTrue(l.get(1).equals("b"));
         assertTrue(l.get(2).equals("c"));
     }
+
     @Test
     public void split2Test() {
         List<String> l = StringUtils.split("a,d:{a:b,c:d},c");
@@ -64,6 +68,7 @@ public class StringUtilsTest{
         assertTrue(l.get(1).equals("d:{a:b,c:d}"));
         assertTrue(l.get(2).equals("c"));
     }
+
     @Test
     public void split3Test() {
         List<String> l = StringUtils.split("a,d:{a:b,c:d},'c,d,e',f");
@@ -73,6 +78,7 @@ public class StringUtilsTest{
         assertTrue(l.get(2).equals("'c,d,e'"));
         assertTrue(l.get(3).equals("f"));
     }
+
     @Test
     public void split4Test() {
         List<String> l = StringUtils.split("{}, {}");
@@ -80,6 +86,7 @@ public class StringUtilsTest{
         assertTrue(l.get(0).equals("{}"));
         assertTrue(l.get(1).equals("{}"));
     }
+
     @Test
     public void split5Test() {
         List<String> l = StringUtils.split("{}, {}");
@@ -87,6 +94,7 @@ public class StringUtilsTest{
         assertTrue(l.get(0).equals("{}"));
         assertTrue(l.get(1).equals("{}"));
     }
+
     @Test
     public void split6Test() {
         List<String> l = StringUtils.split("nKDv8_LV34F3PdYFDoVQCgoCPmQVN7N0nvLypL26TuY6tA0MR5E.9CqtY7QEkn64,301 Howard,San Francisco,CA");
@@ -96,12 +104,14 @@ public class StringUtilsTest{
         assertTrue(l.get(2).equals("San Francisco"));
         assertTrue(l.get(3).equals("CA"));
     }
+
     @Test
     public void splitListTest() {
         List<String> l = StringUtils.split("[a,b,c]");
         assertEquals(1, l.size());
         assertEquals("[a,b,c]", l.get(0));
     }
+
     @Test
     public void toFieldNameTest() throws Exception {
         Map<String, String> expectedResults = new LinkedHashMap<>();
@@ -133,9 +143,9 @@ public class StringUtilsTest{
 
     @Test
     public void testGetItemsStartingWIth() {
-        List<String> finalItems = StringUtils.getItemsStartingWith(Arrays.asList("sampleA","sampleB","sampleC"),"sample",true);
-        String[] expectedList = {"A","B","C"};
-        Assert.assertEquals(expectedList,finalItems.toArray());
+        List<String> finalItems = StringUtils.getItemsStartingWith(Arrays.asList("sampleA", "sampleB", "sampleC"), "sample", true);
+        String[] expectedList = {"A", "B", "C"};
+        Assert.assertEquals(expectedList, finalItems.toArray());
     }
 
     @Test
@@ -143,7 +153,7 @@ public class StringUtilsTest{
         SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
         String expectedDate = dateFormat.format(new Date());
         String actualDate = StringUtils.getFormattedDate();
-        Assert.assertEquals(actualDate,expectedDate);
+        Assert.assertEquals(actualDate, expectedDate);
 
     }
 
@@ -154,9 +164,9 @@ public class StringUtilsTest{
 
     @Test
     public void testGetUniqueNames() {
-        Assert.assertEquals(StringUtils.getUniqueName("abc",Arrays.asList("abc","bcd","abc2")),"abc3");
-        Assert.assertEquals(StringUtils.getUniqueName("abc",Arrays.asList("bcd","cde")),"abc");
-        Assert.assertEquals(StringUtils.getUniqueName("abc","abc"),"abc2");
+        Assert.assertEquals(StringUtils.getUniqueName("abc", Arrays.asList("abc", "bcd", "abc2")), "abc3");
+        Assert.assertEquals(StringUtils.getUniqueName("abc", Arrays.asList("bcd", "cde")), "abc");
+        Assert.assertEquals(StringUtils.getUniqueName("abc", "abc"), "abc2");
     }
 
 }

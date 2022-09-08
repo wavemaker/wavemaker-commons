@@ -91,7 +91,6 @@ public abstract class XMLUtils {
         return getDocumentBuilder().newDocument();
     }
 
-
     public static Document getDocument(String input) {
         return getDocument(IOUtils.toInputStream(input, StandardCharsets.UTF_8));
     }
@@ -106,7 +105,6 @@ public abstract class XMLUtils {
             WMIOUtils.closeSilently(inputStream);
         }
     }
-
 
     public static void putSimpleTextElement(Document document, Element parentElement, String key, String value) {
         NodeList childNodes = parentElement.getChildNodes();
@@ -139,7 +137,6 @@ public abstract class XMLUtils {
         }
         return childElements;
     }
-
 
     public static Document readDocument(InputStream inputStream) throws ParserConfigurationException, IOException, SAXException {
         DocumentBuilder documentBuilder = getDocumentBuilder();

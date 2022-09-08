@@ -35,11 +35,11 @@ public class ErrorResponse {
     private List<String> parameters = new ArrayList<>();
 
     public ErrorResponse() {
-    }   
+    }
 
     public ErrorResponse(String messageKey, String message) {
-    	this.messageKey = messageKey;
-    	this.message = message;
+        this.messageKey = messageKey;
+        this.message = message;
     }
 
     public List<String> getParameters() {

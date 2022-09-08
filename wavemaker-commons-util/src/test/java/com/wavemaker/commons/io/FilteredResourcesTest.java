@@ -26,7 +26,7 @@ import static org.junit.Assert.assertThat;
 
 /**
  * Tests for {@link FilteredResources}.
- * 
+ *
  * @author Phillip Webb
  */
 public class FilteredResourcesTest {

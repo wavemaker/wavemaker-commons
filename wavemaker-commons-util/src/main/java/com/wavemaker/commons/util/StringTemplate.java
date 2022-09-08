@@ -57,13 +57,13 @@ public class StringTemplate {
         this.blankIfNull = blankIfNull;
     }
 
-
     public StringTemplate(String template) {
         this(template, false);
     }
 
     /**
      * @param map substitution map
+     *
      * @return substituted string
      */
     public String substitute(Map<String, ?> map) {

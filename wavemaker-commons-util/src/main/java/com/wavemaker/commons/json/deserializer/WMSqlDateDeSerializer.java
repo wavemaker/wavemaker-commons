@@ -29,8 +29,8 @@ import com.wavemaker.commons.MessageResource;
 import com.wavemaker.commons.WMRuntimeException;
 
 /**
- *
  * can deserialize java.sql.date objects represented in the format "yyyy-MM-dd".
+ *
  * @author Uday Shankar
  */
 public class WMSqlDateDeSerializer extends JsonDeserializer<Date> {

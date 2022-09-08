@@ -22,7 +22,7 @@ import com.wavemaker.commons.io.Resource;
 
 /**
  * {@link ResourceException} thrown when a requested resource does not exist.
- * 
+ *
  * @author Phillip Webb
  */
 public class ResourceDoesNotExistException extends ResourceException {
@@ -30,7 +30,7 @@ public class ResourceDoesNotExistException extends ResourceException {
     private static final long serialVersionUID = 1L;
 
     public ResourceDoesNotExistException(Folder folder, String missingResourceName) {
-        super(MessageResource.create("com.wavemaker.commons.resource.does.not.exist.in.the.folder"),missingResourceName, folder);
+        super(MessageResource.create("com.wavemaker.commons.resource.does.not.exist.in.the.folder"), missingResourceName, folder);
     }
 
     public ResourceDoesNotExistException(Resource resource) {

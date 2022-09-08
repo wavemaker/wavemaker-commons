@@ -36,8 +36,8 @@ public class EncodeUtilsTest {
     @Parameterized.Parameters()
     public static Collection<Object[]> testData() {
         return Arrays.asList(new Object[][]{
-                {"company name", "company+name"}, {"a+b", "a%2Bb"}, {"a%ddf", "a%25ddf"}, {"as%2Csdxfcv", "as%252Csdxfcv"},
-                {"this is 'random',\\\"text\\\"2Check(encoding&{decoding})", "this+is+%27random%27%2C%5C%22text%5C%222Check%28encoding%26%7Bdecoding%7D%29"}
+            {"company name", "company+name"}, {"a+b", "a%2Bb"}, {"a%ddf", "a%25ddf"}, {"as%2Csdxfcv", "as%252Csdxfcv"},
+            {"this is 'random',\\\"text\\\"2Check(encoding&{decoding})", "this+is+%27random%27%2C%5C%22text%5C%222Check%28encoding%26%7Bdecoding%7D%29"}
         });
     }
 

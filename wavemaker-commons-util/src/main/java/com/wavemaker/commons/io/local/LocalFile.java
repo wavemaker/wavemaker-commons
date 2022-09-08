@@ -20,10 +20,9 @@ import com.wavemaker.commons.io.store.StoredFile;
 
 /**
  * A {@link File} implementation backed by standard {@link File java.io.File}s.
- * 
- * @see LocalFolder
- * 
+ *
  * @author Phillip Webb
+ * @see LocalFolder
  */
 public class LocalFile extends StoredFile {
 
@@ -31,7 +30,7 @@ public class LocalFile extends StoredFile {
 
     /**
      * Package scope constructor, files should only be accessed via the {@link LocalFolder},
-     * 
+     *
      * @param store the file store
      */
     LocalFile(LocalResourceStore.LocalFileStore store) {
@@ -45,7 +44,7 @@ public class LocalFile extends StoredFile {
 
     /**
      * Returns access to the underlying local {@link File}.
-     * 
+     *
      * @return the underlying {@link File}
      */
     public java.io.File getLocalFile() {

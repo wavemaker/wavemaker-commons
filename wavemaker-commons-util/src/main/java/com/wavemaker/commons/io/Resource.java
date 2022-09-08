@@ -20,19 +20,19 @@ import com.wavemaker.commons.io.exception.ResourceExistsException;
 /**
  * Base abstract for {@link File}s and {@link Folder}s that may be stored on a physical disk or using some other
  * mechanism. Subclasses will either implement {@link File} or {@link Folder} (but never both).
- * 
+ *
+ * @author Phillip Webb
  * @see File
  * @see Folder
  * @see ResourceURL
- * 
- * @author Phillip Webb
  */
 public interface Resource {
 
     /**
      * Returns the parent folder of the resource or <tt>null</tt> if this is the root folder.
-     * 
+     *
      * @return the parent folder or <tt>null</tt>
+     *
      * @throws ResourceDoesNotExistException if this resource no longer exists
      */
     Folder getParent();
@@ -40,8 +40,9 @@ public interface Resource {
     /**
      * Returns the name of the resource. This name does not include any path element. Root folders will have an empty
      * string name.
-     * 
+     *
      * @return the name of the resource, for example <tt>"file.txt"</tt>
+     *
      * @throws ResourceDoesNotExistException if this resource no longer exists
      */
     String getName();
@@ -54,9 +55,11 @@ public interface Resource {
     /**
      * Move this resource to the specified folder. Any duplicate {@link File}s will be replaced (existing {@link Folder}
      * resources will be merged). If the resource does not exist a {@link ResourceDoesNotExistException} is thrown.
-     * 
+     *
      * @param folder the folder to move the resource to
+     *
      * @return a new resource (the current resource will no longer {@link #exists() exist}
+     *
      * @throws ResourceDoesNotExistException if this resource no longer exists
      */
     Resource moveTo(Folder folder);
@@ -65,9 +68,11 @@ public interface Resource {
      * Recursively copy this resource to the specified folder. Any duplicate {@link File}s will be replaced (existing
      * {@link Folder} resources will be merged). If the resource does not exist a {@link ResourceDoesNotExistException}
      * is thrown.
-     * 
+     *
      * @param folder the folder to copy the resource to
+     *
      * @return a new resource (the current resource will no longer {@link #exists() exist}
+     *
      * @throws ResourceDoesNotExistException if this resource no longer exists
      */
     Resource copyTo(Folder folder);
@@ -76,16 +81,18 @@ public interface Resource {
      * Rename the current resource. The rename operation cannot be used not move the resource to a different folder, use
      * the {@link #moveTo(Folder)} method to move the resource before renaming if required. Root folders cannot be
      * renamed. If the resource does not exist a {@link ResourceDoesNotExistException} is thrown.
-     * 
+     *
      * @param name the new name of the resource (this must not include any path elements)
+     *
      * @return a new resource (the current resource will no longer {@link #exists() exist}
+     *
      * @throws ResourceExistsException if a resource already exists with the specified name
      */
     Resource rename(String name);
 
     /**
      * Returns <tt>true</tt> if the resource exists in the underlying store.
-     * 
+     *
      * @return <tt>true</tt> if the resource exists.
      */
     boolean exists();
@@ -98,8 +105,9 @@ public interface Resource {
 
     /**
      * Returns the complete name of the resource. This name includes path elements. Folders always end in '/'.
-     * 
+     *
      * @return the full name of the resource, for example <tt>"/folder/file.txt"</tt> or <tt>"/folder/"</tt>
+     *
      * @see #getName()
      * @see #toString(ResourceStringFormat)
      * @see #toStringRelativeTo(Folder)
@@ -109,9 +117,11 @@ public interface Resource {
 
     /**
      * Returns the name of the resource in the specified format.
-     * 
+     *
      * @param format the format used for the name
+     *
      * @return the name
+     *
      * @see #toString()
      * @see #toStringRelativeTo(Folder)
      */
@@ -122,16 +132,17 @@ public interface Resource {
      * The source must be a parent (or grandparent etc) of this resource. If the source is this folder an empty String
      * is returned. The returned value does not include any leading slash, for example: '/a/b/c.txt' relative to '/a/'
      * will return 'b/c.txt'.
-     * 
+     *
      * @param source the source folder
+     *
      * @return the name
+     *
      * @see #toString()
      * @see #toStringRelativeTo(Folder)
      */
     String toStringRelativeTo(Folder source);
 
     /**
-     * @param folder
      * @return true if the given param folder is relative to comprising folder object, else return false
      */
     boolean isRelativeTo(Folder folder);
@@ -139,8 +150,9 @@ public interface Resource {
     /**
      * Determines if this resource is equal to another object. Any resources that have the same type, path and are
      * stored in the same underlying system are considered equal.
-     * 
+     *
      * @param obj the object to compare to
+     *
      * @return <tt>true</tt> if the resource is equal to the specified object.
      */
     @Override
@@ -153,7 +165,7 @@ public interface Resource {
      * GMT, January 1, 1970).
      *
      * @return the time this resource object was last modified; or 0 if the resource object does not exist, if an I/O error
-     *         occurred, or if the operation is not supported
+     * occurred, or if the operation is not supported
      */
     long getLastModified();
 

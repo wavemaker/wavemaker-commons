@@ -29,13 +29,15 @@ import static java.lang.annotation.ElementType.PARAMETER;
 import static java.lang.annotation.ElementType.TYPE;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
-@Target( { METHOD, FIELD, PARAMETER, ANNOTATION_TYPE ,TYPE})
+@Target({METHOD, FIELD, PARAMETER, ANNOTATION_TYPE, TYPE})
 @Retention(RUNTIME)
 @Constraint(validatedBy = ScopesValidator.class)
 @Documented
 public @interface ValidateScopes {
     String message() default "scopes should not contain spaces";
+
     Class<?>[] groups() default {};
+
     Class<? extends Payload>[] payload() default {};
 
 }

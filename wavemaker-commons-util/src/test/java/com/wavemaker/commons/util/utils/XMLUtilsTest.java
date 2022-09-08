@@ -60,13 +60,13 @@ public class XMLUtilsTest {
     }
 
     @Test
-    public void attributesToMapScopeTest() throws IOException,XMLStreamException {
+    public void attributesToMapScopeTest() throws IOException, XMLStreamException {
         URL resource = XMLUtilsTest.class.getClassLoader().getResource("Customer.xml");
         String filePath = resource.getFile();
         XMLInputFactory factory = XMLInputFactory.newInstance();
         XMLStreamReader reader = factory.createXMLStreamReader(new FileReader(filePath));
         reader.next();
-        Map<String, String> output = XMLUtils.attributesToMap("xyz",reader);
+        Map<String, String> output = XMLUtils.attributesToMap("xyz", reader);
         assertEquals(output.size(), 1);
         Set<Map.Entry<String, String>> entries = output.entrySet();
         Map.Entry<String, String> entry = entries.iterator().next();

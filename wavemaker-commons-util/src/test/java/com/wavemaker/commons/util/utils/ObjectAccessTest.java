@@ -47,7 +47,6 @@ public class ObjectAccessTest {
         assertEquals(Car.class, testClass);
     }
 
-
     @Test
     public void invokeTest() {
         Car car = new Car();
@@ -93,9 +92,8 @@ public class ObjectAccessTest {
 
         assertTrue(ObjectAccess.getInstance().hasMethod(klazz, methodName, 0));
         assertFalse(ObjectAccess.getInstance().hasMethod(klazz, methodName, 1) ||
-                ObjectAccess.getInstance().hasMethod(klazz, methodName, 2) ||
-                ObjectAccess.getInstance().hasMethod(klazz, methodName, 3));
-
+            ObjectAccess.getInstance().hasMethod(klazz, methodName, 2) ||
+            ObjectAccess.getInstance().hasMethod(klazz, methodName, 3));
 
         String method2 = "setBrand";
 
@@ -128,21 +126,21 @@ public class ObjectAccessTest {
     @Test
     public void testGenericReturntypes() {
         Class[] expectedClasses = {Car.class};
-        Assert.assertEquals(ObjectAccess.getInstance().getGenericReturnTypes(Task.class,"getTasks",0).toArray(),
-                expectedClasses);
+        Assert.assertEquals(ObjectAccess.getInstance().getGenericReturnTypes(Task.class, "getTasks", 0).toArray(),
+            expectedClasses);
 
     }
 
     @Test
     public void testGetMethodReturnType() {
-        Assert.assertEquals(ObjectAccess.getInstance().getMethodReturnType(List.class,"size",0),
-                int.class);
+        Assert.assertEquals(ObjectAccess.getInstance().getMethodReturnType(List.class, "size", 0),
+            int.class);
     }
 
     @Test
     public void testGetParameterTypes() {
-        Assert.assertEquals(ObjectAccess.getInstance().getMethodParamTypes(Task.class,"setTasks",1).toArray()[0],
-                List.class);
+        Assert.assertEquals(ObjectAccess.getInstance().getMethodParamTypes(Task.class, "setTasks", 1).toArray()[0],
+            List.class);
     }
 
     @Test
@@ -150,6 +148,5 @@ public class ObjectAccessTest {
         Assert.assertTrue(ObjectAccess.getInstance().hasAnnotation(MyAnnotation.class, new Task(), "getTasks"));
         Assert.assertFalse(ObjectAccess.getInstance().hasAnnotation(MyAnnotation.class, new Task(), "tasks"));
     }
-
 
 }

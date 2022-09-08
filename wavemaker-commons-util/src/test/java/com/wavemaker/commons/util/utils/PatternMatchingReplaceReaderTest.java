@@ -32,7 +32,6 @@ import com.wavemaker.commons.util.PatternMatchingReplaceReader;
 
 public class PatternMatchingReplaceReaderTest {
 
-
     private static Environment env;
 
     @BeforeClass
@@ -44,8 +43,8 @@ public class PatternMatchingReplaceReaderTest {
     public void testWithSimpleTextFile() throws IOException {
         String fileName = "pattern-matching-reader/pattern-file1.txt";
         System.setProperty("rest.googleapis.basepath", "my-app-path");
-        System.setProperty("rest.googleapis.scheme","my-app-scheme");
-        System.setProperty("rest.google-app_store.drive","google-drive");
+        System.setProperty("rest.googleapis.scheme", "my-app-scheme");
+        System.setProperty("rest.google-app_store.drive", "google-drive");
 
         String resolvedString = getResolvedStringForFile(fileName, "${{", "}}");
         String expectedOutput = IOUtils.resourceToString("pattern-matching-reader/expected-file1.txt", StandardCharsets.UTF_8, PatternMatchingReplaceReaderTest.class.getClassLoader());
@@ -53,17 +52,16 @@ public class PatternMatchingReplaceReaderTest {
     }
 
     @Test
-    public void testWithXmlFile() throws IOException
-    {
-        String fileName= "pattern-matching-reader/pattern-file2.xml";
-        System.setProperty("jdbc.driver","driver1");
-        System.setProperty("jdbc.db-user_name","user1");
-        System.setProperty("jdbc.db-password_1","pass123");
-        System.setProperty("app.class","com.java.Person");
-        System.setProperty("app.name","Person Info");
-        System.setProperty("app.version","19.23");
+    public void testWithXmlFile() throws IOException {
+        String fileName = "pattern-matching-reader/pattern-file2.xml";
+        System.setProperty("jdbc.driver", "driver1");
+        System.setProperty("jdbc.db-user_name", "user1");
+        System.setProperty("jdbc.db-password_1", "pass123");
+        System.setProperty("app.class", "com.java.Person");
+        System.setProperty("app.name", "Person Info");
+        System.setProperty("app.version", "19.23");
 
-        String resolvedString=getResolvedStringForFile(fileName, "${", "}");
+        String resolvedString = getResolvedStringForFile(fileName, "${", "}");
         String expectedOutput = IOUtils.resourceToString("pattern-matching-reader/expected-file2.xml", StandardCharsets.UTF_8, PatternMatchingReplaceReaderTest.class.getClassLoader());
         Assert.assertEquals(expectedOutput, resolvedString);
     }

@@ -16,7 +16,7 @@ package com.wavemaker.commons;
 
 /**
  * Add more details about method we're trying to invoke here.
- * 
+ *
  * @author Simon Toens
  */
 public class MethodNotFoundRuntimeException extends WMRuntimeException {

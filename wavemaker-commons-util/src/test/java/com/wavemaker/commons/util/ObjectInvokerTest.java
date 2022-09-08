@@ -105,23 +105,27 @@ public class ObjectInvokerTest {
         }
 
     }
+
     @Test
     public void methodNoArgTest() {
         String rtn = this.oi.invoke(new A(), "simpleMethod");
         assertTrue(rtn == A.SIMPLE_METHOD_RTN);
     }
+
     @Test
     public void methodArgTest() {
         Integer i = 2;
         Integer rtn = this.oi.invoke(new A(), "simpleMethodArg", i);
         assertTrue(rtn == i);
     }
+
     @Test
     public void methodArgOverloadedTest() {
         Integer i = 2;
         ObjectAccess rtn = this.oi.invoke(new A(), "simpleMethodArg", i, this.oi);
         assertTrue(rtn == this.oi);
     }
+
     @Test
     public void methodArg1Test() {
         Arg1 a = new Arg1();
@@ -129,6 +133,7 @@ public class ObjectInvokerTest {
         this.oi.invoke(new A(), "methodArg1", a);
         assertTrue(A.RTN == a);
     }
+
     @Test
     public void methodObjectTest() {
         Arg1 a = new Arg1();
@@ -136,6 +141,7 @@ public class ObjectInvokerTest {
         this.oi.invoke(new A(), "methodObject", a);
         assertTrue(A.RTN_OBJ == a);
     }
+
     @Test
     public void cannotCallPrivateMethodTest() {
         try {
@@ -145,6 +151,7 @@ public class ObjectInvokerTest {
         }
         fail();
     }
+
     @Test
     public void cannotCallProtectedMethodTest() {
         try {
@@ -154,6 +161,7 @@ public class ObjectInvokerTest {
         }
         fail();
     }
+
     @Test
     public void cannotCallPackageProtectedMethodTest() {
         try {
@@ -163,28 +171,33 @@ public class ObjectInvokerTest {
         }
         fail();
     }
+
     @Test
     public void methodInChildClassTest() {
         String s = this.oi.invoke(new B(), "methodInChildClass", 2);
         assertTrue(s.equals("2"));
     }
+
     @Test
     public void methodInParentClassTest() {
         String rtn = this.oi.invoke(new B(), "simpleMethod");
         assertTrue(rtn == A.SIMPLE_METHOD_RTN);
     }
+
     @Test
     public void getPropertiesTest() {
         Map<String, Class<?>> properties = this.oi.getProperties(B.class);
         assertTrue(properties.size() == 1);
         assertTrue(properties.get("foo") == String.class);
     }
+
     @Test
     public void setPropertyTest() {
         B b = new B();
         this.oi.setProperty(b, "foo", "test");
         assertTrue(b.getFoo().equals("test"));
     }
+
     @Test
     public void setPropertyToNullTest() {
         B b = new B();

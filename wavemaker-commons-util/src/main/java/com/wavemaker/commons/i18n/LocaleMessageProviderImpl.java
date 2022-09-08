@@ -57,7 +57,7 @@ public class LocaleMessageProviderImpl implements LocaleMessageProvider {
 
     public LocaleMessageProviderImpl() {
         this(Arrays.asList(CLASSPATH_MESSAGE_RESOURCE_PATH), new PathMatchingResourcePatternResolver(
-                new DefaultResourceLoader(LocaleMessageProviderImpl.class.getClassLoader())));
+            new DefaultResourceLoader(LocaleMessageProviderImpl.class.getClassLoader())));
     }
 
     public LocaleMessageProviderImpl(List<String> locationPatterns, ResourcePatternResolver resourcePatternResolver) {
@@ -86,7 +86,7 @@ public class LocaleMessageProviderImpl implements LocaleMessageProvider {
     @Override
     public String getLocaleMessage(String[] locales, MessageResource messageResource, String defaultMessage) {
         String localMessage = getLocaleMessage(locales, messageResource);
-        if(localMessage != null){
+        if (localMessage != null) {
             return localMessage;
         } else {
             logger.warn("message for {} not found and default message is {}", messageResource.getMessageKey(), defaultMessage);
@@ -135,8 +135,8 @@ public class LocaleMessageProviderImpl implements LocaleMessageProvider {
         try {
             List<Resource> resourceList = getResourceList(locale + ".json");
             for (Resource resource : resourceList) {
-                                Map<String, String> localeMessages = JSONUtils.toObject(resource.getInputStream(), new TypeReference<>() {
-                                });
+                Map<String, String> localeMessages = JSONUtils.toObject(resource.getInputStream(), new TypeReference<>() {
+                });
                 existingMessages.putAll(localeMessages);
             }
         } catch (IOException e) {

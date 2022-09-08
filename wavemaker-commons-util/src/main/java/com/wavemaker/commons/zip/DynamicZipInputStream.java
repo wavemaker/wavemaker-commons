@@ -26,7 +26,7 @@ import org.springframework.util.Assert;
 /**
  * InputStream that dynamically creates ZIP contents as the stream is read without consuming too much memory. Zip
  * {@link Entry entries} should be provided on {@link #DynamicZipInputStream(Iterable) construction}.
- * 
+ *
  * @author Phillip Webb
  */
 public class DynamicZipInputStream extends InputStream {
@@ -70,9 +70,8 @@ public class DynamicZipInputStream extends InputStream {
 
     /**
      * Create a new {@link DynamicZipInputStream} instance.
-     * 
-     * @param entries
-     *            the zip entries that should be written to the stream
+     *
+     * @param entries the zip entries that should be written to the stream
      */
     public DynamicZipInputStream(Iterable<Entry> entries) {
         Assert.notNull(entries, "Entries must not be null");
@@ -169,7 +168,7 @@ public class DynamicZipInputStream extends InputStream {
 
         /**
          * Returns the name of the entry complete with path, equivalent to {@link ZipEntry#getName()}.
-         * 
+         *
          * @return the name of the entry
          */
         String getName();
@@ -177,9 +176,8 @@ public class DynamicZipInputStream extends InputStream {
         /**
          * Opens a new stream that can be used to read the contents of the entry. The steam will be closed by the
          * caller.
-         * 
+         *
          * @return the entry input stream
-         * @throws IOException
          */
         InputStream getInputStream() throws IOException;
     }

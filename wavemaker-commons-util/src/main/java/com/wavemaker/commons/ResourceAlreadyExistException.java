@@ -17,7 +17,7 @@ package com.wavemaker.commons;
 /**
  * @author Sunil Kumar
  */
-public class ResourceAlreadyExistException extends WMRuntimeException{
+public class ResourceAlreadyExistException extends WMRuntimeException {
 
     public ResourceAlreadyExistException(MessageResource resource, Object... args) {
         super(resource, args);

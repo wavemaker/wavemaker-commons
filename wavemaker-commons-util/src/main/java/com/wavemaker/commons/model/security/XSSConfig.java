@@ -77,12 +77,12 @@ public class XSSConfig {
     @Override
     public String toString() {
         return "XSSConfig{" +
-                "enforceXssSecurity=" + enforceXssSecurity +
-                ", policyFile='" + policyFile + '\'' +
-                ", xssFilterStrategy=" + xssFilterStrategy +
-                ", policyType=" + policyType +
-                ", dataBackwardCompatibility=" + dataBackwardCompatibility +
-                ", xssSanitizationLayer=" + xssSanitizationLayer +
-                '}';
+            "enforceXssSecurity=" + enforceXssSecurity +
+            ", policyFile='" + policyFile + '\'' +
+            ", xssFilterStrategy=" + xssFilterStrategy +
+            ", policyType=" + policyType +
+            ", dataBackwardCompatibility=" + dataBackwardCompatibility +
+            ", xssSanitizationLayer=" + xssSanitizationLayer +
+            '}';
     }
 }

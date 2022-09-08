@@ -30,7 +30,7 @@ import static org.junit.Assert.assertTrue;
 
 /**
  * Tests for {@link FilteredIterator}.
- * 
+ *
  * @author Phillip Webb
  */
 public class FilteredIteratorTest {

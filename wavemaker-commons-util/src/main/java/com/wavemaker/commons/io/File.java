@@ -18,11 +18,10 @@ import com.wavemaker.commons.io.exception.ResourceDoesNotExistException;
 
 /**
  * A file {@link Resource} that may be stored on a physical disk or using some other mechanism.
- * 
+ *
+ * @author Phillip Webb
  * @see Folder
  * @see MutableFile
- * 
- * @author Phillip Webb
  */
 public interface File extends Resource {
 
@@ -37,15 +36,14 @@ public interface File extends Resource {
 
     /**
      * Returns the size in bytes of the virtual file.
-     * 
+     *
      * @return the size in bytes
      */
     long getSize();
 
-
     /**
      * Update the {@link #getLastModified() last modified timestamp} of the file to now.
-     * 
+     *
      * @throws ResourceDoesNotExistException if the resource does not exist
      */
     void touch();
@@ -53,16 +51,18 @@ public interface File extends Resource {
     /**
      * Provides access to file content. Calling any method on a file that does not {@link #exists() exist} will cause it
      * to be created.
-     * 
+     *
      * @return the file content
      */
     FileContent getContent();
 
     /**
      * RCopy this file to the specified folder if this file is newer than the destination.
-     * 
+     *
      * @param folder the folder to copy the file to
+     *
      * @return a new resource (the current resource will no longer {@link #exists() exist}
+     *
      * @throws ResourceDoesNotExistException if this resource no longer exists
      */
     Resource copyToIfNewer(Folder folder);

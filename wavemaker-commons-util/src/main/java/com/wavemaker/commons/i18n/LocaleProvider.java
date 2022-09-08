@@ -21,7 +21,6 @@ public interface LocaleProvider {
 
     /**
      * Will return the list of locales with descending priroty for the current request
-     * @return
      */
     String[] getLocales();
 }

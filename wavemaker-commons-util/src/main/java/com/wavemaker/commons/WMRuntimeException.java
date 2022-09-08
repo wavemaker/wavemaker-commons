@@ -19,7 +19,6 @@ package com.wavemaker.commons;
  */
 public class WMRuntimeException extends RuntimeException implements WMCommonException {
 
-
     private MessageResourceHolder messageResourceHolder = new MessageResourceHolder();
 
     public WMRuntimeException(String message) {
@@ -36,7 +35,6 @@ public class WMRuntimeException extends RuntimeException implements WMCommonExce
         messageResourceHolder.setMessageResource(resource);
         messageResourceHolder.setArgs(args);
     }
-
 
     public WMRuntimeException(MessageResource resource, String detailedMessage, Throwable cause, Object... args) {
         this(resource, cause, args);

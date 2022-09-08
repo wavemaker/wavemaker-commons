@@ -27,5 +27,4 @@ public class PageException extends WMRuntimeException {
         super(s);
     }
 
-
 }

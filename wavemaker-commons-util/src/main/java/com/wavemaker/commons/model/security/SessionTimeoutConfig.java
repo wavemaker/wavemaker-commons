@@ -62,27 +62,27 @@ public class SessionTimeoutConfig {
         final SessionTimeoutConfig that = (SessionTimeoutConfig) o;
 
         return new EqualsBuilder()
-                .append(timeoutValue, that.timeoutValue)
-                .append(type, that.type)
-                .append(pageName, that.pageName)
-                .isEquals();
+            .append(timeoutValue, that.timeoutValue)
+            .append(type, that.type)
+            .append(pageName, that.pageName)
+            .isEquals();
     }
 
     @Override
     public int hashCode() {
         return new HashCodeBuilder(17, 37)
-                .append(type)
-                .append(pageName)
-                .append(timeoutValue)
-                .toHashCode();
+            .append(type)
+            .append(pageName)
+            .append(timeoutValue)
+            .toHashCode();
     }
 
     @Override
     public String toString() {
         return "SessionTimeoutConfig{" +
-                "type=" + type +
-                ", pageName='" + pageName + '\'' +
-                ", timeoutValue=" + timeoutValue +
-                '}';
+            "type=" + type +
+            ", pageName='" + pageName + '\'' +
+            ", timeoutValue=" + timeoutValue +
+            '}';
     }
 }

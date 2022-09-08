@@ -55,7 +55,7 @@ import static org.mockito.Mockito.verify;
 
 /**
  * Tests for {@link com.wavemaker.commons.zip.ZipArchive}.
- * 
+ *
  * @author Phillip Webb
  */
 @Ignore

@@ -16,7 +16,7 @@ package com.wavemaker.commons.io.exception;
 
 /**
  * {@link ResourceException} thrown when a resource already exists.
- * 
+ *
  * @author Phillip Webb
  */
 public class ResourceExistsException extends ResourceException {

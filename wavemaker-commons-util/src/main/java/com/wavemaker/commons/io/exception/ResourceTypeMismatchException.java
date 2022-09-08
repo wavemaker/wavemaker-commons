@@ -21,7 +21,7 @@ import com.wavemaker.commons.io.ResourcePath;
 /**
  * Exception thrown when a {@link Resource} is requested as a particular type but an existing resource of another type
  * already exists.
- * 
+ *
  * @author Phillip Webb
  */
 public class ResourceTypeMismatchException extends ResourceException {
@@ -32,9 +32,9 @@ public class ResourceTypeMismatchException extends ResourceException {
 
     /**
      * Create a new {@link ResourceTypeMismatchException} instance.
-     * 
-     * @param path the path begin accessed
-     * @param actual the actual type
+     *
+     * @param path     the path begin accessed
+     * @param actual   the actual type
      * @param expected the expected type
      */
     public ResourceTypeMismatchException(ResourcePath path, boolean accessingAsFolder) {

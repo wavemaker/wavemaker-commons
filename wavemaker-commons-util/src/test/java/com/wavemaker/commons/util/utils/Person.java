@@ -18,10 +18,11 @@ package com.wavemaker.commons.util.utils;
  * Created by prithvi on 9/10/15.
  */
 public class Person {
-    public String personName(String name){
+    public String personName(String name) {
         return name;
     }
-    public String personDesignation(String designation){
+
+    public String personDesignation(String designation) {
         return designation;
     }
 }

@@ -31,9 +31,9 @@ import com.wavemaker.commons.zip.DynamicZipInputStream.Entry;
 
 /**
  * Adapter class that can be used to convert a {@link Folder} into a zipped {@link InputStream}.
- * 
+ *
  * @author Phillip Webb
- * 
+ *
  *         FIXME The lazy loading and all the other ideas introduced in this class are an overkill now, remove it
  */
 class ZipResourcesStream extends FilterInputStream {
@@ -44,11 +44,9 @@ class ZipResourcesStream extends FilterInputStream {
 
     /**
      * Create a new {@link ZipResourcesStream} instance.
-     * 
-     * @param resources
-     *            Resources
-     * @param prefix
-     *            an optional entry prefix. This allows a entries to be nested within a folder if required
+     *
+     * @param resources Resources
+     * @param prefix    an optional entry prefix. This allows a entries to be nested within a folder if required
      */
     public ZipResourcesStream(Resources<?> resources, String prefix) {
         super(null);
@@ -91,7 +89,7 @@ class ZipResourcesStream extends FilterInputStream {
         @Override
         public String getName() {
             return ZipResourcesStream.this.prefix
-                    + this.resource.toString().substring(ZipResourcesStream.this.source.toString().length());
+                + this.resource.toString().substring(ZipResourcesStream.this.source.toString().length());
         }
 
         @Override

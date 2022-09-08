@@ -318,7 +318,6 @@ public class WMIOUtilsTest {
         }
     }
 
-
     @DataProvider
     public Object[][] streamProvider() {
         Object[][] obj = new Object[2][1];
@@ -348,29 +347,29 @@ public class WMIOUtilsTest {
 
     @Test
     public void testTail() throws IOException {
-        File file = new File("target","testFileOne.txt");
-        WMIOUtils.write(file,"adding data to a file\ndata1\ndata2");
-        Assert.assertEquals(WMIOUtils.tail(file,2),"data1\ndata2\n");
+        File file = new File("target", "testFileOne.txt");
+        WMIOUtils.write(file, "adding data to a file\ndata1\ndata2");
+        Assert.assertEquals(WMIOUtils.tail(file, 2), "data1\ndata2\n");
 
     }
 
     @Test
     public void testCompare() throws IOException {
-        File file = new File("target","testFileOne.txt");
-        WMIOUtils.write(file,"adding data to a file\ndata1\ndata2");
-        File tempFile = new File("target","temporary.txt");
+        File file = new File("target", "testFileOne.txt");
+        WMIOUtils.write(file, "adding data to a file\ndata1\ndata2");
+        File tempFile = new File("target", "temporary.txt");
         WMIOUtils.write(tempFile, "it is a temporary file");
-        Assert.assertTrue(WMIOUtils.compare(new FileInputStream(file),new FileInputStream(file)));
-        Assert.assertFalse(WMIOUtils.compare(new FileInputStream(file),new FileInputStream(tempFile)));
+        Assert.assertTrue(WMIOUtils.compare(new FileInputStream(file), new FileInputStream(file)));
+        Assert.assertFalse(WMIOUtils.compare(new FileInputStream(file), new FileInputStream(tempFile)));
     }
 
     @Test
     public void testCopy() throws IOException {
         File sourceFile = new File("target", "source.txt");
         File destFile = new File("target", "dest.txt");
-        WMIOUtils.write(sourceFile,"temporary file inputs fo copy test");
-        WMIOUtils.copy(sourceFile, destFile, "noExcludeInput","noExcludePattern");
-        Assert.assertTrue(WMIOUtils.compare(new FileInputStream(sourceFile),new FileInputStream(destFile)));
+        WMIOUtils.write(sourceFile, "temporary file inputs fo copy test");
+        WMIOUtils.copy(sourceFile, destFile, "noExcludeInput", "noExcludePattern");
+        Assert.assertTrue(WMIOUtils.compare(new FileInputStream(sourceFile), new FileInputStream(destFile)));
     }
 
     @Test
@@ -415,6 +414,5 @@ public class WMIOUtilsTest {
             }
         };
     }
-
 
 }

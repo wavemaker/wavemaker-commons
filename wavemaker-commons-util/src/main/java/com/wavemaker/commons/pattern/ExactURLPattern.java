@@ -18,24 +18,20 @@ package com.wavemaker.commons.pattern;
  * Created by sunilp on 7/10/15.
  */
 public class ExactURLPattern
-        extends URLPattern
-{
-    ExactURLPattern(String pattern)
-    {
+    extends URLPattern {
+    ExactURLPattern(String pattern) {
         super(pattern);
     }
 
     @Override
-    public boolean matches(String requestURI)
-    {
+    public boolean matches(String requestURI) {
         if (requestURI == null || "".equals(requestURI)) {
             return false;
         }
         return getPatternString().equals(requestURI);
     }
 
-    public String toString()
-    {
+    public String toString() {
         return "Exact-Pattern: [" + getPatternString() + "]";
     }
 }

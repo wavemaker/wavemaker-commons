@@ -34,10 +34,10 @@ public class WMBeanSerializerModifier extends BeanSerializerModifier {
 
     @Override
     public JsonSerializer<?> modifySerializer(
-            final SerializationConfig config, final BeanDescription beanDesc, final JsonSerializer<?> serializer) {
+        final SerializationConfig config, final BeanDescription beanDesc, final JsonSerializer<?> serializer) {
         if (serializer instanceof BeanSerializerBase) {
             return new CircularLoopHandlingSerializer<>((BeanSerializerBase) serializer,
-                    module.isFailOnCircularReferences());
+                module.isFailOnCircularReferences());
         } else {
             return serializer;
         }

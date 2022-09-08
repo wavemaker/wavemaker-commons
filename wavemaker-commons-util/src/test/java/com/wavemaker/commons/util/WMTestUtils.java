@@ -29,10 +29,9 @@ public class WMTestUtils {
     /**
      * Compare the contents of two files; display the message.
      *
-     * @param message The message to display.
+     * @param message  The message to display.
      * @param expected The File containing the expected contents.
-     * @param actual The File containing the resulting contents.
-     * @throws IOException
+     * @param actual   The File containing the resulting contents.
      */
     public static void assertEquals(String message, File expected, File actual) throws IOException {
 

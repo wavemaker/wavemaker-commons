@@ -40,7 +40,7 @@ public abstract class AbstractResources<T extends Resource> implements Resources
     }
 
     @Override
-    @SuppressWarnings({ "unchecked", "rawtypes" })
+    @SuppressWarnings({"unchecked", "rawtypes"})
     public Resources<File> files() {
         return (Resources) include(new ResourceFilter() {
 
@@ -52,7 +52,7 @@ public abstract class AbstractResources<T extends Resource> implements Resources
     }
 
     @Override
-    @SuppressWarnings({ "unchecked", "rawtypes" })
+    @SuppressWarnings({"unchecked", "rawtypes"})
     public Resources<Folder> folders() {
         return (Resources) include(new ResourceFilter() {
 

@@ -39,15 +39,14 @@ import static org.testng.Assert.assertEquals;
  */
 public class XMLWriterTest {
 
-
     @Test
-   public void xmlWriterTest() throws Exception {
+    public void xmlWriterTest() throws Exception {
         //JAXBContext jaxbContext = JAXBContext.newInstance();
 
         File tempFile = File.createTempFile("Sampletemp", ".xml");
         tempFile.deleteOnExit();
         PrintWriter pw = new PrintWriter(tempFile);
-        XMLWriter xw= new XMLWriter(pw);
+        XMLWriter xw = new XMLWriter(pw);
         xw.setTextOnSameLineAsParentElement(true);
         xw.addVersion();
         //xw.addDoctype("Test","SYSTEM","file:///tmp/");
@@ -69,7 +68,6 @@ public class XMLWriterTest {
         assertEquals("Amanda\n  ", customer.getName());
         assertEquals(20, customer.getAge());
 
-
     }
 
     @Test(expectedExceptions = {RuntimeException.class})
@@ -89,28 +87,27 @@ public class XMLWriterTest {
         }
     }
 
-
     @Test
     public void testXmlWriter() throws IOException, JAXBException, ParserConfigurationException, SAXException {
         File tempFile = new File("target", "customer-data.xml");
         PrintWriter pw = new PrintWriter(tempFile);
-        XMLWriter xw= new XMLWriter(pw);
+        XMLWriter xw = new XMLWriter(pw);
         xw.setTextOnSameLineAsParentElement(true);
         xw.addVersion();
         //xw.addDoctype("Test","SYSTEM","file:///tmp/");
         xw.addElement("customer");
-        xw.addNamespace("shortNs","longNs");
+        xw.addNamespace("shortNs", "longNs");
         xw.setCurrentShortNS("shortNs");
         xw.unsetCurrentShortNS();
 
-        Map<String,String> attributeMap = new HashMap<>();
-        attributeMap.put("id","100");
+        Map<String, String> attributeMap = new HashMap<>();
+        attributeMap.put("id", "100");
         xw.addAttribute(attributeMap);
         xw.addElement("name");
         xw.addText("Amanda", false);
         xw.closeElement();
         xw.addElement("age");
-        xw.addText("20",false);
+        xw.addText("20", false);
         xw.addComment("customer details");
         xw.closeElement();
         xw.finish();
@@ -124,6 +121,5 @@ public class XMLWriterTest {
         assertEquals(20, customer.getAge());
 
     }
-
 
 }
