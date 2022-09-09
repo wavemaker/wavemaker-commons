@@ -77,7 +77,7 @@ public abstract class XMLUtils {
             if (scope.length() > 0) {
                 attrName.append(scope).append(SCOPE_SEP);
             }
-            attrName.append(reader.getAttributeName(i).toString());
+            attrName.append(reader.getAttributeName(i));
             rtn.put(attrName.toString(), reader.getAttributeValue(i));
         }
         return rtn;

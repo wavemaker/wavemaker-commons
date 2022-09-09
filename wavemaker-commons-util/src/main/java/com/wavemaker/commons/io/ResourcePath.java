@@ -83,7 +83,7 @@ public final class ResourcePath implements Serializable {
         if (source.equals(this)) {
             return "";
         }
-        String sourcePath = source.toString() + "/";
+        String sourcePath = source + "/";
         Assert.isTrue(toString().startsWith(sourcePath), "Source '" + source + "' must be a parent of '" + this + "'");
         return toString().substring(sourcePath.length());
     }

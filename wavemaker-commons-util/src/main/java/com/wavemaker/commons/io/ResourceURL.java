@@ -92,7 +92,7 @@ public abstract class ResourceURL {
     }
 
     private static String getSpec(Resource resource) {
-        return PROTOCOL + ":" + resource.toString();
+        return PROTOCOL + ":" + resource;
     }
 
     /**

@@ -105,7 +105,7 @@ public class PatternMatchingReplaceReader extends FilterReader {
                                 break;
                             }
                         } else if (!isValidChar(ch)) {
-                            sb.append(prefix).append(tempSb.toString());
+                            sb.append(prefix).append(tempSb);
                             break;
                         } else {
                             count = 0;
