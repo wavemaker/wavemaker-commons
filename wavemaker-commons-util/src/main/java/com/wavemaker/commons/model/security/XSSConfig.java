@@ -14,16 +14,23 @@
  ******************************************************************************/
 package com.wavemaker.commons.model.security;
 
+import org.springframework.beans.factory.annotation.Value;
+
 /**
  * Created by kishorer on 6/7/16.
  */
 public class XSSConfig {
 
+    @Value("false")
     private boolean enforceXssSecurity;
+    @Value("wm-xss-policies.xml")
     private String policyFile;
+    @Value("WHITE_LIST")
     private XSSFilterStrategy xssFilterStrategy;
     private XSSPolicyType policyType;
+    @Value("${security.general.xss.dataBackwardCompatibility}")
     private boolean dataBackwardCompatibility;
+    @Value("${security.general.xss.sanitizationLayer}")
     private XSSSanitizationLayer xssSanitizationLayer;
 
     public boolean isDataBackwardCompatibility() {

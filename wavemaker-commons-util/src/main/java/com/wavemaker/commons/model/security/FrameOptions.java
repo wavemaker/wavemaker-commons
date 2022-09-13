@@ -14,13 +14,18 @@
  ******************************************************************************/
 package com.wavemaker.commons.model.security;
 
+import org.springframework.beans.factory.annotation.Value;
+
 /**
  * Created by srujant on 25/4/17.
  */
 public class FrameOptions {
 
+    @Value("${security.general.frameOptions.enabled}")
     private boolean enabled;
+    @Value("${security.general.frameOptions.mode}")
     private Mode mode;
+    @Value("${security.general.frameOptions.allowFromUrl}")
     private String allowFromUrl;
 
     public Mode getMode() {

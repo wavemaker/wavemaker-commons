@@ -14,12 +14,16 @@
  ******************************************************************************/
 package com.wavemaker.commons.model.security;
 
+import org.springframework.beans.factory.annotation.Value;
+
 /**
  * Created by ArjunSahasranam on 22/1/16.
  */
 public class RememberMeConfig {
 
+    @Value("${security.general.rememberMe.enabled}")
     private boolean enabled;
+    @Value("${security.general.rememberMe.timeOut}")
     private long tokenValiditySeconds;
 
     public boolean isEnabled() {

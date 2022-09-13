@@ -14,12 +14,17 @@
  ******************************************************************************/
 package com.wavemaker.commons.model.security;
 
+import org.springframework.beans.factory.annotation.Value;
+
 /**
  * Created by arjuns on 21/2/17.
  */
 public class TokenAuthConfig {
+    @Value("false")
     private boolean enabled;
+    @Value("WM_AUTH_TOKEN")
     private String parameter;
+    @Value("1800")
     private int tokenValiditySeconds;
 
     public boolean isEnabled() {

@@ -14,13 +14,18 @@
  ******************************************************************************/
 package com.wavemaker.commons.model.security;
 
+import org.springframework.beans.factory.annotation.Value;
+
 /**
  * Created by kishorer on 7/7/16.
  */
 public class CSRFConfig {
 
+    @Value("false")
     private boolean enforceCsrfSecurity;
+    @Value("X-WM-XSRF-TOKEN")
     private String headerName;
+    @Value("wm_xsrf_token")
     private String cookieName;
 
     public boolean isEnforceCsrfSecurity() {

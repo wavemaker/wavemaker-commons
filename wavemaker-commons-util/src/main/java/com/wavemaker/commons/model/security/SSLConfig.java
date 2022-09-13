@@ -14,14 +14,17 @@
  ******************************************************************************/
 package com.wavemaker.commons.model.security;
 
+import org.springframework.beans.factory.annotation.Value;
+
 /**
  * Created by ArjunSahasranam on 20/6/16.
  */
 public class SSLConfig {
+    @Value("443")
     private int sslPort = 443;
-
+    @Value("false")
     private boolean useSSL;
-
+    @Value("#{null}")
     private String excludedUrls;
 
     public boolean isUseSSL() {

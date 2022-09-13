@@ -16,12 +16,17 @@ package com.wavemaker.commons.model.security;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Value;
+
 /**
  * Created by srujant on 5/7/17.
  */
 public class CorsConfig {
+    @Value("${security.general.cors.enabled}")
     private boolean enabled;
+    @Value("${security.general.cors.maxAge}")
     private long maxAge;
+    @Value("${security.general.cors.allowCredentials}")
     private boolean allowCredentials;
     private List<PathEntry> pathEntries;
 
