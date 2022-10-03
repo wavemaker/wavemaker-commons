@@ -2,7 +2,7 @@ plugins {
     `java-library-maven-publish`
 }
 
-group ="com.wavemaker.commons"
+group = "com.wavemaker.commons"
 
 dependencies {
     implementation(enforcedPlatform(appDependenciesLibs.boms.springFramework.get()))
@@ -14,6 +14,7 @@ dependencies {
     implementation(appDependenciesLibs.commons.lang3)
     implementation(appDependenciesLibs.commons.configuration2)
     implementation(appDependenciesLibs.jakarta.validationApi)
+    implementation(appDependenciesLibs.jakarta.xml.bindapi)
     implementation(appDependenciesLibs.commons.text) {
         because("This is an optional dependency for commons-configuration2 which is needed for PropertiesConfiguration class usage by us")
     }
@@ -23,7 +24,6 @@ dependencies {
     api(appDependenciesLibs.jackson.core)
     api(appDependenciesLibs.jackson.databind)
     implementation(appDependenciesLibs.gson)
-    implementation(appDependenciesLibs.javax.jaxb.api)
     compileOnly(appDependenciesLibs.javax.servlet.api)
     testImplementation(appDependenciesLibs.test.testng)
     testImplementation(appDependenciesLibs.test.mockito.all)
@@ -46,9 +46,10 @@ artifacts {
 }
 
 tasks.test {
+    useTestNG()
     //exclude("**/*")
 }
 
 javaLibraryMavenPublish {
-    scmUrl="git:https://github.com/wavemaker/wavemaker-commons.git"
+    scmUrl = "git:https://github.com/wavemaker/wavemaker-commons.git"
 }

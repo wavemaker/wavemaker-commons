@@ -1,1 +1,5 @@
-{"name":"sampleName", "age":20, "id" :100}
+{
+  "name": "sampleName",
+  "age": 20,
+  "id": 100
+}
