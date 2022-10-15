@@ -66,7 +66,7 @@ public class PropertiesFileUtils {
         try {
             outputStream = file.getContent().asOutputStream();
             PropertiesWriter propertiesWriter = new PropertiesWriter(properties);
-            propertiesWriter.setComments(comment).setToXML(true);
+            propertiesWriter.setComments(comment).setToXML(true).setSortProperties(true);
             propertiesWriter.write(outputStream);
         } finally {
             WMIOUtils.closeSilently(outputStream);

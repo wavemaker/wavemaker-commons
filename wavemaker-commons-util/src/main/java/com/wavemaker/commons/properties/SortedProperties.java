@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Enumeration;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
 import java.util.TreeSet;
@@ -27,6 +28,16 @@ import java.util.TreeSet;
  * @since 14/4/16
  */
 public class SortedProperties extends Properties {
+
+    @Override
+    public Set<Map.Entry<Object, Object>> entrySet() {
+        Set<Map.Entry<Object, Object>> entrySet = new TreeSet<>((o1, o2) -> {
+            Comparable key1 = (Comparable) o1.getKey();
+            return key1.compareTo(o2.getKey());
+        });
+        entrySet.addAll(super.entrySet());
+        return entrySet;
+    }
 
     @Override
     public synchronized Enumeration keys() {
