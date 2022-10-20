@@ -33,6 +33,7 @@ public final class AppPropertiesConstants {
     public static final String APP_COMPRESSION_EXCLUDE_TYPES = getAppPropertyKey("web.compression.mimetypes.excludePatterns");
 
     public static final String APP_BUILD_UI_MODE = getAppPropertyKey("build.ui.mode");
+    public static final String APP_BUILD_UI_SPA_CONFIG = getAppPropertyKey("build.ui.spa.enabled");
     public static final String APP_BUILD_UI_NG_CONFIG = getAppPropertyKey("build.ui.ng.config");
 
     private static String getAppPropertyKey(String key) {
