@@ -14,10 +14,16 @@
  ******************************************************************************/
 package com.wavemaker.commons.model.security;
 
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+
 /**
  * Created by ArjunSahasranam on 20/6/16.
  */
 public class SSLConfig {
+
+    @Min(value = 1)
+    @Max(value = 65536)
     private int sslPort = 443;
 
     private boolean useSSL;
