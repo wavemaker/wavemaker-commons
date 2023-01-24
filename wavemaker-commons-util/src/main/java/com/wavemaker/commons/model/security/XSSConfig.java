@@ -14,7 +14,6 @@
  ******************************************************************************/
 package com.wavemaker.commons.model.security;
 
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -23,7 +22,6 @@ import javax.validation.constraints.NotNull;
 public class XSSConfig {
 
     private boolean enforceXssSecurity;
-    @NotBlank
     private String policyFile;
     @NotNull
     private XSSFilterStrategy xssFilterStrategy;
