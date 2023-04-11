@@ -16,6 +16,7 @@
 package com.wavemaker.commons.properties;
 
 import java.util.HashMap;
+import java.util.Properties;
 
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
@@ -49,7 +50,10 @@ public class EnvironmentRegisteringPropertySourcesPlaceHolderConfigurer extends 
                 applicationPropertiesPropertySource = new MapPropertySource(propertySourceName, new HashMap<>());
                 propertySources.addLast(applicationPropertiesPropertySource);
             }
-            applicationPropertiesPropertySource.getSource().putAll(Maps.fromProperties(mergeProperties()));
+            Properties properties = mergeProperties();
+            HashMap<String, Object> map = Maps.newHashMap();
+            properties.forEach((key, value) -> map.put(key.toString(), value));
+            applicationPropertiesPropertySource.getSource().putAll(map);
             setPropertySources(propertySources);
         }
     }

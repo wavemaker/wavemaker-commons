@@ -22,6 +22,7 @@ dependencies {
     implementation(appDependenciesLibs.spring.webmvc)
     api(appDependenciesLibs.jackson.core)
     api(appDependenciesLibs.jackson.databind)
+    implementation(appDependenciesLibs.jackson.dataformat.yaml)
     implementation(appDependenciesLibs.gson)
     implementation(appDependenciesLibs.javax.jaxb.api)
     compileOnly(appDependenciesLibs.javax.servlet.api)

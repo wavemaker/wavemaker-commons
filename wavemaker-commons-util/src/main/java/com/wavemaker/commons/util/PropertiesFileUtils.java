@@ -17,11 +17,18 @@ package com.wavemaker.commons.util;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.Properties;
 
+import org.springframework.core.io.FileSystemResource;
+
+import com.fasterxml.jackson.dataformat.yaml.YAMLGenerator;
+import com.fasterxml.jackson.dataformat.yaml.YAMLMapper;
 import com.wavemaker.commons.MessageResource;
 import com.wavemaker.commons.WMRuntimeException;
 import com.wavemaker.commons.io.File;
+import com.wavemaker.commons.io.local.LocalFile;
 import com.wavemaker.commons.properties.PropertiesWriter;
 import com.wavemaker.commons.properties.SortedProperties;
 
@@ -29,6 +36,10 @@ import com.wavemaker.commons.properties.SortedProperties;
  * @author Uday Shankar
  */
 public class PropertiesFileUtils {
+
+    private static final YAMLMapper yamlMapper = new YAMLMapper()
+        .configure(YAMLGenerator.Feature.WRITE_DOC_START_MARKER, false)
+        .configure(YAMLGenerator.Feature.MINIMIZE_QUOTES, true);
 
     private PropertiesFileUtils() {
     }
@@ -61,6 +72,25 @@ public class PropertiesFileUtils {
         return properties;
     }
 
+    public static Properties loadYamlProperties(File file) {
+        //TODO YamlPropertiesFactoryBean converting yaml list objects to [0],[1] etc
+/*        YamlPropertiesFactoryBean yamlPropertiesFactoryBean = new YamlPropertiesFactoryBean();
+        yamlPropertiesFactoryBean.setResources(new FileSystemResource(((LocalFile) file).getLocalFile().getAbsolutePath()));
+        return yamlPropertiesFactoryBean.getObject();*/
+
+        //TODO Using snake yaml directly to convert yaml to properties
+/*        Yaml yaml = new Yaml();
+        Map<String, Object> yamlMap = yaml.load(file.getContent().asInputStream());
+        Properties properties = new Properties();
+        if (yamlMap != null) {
+            flattenMap("", yamlMap, properties);
+        }
+        return properties;*/
+        WMYamlPropertiesFactoryBean yamlPropertiesFactoryBean = new WMYamlPropertiesFactoryBean();
+        yamlPropertiesFactoryBean.setResources(new FileSystemResource(((LocalFile) file).getLocalFile().getAbsolutePath()));
+        return yamlPropertiesFactoryBean.getObject();
+    }
+
     public static void storeToXml(Properties properties, File file, String comment) {
         OutputStream outputStream = null;
         try {
@@ -79,4 +109,24 @@ public class PropertiesFileUtils {
         return sortedProperties;
     }
 
+    public static void storeToYAML(Properties properties, File file) {
+        OutputStream outputStream = null;
+        try {
+            outputStream = file.getContent().asOutputStream();
+            Map<String, Object> map = new LinkedHashMap<>();
+            properties.forEach((key, value) -> {
+                String[] propertyKeyArray = key.toString().split("\\.");
+                Map<String, Object> nestedMap = map;
+                for (int index = 0; index < propertyKeyArray.length - 1; index++) {
+                    nestedMap = (Map<String, Object>) nestedMap.computeIfAbsent(propertyKeyArray[index], k -> new LinkedHashMap<>());
+                }
+                nestedMap.put(propertyKeyArray[propertyKeyArray.length - 1], properties.get(key.toString()));
+            });
+            yamlMapper.writeValue(outputStream, map);
+        } catch (Exception e) {
+            throw new WMRuntimeException(e);
+        } finally {
+            WMIOUtils.closeSilently(outputStream);
+        }
+    }
 }
