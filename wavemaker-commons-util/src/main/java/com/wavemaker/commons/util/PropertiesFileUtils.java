@@ -78,5 +78,4 @@ public class PropertiesFileUtils {
         sortedProperties.putAll(properties);
         return sortedProperties;
     }
-
 }
