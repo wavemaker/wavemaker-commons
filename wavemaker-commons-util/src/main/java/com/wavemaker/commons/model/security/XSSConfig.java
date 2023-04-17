@@ -14,6 +14,8 @@
  ******************************************************************************/
 package com.wavemaker.commons.model.security;
 
+import javax.validation.constraints.NotNull;
+
 /**
  * Created by kishorer on 6/7/16.
  */
@@ -21,9 +23,12 @@ public class XSSConfig {
 
     private boolean enforceXssSecurity;
     private String policyFile;
+    @NotNull
     private XSSFilterStrategy xssFilterStrategy;
+    @NotNull
     private XSSPolicyType policyType;
     private boolean dataBackwardCompatibility;
+    @NotNull
     private XSSSanitizationLayer xssSanitizationLayer;
 
     public boolean isDataBackwardCompatibility() {

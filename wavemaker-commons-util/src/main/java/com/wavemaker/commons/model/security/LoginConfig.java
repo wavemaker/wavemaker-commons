@@ -14,6 +14,9 @@
  ******************************************************************************/
 package com.wavemaker.commons.model.security;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
@@ -21,10 +24,16 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
  * Created by ArjunSahasranam on 13/1/16.
  */
 public class LoginConfig {
+    @NotNull
     private LoginType type;
     private String pageName;
     private int cookieMaxAge;
+    @NotNull
+    @Valid
     private SessionTimeoutConfig sessionTimeout;
+
+    @NotNull
+    @Valid
     private SessionConcurrencyConfig sessionConcurrencyConfig;
 
     public LoginType getType() {

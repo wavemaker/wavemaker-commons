@@ -14,12 +14,16 @@
  ******************************************************************************/
 package com.wavemaker.commons.model.security;
 
+import javax.validation.constraints.Min;
+
 /**
  * Created by ArjunSahasranam on 22/1/16.
  */
 public class RememberMeConfig {
 
     private boolean enabled;
+
+    @Min(1)
     private long tokenValiditySeconds;
 
     public boolean isEnabled() {

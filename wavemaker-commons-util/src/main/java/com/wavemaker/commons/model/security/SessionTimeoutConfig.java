@@ -14,6 +14,9 @@
  ******************************************************************************/
 package com.wavemaker.commons.model.security;
 
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
@@ -21,8 +24,12 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
  * Created by ArjunSahasranam on 18/1/16.
  */
 public class SessionTimeoutConfig {
+    @NotNull
     private LoginType type;
+
     private String pageName;
+
+    @Min(1)
     private int timeoutValue;
 
     public LoginType getType() {

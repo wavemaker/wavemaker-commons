@@ -14,13 +14,17 @@
  ******************************************************************************/
 package com.wavemaker.commons.model.security;
 
+import javax.validation.constraints.NotEmpty;
+
 /**
  * Created by kishorer on 7/7/16.
  */
 public class CSRFConfig {
 
     private boolean enforceCsrfSecurity;
+    @NotEmpty
     private String headerName;
+    @NotEmpty
     private String cookieName;
 
     public boolean isEnforceCsrfSecurity() {
