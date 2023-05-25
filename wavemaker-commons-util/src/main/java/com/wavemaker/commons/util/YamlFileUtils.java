@@ -15,6 +15,8 @@
 
 package com.wavemaker.commons.util;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Map;
 import java.util.Properties;
@@ -49,5 +51,15 @@ public class YamlFileUtils {
         } finally {
             WMIOUtils.closeSilently(outputStream);
         }
+    }
+
+    public static <T> T readPropertiesWithInputStream(InputStream inputStream, Class<T> tClass) {
+        T t = null;
+        try {
+            t = yamlMapper.readValue(inputStream, tClass);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return t;
     }
 }
