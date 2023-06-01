@@ -24,6 +24,7 @@ dependencies {
     api(appDependenciesLibs.jackson.databind)
     implementation(appDependenciesLibs.gson)
     implementation(appDependenciesLibs.javax.jaxb.api)
+    implementation(libs.lucene.core)
     compileOnly(appDependenciesLibs.javax.servlet.api)
     testImplementation(appDependenciesLibs.test.testng)
     testImplementation(appDependenciesLibs.test.mockito.all)
