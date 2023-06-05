@@ -39,7 +39,7 @@ public class PropertiesToMapConverter {
      */
     public static Map<String, Object> propertiesToMapConverter(Properties properties) {
         Map<String, Object> map = new LinkedHashMap<>();
-        properties.forEach((key, value) -> {
+        properties.keySet().forEach(key -> {
             String[] propertyKeyArray = key.toString().split("\\.");
             Map<String, Object> nestedMap = map;
             for (int index = 0; index < propertyKeyArray.length - 1; index++) {
