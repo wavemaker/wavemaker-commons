@@ -12,23 +12,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  ******************************************************************************/
-package com.wavemaker.commons.util;
 
-import javax.net.ssl.HttpsURLConnection;
+package com.wavemaker.commons;
 
 /**
- * All HttpsURLConnection instances will use the initialized trust store unless over-ridden by per instance setter
- * method setSSLSocketFactory.
- *
- * Created by ArjunSahasranam on 7/7/16.
- */
-public class InitializeHttpsURLConnection {
+ * @author Uday Shankar
+ **/
+public class ValidationFailureException extends WMRuntimeException {
 
-    private InitializeHttpsURLConnection() {
+    public ValidationFailureException(String message) {
+        this(MessageResource.create("com.wavemaker.validation.failed"), message);
     }
 
-    static {
-        // Sets the default SSLSocketFactory inherited by new instances of this class.
-        HttpsURLConnection.setDefaultSSLSocketFactory(SSLUtils.getAllTrustedCertificateSSLContext().getSocketFactory());
+    public ValidationFailureException(MessageResource resource, Object... args) {
+        super(resource, args);
     }
 }
