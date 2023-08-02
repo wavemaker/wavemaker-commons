@@ -48,10 +48,12 @@ public class PropertiesFileUtils {
     }
 
     public static Properties loadProperties(File file) {
+        return loadProperties(file.getContent().asInputStream());
+    }
+
+    public static Properties loadProperties(InputStream inputStream) {
         Properties properties = new Properties();
-        InputStream inputStream = null;
         try {
-            inputStream = file.getContent().asInputStream();
             properties.load(inputStream);
         } catch (IOException e) {
             throw new WMRuntimeException(MessageResource.create("com.wavemaker.commons.failed.to.load.properties"), e);
@@ -78,5 +80,4 @@ public class PropertiesFileUtils {
         sortedProperties.putAll(properties);
         return sortedProperties;
     }
-
 }

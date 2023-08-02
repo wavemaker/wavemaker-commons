@@ -13,10 +13,18 @@
  * limitations under the License.
  ******************************************************************************/
 
-package com.wavemaker.commons.model.security;
+package com.wavemaker.commons;
 
-public enum XSSSanitizationLayer {
-    INPUT,
-    OUTPUT,
-    BOTH
+/**
+ * @author Uday Shankar
+ **/
+public class ValidationFailureException extends WMRuntimeException {
+
+    public ValidationFailureException(String message) {
+        this(MessageResource.create("com.wavemaker.validation.failed"), message);
+    }
+
+    public ValidationFailureException(MessageResource resource, Object... args) {
+        super(resource, args);
+    }
 }
