@@ -30,12 +30,12 @@ public class PropertiesToMapConverterTest {
         properties.put("a.b.e", "3");
 
         Map<String, Object> map = PropertiesToMapConverter.propertiesToMapConverter(properties);
-        Assert.assertEquals(map.size(), 1);
+        Assert.assertEquals(1, map.size());
         Map aMap = (Map) map.get("a");
-        Assert.assertEquals(aMap.size(), 1);
+        Assert.assertEquals(1, aMap.size());
         Map bMap = (Map) aMap.get("b");
-        Assert.assertEquals(bMap.size(), 3);
-        Assert.assertEquals(bMap.get("e"), "3");
+        Assert.assertEquals(3, bMap.size());
+        Assert.assertEquals("3", bMap.get("e"));
     }
 
     @Test
@@ -46,12 +46,12 @@ public class PropertiesToMapConverterTest {
         properties.put("security.general.csp.enabled", "false");
 
         Map<String, Object> map = PropertiesToMapConverter.propertiesToMapConverter(properties);
-        Assert.assertEquals(map.size(), 1);
+        Assert.assertEquals(1, map.size());
         Map securityMap = (Map) map.get("security");
-        Assert.assertEquals(securityMap.size(), 1);
+        Assert.assertEquals(1, securityMap.size());
         Map generalMap = (Map) securityMap.get("general");
-        Assert.assertEquals(generalMap.size(), 2);
+        Assert.assertEquals(2, generalMap.size());
         Map sslMap = (Map) generalMap.get("ssl");
-        Assert.assertEquals(sslMap.size(), 2);
+        Assert.assertEquals(2, sslMap.size());
     }
 }
