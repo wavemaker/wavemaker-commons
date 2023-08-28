@@ -26,6 +26,8 @@ public final class AppPropertiesConstants {
     public static final String APP_PROXY_PORT = getAppPropertyKey("proxy.port");
     public static final String APP_PROXY_USERNAME = getAppPropertyKey("proxy.username");
     public static final String APP_PROXY_PASSWORD = getAppPropertyKey("proxy.password");
+    public static final String APP_PROXY_INCLUDE_URLS = getAppPropertyKey("proxy.urls.include");
+    public static final String APP_PROXY_EXCLUDE_URLS = getAppPropertyKey("proxy.urls.exclude");
 
     public static final String APP_COMPRESSION_ENABLED = getAppPropertyKey("web.compression.enabled");
     public static final String APP_COMPRESSION_MIN_SIZE = getAppPropertyKey("web.compression.minsize");
