@@ -15,16 +15,29 @@
 
 package com.wavemaker.commons;
 
+import org.springframework.http.HttpStatus;
+
 /**
  * @author Uday Shankar
  **/
 public class ValidationFailureException extends WMRuntimeException {
+
+    private HttpStatus httpStatus;
 
     public ValidationFailureException(String message) {
         this(MessageResource.create("com.wavemaker.validation.failed"), message);
     }
 
     public ValidationFailureException(MessageResource resource, Object... args) {
+        this(resource, HttpStatus.BAD_REQUEST, args);
+    }
+
+    public ValidationFailureException(MessageResource resource, HttpStatus httpStatus, Object... args) {
         super(resource, args);
+        this.httpStatus = httpStatus;
+    }
+
+    public HttpStatus getHttpStatus() {
+        return httpStatus;
     }
 }
