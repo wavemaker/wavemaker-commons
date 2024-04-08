@@ -50,11 +50,11 @@ public class DeleteTempFileOnCloseInputStream extends FileInputStream {
         deleteTempFile();
     }
 
-    @Override
-    protected void finalize() throws IOException {
-        deleteTempFile();
-        super.finalize();
-    }
+//    @Override
+//    protected void finalize() throws IOException {
+//        deleteTempFile();
+//        super.finalize();
+//    }
 
     public File getTempFile() {
         return tempFile;

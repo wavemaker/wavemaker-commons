@@ -42,11 +42,11 @@ public class WMRuntimeException extends RuntimeException implements WMCommonExce
     }
 
     public WMRuntimeException(MessageResource resource, Throwable cause) {
-        this(resource, cause, null);
+        this(resource, cause, (Object) null);
     }
 
     public WMRuntimeException(MessageResource resource, String detailedMessage, Throwable cause) {
-        this(resource, detailedMessage, cause, null);
+        this(resource, detailedMessage, cause, (Object) null);
     }
 
     public WMRuntimeException(MessageResource resource, Object... args) {

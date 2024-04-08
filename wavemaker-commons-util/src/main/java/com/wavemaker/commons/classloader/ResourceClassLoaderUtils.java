@@ -17,8 +17,6 @@ package com.wavemaker.commons.classloader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
-import java.security.AccessController;
-import java.security.PrivilegedAction;
 import java.util.Arrays;
 
 import org.slf4j.Logger;
@@ -45,7 +43,7 @@ public class ResourceClassLoaderUtils {
     public static ClassLoader getClassLoaderForResources(boolean nonLocking, final ClassLoader parent, Resource... resources) {
         try {
             final URL[] urls = ResourceURL.getForResources(Arrays.asList(resources), nonLocking).toArray(new URL[resources.length]);
-            return AccessController.doPrivileged((PrivilegedAction<URLClassLoader>) () -> new URLClassLoader(urls, parent));
+            return new URLClassLoader(urls, parent);
         } catch (MalformedURLException ex) {
             throw new AssertionError(ex);
         }

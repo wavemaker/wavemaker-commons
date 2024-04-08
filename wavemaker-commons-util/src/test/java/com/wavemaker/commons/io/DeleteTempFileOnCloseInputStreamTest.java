@@ -41,11 +41,11 @@ public class DeleteTempFileOnCloseInputStreamTest {
         Assert.assertFalse(deleteTempFileOnCloseInputStream.getTempFile().exists());
     }
 
-    @Test
-    public void testFinalize() throws IOException {
-        deleteTempFileOnCloseInputStream.finalize();
-        Assert.assertFalse(deleteTempFileOnCloseInputStream.getTempFile().exists());
-    }
+//    @Test
+//    public void testFinalize() throws IOException {
+//        deleteTempFileOnCloseInputStream.close();
+//        Assert.assertFalse(deleteTempFileOnCloseInputStream.getTempFile().exists());
+//    }
 
     @Test
     public void testGetTempFile() {
