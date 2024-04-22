@@ -24,13 +24,13 @@ dependencies {
     api(appDependenciesLibs.jackson.databind)
     implementation(appDependenciesLibs.jackson.dataformat.yaml)
     implementation(appDependenciesLibs.gson)
-    implementation(appDependenciesLibs.javax.jaxb.api)
-    compileOnly(appDependenciesLibs.javax.servlet.api)
+    implementation(appDependenciesLibs.jakarta.xml.bind.api)
+    compileOnly(appDependenciesLibs.jakarta.servlet.api)
     testImplementation(appDependenciesLibs.test.testng)
     testImplementation(appDependenciesLibs.test.mockito.all)
     testImplementation(appDependenciesLibs.test.hamcrest.all)
     testImplementation(appDependenciesLibs.test.junit4)
-    testImplementation(appDependenciesLibs.javax.servlet.api)
+    testImplementation(appDependenciesLibs.jakarta.servlet.api)
 }
 
 configurations.register("testConfiguration") {
