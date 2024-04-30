@@ -26,6 +26,9 @@ import java.util.Objects;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.wavemaker.commons.MessageResource;
 import com.wavemaker.commons.WMRuntimeException;
 import com.wavemaker.commons.core.web.rest.ErrorResponse;
@@ -37,6 +40,8 @@ import com.wavemaker.commons.json.JSONUtils;
  * @since 11/3/16
  */
 public class HttpRequestUtils {
+
+    private static final Logger logger = LoggerFactory.getLogger(HttpRequestUtils.class);
 
     private HttpRequestUtils() {
     }
@@ -59,7 +64,11 @@ public class HttpRequestUtils {
 
         response.setStatus(responseCode);
         response.setContentType("application/json");
-        response.getWriter().write(JSONUtils.toJSON(errorMap));
+        try {
+            response.getWriter().write(JSONUtils.toJSON(errorMap));
+        } catch (IllegalStateException e) {
+            logger.warn("Error response: {}", JSONUtils.toJSON(errorMap));
+        }
     }
 
     private static ErrorResponse getErrorResponse(String message) {
