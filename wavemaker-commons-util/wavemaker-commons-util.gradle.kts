@@ -31,6 +31,7 @@ dependencies {
     testImplementation(appDependenciesLibs.test.hamcrest.all)
     testImplementation(appDependenciesLibs.test.junit4)
     testImplementation(appDependenciesLibs.jakarta.servlet.api)
+    testImplementation(appDependenciesLibs.jaxb.impl)
 }
 
 configurations.register("testConfiguration") {
@@ -48,6 +49,7 @@ artifacts {
 
 tasks.test {
     //exclude("**/*")
+    useTestNG()
 }
 
 javaLibraryMavenPublish {
