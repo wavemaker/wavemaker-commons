@@ -42,12 +42,6 @@ public class DeleteTempFileOnCloseInputStreamTest {
     }
 
     @Test
-    public void testFinalize() throws IOException {
-        deleteTempFileOnCloseInputStream.finalize();
-        Assert.assertFalse(deleteTempFileOnCloseInputStream.getTempFile().exists());
-    }
-
-    @Test
     public void testGetTempFile() {
         Assert.assertNotNull(deleteTempFileOnCloseInputStream.getTempFile());
         Assert.assertTrue(deleteTempFileOnCloseInputStream.getTempFile().getName().startsWith("test"));

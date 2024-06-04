@@ -18,7 +18,14 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.lang.ref.WeakReference;
 import java.nio.file.Files;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,16 +35,14 @@ import com.wavemaker.commons.io.local.LocalFile;
 /**
  * @author Uday Shankar
  */
-@SuppressWarnings("NoFinalizer")
 public class DeleteTempFileOnCloseInputStream extends FileInputStream {
-
-    private File tempFile;
-
+    private final File tempFile;
     private static final Logger logger = LoggerFactory.getLogger(DeleteTempFileOnCloseInputStream.class);
 
     public DeleteTempFileOnCloseInputStream(File tempFile) throws FileNotFoundException {
         super(tempFile);
         this.tempFile = tempFile;
+        TempFileManager.register(this, tempFile);
     }
 
     public DeleteTempFileOnCloseInputStream(com.wavemaker.commons.io.File tempFile) throws FileNotFoundException {
@@ -48,12 +53,7 @@ public class DeleteTempFileOnCloseInputStream extends FileInputStream {
     public void close() throws IOException {
         super.close();
         deleteTempFile();
-    }
-
-    @Override
-    protected void finalize() throws IOException {
-        deleteTempFile();
-        super.finalize();
+        TempFileManager.unregister(this);
     }
 
     public File getTempFile() {
@@ -65,6 +65,64 @@ public class DeleteTempFileOnCloseInputStream extends FileInputStream {
             Files.deleteIfExists(tempFile.toPath());
         } catch (Exception e) {
             logger.warn("Unable to delete the temp file {} on closing the stream.", tempFile, e);
+        }
+    }
+
+    public static class TempFileManager {
+        private static ScheduledExecutorService scheduler;
+        private static final Map<WeakReference<DeleteTempFileOnCloseInputStream>, File> objectsMap = new ConcurrentHashMap<>();
+
+        private TempFileManager() {
+        }
+
+        public static void stopScheduler() {
+            synchronized (TempFileManager.class) {
+                if (scheduler != null && !scheduler.isShutdown()) {
+                    logger.info("Shutting down temp-file-delete-thread");
+                    scheduler.shutdown();
+                }
+            }
+        }
+
+        private static void register(DeleteTempFileOnCloseInputStream stream, File tempFile) {
+            objectsMap.put(new WeakReference<>(stream), tempFile);
+            startSchedulerIfNeeded();
+        }
+
+        private static void unregister(DeleteTempFileOnCloseInputStream stream) {
+            objectsMap.keySet().removeIf(weakReference -> weakReference.get() == stream);
+        }
+
+        private static void startSchedulerIfNeeded() {
+            synchronized (TempFileManager.class) {
+                if (scheduler == null || scheduler.isShutdown()) {
+                    scheduler = Executors.newSingleThreadScheduledExecutor(runnable -> {
+                        Thread thread = new Thread(runnable, "temp-file-delete-thread");
+                        thread.setUncaughtExceptionHandler((t, e) -> logger.error("Exception in thread {}", t, e));
+                        return thread;
+                    });
+                    logger.info("Starting temp-file-delete-thread for temp files clean up");
+                    scheduler.scheduleAtFixedRate(TempFileManager::cleanUpTempFiles, 1, 5, TimeUnit.MINUTES);
+                }
+            }
+        }
+
+        private static void cleanUpTempFiles() {
+            logger.info("Trying to clean up temp files that are unreferenced");
+            Iterator<Map.Entry<WeakReference<DeleteTempFileOnCloseInputStream>, File>> iterator = objectsMap.entrySet().iterator();
+            while (iterator.hasNext()) {
+                Map.Entry<WeakReference<DeleteTempFileOnCloseInputStream>, File> entry = iterator.next();
+                WeakReference<DeleteTempFileOnCloseInputStream> weakReference = entry.getKey();
+                if (weakReference.get() == null) {
+                    File tempFile = entry.getValue();
+                    try {
+                        Files.deleteIfExists(tempFile.toPath());
+                        iterator.remove();
+                    } catch (Exception e) {
+                        logger.warn("Unable to delete the temp file {} during cleanup.", tempFile, e);
+                    }
+                }
+            }
         }
     }
 }
