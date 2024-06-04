@@ -15,10 +15,7 @@
 package com.wavemaker.commons.classloader;
 
 import java.io.InputStream;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 
-import com.wavemaker.commons.MessageResource;
 import com.wavemaker.commons.WMRuntimeException;
 import com.wavemaker.commons.util.TypeConversionUtils;
 
@@ -27,7 +24,6 @@ import com.wavemaker.commons.util.TypeConversionUtils;
  * @author Jeremy Grelle
  */
 public class ClassLoaderUtils {
-
     private ClassLoaderUtils() {
     }
 
@@ -82,31 +78,5 @@ public class ClassLoaderUtils {
 
     public static InputStream getResourceAsStream(String path) {
         return getClassLoader().getResourceAsStream(path);
-    }
-
-    /**
-     * returns the loaded class in the given class loader,returns null if class is not yet loaded
-     *
-     * @param cl        classLoader to check for
-     * @param className to check
-     */
-    public static Class findLoadedClass(ClassLoader cl, String className) throws InvocationTargetException, IllegalAccessException {
-        if (cl == null) {
-            return null;
-        }
-        return (Class) ClassLoaderHelper.findLoadedClassMethod.invoke(cl, className);
-    }
-
-    private static class ClassLoaderHelper {
-        private static final Method findLoadedClassMethod;
-
-        static {
-            try {
-                findLoadedClassMethod = ClassLoader.class.getDeclaredMethod("findLoadedClass", new Class[]{String.class});
-                findLoadedClassMethod.setAccessible(true);
-            } catch (NoSuchMethodException e) {
-                throw new WMRuntimeException(MessageResource.create("com.wavemaker.commons.failed.to.initialize.class"), e);
-            }
-        }
     }
 }
