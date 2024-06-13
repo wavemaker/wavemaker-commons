@@ -17,6 +17,7 @@ package com.wavemaker.commons.processor;
 
 import java.lang.reflect.Array;
 import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -45,6 +46,7 @@ public class DefaultChildObjectRetriever implements ChildObjectRetriever {
 
     /**
      * Constructs a DefaultChildObjectRetriever with the specified field predicate.
+     *
      * @param fieldPredicate the predicate to test fields and a field is considered as child only if it is true
      */
     public DefaultChildObjectRetriever(Predicate<Field> fieldPredicate) {
@@ -53,7 +55,9 @@ public class DefaultChildObjectRetriever implements ChildObjectRetriever {
 
     /**
      * Retrieves the child objects of a given parent object.
+     *
      * @param objectInfo the parent object information
+     *
      * @return a list of child object information
      */
     @Override
@@ -68,45 +72,62 @@ public class DefaultChildObjectRetriever implements ChildObjectRetriever {
             processSet((Set) object, objectInfo, childObjectsInfo);
         } else if (object.getClass().isArray()) {
             processArray(object, objectInfo, childObjectsInfo);
-        } else {
+        } else if (object.getClass().getClassLoader() != null) {
             processCustomObject(object, objectInfo, childObjectsInfo);
         }
         return childObjectsInfo;
     }
 
     private void processList(List list, ObjectInfo parentObjectInfo, List<ObjectInfo> childObjectsInfo) {
-        for (int index = 0; index < list.size(); index++) {
-            ObjectInfo childObjectInfo = new ListEntryObjectInfo(list.get(index), parentObjectInfo, index);
-            childObjectsInfo.add(childObjectInfo);
+        try {
+            for (int index = 0; index < list.size(); index++) {
+                ObjectInfo childObjectInfo = new ListEntryObjectInfo(list.get(index), parentObjectInfo, index);
+                childObjectsInfo.add(childObjectInfo);
+            }
+        } catch (Exception e) {
+            //Handling lazy loaded hibernate PersistentBag
+            logger.debug("Failed to retrieve elements of a list of class {}", list.getClass(), e);
         }
     }
 
     private void processMap(Map map, ObjectInfo parentObjectInfo, List<ObjectInfo> childObjectsInfo) {
-        map.forEach((k, v) -> {
-            MapEntryKeyObjectInfo mapEntryKeyObjectInfo = new MapEntryKeyObjectInfo(k, v, parentObjectInfo);
-            ObjectInfo mapEntryValueObjectInfo = new MapEntryValueObjectInfo(mapEntryKeyObjectInfo, v, parentObjectInfo);
-            childObjectsInfo.add(mapEntryKeyObjectInfo);
-            childObjectsInfo.add(mapEntryValueObjectInfo);
-        });
+        try {
+            map.forEach((k, v) -> {
+                MapEntryKeyObjectInfo mapEntryKeyObjectInfo = new MapEntryKeyObjectInfo(k, v, parentObjectInfo);
+                ObjectInfo mapEntryValueObjectInfo = new MapEntryValueObjectInfo(mapEntryKeyObjectInfo, v, parentObjectInfo);
+                childObjectsInfo.add(mapEntryKeyObjectInfo);
+                childObjectsInfo.add(mapEntryValueObjectInfo);
+            });
+        } catch (Exception e) {
+            logger.debug("Failed to retrieve elements of a map", e);
+        }
     }
 
     private void processSet(Set set, ObjectInfo parentObjectInfo, List<ObjectInfo> childObjectsInfo) {
-        set.forEach(setElement -> {
-            ObjectInfo setEntryObjectInfo = new SetEntryObjectInfo(setElement, parentObjectInfo);
-            childObjectsInfo.add(setEntryObjectInfo);
-        });
+        try {
+            set.forEach(setElement -> {
+                ObjectInfo setEntryObjectInfo = new SetEntryObjectInfo(setElement, parentObjectInfo);
+                childObjectsInfo.add(setEntryObjectInfo);
+            });
+        } catch (Exception e) {
+            logger.debug("Failed to retrieve elements of a set", e);
+        }
     }
 
     private void processArray(Object object, ObjectInfo parentObjectInfo, List<ObjectInfo> childObjectsInfo) {
-        for (int index = 0; index < Array.getLength(object); index++) {
-            ObjectInfo arrayEntryObjectInfo = new ArrayEntryObjectInfo(Array.get(object, index), parentObjectInfo, index);
-            childObjectsInfo.add(arrayEntryObjectInfo);
+        try {
+            for (int index = 0; index < Array.getLength(object); index++) {
+                ObjectInfo arrayEntryObjectInfo = new ArrayEntryObjectInfo(Array.get(object, index), parentObjectInfo, index);
+                childObjectsInfo.add(arrayEntryObjectInfo);
+            }
+        } catch (Exception e) {
+            logger.debug("Failed to retrieve elements of a array", e);
         }
     }
 
     private void processCustomObject(Object object, ObjectInfo parentObjectInfo, List<ObjectInfo> childObjectsInfo) {
         ReflectionUtils.doWithFields(object.getClass(), field -> {
-            if (fieldPredicate.test(field)) {
+            if (fieldPredicate.test(field) && !Modifier.isStatic(field.getModifiers())) {
                 try {
                     ReflectionUtils.makeAccessible(field);
                     Object o = ReflectionUtils.getField(field, object);

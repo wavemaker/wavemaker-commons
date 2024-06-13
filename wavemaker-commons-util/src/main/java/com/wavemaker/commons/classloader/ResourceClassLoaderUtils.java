@@ -14,18 +14,10 @@
  ******************************************************************************/
 package com.wavemaker.commons.classloader;
 
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLClassLoader;
-import java.security.AccessController;
-import java.security.PrivilegedAction;
-import java.util.Arrays;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.wavemaker.commons.io.Resource;
-import com.wavemaker.commons.io.ResourceURL;
 
 /**
  * Class Loader Utils specifically designed to work with {@link Resource}s. Migrated from
@@ -36,23 +28,6 @@ public class ResourceClassLoaderUtils {
     private static final Logger logger = LoggerFactory.getLogger(ResourceClassLoaderUtils.class);
 
     private ResourceClassLoaderUtils() {
-    }
-
-    public static ClassLoader getClassLoaderForResources(final ClassLoader parent, Resource... resources) {
-        return getClassLoaderForResources(false, parent, resources);
-    }
-
-    public static ClassLoader getClassLoaderForResources(boolean nonLocking, final ClassLoader parent, Resource... resources) {
-        try {
-            final URL[] urls = ResourceURL.getForResources(Arrays.asList(resources), nonLocking).toArray(new URL[resources.length]);
-            return AccessController.doPrivileged((PrivilegedAction<URLClassLoader>) () -> new URLClassLoader(urls, parent));
-        } catch (MalformedURLException ex) {
-            throw new AssertionError(ex);
-        }
-    }
-
-    public static void runInClassLoaderContext(Runnable runnable, ClassLoader cl) {
-        runInClassLoaderContext(asCallable(runnable), null, cl);
     }
 
     public static <V> V runInClassLoaderContext(WMCallable<V> executable, ClassLoader cl) {
@@ -75,12 +50,5 @@ public class ResourceClassLoaderUtils {
                 Thread.currentThread().setContextClassLoader(c);
             }
         }
-    }
-
-    private static WMCallable<Object> asCallable(final Runnable runnable) {
-        return () -> {
-            runnable.run();
-            return null;
-        };
     }
 }
