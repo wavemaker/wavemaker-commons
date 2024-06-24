@@ -172,10 +172,10 @@ public abstract class TypeConversionUtils {
         SERVLET_CLASSES.add("HttpSession");
         SERVLET_CLASSES.add("MultipartHttpServletRequest");
 
-        SERVLET_CLASSES.add("javax.servlet.ServletContext");
-        SERVLET_CLASSES.add("javax.servlet.http.HttpServletRequest");
-        SERVLET_CLASSES.add("javax.servlet.http.HttpServletResponse");
-        SERVLET_CLASSES.add("javax.servlet.http.HttpSession");
+        SERVLET_CLASSES.add("jakarta.servlet.ServletContext");
+        SERVLET_CLASSES.add("jakarta.servlet.http.HttpServletRequest");
+        SERVLET_CLASSES.add("jakarta.servlet.http.HttpServletResponse");
+        SERVLET_CLASSES.add("jakarta.servlet.http.HttpSession");
         SERVLET_CLASSES.add("org.springframework.web.multipart.MultipartHttpServletRequest");
     }
 
