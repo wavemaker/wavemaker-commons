@@ -347,7 +347,7 @@ public class WMIOUtilsTest {
 
     @Test
     public void testTail() throws IOException {
-        File file = new File("target", "testFileOne.txt");
+        File file = new File("build", "testFileOne.txt");
         WMIOUtils.write(file, "adding data to a file\ndata1\ndata2");
         Assert.assertEquals(WMIOUtils.tail(file, 2), "data1\ndata2\n");
 
@@ -355,9 +355,9 @@ public class WMIOUtilsTest {
 
     @Test
     public void testCompare() throws IOException {
-        File file = new File("target", "testFileOne.txt");
+        File file = new File("build", "testFileOne.txt");
         WMIOUtils.write(file, "adding data to a file\ndata1\ndata2");
-        File tempFile = new File("target", "temporary.txt");
+        File tempFile = new File("build", "temporary.txt");
         WMIOUtils.write(tempFile, "it is a temporary file");
         Assert.assertTrue(WMIOUtils.compare(new FileInputStream(file), new FileInputStream(file)));
         Assert.assertFalse(WMIOUtils.compare(new FileInputStream(file), new FileInputStream(tempFile)));
@@ -365,8 +365,8 @@ public class WMIOUtilsTest {
 
     @Test
     public void testCopy() throws IOException {
-        File sourceFile = new File("target", "source.txt");
-        File destFile = new File("target", "dest.txt");
+        File sourceFile = new File("build", "source.txt");
+        File destFile = new File("build", "dest.txt");
         WMIOUtils.write(sourceFile, "temporary file inputs fo copy test");
         WMIOUtils.copy(sourceFile, destFile, "noExcludeInput", "noExcludePattern");
         Assert.assertTrue(WMIOUtils.compare(new FileInputStream(sourceFile), new FileInputStream(destFile)));
@@ -374,7 +374,7 @@ public class WMIOUtilsTest {
 
     @Test
     public void testUtf8CharWriteToFile() throws IOException {
-        File file = new File("target", "testUtf8Char.txt");
+        File file = new File("build", "testUtf8Char.txt");
         WMIOUtils.write(file, "కొన్ని రాండమ్ డాటాతో ఫైల్ను జనాదరణ పొందింది\nలైన్ 1\nలైన్ 2");
         Assert.assertEquals(WMIOUtils.read(file), "కొన్ని రాండమ్ డాటాతో ఫైల్ను జనాదరణ పొందింది\nలైన్ 1\nలైన్ 2");
         Assert.assertEquals(WMIOUtils.tail(file, 2), "లైన్ 1\nలైన్ 2\n");
@@ -382,7 +382,7 @@ public class WMIOUtilsTest {
 
     @Test
     public void testUtf8CharWriteToOutputStream() throws IOException {
-        File file = new File("target", "testUtf8Char.txt");
+        File file = new File("build", "testUtf8Char.txt");
         WMIOUtils.write(new FileOutputStream(file), "నమూనా డేటా");
         Assert.assertEquals(WMIOUtils.read(file), "నమూనా డేటా");
     }
@@ -390,14 +390,14 @@ public class WMIOUtilsTest {
     @Test
     public void testUtf8CharCopyStream() throws IOException {
         final boolean[] isClosed = {false};
-        File file = new File("target", "testUtf8Char.txt");
+        File file = new File("build", "testUtf8Char.txt");
         WMIOUtils.copy(getByteArrayInputStream("నమూనా డేటా", isClosed), new FileOutputStream(file));
         Assert.assertEquals(WMIOUtils.read(file), "నమూనా డేటా");
     }
 
     @Test
     public void testUtf8CharCopy() throws IOException {
-        File file = new File("target", "testUtf8Char.txt");
+        File file = new File("build", "testUtf8Char.txt");
         FileWriter fileWriter = new FileWriter(file);
         WMIOUtils.copy(new StringReader("నమూనా డేటా"), fileWriter);
         fileWriter.close();
