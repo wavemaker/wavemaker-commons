@@ -89,7 +89,7 @@ public class XMLWriterTest {
 
     @Test
     public void testXmlWriter() throws IOException, JAXBException, ParserConfigurationException, SAXException {
-        File tempFile = new File("target", "customer-data.xml");
+        File tempFile = new File("build", "customer-data.xml");
         PrintWriter pw = new PrintWriter(tempFile);
         XMLWriter xw = new XMLWriter(pw);
         xw.setTextOnSameLineAsParentElement(true);
