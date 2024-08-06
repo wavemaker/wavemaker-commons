@@ -76,6 +76,8 @@ public class MessageResource {
 
     public static final MessageResource INVALID_INPUT = new MessageResource("com.wavemaker.runtime.data$InvalidInput");
 
+    public static final MessageResource FILE_EXTENSION_NOT_ALLOWED = new MessageResource("com.wavemaker.runtime.file.upload.extension$not_allowed");
+
     private final String key;
 
     protected MessageResource(String key) {
