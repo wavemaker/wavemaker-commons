@@ -19,7 +19,6 @@ import java.util.Collections;
 import java.util.Iterator;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -36,6 +35,7 @@ import com.wavemaker.commons.io.exception.ResourceDoesNotExistException;
 
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.nullValue;
+import static org.hamcrest.core.Is.isA;
 import static org.junit.Assert.assertThat;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.inOrder;
@@ -49,7 +49,6 @@ import static org.mockito.Mockito.verify;
  *
  * @author Phillip Webb
  */
-@Ignore
 public class StoredFolderTest {
 
     @Rule
@@ -154,7 +153,7 @@ public class StoredFolderTest {
     public void shouldGetExistingFile() throws Exception {
         this.folder.getFile("a");
         Resource child = this.folder.getExisting("a");
-        assertThat((File) child, is(File.class));
+        assertThat((File) child, isA(File.class));
         assertThat(child.getName(), is("a"));
         assertThat(child.toString(), is("/a"));
     }
@@ -163,7 +162,7 @@ public class StoredFolderTest {
     public void shouldGetExistingFolder() throws Exception {
         this.folder.getFolder("a");
         Resource child = this.folder.getExisting("a");
-        assertThat((Folder) child, is(Folder.class));
+        assertThat((Folder) child, isA(Folder.class));
         assertThat(child.getName(), is("a"));
         assertThat(child.toString(), is("/a/"));
     }
@@ -223,8 +222,8 @@ public class StoredFolderTest {
         Resource resourceA = iterator.next();
         Resource resourceB = iterator.next();
         assertThat(iterator.hasNext(), is(false));
-        assertThat((Folder) resourceA, is(Folder.class));
-        assertThat((File) resourceB, is(File.class));
+        assertThat((Folder) resourceA, isA(Folder.class));
+        assertThat((File) resourceB, isA(File.class));
         assertThat(resourceA.toString(), is("/a/"));
         assertThat(resourceB.toString(), is("/b"));
     }
@@ -285,8 +284,8 @@ public class StoredFolderTest {
         Resource resourceA = iterator.next();
         Resource resourceB = iterator.next();
         assertThat(iterator.hasNext(), is(false));
-        assertThat((Folder) resourceA, is(Folder.class));
-        assertThat((File) resourceB, is(File.class));
+        assertThat((Folder) resourceA, isA(Folder.class));
+        assertThat((File) resourceB, isA(File.class));
         assertThat(resourceA.toString(), is("/a/"));
         assertThat(resourceB.toString(), is("/b"));
     }

@@ -21,6 +21,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.nio.file.Files;
+import java.nio.file.LinkOption;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -264,7 +266,7 @@ abstract class LocalResourceStore implements ResourceStore {
             }
             List<String> filenames = new ArrayList(files.length);
             for (java.io.File file : files) {
-                if (file.exists()) {
+                if (Files.exists(file.toPath(), LinkOption.NOFOLLOW_LINKS)) {
                     filenames.add(file.getName());
                 }
             }

@@ -27,9 +27,11 @@ dependencies {
     implementation(appDependenciesLibs.jakarta.xml.bind.api)
     compileOnly(appDependenciesLibs.jakarta.servlet.api)
     testImplementation(appDependenciesLibs.test.testng)
-    testImplementation(appDependenciesLibs.test.mockito.all)
-    testImplementation(appDependenciesLibs.test.hamcrest.all)
-    testImplementation(appDependenciesLibs.test.junit4)
+    testImplementation(appDependenciesLibs.test.mockito.core)
+    testImplementation(appDependenciesLibs.test.hamcrest)
+    testImplementation(appDependenciesLibs.test.junit4) {
+        exclude("org.hamcrest", "*")
+    }
     testImplementation(appDependenciesLibs.jakarta.servlet.api)
     testImplementation(appDependenciesLibs.jaxb.impl)
 }
@@ -48,8 +50,6 @@ artifacts {
 }
 
 tasks.test {
-    //exclude("**/*")
-    useTestNG()
 }
 
 javaLibraryMavenPublish {
