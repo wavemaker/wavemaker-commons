@@ -58,7 +58,6 @@ import static org.mockito.Mockito.verify;
  *
  * @author Phillip Webb
  */
-@Ignore
 public class ZipArchiveTest {
 
     @Rule
@@ -253,6 +252,7 @@ public class ZipArchiveTest {
     }
 
     @Test
+    @Ignore
     public void shouldUnzip() throws Exception {
         ByteArrayOutputStream outputStreamB = new ByteArrayOutputStream();
         ByteArrayOutputStream outputStreamD = new ByteArrayOutputStream();

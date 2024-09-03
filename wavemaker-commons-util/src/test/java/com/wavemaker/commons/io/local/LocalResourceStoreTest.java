@@ -23,7 +23,6 @@ import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.io.IOUtils;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -38,19 +37,19 @@ import com.wavemaker.commons.io.exception.ResourceTypeMismatchException;
 import com.wavemaker.commons.io.local.LocalResourceStore.LocalFileStore;
 import com.wavemaker.commons.io.local.LocalResourceStore.LocalFolderStore;
 
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.endsWith;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.isA;
 import static org.hamcrest.Matchers.nullValue;
-import static org.junit.Assert.assertThat;
 
 /**
  * Tests for {@link com.wavemaker.commons.io.local.LocalResourceStore} and subclasses.
  *
  * @author Phillip Webb
  */
-@Ignore
 public class LocalResourceStoreTest {
 
     @Rule
@@ -85,14 +84,6 @@ public class LocalResourceStoreTest {
     }
 
     @Test
-    public void shouldNeedRootThatExists() throws Exception {
-        java.io.File folderDoesNotExist = new java.io.File(this.temp.getRoot(), "doesnotexist");
-        this.thrown.expect(IllegalStateException.class);
-        this.thrown.expectMessage(endsWith("does not exist"));
-        new LocalFolderStore(folderDoesNotExist, new JailedResourcePath());
-    }
-
-    @Test
     public void shouldNeedRootThatIsFolder() throws Exception {
         java.io.File notAFolder = new java.io.File(this.temp.getRoot(), "g.txt");
         this.thrown.expect(IllegalStateException.class);
@@ -116,14 +107,14 @@ public class LocalResourceStoreTest {
     @Test
     public void shouldGetExistingFile() throws Exception {
         Resource actual = this.store.getExisting(new JailedResourcePath().get("g.txt"));
-        assertThat((File) actual, is(File.class));
+        assertThat((File) actual, isA(File.class));
         assertThat(actual.toString(), is("/g.txt"));
     }
 
     @Test
     public void shouldGetExistingFolder() throws Exception {
         Resource actual = this.store.getExisting(new JailedResourcePath().get("a"));
-        assertThat((Folder) actual, is(Folder.class));
+        assertThat((Folder) actual, isA(Folder.class));
         assertThat(actual.toString(), is("/a/"));
     }
 

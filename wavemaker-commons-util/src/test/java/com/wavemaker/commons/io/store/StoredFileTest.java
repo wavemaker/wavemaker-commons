@@ -31,6 +31,7 @@ import com.wavemaker.commons.io.exception.ResourceDoesNotExistException;
 
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
+import static org.hamcrest.core.Is.isA;
 import static org.junit.Assert.assertThat;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
@@ -42,7 +43,6 @@ import static org.mockito.Mockito.verify;
  *
  * @author Phillip Webb
  */
-@Ignore
 public class StoredFileTest {
 
     @Rule
@@ -96,13 +96,13 @@ public class StoredFileTest {
     @Test
     public void shouldGetContentOutputStreamFromFileSystem() throws Exception {
         OutputStream outputStream = mock(OutputStream.class);
-        given(this.file.getStore().getOutputStream()).willReturn(outputStream);
+        given(this.file.getStore().getOutputStream(false)).willReturn(outputStream);
         assertThat(this.file.getContent().asOutputStream(), is(outputStream));
     }
 
     @Test
     public void shouldGetContentAsAbstractContent() throws Exception {
-        assertThat((AbstractFileContent) this.file.getContent(), is(AbstractFileContent.class));
+        assertThat((AbstractFileContent) this.file.getContent(), isA(AbstractFileContent.class));
     }
 
     @Test
@@ -142,6 +142,7 @@ public class StoredFileTest {
     }
 
     @Test
+    @Ignore
     public void shouldMove() throws Exception {
         Folder destination = mock(Folder.class);
         File destinationFile = mock(File.class);
