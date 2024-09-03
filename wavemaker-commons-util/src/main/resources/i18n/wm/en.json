@@ -30,7 +30,7 @@
   "com.wavemaker.commons.json$InvalidJsonObject":"Incorrect Json Object {0}",
   "com.wavemaker.commons.json$InvalidObject":"Invalid Object {0},{1}",
   "com.wavemaker.commons.json$MessageNotReadable":"Message not readable",
-  "com.wavemaker.commons.json$UnexpectedError":"Unexpected error {0},please check server logs for more information",
+  "com.wavemaker.commons.json$UnexpectedError":"{0}",
   "com.wavemaker.commons.json$UnrecognizedField":"Unrecognized field {0}",
   "com.wavemaker.commons.json$dynamicErrorMessage":"{0}",
   "com.wavemaker.commons.jsonData.parse.failed":"Failed to parse jsonData",
