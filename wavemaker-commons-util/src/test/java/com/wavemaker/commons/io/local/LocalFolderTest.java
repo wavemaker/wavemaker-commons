@@ -14,9 +14,12 @@
  ******************************************************************************/
 package com.wavemaker.commons.io.local;
 
+import java.io.IOException;
+import java.nio.file.Files;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -30,6 +33,7 @@ import com.wavemaker.commons.io.Folder;
 import com.wavemaker.commons.io.Resource;
 import com.wavemaker.commons.io.Resources;
 import com.wavemaker.commons.io.exception.ResourceException;
+import com.wavemaker.commons.util.WMIOUtils;
 
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
@@ -175,5 +179,30 @@ public class LocalFolderTest {
         File file1 = folder.getFile("njvkdf nhvd.txt");
         file1.createIfMissing();
         Assert.assertTrue("Could not create a local file", file1.exists());
+    }
+
+    @Test
+    public void testDeleteFolder() throws IOException {
+        Folder folder = new LocalFolder(this.temp.getRoot() + java.io.File.separator + UUID.randomUUID());
+        Folder aFolder = folder.getFolder("a");
+        File fileA = aFolder.getFile("a.txt");
+        fileA.getContent().write("Hello world");
+
+        Folder cFolder = folder.getFolder("c");
+        File fileC = cFolder.getFile("c.txt");
+        fileC.getContent().write("Hello world");
+
+        Folder bFolder = folder.getFolder("b");
+        bFolder.createIfMissing();
+
+        File b1File = bFolder.getFile("b1.txt");
+        Files.createSymbolicLink(WMIOUtils.getJavaIOFile(b1File).toPath(), WMIOUtils.getJavaIOFile(fileA).toPath());//Creating a valid symlink
+
+        File b2File = bFolder.getFile("b2.txt");
+        Files.createSymbolicLink(WMIOUtils.getJavaIOFile(b2File).toPath(), WMIOUtils.getJavaIOFile(fileC).toPath());
+        cFolder.delete();//Create a missing symlink
+
+        folder.delete();
+        Assert.assertFalse("folder is not deleted", folder.exists());
     }
 }

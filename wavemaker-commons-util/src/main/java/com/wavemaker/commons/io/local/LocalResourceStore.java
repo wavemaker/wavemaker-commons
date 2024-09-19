@@ -92,10 +92,10 @@ abstract class LocalResourceStore implements ResourceStore {
             count++;
             try {
                 java.io.File resourceFile = getFileForPath(path);
-                if (!resourceFile.exists()) {
+                if (!isFileExists(resourceFile)) {
                     return null;
                 }
-                return resourceFile.isDirectory() ? getFolder(path) : getFile(path);
+                return Files.isDirectory(resourceFile.toPath(), LinkOption.NOFOLLOW_LINKS) ? getFolder(path) : getFile(path);
             } catch (ResourceException e) {
                 // Re-trying on ResourceException as this exception can be caused when the file/directory being fetched is deleted/changed type midway during execution by another thread
                 if (count == 3) {
@@ -132,12 +132,12 @@ abstract class LocalResourceStore implements ResourceStore {
 
     @Override
     public boolean exists() {
-        return this.file.exists();
+        return isFileExists(this.file);
     }
 
     @Override
     public void delete() {
-        if (!this.file.delete() && file.exists()) {
+        if (!this.file.delete() && exists()) {
             throw new ResourceException(MessageResource.create("com.wavemaker.commons.unable.to.delete.file"),
                 this.file);
         }
@@ -167,7 +167,7 @@ abstract class LocalResourceStore implements ResourceStore {
 
         public LocalFileStore(java.io.File root, JailedResourcePath path) {
             super(root, path);
-            if (exists() && !getFile().isFile()) {
+            if (Files.isDirectory(getFile().toPath(), LinkOption.NOFOLLOW_LINKS)) {
                 throw new ResourceTypeMismatchException(path.getUnjailedPath(), false);
             }
         }
@@ -182,7 +182,7 @@ abstract class LocalResourceStore implements ResourceStore {
         public void create() {
             try {
                 if (!getFile().createNewFile()) {
-                    if (!getFile().exists()) {
+                    if (!exists()) {
                         throw new ResourceException(
                             MessageResource.create("com.wavemaker.commons.unable.to.create.file"), getFile());
                     } else {
@@ -266,12 +266,16 @@ abstract class LocalResourceStore implements ResourceStore {
             }
             List<String> filenames = new ArrayList(files.length);
             for (java.io.File file : files) {
-                if (Files.exists(file.toPath(), LinkOption.NOFOLLOW_LINKS)) {
+                if (isFileExists(file)) {
                     filenames.add(file.getName());
                 }
             }
             Collections.sort(filenames);
             return Collections.unmodifiableList(filenames);
         }
+    }
+
+    private static boolean isFileExists(java.io.File file) {
+        return Files.exists(file.toPath(), LinkOption.NOFOLLOW_LINKS);
     }
 }
