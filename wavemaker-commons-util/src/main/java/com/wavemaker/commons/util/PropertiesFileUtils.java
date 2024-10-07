@@ -17,6 +17,7 @@ package com.wavemaker.commons.util;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.Reader;
 import java.util.Properties;
 
 import com.wavemaker.commons.MessageResource;
@@ -59,6 +60,18 @@ public class PropertiesFileUtils {
             throw new WMRuntimeException(MessageResource.create("com.wavemaker.commons.failed.to.load.properties"), e);
         } finally {
             WMIOUtils.closeByLogging(inputStream);
+        }
+        return properties;
+    }
+
+    public static Properties loadProperties(Reader reader) {
+        Properties properties = new Properties();
+        try {
+            properties.load(reader);
+        } catch (IOException e) {
+            throw new WMRuntimeException(MessageResource.create("com.wavemaker.commons.failed.to.load.properties"), e);
+        } finally {
+            WMIOUtils.closeByLogging(reader);
         }
         return properties;
     }
