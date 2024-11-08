@@ -247,8 +247,7 @@ public class SwaggerDocUtil {
         String type = property.getType();
         String format = property.getFormat();
 
-        if (property instanceof DateProperty) {
-            DateProperty dateProperty = (DateProperty) property;
+        if (property instanceof DateProperty dateProperty) {
             return findDateType(dateProperty).getName();
         }
         if ("boolean".equals(type)) {
@@ -278,8 +277,7 @@ public class SwaggerDocUtil {
     public static String getParameterType(final Parameter parameter) {
         String fullyQualifiedType = null;
         //if parameter is Integer[] array or any array
-        if (parameter instanceof FormParameter) {
-            FormParameter formParameter = (FormParameter) parameter;
+        if (parameter instanceof FormParameter formParameter) {
             if (ARRAY.equals(formParameter.getType())) {
                 fullyQualifiedType = formParameter.getItems().getType();
             } else if (FILE.equals(formParameter.getType())) {

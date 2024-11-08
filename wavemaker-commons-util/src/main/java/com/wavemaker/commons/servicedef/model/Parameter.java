@@ -130,11 +130,9 @@ public class Parameter {
         if (this == o) {
             return true;
         }
-        if (!(o instanceof Parameter)) {
+        if (!(o instanceof Parameter parameter)) {
             return false;
         }
-
-        final Parameter parameter = (Parameter) o;
 
         if (name != null ? !name.equals(parameter.name) : parameter.name != null) {
             return false;
