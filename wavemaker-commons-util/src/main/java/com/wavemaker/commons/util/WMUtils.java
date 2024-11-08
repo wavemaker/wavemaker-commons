@@ -57,8 +57,7 @@ public class WMUtils {
         if (obj instanceof String[]) {
             return (String[]) obj;
         }
-        if (obj instanceof List) {
-            List o = (List) obj;
+        if (obj instanceof List o) {
             return (String[]) o.toArray(new String[]{});
         }
         throw new WMRuntimeException(MessageResource.create("com.wavemaker.commons.unsupported.object.type"), obj.getClass());
