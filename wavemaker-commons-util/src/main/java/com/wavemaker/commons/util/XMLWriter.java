@@ -484,9 +484,7 @@ public class XMLWriter {
     private String getIndent(int numUnits) {
         StringBuilder indentString = new StringBuilder();
         int max = this.startIndent + numUnits * this.indent;
-        for (int i = 0; i < max; i++) {
-            indentString.append(" ");
-        }
+        indentString.append(" ".repeat(Math.max(0, max)));
         return indentString.toString();
     }
 
