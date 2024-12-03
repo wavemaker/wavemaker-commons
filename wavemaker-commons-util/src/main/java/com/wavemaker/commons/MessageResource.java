@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (C) 2022-2023 WaveMaker, Inc.
+ * Copyright (C) 2024-2025 WaveMaker, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -75,6 +75,8 @@ public class MessageResource {
     public static final MessageResource INVALID_TYPE_AS_UNIQUE = new MessageResource("com.wavemaker.runtime.data$InvalidTypeAsUnique");
 
     public static final MessageResource INVALID_INPUT = new MessageResource("com.wavemaker.runtime.data$InvalidInput");
+
+    public static final MessageResource CORDOVA_PROJECT_SUPPORT_EXPIRED = new MessageResource("com.wavemaker.projects.mobile.support.eol");
 
     private final String key;
 
