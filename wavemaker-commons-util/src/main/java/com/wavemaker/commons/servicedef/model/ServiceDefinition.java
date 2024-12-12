@@ -137,11 +137,9 @@ public class ServiceDefinition {
         if (this == o) {
             return true;
         }
-        if (!(o instanceof ServiceDefinition)) {
+        if (!(o instanceof ServiceDefinition that)) {
             return false;
         }
-
-        final ServiceDefinition that = (ServiceDefinition) o;
 
         if (id == null || that.getId() == null) {
             return false;

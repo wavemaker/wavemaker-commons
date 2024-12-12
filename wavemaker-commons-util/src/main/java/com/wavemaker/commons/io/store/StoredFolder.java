@@ -262,8 +262,7 @@ public abstract class StoredFolder extends StoredResource implements Folder {
             }
             this.current = null;
             Resource next = this.iterator.next();
-            if (next instanceof StoredFolder) {
-                StoredFolder folder = (StoredFolder) next;
+            if (next instanceof StoredFolder folder) {
                 this.current = new RecursiveChildResourceIterator(folder);
             }
             return next;

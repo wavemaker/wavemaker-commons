@@ -47,8 +47,7 @@ public class OperationHandler {
             Response successResponse = response.get(SUCCESS_RESPONSE_CODE);
             if (successResponse != null) {
                 Property property = successResponse.getSchema();
-                if (property instanceof RefProperty) {
-                    RefProperty refProperty = (RefProperty) property;
+                if (property instanceof RefProperty refProperty) {
                     Model model = models.get(refProperty.getSimpleRef());
                     return ((AbstractModel) model).getFullyQualifiedName();
                 } else if (property != null) {
@@ -63,16 +62,14 @@ public class OperationHandler {
         Map<String, Response> response = operation.getResponses();
         Response successResponse = response.get(SUCCESS_RESPONSE_CODE);
         Property property = successResponse.getSchema();
-        if (property instanceof RefProperty) {
-            RefProperty refProperty = (RefProperty) property;
+        if (property instanceof RefProperty refProperty) {
             List<Property> typeArgumentsProperties = refProperty.getTypeArguments();
             if (typeArgumentsProperties.isEmpty()) {
                 return Collections.emptyList();
             }
             List<String> argumentTypeList = new ArrayList<>();
             for (Property argProperty : typeArgumentsProperties) {
-                if (property instanceof RefProperty) {
-                    RefProperty refArgProperty = (RefProperty) property;
+                if (property instanceof RefProperty refArgProperty) {
                     Model argModel = models.get(refArgProperty.getSimpleRef());
                     argumentTypeList.add(((AbstractModel) argModel).getFullyQualifiedName());
                 } else {
