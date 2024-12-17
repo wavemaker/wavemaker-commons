@@ -630,11 +630,9 @@ public abstract class WMIOUtils {
     }
 
     public static File getJavaIOFile(Resource resource) {
-        if (resource instanceof LocalFile) {
-            LocalFile localFile = (LocalFile) resource;
+        if (resource instanceof LocalFile localFile) {
             return localFile.getLocalFile();
-        } else if (resource instanceof LocalFolder) {
-            LocalFolder localFolder = (LocalFolder) resource;
+        } else if (resource instanceof LocalFolder localFolder) {
             return localFolder.getLocalFile();
         } else {
             throw new InvalidInvocationException();

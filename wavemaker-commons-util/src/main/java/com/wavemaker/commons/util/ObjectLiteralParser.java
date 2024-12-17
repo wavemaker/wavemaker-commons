@@ -158,9 +158,7 @@ public class ObjectLiteralParser {
     }
 
     private void setProperty(Object o, String propertyName, Object value) {
-        if (value instanceof String) {
-
-            String strValue = (String) value;
+        if (value instanceof String strValue) {
 
             strValue = StringUtils.unquote(strValue);
 

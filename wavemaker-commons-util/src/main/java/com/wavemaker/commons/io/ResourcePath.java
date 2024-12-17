@@ -179,8 +179,7 @@ public final class ResourcePath implements Serializable {
         if (obj == this) {
             return true;
         }
-        if (obj instanceof ResourcePath) {
-            ResourcePath other = (ResourcePath) obj;
+        if (obj instanceof ResourcePath other) {
             return ObjectUtils.nullSafeEquals(getParent(), other.getParent()) && this.name.equals(other.name);
         }
         return false;
