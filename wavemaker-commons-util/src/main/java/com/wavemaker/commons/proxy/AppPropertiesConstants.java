@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (C) 2022-2023 WaveMaker, Inc.
+ * Copyright (C) 2024-2025 WaveMaker, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -38,6 +38,7 @@ public final class AppPropertiesConstants {
     public static final String APP_BUILD_UI_SPA_CONFIG = getAppPropertyKey("build.ui.spa.enabled");
     public static final String APP_BUILD_UI_NG_CONFIG = getAppPropertyKey("build.ui.ng.config");
     public static final String APP_CDN_URL = getAppPropertyKey("cdnUrl");
+    public static final String APP_API_URL = getAppPropertyKey("apiUrl");
 
     private static String getAppPropertyKey(String key) {
         return new StringBuilder(APP_PREFIX).append(".").append(key).toString();
