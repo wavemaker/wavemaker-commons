@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (C) 2022-2023 WaveMaker, Inc.
+ * Copyright (C) 2024-2025 WaveMaker, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -48,7 +48,8 @@ public class ThrowableTranslationFilter implements Filter {
         try {
             chain.doFilter(request, response);
         } catch (Throwable e) {
-            logger.error("Error occurred while serving the request with url {}", httpServletRequest.getRequestURI(), e);
+            logger.error("Error occurred while serving the request with url {} and method {}", httpServletRequest.getRequestURI(),
+                httpServletRequest.getMethod(), e);
             if (!response.isCommitted()) {
                 HttpRequestUtils.writeJsonErrorResponse("Internal Server Error", HttpServletResponse.SC_INTERNAL_SERVER_ERROR, httpServletResponse);
             }
