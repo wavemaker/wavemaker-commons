@@ -26,7 +26,7 @@ import com.wavemaker.commons.io.JailedResourcePath;
 import com.wavemaker.commons.io.Resource;
 
 import static org.mockito.BDDMockito.given;
-import static org.mockito.Matchers.any;
+import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.mock;
 
 public class MockStoredFolder extends StoredFolder {
