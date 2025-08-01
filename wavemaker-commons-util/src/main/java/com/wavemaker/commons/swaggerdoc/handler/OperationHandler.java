@@ -22,6 +22,7 @@ import java.util.Map;
 import com.wavemaker.tools.apidocs.tools.core.model.AbstractModel;
 import com.wavemaker.tools.apidocs.tools.core.model.Model;
 import com.wavemaker.tools.apidocs.tools.core.model.Operation;
+import com.wavemaker.tools.apidocs.tools.core.model.RefResponse;
 import com.wavemaker.tools.apidocs.tools.core.model.Response;
 import com.wavemaker.tools.apidocs.tools.core.model.properties.Property;
 import com.wavemaker.tools.apidocs.tools.core.model.properties.RefProperty;
@@ -35,10 +36,12 @@ public class OperationHandler {
 
     private final Operation operation;
     private final Map<String, Model> models;
+    private final Map<String, Response> responses;
 
-    public OperationHandler(Operation operation, Map<String, Model> models) {
+    public OperationHandler(Operation operation, Map<String, Model> models, Map<String, Response> responses) {
         this.operation = operation;
         this.models = models;
+        this.responses = responses;
     }
 
     public String getFullyQualifiedReturnType() {
@@ -46,10 +49,18 @@ public class OperationHandler {
         if (response != null) {
             Response successResponse = response.get(SUCCESS_RESPONSE_CODE);
             if (successResponse != null) {
+                if (successResponse instanceof RefResponse refResponse) {
+                    Response responseObject = responses.get(refResponse.getSimpleResRef());
+                    if (responseObject != null) {
+                        return responseObject.getSchema().getType();
+                    }
+                }
                 Property property = successResponse.getSchema();
                 if (property instanceof RefProperty refProperty) {
                     Model model = models.get(refProperty.getSimpleRef());
-                    return ((AbstractModel) model).getFullyQualifiedName();
+                    if (model != null) {
+                        return ((AbstractModel) model).getFullyQualifiedName();
+                    }
                 } else if (property != null) {
                     return property.getType();
                 }
