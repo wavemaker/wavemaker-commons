@@ -18,6 +18,8 @@ import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
 
+import com.fasterxml.jackson.annotation.JsonPropertyDescription;
+
 /**
  * da
  * Created by srujant on 18/7/17.
@@ -33,6 +35,7 @@ public class OAuth2ProviderConfig {
     private String accessTokenParamName;
     private OAuth2Pkce oAuth2Pkce;
     private List<Scope> scopes;
+    @JsonPropertyDescription("If oauth2Flow is IMPLICIT, then clientSecret, accessTokenUrl values are not required, and oAuthPkce should be disabled.")
     private OAuth2Flow oauth2Flow;
 
     private String responseType;

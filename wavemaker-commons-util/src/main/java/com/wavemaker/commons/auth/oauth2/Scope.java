@@ -36,4 +36,12 @@ public class Scope {
     public void setValue(String value) {
         this.value = value;
     }
+
+    @Override
+    public String toString() {
+        return "Scope{" +
+            "name='" + name + '\'' +
+            ", value='" + value + '\'' +
+            '}';
+    }
 }
