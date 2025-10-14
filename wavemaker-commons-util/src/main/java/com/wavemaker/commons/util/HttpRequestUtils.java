@@ -120,6 +120,7 @@ public class HttpRequestUtils {
     }
 
     public static boolean isAjaxRequest(HttpServletRequest request) {
-        return "XMLHttpRequest".equals(request.getHeader("X-Requested-With"));
+        String fetchDestHeader = request.getHeader("Sec-Fetch-Dest");
+        return (fetchDestHeader != null && !"document".equals(fetchDestHeader)) || "XMLHttpRequest".equals(request.getHeader("X-Requested-With"));
     }
 }
