@@ -14,6 +14,11 @@
  ******************************************************************************/
 package com.wavemaker.commons.io.local;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.LinkOption;
+import java.nio.file.attribute.BasicFileAttributes;
+
 import com.wavemaker.commons.io.File;
 import com.wavemaker.commons.io.store.FileStore;
 import com.wavemaker.commons.io.store.StoredFile;
@@ -40,6 +45,15 @@ public class LocalFile extends StoredFile {
     @Override
     protected FileStore getStore() {
         return this.store;
+    }
+
+    public long getCreationTime() {
+        long creationTime = 0L;
+        try {
+            creationTime = Files.readAttributes(getLocalFile().toPath(), BasicFileAttributes.class, LinkOption.NOFOLLOW_LINKS).creationTime().toMillis();
+        } catch (IOException ignored) {
+        }
+        return creationTime;
     }
 
     /**
