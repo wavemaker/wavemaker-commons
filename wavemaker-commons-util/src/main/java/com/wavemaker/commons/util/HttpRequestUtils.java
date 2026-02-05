@@ -119,8 +119,20 @@ public class HttpRequestUtils {
         return new StringBuilder(getBaseUrl(httpServletRequest)).append(httpServletRequest.getContextPath()).toString();
     }
 
+    public static boolean isBrowserNavigation(HttpServletRequest request) {
+        String mode = request.getHeader("Sec-Fetch-Mode");
+        String dest = request.getHeader("Sec-Fetch-Dest");
+        boolean hasFetchHeaders = (mode != null || dest != null);
+        boolean isNavigate =
+            "navigate".equalsIgnoreCase(mode) &&
+                ("document".equalsIgnoreCase(dest)
+                    || "iframe".equalsIgnoreCase(dest));
+        return (hasFetchHeaders && isNavigate) || !"XMLHttpRequest".equals(request.getHeader("X-Requested-With"));
+    }
+
     public static boolean isAjaxRequest(HttpServletRequest request) {
         String fetchDestHeader = request.getHeader("Sec-Fetch-Dest");
-        return (fetchDestHeader != null && !"document".equals(fetchDestHeader)) || "XMLHttpRequest".equals(request.getHeader("X-Requested-With"));
+        return (fetchDestHeader != null && !"document".equals(fetchDestHeader) && !"iframe".equals(fetchDestHeader)) ||
+            "XMLHttpRequest".equals(request.getHeader("X-Requested-With"));
     }
 }
