@@ -1,0 +1,54 @@
+/*******************************************************************************
+ * Copyright (C) 2024-2025 WaveMaker, Inc.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ ******************************************************************************/
+package ai.wavemaker.commons.auth.oauth2.extractors;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+/**
+ * Created by srujant on 24/8/17.
+ */
+public class AccessTokenResponseExtractor {
+
+    private static final Logger logger = LoggerFactory.getLogger(AccessTokenResponseExtractor.class);
+    private List<AccessTokenExtractor> accessTokenExtractorsList = new ArrayList<>();
+
+    public AccessTokenResponseExtractor() {
+        accessTokenExtractorsList.add(new JsonFormatAccessTokenExtractor());
+        accessTokenExtractorsList.add(new FormUrlEncodedFormatAccessTokenExtractor());
+        accessTokenExtractorsList.add(new XmlFormatAccessTokenExtractor());
+        accessTokenExtractorsList.add(new AccessTokenInObjectExtractor());
+    }
+
+    /**
+     * Extracts access_token from {@link AccessTokenRequestContext #getResonseBody()} using <code>
+     * {@link AccessTokenExtractor}.
+     */
+    public String getAccessToken(AccessTokenRequestContext accessTokenRequestContext) {
+        String accessToken = null;
+        for (AccessTokenExtractor accessTokenExtractor : accessTokenExtractorsList) {
+            logger.debug("Using {} to extract accessToken", accessTokenExtractor.getClass());
+            accessToken = accessTokenExtractor.getAccessToken(accessTokenRequestContext);
+            if (accessToken != null) {
+                logger.debug("Found accessToken using {}", accessTokenExtractor.getClass());
+                return accessToken;
+            }
+        }
+        return accessToken;
+    }
+}

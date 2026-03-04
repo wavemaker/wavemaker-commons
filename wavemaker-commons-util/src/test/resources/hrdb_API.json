@@ -173,7 +173,7 @@
             },
             "x-WM-EDITABLE": true,
             "x-WM-UUID": "461327ca-8c5a-4c32-90bc-a6de72616d13",
-            "x-WM-FULLY_QUALIFIED_TYPE": "com.wavemaker.runtime.data.model.AggregationInfo"
+            "x-WM-FULLY_QUALIFIED_TYPE": "ai.wavemaker.runtime.data.model.AggregationInfo"
           },
           {
             "name": "page",
@@ -348,7 +348,7 @@
             },
             "x-WM-EDITABLE": true,
             "x-WM-UUID": "b2b12491-ce9c-4cc8-8de2-792b79b1bff7",
-            "x-WM-FULLY_QUALIFIED_TYPE": "com.wavemaker.runtime.data.export.DataExportOptions"
+            "x-WM-FULLY_QUALIFIED_TYPE": "ai.wavemaker.runtime.data.export.DataExportOptions"
           },
           {
             "name": "page",
@@ -415,7 +415,7 @@
             ],
             "x-WM-EDITABLE": true,
             "x-WM-UUID": "beef921d-9608-479e-a390-2238e6b8d877",
-            "x-WM-FULLY_QUALIFIED_TYPE": "com.wavemaker.runtime.data.export.ExportType"
+            "x-WM-FULLY_QUALIFIED_TYPE": "ai.wavemaker.runtime.data.export.ExportType"
           },
           {
             "name": "q",
@@ -486,7 +486,7 @@
             ],
             "x-WM-EDITABLE": true,
             "x-WM-UUID": "beef921d-9608-479e-a390-2238e6b8d877",
-            "x-WM-FULLY_QUALIFIED_TYPE": "com.wavemaker.runtime.data.export.ExportType"
+            "x-WM-FULLY_QUALIFIED_TYPE": "ai.wavemaker.runtime.data.export.ExportType"
           },
           {
             "name": "q",
@@ -657,7 +657,7 @@
             },
             "x-WM-EDITABLE": true,
             "x-WM-UUID": "d9f91b97-32b3-43da-b801-43839e1deb03",
-            "x-WM-FULLY_QUALIFIED_TYPE": "com.wavemaker.runtime.data.expression.QueryFilter"
+            "x-WM-FULLY_QUALIFIED_TYPE": "ai.wavemaker.runtime.data.expression.QueryFilter"
           }
         ],
         "responses": {
@@ -972,7 +972,7 @@
             },
             "x-WM-EDITABLE": true,
             "x-WM-UUID": "55ed9779-3f36-4189-a1f0-84e1d4a50d2a",
-            "x-WM-FULLY_QUALIFIED_TYPE": "com.wavemaker.runtime.data.model.AggregationInfo"
+            "x-WM-FULLY_QUALIFIED_TYPE": "ai.wavemaker.runtime.data.model.AggregationInfo"
           },
           {
             "name": "page",
@@ -1112,7 +1112,7 @@
             },
             "x-WM-EDITABLE": true,
             "x-WM-UUID": "362a202b-618b-4dbd-adbc-69af02b56cb0",
-            "x-WM-FULLY_QUALIFIED_TYPE": "com.wavemaker.runtime.data.export.DataExportOptions"
+            "x-WM-FULLY_QUALIFIED_TYPE": "ai.wavemaker.runtime.data.export.DataExportOptions"
           },
           {
             "name": "page",
@@ -1179,7 +1179,7 @@
             ],
             "x-WM-EDITABLE": true,
             "x-WM-UUID": "4a9cb68f-74e5-448c-b4ba-172369a62900",
-            "x-WM-FULLY_QUALIFIED_TYPE": "com.wavemaker.runtime.data.export.ExportType"
+            "x-WM-FULLY_QUALIFIED_TYPE": "ai.wavemaker.runtime.data.export.ExportType"
           },
           {
             "name": "q",
@@ -1250,7 +1250,7 @@
             ],
             "x-WM-EDITABLE": true,
             "x-WM-UUID": "4a9cb68f-74e5-448c-b4ba-172369a62900",
-            "x-WM-FULLY_QUALIFIED_TYPE": "com.wavemaker.runtime.data.export.ExportType"
+            "x-WM-FULLY_QUALIFIED_TYPE": "ai.wavemaker.runtime.data.export.ExportType"
           },
           {
             "name": "q",
@@ -1421,7 +1421,7 @@
             },
             "x-WM-EDITABLE": true,
             "x-WM-UUID": "14ab60bd-3412-4015-9e58-a0c7f350d5b5",
-            "x-WM-FULLY_QUALIFIED_TYPE": "com.wavemaker.runtime.data.expression.QueryFilter"
+            "x-WM-FULLY_QUALIFIED_TYPE": "ai.wavemaker.runtime.data.expression.QueryFilter"
           }
         ],
         "responses": {
@@ -1802,7 +1802,7 @@
             },
             "x-WM-EDITABLE": true,
             "x-WM-UUID": "983fa255-ba58-4e3a-a8b6-5b408f65d1dd",
-            "x-WM-FULLY_QUALIFIED_TYPE": "com.wavemaker.runtime.data.model.AggregationInfo"
+            "x-WM-FULLY_QUALIFIED_TYPE": "ai.wavemaker.runtime.data.model.AggregationInfo"
           },
           {
             "name": "page",
@@ -1942,7 +1942,7 @@
             },
             "x-WM-EDITABLE": true,
             "x-WM-UUID": "3e1baf48-69a7-48cb-8dc5-a15306b63de8",
-            "x-WM-FULLY_QUALIFIED_TYPE": "com.wavemaker.runtime.data.export.DataExportOptions"
+            "x-WM-FULLY_QUALIFIED_TYPE": "ai.wavemaker.runtime.data.export.DataExportOptions"
           },
           {
             "name": "page",
@@ -2009,7 +2009,7 @@
             ],
             "x-WM-EDITABLE": true,
             "x-WM-UUID": "dd09cb88-dee7-4368-a46c-0e67e21127e2",
-            "x-WM-FULLY_QUALIFIED_TYPE": "com.wavemaker.runtime.data.export.ExportType"
+            "x-WM-FULLY_QUALIFIED_TYPE": "ai.wavemaker.runtime.data.export.ExportType"
           },
           {
             "name": "q",
@@ -2080,7 +2080,7 @@
             ],
             "x-WM-EDITABLE": true,
             "x-WM-UUID": "dd09cb88-dee7-4368-a46c-0e67e21127e2",
-            "x-WM-FULLY_QUALIFIED_TYPE": "com.wavemaker.runtime.data.export.ExportType"
+            "x-WM-FULLY_QUALIFIED_TYPE": "ai.wavemaker.runtime.data.export.ExportType"
           },
           {
             "name": "q",
@@ -2251,7 +2251,7 @@
             },
             "x-WM-EDITABLE": true,
             "x-WM-UUID": "e9c1f588-12de-4c2f-acab-68d1ccaf08b9",
-            "x-WM-FULLY_QUALIFIED_TYPE": "com.wavemaker.runtime.data.expression.QueryFilter"
+            "x-WM-FULLY_QUALIFIED_TYPE": "ai.wavemaker.runtime.data.expression.QueryFilter"
           }
         ],
         "responses": {
@@ -2500,7 +2500,7 @@
             },
             "x-WM-EDITABLE": true,
             "x-WM-UUID": "fada3533-263b-423b-ab20-18074b83dfe8",
-            "x-WM-FULLY_QUALIFIED_TYPE": "com.wavemaker.runtime.data.model.AggregationInfo"
+            "x-WM-FULLY_QUALIFIED_TYPE": "ai.wavemaker.runtime.data.model.AggregationInfo"
           },
           {
             "name": "page",
@@ -2640,7 +2640,7 @@
             },
             "x-WM-EDITABLE": true,
             "x-WM-UUID": "efd133b3-633b-4c49-a06e-2be3abc5dcb6",
-            "x-WM-FULLY_QUALIFIED_TYPE": "com.wavemaker.runtime.data.export.DataExportOptions"
+            "x-WM-FULLY_QUALIFIED_TYPE": "ai.wavemaker.runtime.data.export.DataExportOptions"
           },
           {
             "name": "page",
@@ -2707,7 +2707,7 @@
             ],
             "x-WM-EDITABLE": true,
             "x-WM-UUID": "830d01b8-82b4-4e4c-852f-f61cc0639469",
-            "x-WM-FULLY_QUALIFIED_TYPE": "com.wavemaker.runtime.data.export.ExportType"
+            "x-WM-FULLY_QUALIFIED_TYPE": "ai.wavemaker.runtime.data.export.ExportType"
           },
           {
             "name": "q",
@@ -2778,7 +2778,7 @@
             ],
             "x-WM-EDITABLE": true,
             "x-WM-UUID": "830d01b8-82b4-4e4c-852f-f61cc0639469",
-            "x-WM-FULLY_QUALIFIED_TYPE": "com.wavemaker.runtime.data.export.ExportType"
+            "x-WM-FULLY_QUALIFIED_TYPE": "ai.wavemaker.runtime.data.export.ExportType"
           },
           {
             "name": "q",
@@ -2949,7 +2949,7 @@
             },
             "x-WM-EDITABLE": true,
             "x-WM-UUID": "18b0759e-e72e-4c28-b815-5604cc682d00",
-            "x-WM-FULLY_QUALIFIED_TYPE": "com.wavemaker.runtime.data.expression.QueryFilter"
+            "x-WM-FULLY_QUALIFIED_TYPE": "ai.wavemaker.runtime.data.expression.QueryFilter"
           }
         ],
         "responses": {
@@ -3156,7 +3156,7 @@
             },
             "x-WM-EDITABLE": true,
             "x-WM-UUID": "58e1f69c-94ff-45bb-98b9-04f2666f3a7c",
-            "x-WM-FULLY_QUALIFIED_TYPE": "com.wavemaker.runtime.data.export.ExportOptions"
+            "x-WM-FULLY_QUALIFIED_TYPE": "ai.wavemaker.runtime.data.export.ExportOptions"
           },
           {
             "name": "page",
@@ -3275,7 +3275,7 @@
             },
             "x-WM-EDITABLE": true,
             "x-WM-UUID": "146ac90a-7c20-4ea9-b260-debe1c043686",
-            "x-WM-FULLY_QUALIFIED_TYPE": "com.wavemaker.runtime.data.export.ExportOptions"
+            "x-WM-FULLY_QUALIFIED_TYPE": "ai.wavemaker.runtime.data.export.ExportOptions"
           },
           {
             "name": "page",
@@ -3329,7 +3329,7 @@
         },
         {}
       ],
-      "x-WM-FULLY_QUALIFIED_NAME": "com.wavemaker.commons.wrapper.StringWrapper",
+      "x-WM-FULLY_QUALIFIED_NAME": "ai.wavemaker.commons.wrapper.StringWrapper",
       "x-WM-TAGS": [
         "DepartmentController",
         "VacationController",
@@ -3534,7 +3534,7 @@
           "x-WM-TYPE_ARGUMENTS": []
         }
       },
-      "x-WM-FULLY_QUALIFIED_NAME": "com.wavemaker.commons.wrapper.AbstractPrimitiveWrapper",
+      "x-WM-FULLY_QUALIFIED_NAME": "ai.wavemaker.commons.wrapper.AbstractPrimitiveWrapper",
       "x-WM-TAGS": [
         "DepartmentController"
       ]
@@ -3559,7 +3559,7 @@
           "type": "string"
         }
       },
-      "x-WM-FULLY_QUALIFIED_NAME": "com.wavemaker.runtime.commons.file.model.Downloadable",
+      "x-WM-FULLY_QUALIFIED_NAME": "ai.wavemaker.runtime.commons.file.model.Downloadable",
       "x-WM-TAGS": [
         "DepartmentController",
         "VacationController",
@@ -3586,7 +3586,7 @@
           "type": "string"
         }
       },
-      "x-WM-FULLY_QUALIFIED_NAME": "com.wavemaker.runtime.data.model.Aggregation",
+      "x-WM-FULLY_QUALIFIED_NAME": "ai.wavemaker.runtime.data.model.Aggregation",
       "x-WM-TAGS": [
         "DepartmentController"
       ]
@@ -3705,7 +3705,7 @@
           "x-WM-TYPE_ARGUMENTS": []
         }
       },
-      "x-WM-FULLY_QUALIFIED_NAME": "com.wavemaker.runtime.data.expression.QueryFilter",
+      "x-WM-FULLY_QUALIFIED_NAME": "ai.wavemaker.runtime.data.expression.QueryFilter",
       "x-WM-TAGS": [
         "DepartmentController",
         "VacationController",
@@ -3843,7 +3843,7 @@
           }
         }
       ],
-      "x-WM-FULLY_QUALIFIED_NAME": "com.wavemaker.runtime.data.export.DataExportOptions",
+      "x-WM-FULLY_QUALIFIED_NAME": "ai.wavemaker.runtime.data.export.DataExportOptions",
       "x-WM-TAGS": [
         "DepartmentController",
         "VacationController",
@@ -3876,7 +3876,7 @@
           "type": "string"
         }
       },
-      "x-WM-FULLY_QUALIFIED_NAME": "com.wavemaker.runtime.data.export.ExportOptions",
+      "x-WM-FULLY_QUALIFIED_NAME": "ai.wavemaker.runtime.data.export.ExportOptions",
       "x-WM-TAGS": [
         "DepartmentController",
         "QueryExecutionController"
@@ -3956,7 +3956,7 @@
           "x-WM-IS_LIST": true
         }
       },
-      "x-WM-FULLY_QUALIFIED_NAME": "com.wavemaker.runtime.data.model.AggregationInfo",
+      "x-WM-FULLY_QUALIFIED_NAME": "ai.wavemaker.runtime.data.model.AggregationInfo",
       "x-WM-TAGS": [
         "DepartmentController",
         "VacationController",
@@ -3988,7 +3988,7 @@
           "type": "string"
         }
       },
-      "x-WM-FULLY_QUALIFIED_NAME": "com.wavemaker.runtime.data.export.FieldInfo",
+      "x-WM-FULLY_QUALIFIED_NAME": "ai.wavemaker.runtime.data.export.FieldInfo",
       "x-WM-TAGS": [
         "DepartmentController"
       ]

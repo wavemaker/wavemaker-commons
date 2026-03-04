@@ -10,7 +10,7 @@ function poponload(){
     if (requestSourceType === "MOBILE") {
         location.href = "${customUrlScheme}" + dest;
     } else if (requestSourceType === "WAVELENS") {
-        location.href = "com.wavemaker.wavelens" + dest;
+        location.href = "ai.wavemaker.wavelens" + dest;
     } else {
         localStorage.setItem("${providerId}.access_token","${accessToken}");
         if (window.opener) {
