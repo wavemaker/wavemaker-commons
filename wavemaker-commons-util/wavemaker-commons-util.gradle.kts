@@ -2,7 +2,7 @@ plugins {
     `java-library-maven-publish`
 }
 
-group ="com.wavemaker.commons"
+group ="ai.wavemaker.commons"
 
 dependencies {
     implementation(enforcedPlatform(appDependenciesLibs.boms.slf4j.get().toString()))
