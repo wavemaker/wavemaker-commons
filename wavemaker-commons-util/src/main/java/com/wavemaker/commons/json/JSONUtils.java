@@ -20,6 +20,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.Reader;
 import java.io.Writer;
+import java.lang.reflect.Type;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 
@@ -204,4 +205,17 @@ public class JSONUtils {
         }
     }
 
+    public static Object toObject(String value, Type genericType) {
+        try {
+            if (value == null || value.trim().isEmpty()) {
+                return null;
+            }
+            return objectMapper.readValue(
+                value,
+                objectMapper.getTypeFactory().constructType(genericType)
+            );
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
