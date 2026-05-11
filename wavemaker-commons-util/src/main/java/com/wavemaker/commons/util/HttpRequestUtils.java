@@ -127,7 +127,10 @@ public class HttpRequestUtils {
             "navigate".equalsIgnoreCase(mode) &&
                 ("document".equalsIgnoreCase(dest)
                     || "iframe".equalsIgnoreCase(dest));
-        return (hasFetchHeaders && isNavigate) || !"XMLHttpRequest".equals(request.getHeader("X-Requested-With"));
+        if (hasFetchHeaders) {
+            return isNavigate;
+        }
+        return !"XMLHttpRequest".equals(request.getHeader("X-Requested-With"));
     }
 
     public static boolean isAjaxRequest(HttpServletRequest request) {
