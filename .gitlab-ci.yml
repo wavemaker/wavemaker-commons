@@ -3,6 +3,8 @@ stages:
         - jira_next_release
         - jira_hotfix_release
         - jira_preprod_release
+        - jira_dev_ai_release
+        - jira_stage_ai_release
         - jira_verification_merge
 
 jira_feature_dev:
@@ -55,4 +57,26 @@ jira_verification_merge:
   script:
     - echo "$CI_COMMIT_MESSAGE" "$CI_COMMIT_BRANCH" "$JIRA_MSG" "$TOKEN" "$CI_PROJECT_ID" "$GITLAB_TOKEN" "$CI_MERGE_REQUEST_SOURCE_BRANCH_NAME" "$CI_MERGE_REQUEST_TARGET_BRANCH_NAME" "$NEXT_HOT_FIX_VERSION"
     - python3 /home/gitlab-runner/jira-ci-scripts/verify_tickets_in_commits.py "$TOKEN" "$CI_MERGE_REQUEST_SOURCE_BRANCH_NAME" "$CI_MERGE_REQUEST_TARGET_BRANCH_NAME" "$CI_PROJECT_ID" "$GITLAB_TOKEN"
+
+
+
+jira_dev_ai_release:
+  stage: jira_dev_ai_release
+  tags:
+    - jira
+  only:
+    - "$DEV_AI_BRANCH"
+  script:
+    - echo "$CI_COMMIT_MESSAGE" "$CI_COMMIT_BRANCH" "$JIRA_MSG" "$TOKEN" "$CI_PROJECT_ID" "$GITLAB_TOKEN" "$NEXT_DEV_AI_VERSION"
+    - python3 /home/gitlab-runner/jira-ci-scripts/jira_connection.py "$CI_COMMIT_MESSAGE" "$CI_COMMIT_BRANCH" "$JIRA_MSG" "$TOKEN" 5 "$CI_PROJECT_ID" "$GITLAB_TOKEN" "$NEXT_DEV_AI_VERSION"
+
+jira_stage_ai_release:
+  stage: jira_stage_ai_release
+  tags:
+    - jira
+  only:
+    - "$STAGE_AI_BRANCH"
+  script:
+    - echo "$CI_COMMIT_MESSAGE" "$CI_COMMIT_BRANCH" "$JIRA_MSG" "$TOKEN" "$CI_PROJECT_ID" "$GITLAB_TOKEN" "$NEXT_STAGE_AI_VERSION"
+    - python3 /home/gitlab-runner/jira-ci-scripts/jira_connection.py "$CI_COMMIT_MESSAGE" "$CI_COMMIT_BRANCH" "$JIRA_MSG" "$TOKEN" 5 "$CI_PROJECT_ID" "$GITLAB_TOKEN" "$NEXT_STAGE_AI_VERSION"
 
